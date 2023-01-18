@@ -46,64 +46,32 @@ near to drop-ins for the corresponding dplyr/fuzzyjoin commands:
 Here’s a snippet showing off how to use the `lhs_left_join()` command:
 
 ``` r
-n <- 50000
-corpus_1 <- read_csv("bonica.csv")  %>%
-    sample_n(n)
-```
-
-    ## New names:
-    ## Rows: 1332470 Columns: 2
-    ## ── Column specification
-    ## ──────────────────────────────────────────────────────── Delimiter: "," chr
-    ## (1): x dbl (1): ...1
-    ## ℹ Use `spec()` to retrieve the full column specification for this data. ℹ
-    ## Specify the column types or set `show_col_types = FALSE` to quiet this message.
-    ## • `` -> `...1`
-
-``` r
-names(corpus_1) <- c("a", "field")
-corpus_2 <- read_csv("bonica.csv")  %>%
-    sample_n(n)
-```
-
-    ## New names:
-    ## Rows: 1332470 Columns: 2
-    ## ── Column specification
-    ## ──────────────────────────────────────────────────────── Delimiter: "," chr
-    ## (1): x dbl (1): ...1
-    ## ℹ Use `spec()` to retrieve the full column specification for this data. ℹ
-    ## Specify the column types or set `show_col_types = FALSE` to quiet this message.
-    ## • `` -> `...1`
-
-``` r
-names(corpus_2) <- c("b", "field")
-
 head(corpus_1)
 ```
 
     ## # A tibble: 6 × 2
-    ##         a field                                     
-    ##     <dbl> <chr>                                     
-    ## 1  549441 mark duncan center township constable     
-    ## 2   65564 tom eliot fisch architecture and interiors
-    ## 3  462251 sharper image photo                       
-    ## 4 1280437 america channel llc pac; the              
-    ## 5  999136 afghan food & paper inc                   
-    ## 6 1106742 herkimer county womens republican club
+    ##         a field                                         
+    ##     <dbl> <chr>                                         
+    ## 1 1183377 united capital markets inc                    
+    ## 2  327131 hammond collier & wade livingstone association
+    ## 3 1091506 schirmer suter & gaw                          
+    ## 4  269074 la auto dealers                               
+    ## 5  538813 michael alexander bldg contractor             
+    ## 6  398102 yales industrial trucks
 
 ``` r
 head(corpus_2)
 ```
 
     ## # A tibble: 6 × 2
-    ##         b field                                          
-    ##     <dbl> <chr>                                          
-    ## 1  362007 owen henry for mayor                           
-    ## 2  234043 great american realty of guy lombardo blvd, llc
-    ## 3 1206495 shepherd williams & associates                 
-    ## 4 1023477 van rafelghem, louis j brig gen                
-    ## 5  724566 citizens for d anna                            
-    ## 6  128812 marvin childers for state representative
+    ##         b field                           
+    ##     <dbl> <chr>                           
+    ## 1  671142 dreggors bill & irene           
+    ## 2  658722 employment history bureau       
+    ## 3 1057120 dlm partners                    
+    ## 4   68355 law offices of john yzurdiaga   
+    ## 5  360522 priority promotions             
+    ## 6  800597 al kruse for minnesota house 21a
 
 ``` r
 joined_df <- lhs_inner_join(corpus_1, corpus_2, n_gram_width=6, n_bands=20, band_width=5)
@@ -116,14 +84,14 @@ head(joined_df)
 ```
 
     ## # A tibble: 6 × 4
-    ##         a field.x                             b field.y                      
-    ##     <dbl> <chr>                           <dbl> <chr>                        
-    ## 1  509459 painters sun country chrysler  509459 painters sun country chrysler
-    ## 2  991953 bny mellon asset management    991953 bny mellon asset management  
-    ## 3  645652 first value homes inc          645652 first value homes inc        
-    ## 4  333221 ga assoc of convience stores   333221 ga assoc of convience stores 
-    ## 5  462871 sglp lc                        462871 sglp lc                      
-    ## 6 1259033 mcculloch resesarch & polling 1259033 mcculloch resesarch & polling
+    ##         a field.x                                 b field.y                     
+    ##     <dbl> <chr>                               <dbl> <chr>                       
+    ## 1  559852 lighthouse resources ltd           559852 lighthouse resources ltd    
+    ## 2 1244771 new york building                 1244771 new york building           
+    ## 3 1160697 bollinger lach & associates inc   1160697 bollinger lach & associates…
+    ## 4 1320749 colon diaz, bethsaida             1320749 colon diaz, bethsaida       
+    ## 5  954308 latino builders industry assoc     954308 latino builders industry as…
+    ## 6  223226 american acadamy of otolaryngolgy  223226 american acadamy of otolary…
 
 ## Limiting the Number of Threads:
 
