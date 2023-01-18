@@ -6,13 +6,13 @@ use fxhash::FxHasher;
 
 #[derive(Debug)]
 pub struct ShingleSet {
-    pub shingles: HashSet<u64>,
+    pub shingles: HashSet<u32>,
     pub shingle_len : usize,
 }
 
 impl ShingleSet {
     pub fn new(string: &String, shingle_len: usize) -> Self {
-        let mut out_set: HashSet<u64> = HashSet::new();
+        let mut out_set: HashSet<u32> = HashSet::new();
 
         let char_vec: Vec<char> = string.chars().collect();
 
@@ -21,7 +21,7 @@ impl ShingleSet {
 
             window.hash(&mut hasher);
 
-            let result: u64 = hasher.finish();
+            let result: u32 = hasher.finish() as u32;
 
             out_set.insert(result);
         }

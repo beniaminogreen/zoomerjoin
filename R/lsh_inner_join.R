@@ -45,6 +45,17 @@ lhs_join <- function (a, b, mode, match_col, n_gram_width, n_bands, band_width, 
     }
 }
 
+#' Fuzzy inner-join using MiniHashing
+#'
+#' @param a the first dataframe you wish to join
+#' @param b the second dataframe you wish to join
+#' @param match_col a named vector indicating which columns to join on
+#' @param n_gram_width the length of the n_grams used in calculating the jaccard similarity
+#' @param n_bands the number of bands used in the minihash algorithm (default is 40)
+#' @param band_width the length of each band used in the minihashing algorithm (default is 5)
+#' @param n_bands a named vector indicating which columns to join on
+#'
+#' @export
 lhs_inner_join <- function(a, b,
                             match_col = NULL,
                             n_gram_width = 2,
@@ -57,6 +68,7 @@ lhs_inner_join <- function(a, b,
                    threshold =  threshold)
 }
 
+#' @export
 lhs_outer_join <- function(a, b,
                             match_col = NULL,
                             n_gram_width = 2,
@@ -69,6 +81,7 @@ lhs_outer_join <- function(a, b,
                    threshold =  threshold)
 }
 
+#' @export
 lhs_left_join <- function(a, b,
                             match_col = NULL,
                             n_gram_width = 2,
@@ -81,6 +94,7 @@ lhs_left_join <- function(a, b,
                    threshold =  threshold)
 }
 
+#' @export
 lhs_right_join <- function(a, b,
                             match_col = NULL,
                             n_gram_width = 2,
@@ -93,6 +107,7 @@ lhs_right_join <- function(a, b,
                    threshold =  threshold)
 }
 
+#' @export
 lhs_full_join <- function(a, b,
                             match_col = NULL,
                             n_gram_width = 2,
