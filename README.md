@@ -50,28 +50,28 @@ head(corpus_1)
 ```
 
     ## # A tibble: 6 × 2
-    ##         a field                                         
-    ##     <dbl> <chr>                                         
-    ## 1 1183377 united capital markets inc                    
-    ## 2  327131 hammond collier & wade livingstone association
-    ## 3 1091506 schirmer suter & gaw                          
-    ## 4  269074 la auto dealers                               
-    ## 5  538813 michael alexander bldg contractor             
-    ## 6  398102 yales industrial trucks
+    ##       a field                                                                   
+    ##   <dbl> <chr>                                                                   
+    ## 1     1 ufwa cope committee                                                     
+    ## 2     2 committee to re elect charles e. bennett                                
+    ## 3     3 montana democratic party non federal account                            
+    ## 4     4 mississippi power & light company management political action and educa…
+    ## 5     5 napus pac for postmasters                                               
+    ## 6     6 aminoil good government fund
 
 ``` r
 head(corpus_2)
 ```
 
     ## # A tibble: 6 × 2
-    ##         b field                           
-    ##     <dbl> <chr>                           
-    ## 1  671142 dreggors bill & irene           
-    ## 2  658722 employment history bureau       
-    ## 3 1057120 dlm partners                    
-    ## 4   68355 law offices of john yzurdiaga   
-    ## 5  360522 priority promotions             
-    ## 6  800597 al kruse for minnesota house 21a
+    ##        b field                               
+    ##    <dbl> <chr>                               
+    ## 1 832471 avrp studios inc                    
+    ## 2 832472 avrd design                         
+    ## 3 832473 avenales cattle co                  
+    ## 4 832474 auto dealers of michigan political a
+    ## 5 832475 atty & counselor at law             
+    ## 6 832476 at&t united way
 
 ``` r
 joined_df <- lhs_inner_join(corpus_1, corpus_2, n_gram_width=6, n_bands=20, band_width=5)
@@ -84,14 +84,14 @@ head(joined_df)
 ```
 
     ## # A tibble: 6 × 4
-    ##         a field.x                                 b field.y                     
-    ##     <dbl> <chr>                               <dbl> <chr>                       
-    ## 1  559852 lighthouse resources ltd           559852 lighthouse resources ltd    
-    ## 2 1244771 new york building                 1244771 new york building           
-    ## 3 1160697 bollinger lach & associates inc   1160697 bollinger lach & associates…
-    ## 4 1320749 colon diaz, bethsaida             1320749 colon diaz, bethsaida       
-    ## 5  954308 latino builders industry assoc     954308 latino builders industry as…
-    ## 6  223226 american acadamy of otolaryngolgy  223226 american acadamy of otolary…
+    ##        a field.x                                               b field.y        
+    ##    <dbl> <chr>                                             <dbl> <chr>          
+    ## 1 145220 hammonds management trust                        921070 hammonds manag…
+    ## 2  63059 scott douglas & mcconnico llp,                  1209507 scott douglas …
+    ## 3  35391 craig doyal campaign fund                        983950 craig doyal ca…
+    ## 4 223794 union pacific coporation fund for effective gov  854351 union pacific …
+    ## 5 223616 verizon good government club                     844021 verizon good g…
+    ## 6  52279 coats rose yale ryman & lee p.c.                 986054 coats rose yal…
 
 ## Limiting the Number of Threads:
 
