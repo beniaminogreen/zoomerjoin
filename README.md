@@ -46,52 +46,48 @@ near to drop-ins for the corresponding dplyr/fuzzyjoin commands:
 Here’s a snippet showing off how to use the `lhs_left_join()` command:
 
 ``` r
-head(corpus_1)
+corpus_1
 ```
 
-    ## # A tibble: 6 × 2
-    ##       a field                                                                   
-    ##   <dbl> <chr>                                                                   
-    ## 1     1 ufwa cope committee                                                     
-    ## 2     2 committee to re elect charles e. bennett                                
-    ## 3     3 montana democratic party non federal account                            
-    ## 4     4 mississippi power & light company management political action and educa…
-    ## 5     5 napus pac for postmasters                                               
-    ## 6     6 aminoil good government fund
+    ## # A tibble: 500,000 × 2
+    ##        a field                                                                  
+    ##    <dbl> <chr>                                                                  
+    ##  1     1 ufwa cope committee                                                    
+    ##  2     2 committee to re elect charles e. bennett                               
+    ##  3     3 montana democratic party non federal account                           
+    ##  4     4 mississippi power & light company management political action and educ…
+    ##  5     5 napus pac for postmasters                                              
+    ##  6     6 aminoil good government fund                                           
+    ##  7     7 national women's political caucus of california                        
+    ##  8     8 minnesota gun owners' political victory fund                           
+    ##  9     9 metropolitan detroit afl cio cope committee                            
+    ## 10    10 carpenters legislative improvement committee united brotherhood of car…
+    ## # … with 499,990 more rows
 
 ``` r
-head(corpus_2)
+corpus_2
 ```
 
-    ## # A tibble: 6 × 2
-    ##        b field                               
-    ##    <dbl> <chr>                               
-    ## 1 832471 avrp studios inc                    
-    ## 2 832472 avrd design                         
-    ## 3 832473 avenales cattle co                  
-    ## 4 832474 auto dealers of michigan political a
-    ## 5 832475 atty & counselor at law             
-    ## 6 832476 at&t united way
+    ## # A tibble: 500,000 × 2
+    ##         b field                               
+    ##     <dbl> <chr>                               
+    ##  1 832471 avrp studios inc                    
+    ##  2 832472 avrd design                         
+    ##  3 832473 avenales cattle co                  
+    ##  4 832474 auto dealers of michigan political a
+    ##  5 832475 atty & counselor at law             
+    ##  6 832476 at&t united way                     
+    ##  7 832477 ashland food & liquors              
+    ##  8 832478 arvance turkey ranch inc            
+    ##  9 832479 arizona federation of teachers      
+    ## 10 832480 arianas restaurant                  
+    ## # … with 499,990 more rows
 
 ``` r
-joined_df <- lhs_inner_join(corpus_1, corpus_2, n_gram_width=6, n_bands=20, band_width=5)
+lhs_inner_join(corpus_1, corpus_2, n_gram_width=6, n_bands=20, band_width=5)
 ```
 
     ## Joining by 'field'
-
-``` r
-head(joined_df)
-```
-
-    ## # A tibble: 6 × 4
-    ##        a field.x                                                       b field.y
-    ##    <dbl> <chr>                                                     <dbl> <chr>  
-    ## 1 110781 senfronia thompson campaign fund                         8.94e5 senfro…
-    ## 2 158235 34th senate district democrat-farmer-labor party         1.11e6 44th s…
-    ## 3 458228 ski bold professional association dba chiroplus          8.93e5 ski bo…
-    ## 4  59022 tmha committee for responsible gov t                     9.00e5 tmha c…
-    ## 5  64214 homepac of texas tx assoc. of builders                   8.80e5 homepa…
-    ## 6  60229 bexar county federation of teachers committee on politi… 8.76e5 bexar …
 
 ## Benchmarks:
 
