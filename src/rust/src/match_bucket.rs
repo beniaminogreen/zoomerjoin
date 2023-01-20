@@ -1,15 +1,16 @@
 use std::{collections::HashSet};
+use smallvec::{SmallVec};
 
 pub struct MatchBucket {
-    pub a : HashSet<usize>,
-    pub b : HashSet<usize>
+    pub a : SmallVec<[usize;3]>,
+    pub b : SmallVec<[usize;3]>
 }
 
 impl MatchBucket {
     pub fn new() -> Self {
         MatchBucket{
-            a : HashSet::new(),
-            b : HashSet::new()
+            a : SmallVec::<[usize; 3]>::new(),
+            b : SmallVec::<[usize; 3]>::new()
         }
     }
 

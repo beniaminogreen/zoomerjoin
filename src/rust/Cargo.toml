@@ -15,3 +15,4 @@ ndarray = {version ="0.15.6", features = ["rayon"]}
 ndarray-rand = "0.14.0"
 rand = "0.8.5"
 rayon = "1.6.1"
+smallvec = "1.10.0"

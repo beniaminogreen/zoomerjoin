@@ -66,10 +66,10 @@ fn calculate_matches(
         let key = hasher.finish();
 
         if match_set.contains_key(&key) {
-            match_set.get_mut(&key).map(|val| val.a.insert(index));
+            match_set.get_mut(&key).map(|val| val.a.push(index));
         } else {
             let mut bucket = MatchBucket::new();
-            bucket.a.insert(index);
+            bucket.a.push(index);
             match_set.insert(key, bucket);
         }
     }
@@ -84,10 +84,10 @@ fn calculate_matches(
         let key = hasher.finish();
 
         if match_set.contains_key(&key) {
-            match_set.get_mut(&key).map(|val| val.b.insert(index));
+            match_set.get_mut(&key).map(|val| val.b.push(index));
         } else {
             let mut bucket = MatchBucket::new();
-            bucket.b.insert(index);
+            bucket.b.push(index);
             match_set.insert(key, bucket);
         }
     }
