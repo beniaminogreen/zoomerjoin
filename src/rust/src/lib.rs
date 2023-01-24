@@ -3,6 +3,8 @@ use dashmap::{DashMap, DashSet};
 use extendr_api::prelude::parallel::prelude::ParallelIterator;
 use extendr_api::prelude::*;
 
+use num_cpus::get();
+
 use std::sync::Arc;
 
 use rayon::prelude::*;
@@ -12,6 +14,7 @@ use crate::shingleset::ShingleSet;
 
 pub mod minihasher;
 use crate::minihasher::LSHHasher;
+
 
 /// Return string `"Hello world!"` to R.
 /// @export
@@ -53,7 +56,7 @@ fn rust_lsh_join(
 
     let small_set_map: Arc<DashMap<u64, Vec<usize>>> = Arc::new(DashMap::new());
 
-    let processors = 8;
+    let processors = num_cpus::get();
     let chunk_len = ((smaller_set.len() / processors) + 1) as usize;
 
     //let mut matched_pairs: HashSet<(usize, usize)> = HashSet::new();
