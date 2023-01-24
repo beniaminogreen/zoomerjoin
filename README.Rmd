@@ -57,11 +57,11 @@ devtools::install_github("beniaminogreen/zoomerjoin")
 The package provides the following functions, which are designed to be near to
 drop-ins for the corresponding dplyr/fuzzyjoin commands:
 
-* `lhs_left_join()`
-* `lhs_right_join()`
-* `lhs_inner_join()`
-* `lhs_full_join()`
-* `lhs_anti_join()`
+* `lsh_left_join()`
+* `lsh_right_join()`
+* `lsh_inner_join()`
+* `lsh_full_join()`
+* `lsh_anti_join()`
 
 Here's a snippet showing off how to use the `lhs_left_join()` command:
 

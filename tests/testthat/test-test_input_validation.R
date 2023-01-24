@@ -1,0 +1,47 @@
+library(tibble)
+a <- tribble(
+                     ~id_1, ~string,
+                     1, "beniamino green",
+                     2, "ben green",
+                     3, "jack green"
+)
+
+b <- tribble(
+                     ~id_2, ~string,
+                     1, "teniamino green",
+                     2, "beni green",
+                     3, "gibberish"
+)
+
+test_that("Validates Threshold is between 0 and 1", {
+        expect_error(lsh_inner_join(a,b, threshold = 20), regexp = "threshold.* between")
+})
+
+test_that("Validates n_bands is positive", {
+        expect_error(lsh_inner_join(a,b, n_bands =  -5), regexp = "n_bands")
+})
+
+test_that("Validates band_width is positive", {
+       expect_error(lsh_inner_join(a,b, band_width = -5), regexp = "band_width")
+})
+
+test_that("validates n_gram_width is positive", {
+        expect_error(lsh_inner_join(a,b, n_gram_width = -5), regexp = "n_gram_width")
+})
+
+test_that("Throws error when no shared columns", {
+        a2 <- a
+        names(a2) <- c('ajaaj', 'ahah')
+
+        expect_error(lsh_inner_join(a2,b), regexp = "Can't Determine")
+})
+
+test_that("Match Col Must be in the dataset and of length one", {
+        a2 <- a
+        names(a2) <- c('ajaaj', 'ahah')
+
+        expect_error(lsh_inner_join(a2,b, match_col = c('a', "b")), regexp = "length 1")
+        expect_error(lsh_inner_join(a2,b, match_col = c('a'="b")), regexp = "match_col_a")
+        expect_error(lsh_inner_join(a,b, match_col = c('string'="b")), regexp = "match_col_b")
+})
+

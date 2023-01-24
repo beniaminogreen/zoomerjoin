@@ -106,7 +106,7 @@ fn calculate_matches(
 /// Return string `"Hello world!"` to R.
 /// @export
 #[extendr]
-fn lsh_join(
+fn rust_lsh_join(
     left_string_r: Robj,
     right_string_r: Robj,
     ngram_width: i64,
@@ -162,5 +162,5 @@ fn lsh_join(
 // See corresponding C code in `entrypoint.c`.
 extendr_module! {
     mod zoomerjoin;
-    fn lsh_join;
+    fn rust_lsh_join;
 }
