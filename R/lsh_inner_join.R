@@ -1,6 +1,6 @@
 
 #' @export
-lhs_join <- function (a, b, mode, match_col, n_gram_width, n_bands, band_width, threshold) {
+lsh_join <- function (a, b, mode, match_col, n_gram_width, n_bands, band_width, threshold) {
 
     stopifnot("'threshold' must be between 0 and 1" = threshold <= 1 & threshold>=0)
     stopifnot("'n_bands' must be greater than 0" = n_bands > 0)
@@ -19,7 +19,7 @@ lhs_join <- function (a, b, mode, match_col, n_gram_width, n_bands, band_width, 
         match_col_b <- match_col
     }
 
-    match_table <- lsh_join(
+    match_table <- rust_lsh_join(
              dplyr::pull(a,match_col_a), dplyr::pull(b,match_col_b),
              n_gram_width, n_bands, band_width, threshold)
 
@@ -35,7 +35,7 @@ lhs_join <- function (a, b, mode, match_col, n_gram_width, n_bands, band_width, 
     } else if (mode == "right") {
         matches <- dplyr::bind_rows(matches,b[not_matched_b,])
     } else if (mode == "full") {
-        matches <- dplyr::bind_rows(matches,a[not_matched_a,],b[not_matched_b])
+        matches <- dplyr::bind_rows(matches,a[not_matched_a,],b[not_matched_b,])
     } else if (mode == "inner"){
         matches <- matches
     } else if (mode == "anti") {
@@ -56,65 +56,65 @@ lhs_join <- function (a, b, mode, match_col, n_gram_width, n_bands, band_width, 
 #' @param n_bands a named vector indicating which columns to join on
 #'
 #' @export
-lhs_inner_join <- function(a, b,
+lsh_inner_join <- function(a, b,
                             match_col = NULL,
                             n_gram_width = 2,
                             n_bands = 40,
                             band_width = 5,
                             threshold = .95) {
-    lhs_join(a, b, mode = "inner", match_col = match_col,
+    lsh_join(a, b, mode = "inner", match_col = match_col,
                    n_gram_width = n_gram_width,
                    n_bands = n_bands, band_width = band_width,
                    threshold =  threshold)
 }
 
 #' @export
-lhs_outer_join <- function(a, b,
+lsh_anti_join <- function(a, b,
                             match_col = NULL,
                             n_gram_width = 2,
                             n_bands = 40,
                             band_width = 5,
                             threshold = .95) {
-    lhs_join(a, b, mode = "outer", match_col = match_col,
+    lsh_join(a, b, mode = "anti", match_col = match_col,
                    n_gram_width = n_gram_width,
                    n_bands = n_bands, band_width = band_width,
                    threshold =  threshold)
 }
 
 #' @export
-lhs_left_join <- function(a, b,
+lsh_left_join <- function(a, b,
                             match_col = NULL,
                             n_gram_width = 2,
                             n_bands = 40,
                             band_width = 5,
                             threshold = .95) {
-    lhs_join(a, b, mode = "left", match_col = match_col,
+    lsh_join(a, b, mode = "left", match_col = match_col,
                    n_gram_width = n_gram_width,
                    n_bands = n_bands, band_width = band_width,
                    threshold =  threshold)
 }
 
 #' @export
-lhs_right_join <- function(a, b,
+lsh_right_join <- function(a, b,
                             match_col = NULL,
                             n_gram_width = 2,
                             n_bands = 40,
                             band_width = 5,
                             threshold = .95) {
-    lhs_join(a, b, mode = "right", match_col = match_col,
+    lsh_join(a, b, mode = "right", match_col = match_col,
                    n_gram_width = n_gram_width,
                    n_bands = n_bands, band_width = band_width,
                    threshold =  threshold)
 }
 
 #' @export
-lhs_full_join <- function(a, b,
+lsh_full_join <- function(a, b,
                             match_col = NULL,
                             n_gram_width = 2,
                             n_bands = 40,
                             band_width = 5,
                             threshold = .95) {
-    lhs_join(a, b, mode = "full", match_col = match_col,
+    lsh_join(a, b, mode = "full", match_col = match_col,
                    n_gram_width = n_gram_width,
                    n_bands = n_bands, band_width = band_width,
                    threshold =  threshold)

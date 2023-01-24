@@ -10,5 +10,5 @@ NULL
 
 #' Return string `"Hello world!"` to R.
 #' @export
-lsh_join <- function(left_string_r, right_string_r, ngram_width, n_bands, band_size, threshold) .Call(wrap__lsh_join, left_string_r, right_string_r, ngram_width, n_bands, band_size, threshold)
+rust_lsh_join <- function(left_string_r, right_string_r, ngram_width, n_bands, band_size, threshold) .Call(wrap__rust_lsh_join, left_string_r, right_string_r, ngram_width, n_bands, band_size, threshold)
 
