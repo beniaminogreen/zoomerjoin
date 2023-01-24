@@ -3,7 +3,6 @@ use dashmap::{DashMap, DashSet};
 use extendr_api::prelude::parallel::prelude::ParallelIterator;
 use extendr_api::prelude::*;
 
-use num_cpus::get();
 
 use std::sync::Arc;
 
