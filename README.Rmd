@@ -69,7 +69,9 @@ Here's a snippet showing off how to use the `lhs_left_join()` command:
 corpus_1
 corpus_2
 
-join_out <- lhs_inner_join(corpus_1, corpus_2, n_gram_width=6, n_bands=20, band_width=5)
+start_time <- Sys.time()
+join_out <- lsh_inner_join(corpus_1, corpus_2, n_gram_width=6, n_bands=20, band_width=5)
+print(Sys.time() - start_time)
 print(join_out)
 ```
 
@@ -80,7 +82,7 @@ Here's a quick and dirty benchmark showing the performance of this package reala
 ```{r, echo=F, message=F}
 test_lsh <- function(n) {
     mean(microbenchmark(
-           test <- lhs_inner_join(corpus_1 %>% head(n), corpus_2 %>% tail(n),
+           test <- lsh_inner_join(corpus_1 %>% head(n), corpus_2 %>% tail(n),
            n_gram_width=2, n_bands=50, band_width=5, threshold = .8),
     times = 3)$time)
 }
