@@ -525,6 +525,7 @@ dependencies = [
  "fxhash",
  "ndarray",
  "ndarray-rand",
+ "num_cpus",
  "rand",
  "rayon",
 ]
