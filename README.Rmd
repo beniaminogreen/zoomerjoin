@@ -95,7 +95,7 @@ test_string_dist <- function(n) {
 
 
 capture.output(time_out <- expand_grid(
-            n = c(10,50,100,250,500,1000,2000,3000,4000,5000,6000,7500,10000),
+            n = c(10,50,100,250,500,1000,2000,3000,4000,5000,6000,7500,10000, 15000),
             nesting(
                 fun = c(test_lsh, test_string_dist),
                 Package = c("zoomerjoin", "fuzzyjoin")
