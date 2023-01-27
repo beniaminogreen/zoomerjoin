@@ -4,14 +4,15 @@ use std::hash::{Hash, Hasher};
 
 use fxhash::FxHasher;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct ShingleSet {
     pub shingles: HashSet<u32>,
     pub shingle_len : usize,
+    pub index : usize,
 }
 
 impl ShingleSet {
-    pub fn new(string: &String, shingle_len: usize) -> Self {
+    pub fn new(string: &String, shingle_len: usize, index: usize) -> Self {
         let mut out_set: HashSet<u32> = HashSet::new();
 
         let char_vec: Vec<char> = string.chars().collect();
@@ -27,7 +28,7 @@ impl ShingleSet {
         }
 
 
-        ShingleSet { shingles: out_set , shingle_len }
+        ShingleSet { shingles: out_set , shingle_len , index}
     }
 
     pub fn jaccard_similarity(&self, b: &Self) -> f64 {
