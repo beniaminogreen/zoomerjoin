@@ -20,7 +20,7 @@ names(corpus_2) <- c("b", "field")
 ```
 
 
-# ZoomerJoin <img src='logo.png' align="right" height="150">
+# ZoomerJoin <img src='logo.png' align="right" height="250">
 
 INSANELY, BLAZINGLY FAST fuzzy joins in R. Implimented using
 [MinHash](https://en.wikipedia.org/wiki/MinHash), such that each record does
