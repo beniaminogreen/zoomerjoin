@@ -63,7 +63,6 @@ fn rust_lsh_join(
     let small_set_map = small_set_map;
 
     for itera in 0..n_bands {
-        dbg!(itera);
         let hasher = Arc::new(LSHHasher::new(band_size as usize));
         let chunks = smaller_set.chunks(chunk_len);
 
@@ -85,8 +84,6 @@ fn rust_lsh_join(
             }
         });
 
-        dbg!("joining");
-
 
         let chunk_len = ((smaller_set.len() / processors) + 1) as usize;
         let chunks = larger_set.chunks(chunk_len);
@@ -107,7 +104,7 @@ fn rust_lsh_join(
                         if small_set_map.contains_key(&key) {
                             for matched in small_set_map.get(&key).unwrap().iter() {
                                 if !matched_pairs.contains(&(shingleset.index, *matched)) {
-                                    if shingleset.jaccard_similarity(&smaller_set[*matched]) > threshold {
+                                    if shingleset.jaccard_similarity(&smaller_set[*matched]) >= threshold {
                                         matched_pairs.insert((shingleset.index, *matched));
                                     }
                                 }
