@@ -9,8 +9,12 @@ License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
-Imports: 
+Imports:
     dplyr
-Suggests: 
+Suggests:
     testthat (>= 3.0.0)
+    dplyr
+    babynames
+    fuzzyjoin
+    tibble
 Config/testthat/edition: 3

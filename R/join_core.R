@@ -10,7 +10,7 @@ lsh_join <- function (a, b, mode, match_col, n_gram_width, n_bands, band_width, 
         match_col_a <- intersect(names(a), names(b))
         match_col_b <- intersect(names(a), names(b))
         stopifnot("Can't Determine Column to Match on" = length(match_col_a)==1)
-        cat(paste0("Joining by '", match_col_a, "'\n"))
+        message(paste0("Joining by '", match_col_a, "'\n"))
     } else {
         stopifnot("match_col must have length 1" = length(match_col)==1)
 
