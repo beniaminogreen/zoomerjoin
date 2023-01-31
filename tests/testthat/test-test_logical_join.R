@@ -1,7 +1,9 @@
-library(tibble)
-library(dplyr)
-library(babynames)
-library(fuzzyjoin)
+capture_messages({
+    library(tibble)
+    library(dplyr)
+    library(babynames)
+    library(fuzzyjoin)
+})
 
 dataset_1 <- tribble(
                      ~id_1, ~string,
