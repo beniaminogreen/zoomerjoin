@@ -14,8 +14,13 @@ lsh_join <- function (a, b, mode, match_col, n_gram_width, n_bands, band_width, 
     } else {
         stopifnot("match_col must have length 1" = length(match_col)==1)
 
-        match_col_a <- names(match_col)
-        match_col_b <- match_col
+        if (!is.null(names(match_col))) {
+            match_col_a <- names(match_col)
+            match_col_b <- match_col
+        } else {
+            match_col_a <- match_col
+            match_col_b <- match_col
+        }
 
         stopifnot(match_col_a %in% names(a))
         stopifnot(match_col_b %in% names(b))
@@ -25,8 +30,10 @@ lsh_join <- function (a, b, mode, match_col, n_gram_width, n_bands, band_width, 
              dplyr::pull(a,match_col_a), dplyr::pull(b,match_col_b),
              n_gram_width, n_bands, band_width, threshold)
 
-    names(a)[names(a) == match_col_a] <- paste0(match_col_a, ".x")
-    names(b)[names(b) == match_col_b] <- paste0(match_col_b, ".y")
+    names_in_both <- intersect(names(a), names(b))
+
+    names(a)[names(a) %in% names_in_both] <- paste0(match_col_a, ".x")
+    names(b)[names(b) %in% names_in_both] <- paste0(match_col_b, ".y")
 
     matches <- dplyr::bind_cols(a[match_table[, 1], ], b[match_table[, 2], ])
     not_matched_a <- ! 1:nrow(a) %in% match_table[,1]
