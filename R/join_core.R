@@ -1,4 +1,4 @@
-lsh_join <- function (a, b, mode, match_col, n_gram_width, n_bands, band_width, threshold) {
+lsh_join <- function (a, b, mode, by, n_gram_width, n_bands, band_width, threshold) {
 
     stopifnot("'threshold' must be between 0 and 1" = threshold <= 1 & threshold>=0)
     stopifnot("'n_bands' must be greater than 0" = n_bands > 0)
@@ -6,34 +6,34 @@ lsh_join <- function (a, b, mode, match_col, n_gram_width, n_bands, band_width, 
     stopifnot("'n_gram_width' must be greater than 0" = n_gram_width > 0)
 
 
-    if (is.null(match_col)) {
-        match_col_a <- intersect(names(a), names(b))
-        match_col_b <- intersect(names(a), names(b))
-        stopifnot("Can't Determine Column to Match on" = length(match_col_a)==1)
-        message(paste0("Joining by '", match_col_a, "'\n"))
+    if (is.null(by)) {
+        by_a <- intersect(names(a), names(b))
+        by_b <- intersect(names(a), names(b))
+        stopifnot("Can't Determine Column to Match on" = length(by_a)==1)
+        message(paste0("Joining by '", by_a, "'\n"))
     } else {
-        stopifnot("match_col must have length 1" = length(match_col)==1)
+        stopifnot("by must have length 1" = length(by)==1)
 
-        if (!is.null(names(match_col))) {
-            match_col_a <- names(match_col)
-            match_col_b <- match_col
+        if (!is.null(names(by))) {
+            by_a <- names(by)
+            by_b <- by
         } else {
-            match_col_a <- match_col
-            match_col_b <- match_col
+            by_a <- by
+            by_b <- by
         }
 
-        stopifnot(match_col_a %in% names(a))
-        stopifnot(match_col_b %in% names(b))
+        stopifnot(by_a %in% names(a))
+        stopifnot(by_b %in% names(b))
     }
 
     match_table <- rust_lsh_join(
-             dplyr::pull(a,match_col_a), dplyr::pull(b,match_col_b),
+             dplyr::pull(a,by_a), dplyr::pull(b,by_b),
              n_gram_width, n_bands, band_width, threshold)
 
     names_in_both <- intersect(names(a), names(b))
 
-    names(a)[names(a) %in% names_in_both] <- paste0(match_col_a, ".x")
-    names(b)[names(b) %in% names_in_both] <- paste0(match_col_b, ".y")
+    names(a)[names(a) %in% names_in_both] <- paste0(names(a)[names(a) %in% names_in_both], ".x")
+    names(b)[names(b) %in% names_in_both] <- paste0(names(b)[names(b) %in% names_in_both], ".y")
 
     matches <- dplyr::bind_cols(a[match_table[, 1], ], b[match_table[, 2], ])
     not_matched_a <- ! 1:nrow(a) %in% match_table[,1]

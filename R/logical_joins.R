@@ -3,8 +3,8 @@
 #' @param a the first dataframe you wish to join.
 #' @param b the second dataframe you wish to join.
 #'
-#' @param match_col a named vector indicating which columns to join on. Format
-#' should be the same as dplyr: \code{match_col = c("column_name_in_df_a" =
+#' @param by a named vector indicating which columns to join on. Format
+#' should be the same as dplyr: \code{by = c("column_name_in_df_a" =
 #' "column_name_in_df_b")}
 #'
 #' @param n_gram_width the length of the n_grams used in calculating the
@@ -29,12 +29,12 @@
 #'
 #' @export
 lsh_inner_join <- function(a, b,
-                            match_col = NULL,
+                            by = NULL,
                             n_gram_width = 2,
                             n_bands = 45,
                             band_width = 8,
                             threshold = .95) {
-    lsh_join(a, b, mode = "inner", match_col = match_col,
+    lsh_join(a, b, mode = "inner", by = by,
                    n_gram_width = n_gram_width,
                    n_bands = n_bands, band_width = band_width,
                    threshold =  threshold)
@@ -45,8 +45,8 @@ lsh_inner_join <- function(a, b,
 #' @param a the first dataframe you wish to join.
 #' @param b the second dataframe you wish to join.
 #'
-#' @param match_col a named vector indicating which columns to join on. Format
-#' should be the same as dplyr: \code{match_col = c("column_name_in_df_a" =
+#' @param by a named vector indicating which columns to join on. Format
+#' should be the same as dplyr: \code{by = c("column_name_in_df_a" =
 #' "column_name_in_df_b")}
 #'
 #' @param n_gram_width the length of the n_grams used in calculating the
@@ -71,12 +71,12 @@ lsh_inner_join <- function(a, b,
 #'
 #' @export
 lsh_anti_join <- function(a, b,
-                            match_col = NULL,
+                            by = NULL,
                             n_gram_width = 2,
                             n_bands = 45,
                             band_width = 8,
                             threshold = .95) {
-    lsh_join(a, b, mode = "anti", match_col = match_col,
+    lsh_join(a, b, mode = "anti", by = by,
                    n_gram_width = n_gram_width,
                    n_bands = n_bands, band_width = band_width,
                    threshold =  threshold)
@@ -87,8 +87,8 @@ lsh_anti_join <- function(a, b,
 #' @param a the first dataframe you wish to join.
 #' @param b the second dataframe you wish to join.
 #'
-#' @param match_col a named vector indicating which columns to join on. Format
-#' should be the same as dplyr: \code{match_col = c("column_name_in_df_a" =
+#' @param by a named vector indicating which columns to join on. Format
+#' should be the same as dplyr: \code{by = c("column_name_in_df_a" =
 #' "column_name_in_df_b")}
 #'
 #' @param n_gram_width the length of the n_grams used in calculating the
@@ -113,12 +113,12 @@ lsh_anti_join <- function(a, b,
 #'
 #' @export
 lsh_left_join <- function(a, b,
-                            match_col = NULL,
+                            by = NULL,
                             n_gram_width = 2,
                             n_bands = 45,
                             band_width = 8,
                             threshold = .95) {
-    lsh_join(a, b, mode = "left", match_col = match_col,
+    lsh_join(a, b, mode = "left", by = by,
                    n_gram_width = n_gram_width,
                    n_bands = n_bands, band_width = band_width,
                    threshold =  threshold)
@@ -129,8 +129,8 @@ lsh_left_join <- function(a, b,
 #' @param a the first dataframe you wish to join.
 #' @param b the second dataframe you wish to join.
 #'
-#' @param match_col a named vector indicating which columns to join on. Format
-#' should be the same as dplyr: \code{match_col = c("column_name_in_df_a" =
+#' @param by a named vector indicating which columns to join on. Format
+#' should be the same as dplyr: \code{by = c("column_name_in_df_a" =
 #' "column_name_in_df_b")}
 #'
 #' @param n_gram_width the length of the n_grams used in calculating the
@@ -155,12 +155,12 @@ lsh_left_join <- function(a, b,
 #'
 #' @export
 lsh_right_join <- function(a, b,
-                            match_col = NULL,
+                            by = NULL,
                             n_gram_width = 2,
                             n_bands = 45,
                             band_width = 8,
                             threshold = .95) {
-    lsh_join(a, b, mode = "right", match_col = match_col,
+    lsh_join(a, b, mode = "right", by = by,
                    n_gram_width = n_gram_width,
                    n_bands = n_bands, band_width = band_width,
                    threshold =  threshold)
@@ -171,8 +171,8 @@ lsh_right_join <- function(a, b,
 #' @param a the first dataframe you wish to join.
 #' @param b the second dataframe you wish to join.
 #'
-#' @param match_col a named vector indicating which columns to join on. Format
-#' should be the same as dplyr: \code{match_col = c("column_name_in_df_a" =
+#' @param by a named vector indicating which columns to join on. Format
+#' should be the same as dplyr: \code{by = c("column_name_in_df_a" =
 #' "column_name_in_df_b")}
 #'
 #' @param n_gram_width the length of the n_grams used in calculating the
@@ -197,12 +197,12 @@ lsh_right_join <- function(a, b,
 #'
 #' @export
 lsh_full_join <- function(a, b,
-                            match_col = NULL,
+                            by = NULL,
                             n_gram_width = 2,
                             n_bands = 45,
                             band_width = 8,
                             threshold = .95) {
-    lsh_join(a, b, mode = "full", match_col = match_col,
+    lsh_join(a, b, mode = "full", by = by,
                    n_gram_width = n_gram_width,
                    n_bands = n_bands, band_width = band_width,
                    threshold =  threshold)
