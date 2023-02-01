@@ -12,9 +12,8 @@ RoxygenNote: 7.2.1
 Imports:
     dplyr
 Suggests:
-    testthat (>= 3.0.0)
-    dplyr
-    babynames
-    fuzzyjoin
+    babynames,
+    fuzzyjoin,
+    testthat (>= 3.0.0),
     tibble
 Config/testthat/edition: 3

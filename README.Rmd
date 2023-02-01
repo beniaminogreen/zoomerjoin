@@ -23,9 +23,9 @@ names(corpus_2) <- c("b", "field")
 # ZoomerJoin <img src='logo.png' align="right" height="250">
 
 INSANELY, BLAZINGLY FAST fuzzy joins in R. Implimented using
-[MinHash](https://en.wikipedia.org/wiki/MinHash), such that each record does
-not have to be compared to all other records when matching. This results in
-matches that return orders of magnitude faster than other matching packages.
+[MinHash](https://en.wikipedia.org/wiki/MinHash) to cut down on the number of
+comparisons that need to be made in calculating matches. This results in
+matches that return orders of magnitude faster than other matches.
 
 # Installation
 
@@ -46,7 +46,7 @@ On Windows, I use the rust installation wizard, found
 
 ## Installing Package from Github:
 
-Once you install rust, you should be able to install the package with:
+Once you install Rust, you should be able to install the package with:
 
 ``` r
 devtools::install_github("beniaminogreen/zoomerjoin")
@@ -65,19 +65,34 @@ drop-ins for the corresponding dplyr/fuzzyjoin commands:
 
 Here's a snippet showing off how to use the `lhs_left_join()` command:
 
+I start with two corpses I would like to combine, `corpus_1`:
+
 ```{r}
 corpus_1
-corpus_2
+```
 
+And `corpus_2`:
+```{r}
+corpus_2
+```
+
+The two Corpuses can't be directly joined because of misspellings. This means
+we must use the fuzzy-matching capabilities of zoomerjoin:
+
+```{r}
 start_time <- Sys.time()
 join_out <- lsh_inner_join(corpus_1, corpus_2, n_gram_width=6, n_bands=20, band_width=6)
 print(Sys.time() - start_time)
 print(join_out)
 ```
 
+ZoomerJoin finds and joins on the matching rows in just a few seconds.
+
 ## Benchmarks:
 
-Here's a quick and dirty benchmark showing the performance of this package realative to the default standard, `fuzzyjoin`:
+Here's a quick and dirty benchmark showing the performance of this package
+relative to another matching package, `fuzzyjoin` which calculates all pairwise
+similarities between different records in the process of matching.
 
 ```{r, echo=F, message=F}
 test_lsh <- function(n) {
@@ -95,7 +110,7 @@ test_string_dist <- function(n) {
 
 
 capture.output(time_out <- expand_grid(
-            n = c(10,50,100,250,500,1000,2000,3000,4000,5000,6000,7500,10000, 15000),
+            n = c(10,50,100,250,500,1000,2000,3000,4000,5000,6000,7500,10000,15000),
             nesting(
                 fun = c(test_lsh, test_string_dist),
                 Package = c("zoomerjoin", "fuzzyjoin")
@@ -113,25 +128,9 @@ time_out %>%
     xlab("Number of Entries in Each Dataframe") +
     theme_bw() +
     ggtitle("ZoomerJoin Vs Fuzzyjoin: Speed Comparison")
-
-
 ```
 
-
-
-
-## Limiting the Number of Threads:
-
-To constrain the number of cores the program uses, you can set the
-`RAYON_NUM_THREADS` variable before running the search. At present, this
-variable is read at the construction of the multithreading thread pool,
-and so must be set once each R session. In a future version, I’ll work
-to include a fix so that the number of threads can be included in an
-argument to the `lhs_join` functions.
-
-Here’s an example of how to set the function to run on an single core in
-R:
-
-``` r
-Sys.setenv(RAYON_NUM_THREADS=1)
-```
+The difference is stark! While the running time of other matching packages
+scales with the product of the rows of the two dataframes $O(nm)$, the run time
+of zoomerjoin scales with the sum of the two $O(n+m)$, meaning it can be used
+for large datasets.

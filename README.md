@@ -2,10 +2,10 @@
 # ZoomerJoin <img src='logo.png' align="right" height="250">
 
 INSANELY, BLAZINGLY FAST fuzzy joins in R. Implimented using
-[MinHash](https://en.wikipedia.org/wiki/MinHash), such that each record
-does not have to be compared to all other records when matching. This
+[MinHash](https://en.wikipedia.org/wiki/MinHash) to cut down on the
+number of comparisons that need to be made in calculating matches. This
 results in matches that return orders of magnitude faster than other
-matching packages.
+matches.
 
 # Installation
 
@@ -26,7 +26,7 @@ On Windows, I use the rust installation wizard, found
 
 ## Installing Package from Github:
 
-Once you install rust, you should be able to install the package with:
+Once you install Rust, you should be able to install the package with:
 
 ``` r
 devtools::install_github("beniaminogreen/zoomerjoin")
@@ -44,6 +44,8 @@ near to drop-ins for the corresponding dplyr/fuzzyjoin commands:
 - `lsh_anti_join()`
 
 Here’s a snippet showing off how to use the `lhs_left_join()` command:
+
+I start with two corpses I would like to combine, `corpus_1`:
 
 ``` r
 corpus_1
@@ -64,6 +66,8 @@ corpus_1
     ## 10    10 carpenters legislative improvement committee united brotherhood of car…
     ## # … with 499,990 more rows
 
+And `corpus_2`:
+
 ``` r
 corpus_2
 ```
@@ -83,6 +87,9 @@ corpus_2
     ## 10 832480 arianas restaurant                  
     ## # … with 499,990 more rows
 
+The two Corpuses can’t be directly joined because of misspellings. This
+means we must use the fuzzy-matching capabilities of zoomerjoin:
+
 ``` r
 start_time <- Sys.time()
 join_out <- lsh_inner_join(corpus_1, corpus_2, n_gram_width=6, n_bands=20, band_width=6)
@@ -94,46 +101,41 @@ join_out <- lsh_inner_join(corpus_1, corpus_2, n_gram_width=6, n_bands=20, band_
 print(Sys.time() - start_time)
 ```
 
-    ## Time difference of 9.618917 secs
+    ## Time difference of 9.61343 secs
 
 ``` r
 print(join_out)
 ```
 
-    ## # A tibble: 2,330 × 4
+    ## # A tibble: 2,534 × 4
     ##         a field.x                                                      b field.y
     ##     <dbl> <chr>                                                    <dbl> <chr>  
-    ##  1 320765 independence mining company                             1.14e6 indepe…
-    ##  2  84525 operating engineers local 1                             1.10e6 operat…
-    ##  3 207449 thomas e, thomas e                                      1.31e6 thomas…
-    ##  4 126139 outdoor lighting perspectives                           1.24e6 outdoo…
-    ##  5  61678 eye pac of texas opthalmological assoc.                 9.68e5 eye pa…
-    ##  6  61722 east texas anesthesiology assoc. p.a.,                  9.70e5 east t…
-    ##  7 325429 heard linebarger graham goggan blair pena & sampson llp 9.62e5 heard …
-    ##  8  62715 thakur for fullerton school district 2010               8.91e5 thakur…
-    ##  9 106005 cling peach growers for effective govt                  9.75e5 cling …
-    ## 10  72718 law office of g. michael freeman                        9.54e5 law of…
-    ## # … with 2,320 more rows
+    ##  1 419899 united electrical radio & machine workers of ameri      898725 united…
+    ##  2  83295 national rifle association                              945750 nation…
+    ##  3 338301 fidelity abstract & title co                            847969 fideli…
+    ##  4  58487 fleming & associates, l.l.p.                            909451 flemin…
+    ##  5 145301 hagans bobb & burdine pc                                963059 hagans…
+    ##  6  67535 eye pac of the texas opthamological assoc.              881869 eye pa…
+    ##  7 223885 transport workers union political contributions cmte    899914 transp…
+    ##  8  16702 american federation of state county & municipal employ… 995935 americ…
+    ##  9  46968 fayette county republican party                         881765 fayett…
+    ## 10  50514 associated general contractors pac of ca                975950 associ…
+    ## # … with 2,524 more rows
+
+ZoomerJoin finds and joins on the matching rows in just a few seconds.
 
 ## Benchmarks:
 
 Here’s a quick and dirty benchmark showing the performance of this
-package realative to the default standard, `fuzzyjoin`:
+package relative to another matching package, `fuzzyjoin` which
+calculates all pairwise similarities between different records in the
+process of matching.
 
-![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
-## Limiting the Number of Threads:
-
-To constrain the number of cores the program uses, you can set the
-`RAYON_NUM_THREADS` variable before running the search. At present, this
-variable is read at the construction of the multithreading thread pool,
-and so must be set once each R session. In a future version, I’ll work
-to include a fix so that the number of threads can be included in an
-argument to the `lhs_join` functions.
-
-Here’s an example of how to set the function to run on an single core in
-R:
-
-``` r
-Sys.setenv(RAYON_NUM_THREADS=1)
-```
+The difference is stark! While the running time of other matching
+packages scales with the product of the rows of the two dataframes
+![O(nm)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;O%28nm%29 "O(nm)"),
+the run time of zoomerjoin scales with the sum of the two
+![O(n+m)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;O%28n%2Bm%29 "O(n+m)"),
+meaning it can be used for large datasets.
