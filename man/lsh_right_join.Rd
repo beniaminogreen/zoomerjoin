@@ -7,7 +7,7 @@
 lsh_right_join(
   a,
   b,
-  match_col = NULL,
+  by = NULL,
   n_gram_width = 2,
   n_bands = 45,
   band_width = 8,
@@ -19,8 +19,8 @@ lsh_right_join(
 
 \item{b}{the second dataframe you wish to join.}
 
-\item{match_col}{a named vector indicating which columns to join on. Format
-should be the same as dplyr: \code{match_col = c("column_name_in_df_a" =
+\item{by}{a named vector indicating which columns to join on. Format
+should be the same as dplyr: \code{by = c("column_name_in_df_a" =
 "column_name_in_df_b")}}
 
 \item{n_gram_width}{the length of the n_grams used in calculating the
@@ -42,6 +42,15 @@ the performance of the hashing. The default settings are for a
 (.2,.8,.001,.999)-sensitive hash i.e. that pairs with a similarity of less
 than .2 have a >.1\% chance of being compared, while pairs with a similarity
 of greater than .8 have a >99.9\% chance of being compared.}
+
+\item{threshold}{the jaccard similarity threshold above which two strings
+should be considered a match (default is .95). The similarity is euqal to 1
+\itemize{
+\item the jaccard distance between the two strings, so 1 implies the strings are
+identical, while a similarity of zero implies the strings are completely
+dissimilar.
+'
+}}
 }
 \description{
 Fuzzy right-join using MiniHashing

@@ -1,10 +1,10 @@
 #' Fuzzy inner-join using MiniHashing
 #'
-#' @param a the first dataframe you wish to join.
-#' @param b the second dataframe you wish to join.
+#' @param a the first dataframe you wish to join. @param b the second dataframe
+#' you wish to join.
 #'
-#' @param by a named vector indicating which columns to join on. Format
-#' should be the same as dplyr: \code{by = c("column_name_in_df_a" =
+#' @param by a named vector indicating which columns to join on. Format should
+#' be the same as dplyr: \code{by = c("column_name_in_df_a" =
 #' "column_name_in_df_b")}
 #'
 #' @param n_gram_width the length of the n_grams used in calculating the
@@ -27,18 +27,18 @@
 #' than .2 have a >.1% chance of being compared, while pairs with a similarity
 #' of greater than .8 have a >99.9% chance of being compared.
 #'
+#' @param threshold the jaccard similarity threshold above which two strings
+#' should be considered a match (default is .95). The similarity is euqal to 1
+#' - the jaccard distance between the two strings, so 1 implies the strings are
+#' identical, while a similarity of zero implies the strings are completely
+#' dissimilar.
+#'
 #' @export
-lsh_inner_join <- function(a, b,
-                            by = NULL,
-                            n_gram_width = 2,
-                            n_bands = 45,
-                            band_width = 8,
-                            threshold = .95) {
-    lsh_join(a, b, mode = "inner", by = by,
-                   n_gram_width = n_gram_width,
-                   n_bands = n_bands, band_width = band_width,
-                   threshold =  threshold)
-}
+lsh_inner_join <- function(a, b, by = NULL, n_gram_width = 2, n_bands = 45,
+                           band_width = 8, threshold = .95) { lsh_join(a, b,
+                           mode = "inner", by = by, n_gram_width =
+                               n_gram_width, n_bands = n_bands, band_width =
+                               band_width, threshold =  threshold) }
 
 #' Fuzzy anti-join using MiniHashing
 #'
@@ -69,6 +69,12 @@ lsh_inner_join <- function(a, b,
 #' than .2 have a >.1% chance of being compared, while pairs with a similarity
 #' of greater than .8 have a >99.9% chance of being compared.
 #'
+#' @param threshold the jaccard similarity threshold above which two strings
+#' should be considered a match (default is .95). The similarity is euqal to 1
+#' - the jaccard distance between the two strings, so 1 implies the strings are
+#' identical, while a similarity of zero implies the strings are completely
+#' dissimilar.
+#' '
 #' @export
 lsh_anti_join <- function(a, b,
                             by = NULL,
@@ -111,6 +117,12 @@ lsh_anti_join <- function(a, b,
 #' than .2 have a >.1% chance of being compared, while pairs with a similarity
 #' of greater than .8 have a >99.9% chance of being compared.
 #'
+#' @param threshold the jaccard similarity threshold above which two strings
+#' should be considered a match (default is .95). The similarity is euqal to 1
+#' - the jaccard distance between the two strings, so 1 implies the strings are
+#' identical, while a similarity of zero implies the strings are completely
+#' dissimilar.
+#' '
 #' @export
 lsh_left_join <- function(a, b,
                             by = NULL,
@@ -153,6 +165,12 @@ lsh_left_join <- function(a, b,
 #' than .2 have a >.1% chance of being compared, while pairs with a similarity
 #' of greater than .8 have a >99.9% chance of being compared.
 #'
+#' @param threshold the jaccard similarity threshold above which two strings
+#' should be considered a match (default is .95). The similarity is euqal to 1
+#' - the jaccard distance between the two strings, so 1 implies the strings are
+#' identical, while a similarity of zero implies the strings are completely
+#' dissimilar.
+#' '
 #' @export
 lsh_right_join <- function(a, b,
                             by = NULL,
@@ -195,6 +213,12 @@ lsh_right_join <- function(a, b,
 #' than .2 have a >.1% chance of being compared, while pairs with a similarity
 #' of greater than .8 have a >99.9% chance of being compared.
 #'
+#' @param threshold the jaccard similarity threshold above which two strings
+#' should be considered a match (default is .95). The similarity is euqal to 1
+#' - the jaccard distance between the two strings, so 1 implies the strings are
+#' identical, while a similarity of zero implies the strings are completely
+#' dissimilar.
+#' '
 #' @export
 lsh_full_join <- function(a, b,
                             by = NULL,
