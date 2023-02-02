@@ -1,5 +1,6 @@
 url: https://beniaminogreen.github.io/zoomerjoin/
 template:
+  package: preferably
   bootstrap: 5
 reference:
   - title: Fuzzy Joins
