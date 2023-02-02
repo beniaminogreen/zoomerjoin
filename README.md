@@ -1,13 +1,12 @@
 
-# ZoomerJoin [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-
-<img src='logo.png' align="right" height="250">
+# ZoomerJoin [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental) <img src='logo.png' align="right" height="250">
 
 INSANELY, BLAZINGLY FAST fuzzy joins in R. Implimented using
 [MinHash](https://en.wikipedia.org/wiki/MinHash) to cut down on the
 number of comparisons that need to be made in calculating matches. This
 results in matches that return orders of magnitude faster than other
 matches.
+
 
 # Installation
 
@@ -54,17 +53,17 @@ corpus_1
 ```
 
     ## # A tibble: 500,000 × 2
-    ##        a field                                                                  
-    ##    <dbl> <chr>                                                                  
-    ##  1     1 ufwa cope committee                                                    
-    ##  2     2 committee to re elect charles e. bennett                               
-    ##  3     3 montana democratic party non federal account                           
+    ##        a field
+    ##    <dbl> <chr>
+    ##  1     1 ufwa cope committee
+    ##  2     2 committee to re elect charles e. bennett
+    ##  3     3 montana democratic party non federal account
     ##  4     4 mississippi power & light company management political action and educ…
-    ##  5     5 napus pac for postmasters                                              
-    ##  6     6 aminoil good government fund                                           
-    ##  7     7 national women's political caucus of california                        
-    ##  8     8 minnesota gun owners' political victory fund                           
-    ##  9     9 metropolitan detroit afl cio cope committee                            
+    ##  5     5 napus pac for postmasters
+    ##  6     6 aminoil good government fund
+    ##  7     7 national women's political caucus of california
+    ##  8     8 minnesota gun owners' political victory fund
+    ##  9     9 metropolitan detroit afl cio cope committee
     ## 10    10 carpenters legislative improvement committee united brotherhood of car…
     ## # … with 499,990 more rows
 
@@ -75,18 +74,18 @@ corpus_2
 ```
 
     ## # A tibble: 500,000 × 2
-    ##         b field                               
-    ##     <dbl> <chr>                               
-    ##  1 832471 avrp studios inc                    
-    ##  2 832472 avrd design                         
-    ##  3 832473 avenales cattle co                  
+    ##         b field
+    ##     <dbl> <chr>
+    ##  1 832471 avrp studios inc
+    ##  2 832472 avrd design
+    ##  3 832473 avenales cattle co
     ##  4 832474 auto dealers of michigan political a
-    ##  5 832475 atty & counselor at law             
-    ##  6 832476 at&t united way                     
-    ##  7 832477 ashland food & liquors              
-    ##  8 832478 arvance turkey ranch inc            
-    ##  9 832479 arizona federation of teachers      
-    ## 10 832480 arianas restaurant                  
+    ##  5 832475 atty & counselor at law
+    ##  6 832476 at&t united way
+    ##  7 832477 ashland food & liquors
+    ##  8 832478 arvance turkey ranch inc
+    ##  9 832479 arizona federation of teachers
+    ## 10 832480 arianas restaurant
     ## # … with 499,990 more rows
 
 The two Corpuses can’t be directly joined because of misspellings. This
@@ -111,7 +110,7 @@ print(join_out)
 
     ## # A tibble: 2,534 × 4
     ##         a field.x                                                      b field.y
-    ##     <dbl> <chr>                                                    <dbl> <chr>  
+    ##     <dbl> <chr>                                                    <dbl> <chr>
     ##  1  65793 texas veterinary association of general practitioners … 8.91e5 texas …
     ##  2 441535 swanson superior forest productsi                       1.07e6 swanso…
     ##  3  62805 texas beverage association, inc.                        8.64e5 texas …
