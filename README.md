@@ -1,7 +1,5 @@
 
-# ZoomerJoin [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-
-<img src='logo.png' align="right" height="250">
+# ZoomerJoin [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental) <img src='logo.png' align="right" height="250">
 
 INSANELY, BLAZINGLY FAST fuzzy joins in R. Implimented using
 [MinHash](https://en.wikipedia.org/wiki/MinHash) to cut down on the
@@ -9,7 +7,7 @@ number of comparisons that need to be made in calculating matches. This
 results in matches that return orders of magnitude faster than other
 matches.
 
-### Installation
+# Installation
 
 ------------------------------------------------------------------------
 
@@ -58,17 +56,17 @@ corpus_1
 ```
 
     ## # A tibble: 500,000 × 2
-    ##        a field                                                                  
-    ##    <dbl> <chr>                                                                  
-    ##  1     1 ufwa cope committee                                                    
-    ##  2     2 committee to re elect charles e. bennett                               
-    ##  3     3 montana democratic party non federal account                           
+    ##        a field
+    ##    <dbl> <chr>
+    ##  1     1 ufwa cope committee
+    ##  2     2 committee to re elect charles e. bennett
+    ##  3     3 montana democratic party non federal account
     ##  4     4 mississippi power & light company management political action and educ…
-    ##  5     5 napus pac for postmasters                                              
-    ##  6     6 aminoil good government fund                                           
-    ##  7     7 national women's political caucus of california                        
-    ##  8     8 minnesota gun owners' political victory fund                           
-    ##  9     9 metropolitan detroit afl cio cope committee                            
+    ##  5     5 napus pac for postmasters
+    ##  6     6 aminoil good government fund
+    ##  7     7 national women's political caucus of california
+    ##  8     8 minnesota gun owners' political victory fund
+    ##  9     9 metropolitan detroit afl cio cope committee
     ## 10    10 carpenters legislative improvement committee united brotherhood of car…
     ## # … with 499,990 more rows
 
@@ -79,18 +77,18 @@ corpus_2
 ```
 
     ## # A tibble: 500,000 × 2
-    ##         b field                               
-    ##     <dbl> <chr>                               
-    ##  1 832471 avrp studios inc                    
-    ##  2 832472 avrd design                         
-    ##  3 832473 avenales cattle co                  
+    ##         b field
+    ##     <dbl> <chr>
+    ##  1 832471 avrp studios inc
+    ##  2 832472 avrd design
+    ##  3 832473 avenales cattle co
     ##  4 832474 auto dealers of michigan political a
-    ##  5 832475 atty & counselor at law             
-    ##  6 832476 at&t united way                     
-    ##  7 832477 ashland food & liquors              
-    ##  8 832478 arvance turkey ranch inc            
-    ##  9 832479 arizona federation of teachers      
-    ## 10 832480 arianas restaurant                  
+    ##  5 832475 atty & counselor at law
+    ##  6 832476 at&t united way
+    ##  7 832477 ashland food & liquors
+    ##  8 832478 arvance turkey ranch inc
+    ##  9 832479 arizona federation of teachers
+    ## 10 832480 arianas restaurant
     ## # … with 499,990 more rows
 
 The two Corpuses can’t be directly joined because of misspellings. This
@@ -115,17 +113,17 @@ print(join_out)
 
     ## # A tibble: 2,534 × 4
     ##         a field.x                                                      b field.y
-    ##     <dbl> <chr>                                                    <dbl> <chr>  
-    ##  1  53424 american electric power company committee for responsi… 9.96e5 americ…
-    ##  2 384673 technology association of americas                      8.50e5 techno…
-    ##  3 134700 asl consulting engineers                                9.57e5 kasl c…
-    ##  4  97923 harris county conservative congressional campaign       9.63e5 harris…
-    ##  5 265571 akin gump strauss hauer & feld                          8.87e5 akin g…
-    ##  6  81870 vilma luna political fund                               8.89e5 vilma …
-    ##  7 220063 51st senate district democratic farmer labor party      1.00e6 61st s…
-    ##  8 213688 aransas corpus christi pilots                           8.54e5 aransa…
-    ##  9 118069 fayette county republican women                         9.22e5 fayett…
-    ## 10 177258 mintz levin cohn ferris glovsky & popeo                 1.25e6 mintz …
+    ##     <dbl> <chr>                                                    <dbl> <chr>
+    ##  1  65793 texas veterinary association of general practitioners … 8.91e5 texas …
+    ##  2 441535 swanson superior forest productsi                       1.07e6 swanso…
+    ##  3  62805 texas beverage association, inc.                        8.64e5 texas …
+    ##  4 359164 rob les real estate partnership                         8.95e5 rob le…
+    ##  5  32309 north american coal corp pac texas                      8.65e5 north …
+    ##  6  99796 46th senate district democrat-farmer-labor party        1.17e6 16th s…
+    ##  7  20711 california landscape dimensions                         9.90e5 califo…
+    ##  8  63059 scott douglas & mcconnico llp,                          1.21e6 scott …
+    ##  9 105402 seafarers political activity                            8.71e5 seafar…
+    ## 10  70410 barry lee o connor & associate                          9.12e5 barry …
     ## # … with 2,524 more rows
 
 ZoomerJoin finds and joins on the matching rows in just a few seconds.
