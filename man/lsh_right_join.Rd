@@ -2,7 +2,7 @@
 % Please edit documentation in R/logical_joins.R
 \name{lsh_right_join}
 \alias{lsh_right_join}
-\title{Fuzzy right-join using MiniHashing}
+\title{Fuzzy right-join using minihashing}
 \usage{
 lsh_right_join(
   a,
@@ -53,5 +53,5 @@ dissimilar.
 }}
 }
 \description{
-Fuzzy right-join using MiniHashing
+Fuzzy right-join using minihashing
 }

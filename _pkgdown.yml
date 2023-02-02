@@ -9,7 +9,6 @@ reference:
       - lsh_left_join
       - lsh_right_join
       - lsh_anti_join
-      - rust_lsh_join
 
   - title: Diagnostics
     contents:

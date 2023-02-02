@@ -15,8 +15,6 @@ pub mod minihasher;
 use crate::minihasher::LSHHasher;
 
 
-/// Return string `"Hello world!"` to R.
-/// @export
 #[extendr]
 fn rust_lsh_join(
     left_string_r: Robj,

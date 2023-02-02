@@ -2,7 +2,7 @@
 % Please edit documentation in R/logical_joins.R
 \name{lsh_anti_join}
 \alias{lsh_anti_join}
-\title{Fuzzy anti-join using MiniHashing}
+\title{Fuzzy anti-join using minihashing}
 \usage{
 lsh_anti_join(
   a,
@@ -53,5 +53,5 @@ dissimilar.
 }}
 }
 \description{
-Fuzzy anti-join using MiniHashing
+Fuzzy anti-join using minihashing
 }

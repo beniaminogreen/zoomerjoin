@@ -2,7 +2,7 @@
 % Please edit documentation in R/logical_joins.R
 \name{lsh_full_join}
 \alias{lsh_full_join}
-\title{Fuzzy full-join using MiniHashing}
+\title{Fuzzy full-join using minihashing}
 \usage{
 lsh_full_join(
   a,
@@ -53,5 +53,5 @@ dissimilar.
 }}
 }
 \description{
-Fuzzy full-join using MiniHashing
+Fuzzy full-join using minihashing
 }

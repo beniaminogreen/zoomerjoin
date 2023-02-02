@@ -1,4 +1,4 @@
-#' Fuzzy inner-join using MiniHashing
+#' Fuzzy inner-join using minihashing
 #'
 #' @param a the first dataframe you wish to join. @param b the second dataframe
 #' you wish to join.
@@ -40,7 +40,7 @@ lsh_inner_join <- function(a, b, by = NULL, n_gram_width = 2, n_bands = 45,
                                n_gram_width, n_bands = n_bands, band_width =
                                band_width, threshold =  threshold) }
 
-#' Fuzzy anti-join using MiniHashing
+#' Fuzzy anti-join using minihashing
 #'
 #' @param a the first dataframe you wish to join.
 #' @param b the second dataframe you wish to join.
@@ -88,7 +88,7 @@ lsh_anti_join <- function(a, b,
                    threshold =  threshold)
 }
 
-#' Fuzzy left-join using MiniHashing
+#' Fuzzy left-join using minihashing
 #'
 #' @param a the first dataframe you wish to join.
 #' @param b the second dataframe you wish to join.
@@ -136,7 +136,7 @@ lsh_left_join <- function(a, b,
                    threshold =  threshold)
 }
 
-#' Fuzzy right-join using MiniHashing
+#' Fuzzy right-join using minihashing
 #'
 #' @param a the first dataframe you wish to join.
 #' @param b the second dataframe you wish to join.
@@ -184,7 +184,7 @@ lsh_right_join <- function(a, b,
                    threshold =  threshold)
 }
 
-#' Fuzzy full-join using MiniHashing
+#' Fuzzy full-join using minihashing
 #'
 #' @param a the first dataframe you wish to join.
 #' @param b the second dataframe you wish to join.

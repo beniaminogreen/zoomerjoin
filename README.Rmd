@@ -3,8 +3,6 @@ output: github_document
 always_allow_html: true
 ---
 
-
-
 ```{r, include=F}
 library(tidyverse)
 library(microbenchmark)
@@ -22,7 +20,7 @@ names(corpus_2) <- c("b", "field")
 ```
 
 
-# ZoomerJoin [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+# zoomerjoin [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 
 <img src='logo.png' align="right" height="250">
 
@@ -31,11 +29,11 @@ INSANELY, BLAZINGLY FAST fuzzy joins in R. Implimented using
 comparisons that need to be made in calculating matches. This results in
 matches that return orders of magnitude faster than other matches.
 
-### Installation
+#### Installation
 
 ---
 
-#### Installing Rust:
+##### Installing Rust:
 
 You must have [Rust](https://www.rust-lang.org/tools/install) installed to
 compile this package. The rust website provides an excellent installation
@@ -50,7 +48,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 On Windows, I use the rust installation wizard, found
 [here](https://forge.rust-lang.org/infra/other-installation-methods.html).
 
-#### Installing Package from Github:
+##### Installing Package from Github:
 
 Once you install Rust, you should be able to install the package with:
 
@@ -58,7 +56,7 @@ Once you install Rust, you should be able to install the package with:
 devtools::install_github("beniaminogreen/zoomerjoin")
 ```
 
-## Usage:
+### Usage:
 
 ---
 

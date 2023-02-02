@@ -2,7 +2,7 @@
 % Please edit documentation in R/logical_joins.R
 \name{lsh_inner_join}
 \alias{lsh_inner_join}
-\title{Fuzzy inner-join using MiniHashing}
+\title{Fuzzy inner-join using minihashing}
 \usage{
 lsh_inner_join(
   a,
@@ -51,5 +51,5 @@ dissimilar.
 }}
 }
 \description{
-Fuzzy inner-join using MiniHashing
+Fuzzy inner-join using minihashing
 }

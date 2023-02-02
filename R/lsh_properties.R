@@ -1,4 +1,4 @@
-#' Plot S-Curve For a Given LSH Function
+#' Plot S-Curve for a given LSH function
 #'
 #' @param n_bands: The number of LSH bands calculated
 #'
