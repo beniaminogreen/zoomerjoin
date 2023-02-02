@@ -3,7 +3,6 @@ use dashmap::{DashMap, DashSet};
 use extendr_api::prelude::parallel::prelude::ParallelIterator;
 use extendr_api::prelude::*;
 
-
 use std::sync::Arc;
 
 use rayon::prelude::*;
@@ -51,16 +50,15 @@ fn rust_lsh_join(
     // larger_set = left_set_vec;
     // }
 
-    let small_set_map: Arc<DashMap<u64, Vec<usize>>> = Arc::new(DashMap::new());
+    let small_set_map: Arc<DashMap<u64, Vec<usize>>> = Arc::new(DashMap::default());
 
     let processors = num_cpus::get();
     let chunk_len = ((smaller_set.len() / processors) + 1) as usize;
 
     //let mut matched_pairs: HashSet<(usize, usize)> = HashSet::new();
     let matched_pairs: Arc<DashSet<(usize, usize)>> = Arc::new(DashSet::new());
-    let small_set_map = small_set_map;
 
-    for itera in 0..n_bands {
+    for _ in 0..n_bands {
         let hasher = Arc::new(LSHHasher::new(band_size as usize));
         let chunks = smaller_set.chunks(chunk_len);
 
@@ -93,7 +91,6 @@ fn rust_lsh_join(
                 let matched_pairs = Arc::clone(&matched_pairs);
                 let small_set_map = Arc::clone(&small_set_map);
                 let hasher = Arc::clone(&hasher);
-
                 let smaller_set = Arc::clone(&smaller_set);
 
                 scope.spawn(move || {
