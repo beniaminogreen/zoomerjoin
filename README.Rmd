@@ -29,9 +29,11 @@ INSANELY, BLAZINGLY FAST fuzzy joins in R. Implimented using
 comparisons that need to be made in calculating matches. This results in
 matches that return orders of magnitude faster than other matches.
 
-# Installation
+### Installation
 
-## Installing Rust:
+---
+
+#### Installing Rust:
 
 You must have [Rust](https://www.rust-lang.org/tools/install) installed to
 compile this package. The rust website provides an excellent installation
@@ -46,7 +48,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 On Windows, I use the rust installation wizard, found
 [here](https://forge.rust-lang.org/infra/other-installation-methods.html).
 
-## Installing Package from Github:
+#### Installing Package from Github:
 
 Once you install Rust, you should be able to install the package with:
 
@@ -54,7 +56,9 @@ Once you install Rust, you should be able to install the package with:
 devtools::install_github("beniaminogreen/zoomerjoin")
 ```
 
-# Usage:
+## Usage:
+
+---
 
 The package provides the following functions, which are designed to be near to
 drop-ins for the corresponding dplyr/fuzzyjoin commands:
@@ -90,49 +94,3 @@ print(join_out)
 
 ZoomerJoin finds and joins on the matching rows in just a few seconds.
 
-## Benchmarks:
-
-Here's a quick and dirty benchmark showing the performance of this package
-relative to another matching package, `fuzzyjoin` which calculates all pairwise
-similarities between different records in the process of matching.
-
-```{r, echo=F, message=F}
-test_lsh <- function(n) {
-    mean(microbenchmark(
-           test <- lsh_inner_join(corpus_1 %>% head(n), corpus_2 %>% tail(n),
-           n_gram_width=2, n_bands=10, band_width=6, threshold = .8),
-    times = 3)$time)
-}
-
-test_string_dist <- function(n) {
-    mean(microbenchmark(
-           test <- stringdist_inner_join(corpus_1 %>% head(n), corpus_2 %>% tail(n)),
-    times = 3)$time)
-}
-
-
-capture.output(time_out <- expand_grid(
-            n = c(10,50,100,250,500,1000,2000,3000,4000,5000,6000,7500,10000,15000),
-            nesting(
-                fun = c(test_lsh, test_string_dist),
-                Package = c("zoomerjoin", "fuzzyjoin")
-                    )
-            )  %>%
-mutate(time = map2_dbl(fun, n, ~.x(.y))) %>%
-mutate(time = time / 10^9)
-, file = "NUL")
-
-time_out %>%
-    ggplot(aes(x=n, y=time, col=Package)) +
-    geom_line() +
-    geom_point() +
-    ylab("Time to Process Joins \n (s)") +
-    xlab("Number of Entries in Each Dataframe") +
-    theme_bw() +
-    ggtitle("ZoomerJoin Vs Fuzzyjoin: Speed Comparison")
-```
-
-The difference is stark! While the running time of other matching packages
-scales with the product of the rows of the two dataframes $O(nm)$, the run time
-of zoomerjoin scales with the sum of the two $O(n+m)$, meaning it can be used
-for large datasets.

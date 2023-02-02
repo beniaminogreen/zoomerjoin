@@ -1,4 +1,17 @@
 url: https://beniaminogreen.github.io/zoomerjoin/
 template:
   bootstrap: 5
+reference:
+  - title: Fuzzy Joins
+    contents:
+      - lsh_inner_join
+      - lsh_full_join
+      - lsh_left_join
+      - lsh_right_join
+      - lsh_anti_join
+      - rust_lsh_join
+
+  - title: Diagnostics
+    contents:
+      - lsh_curve
 
