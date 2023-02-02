@@ -20,7 +20,9 @@ names(corpus_2) <- c("b", "field")
 ```
 
 
-# ZoomerJoin <img src='logo.png' align="right" height="250">
+# ZoomerJoin [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+
+<img src='logo.png' align="right" height="250">
 
 INSANELY, BLAZINGLY FAST fuzzy joins in R. Implimented using
 [MinHash](https://en.wikipedia.org/wiki/MinHash) to cut down on the number of
@@ -31,11 +33,11 @@ matches that return orders of magnitude faster than other matches.
 
 ## Installing Rust:
 
-You must have [Rust](https://www.rust-lang.org/tools/install) installed
-to compile this package. The rust website provides an excellent
-installation script that has never caused me any issues.
+You must have [Rust](https://www.rust-lang.org/tools/install) installed to
+compile this package. The rust website provides an excellent installation
+script that has never caused me any issues.
 
-On Linux, you can install Rust with:
+On Linux or MacOs, you can install Rust with:
 
 ``` sh
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh

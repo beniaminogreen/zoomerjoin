@@ -2,7 +2,7 @@
 % Please edit documentation in R/lsh_properties.R
 \name{lsh_curve}
 \alias{lsh_curve}
-\title{Performance Plots for LSH functions}
+\title{Plot S-Curve For a Given LSH Function}
 \usage{
 lsh_curve(n_bands, band_width)
 }
@@ -16,5 +16,5 @@ A plot showing the probability a pair is proposed as a match, given
 the Jaccard similarity of the two items.
 }
 \description{
-Performance Plots for LSH functions
+Plot S-Curve For a Given LSH Function
 }

@@ -1,4 +1,4 @@
-#' Performance Plots for LSH functions
+#' Plot S-Curve For a Given LSH Function
 #'
 #' @param n_bands: The number of LSH bands calculated
 #'
@@ -11,6 +11,9 @@
 lsh_curve <- function(n_bands, band_width) {
     similarity <- seq(0,1,.005)
 
+    stopifnot(n_bands > 0)
+    stopifnot(band_width > 0)
+
     probs <- 1-(1-similarity^band_width)^n_bands
 
     plot(similarity, probs,
@@ -19,5 +22,4 @@ lsh_curve <- function(n_bands, band_width) {
          type="l",
          col = "blue"
     )
-
 }
