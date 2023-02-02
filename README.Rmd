@@ -23,8 +23,6 @@ names(corpus_2) <- c("b", "field")
 
 # zoomerjoin [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 
-<img src='logo.png' align="right" height="250">
-
 INSANELY, BLAZINGLY FAST fuzzy joins in R. Implimented using
 [MinHash](https://en.wikipedia.org/wiki/MinHash) to cut down on the number of
 comparisons that need to be made in calculating matches. This results in
