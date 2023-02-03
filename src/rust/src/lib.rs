@@ -58,10 +58,14 @@ fn rust_lsh_join(
     //let mut matched_pairs: HashSet<(usize, usize)> = HashSet::new();
     let matched_pairs: Arc<DashSet<(usize, usize)>> = Arc::new(DashSet::new());
 
-    for _ in 0..n_bands {
+    for i in 0..n_bands {
+        println!("Starting band {}", i);
+
+        println!("Building Hasher and Chunks");
         let hasher = Arc::new(LSHHasher::new(band_size as usize));
         let chunks = smaller_set.chunks(chunk_len);
 
+        println!("Populating Hash Map");
         std::thread::scope(|scope| {
             for chunk in chunks {
                 let small_set_map = Arc::clone(&small_set_map);
@@ -80,11 +84,15 @@ fn rust_lsh_join(
             }
         });
 
+        println!("Hash Map Populated");
+
 
         let chunk_len = ((smaller_set.len() / processors) + 1) as usize;
         let chunks = larger_set.chunks(chunk_len);
 
         let smaller_set = Arc::new(&smaller_set);
+
+        println!("Joining To Hash Map");
 
         std::thread::scope(|scope| {
             for chunk in chunks {
@@ -110,6 +118,7 @@ fn rust_lsh_join(
             }
         });
 
+        println!("Joined To Hash Map");
         small_set_map.clear();
     }
 
