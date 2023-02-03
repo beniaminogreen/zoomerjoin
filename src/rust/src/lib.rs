@@ -50,7 +50,6 @@ fn rust_lsh_join(
     // larger_set = left_set_vec;
     // }
 
-    let small_set_map: Arc<DashMap<u64, Vec<usize>>> = Arc::new(DashMap::default());
 
     let processors = num_cpus::get();
     let chunk_len = ((smaller_set.len() / processors) + 1) as usize;
@@ -59,6 +58,7 @@ fn rust_lsh_join(
     let matched_pairs: Arc<DashSet<(usize, usize)>> = Arc::new(DashSet::new());
 
     for i in 0..n_bands {
+        let small_set_map: Arc<DashMap<u64, Vec<usize>>> = Arc::new(DashMap::default());
         println!("Starting band {}", i);
 
         let hasher = Arc::new(LSHHasher::new(band_size as usize));
@@ -114,7 +114,6 @@ fn rust_lsh_join(
             }
         });
 
-        small_set_map.clear();
     }
 
     let chosen_indexes = matched_pairs;
