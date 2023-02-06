@@ -13,6 +13,32 @@ use crate::shingleset::ShingleSet;
 pub mod minihasher;
 use crate::minihasher::LSHHasher;
 
+/// @export
+#[extendr]
+fn str_dist(left_string_r: Robj, right_string_r: Robj, ngram_width: i64) -> Doubles {
+    let left_string_vec = <Vec<String>>::from_robj(&left_string_r).unwrap();
+    let right_string_vec = <Vec<String>>::from_robj(&right_string_r).unwrap();
+
+    // vector to hold sets of n_gram strings in each document
+    let left_set_vec: Vec<ShingleSet> = left_string_vec
+        .par_iter()
+        .enumerate()
+        .map(|(i, x)| ShingleSet::new(x, ngram_width as usize, i))
+        .collect();
+    let right_set_vec: Vec<ShingleSet> = right_string_vec
+        .par_iter()
+        .enumerate()
+        .map(|(i, x)| ShingleSet::new(x, ngram_width as usize, i))
+        .collect();
+
+    let out_vec = left_set_vec
+        .into_par_iter()
+        .zip(right_set_vec)
+        .map(|(a, b)| a.jaccard_similarity(&b))
+        .collect::<Vec<f64>>();
+
+    out_vec.into_iter().map(|i| Rfloat::from(i)).collect::<Doubles>()
+}
 
 #[extendr]
 fn rust_lsh_join(
@@ -50,7 +76,6 @@ fn rust_lsh_join(
     // larger_set = left_set_vec;
     // }
 
-
     let processors = num_cpus::get();
     let chunk_len = ((smaller_set.len() / processors) + 1) as usize;
 
@@ -59,7 +84,6 @@ fn rust_lsh_join(
 
     for i in 0..n_bands {
         let small_set_map: Arc<DashMap<u64, Vec<usize>>> = Arc::new(DashMap::default());
-        println!("Starting band {}", i);
 
         let hasher = Arc::new(LSHHasher::new(band_size as usize));
         let chunks = smaller_set.chunks(chunk_len);
@@ -82,13 +106,10 @@ fn rust_lsh_join(
             }
         });
 
-
-
         let chunk_len = ((smaller_set.len() / processors) + 1) as usize;
         let chunks = larger_set.chunks(chunk_len);
 
         let smaller_set = Arc::new(&smaller_set);
-
 
         std::thread::scope(|scope| {
             for chunk in chunks {
@@ -103,7 +124,9 @@ fn rust_lsh_join(
                         if small_set_map.contains_key(&key) {
                             for matched in small_set_map.get(&key).unwrap().iter() {
                                 if !matched_pairs.contains(&(shingleset.index, *matched)) {
-                                    if shingleset.jaccard_similarity(&smaller_set[*matched]) >= threshold {
+                                    if shingleset.jaccard_similarity(&smaller_set[*matched])
+                                        >= threshold
+                                    {
                                         matched_pairs.insert((shingleset.index, *matched));
                                     }
                                 }
@@ -113,7 +136,6 @@ fn rust_lsh_join(
                 });
             }
         });
-
     }
 
     let chosen_indexes = matched_pairs;
@@ -133,4 +155,5 @@ fn rust_lsh_join(
 extendr_module! {
     mod zoomerjoin;
     fn rust_lsh_join;
+    fn str_dist;
 }

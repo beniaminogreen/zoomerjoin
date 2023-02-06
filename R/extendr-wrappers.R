@@ -10,3 +10,6 @@ NULL
 
 rust_lsh_join <- function(left_string_r, right_string_r, ngram_width, n_bands, band_size, threshold) .Call(wrap__rust_lsh_join, left_string_r, right_string_r, ngram_width, n_bands, band_size, threshold)
 
+#' @export
+str_dist <- function(left_string_r, right_string_r, ngram_width) .Call(wrap__str_dist, left_string_r, right_string_r, ngram_width)
+

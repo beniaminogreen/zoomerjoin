@@ -1,5 +1,5 @@
 use std::hash::{Hash, Hasher};
-use fxhash::FxHasher;
+use rustc_hash::FxHasher;
 
 use ndarray_rand::rand_distr::Uniform;
 
