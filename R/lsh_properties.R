@@ -24,6 +24,10 @@ lsh_curve <- function(n_bands, band_width) {
     )
 }
 
+#' Find Probability of Match Based on Similarity
+#' @export
 lsh_probability <- function(similarity, n_bands, band_width){
     1-(1-similarity^band_width)^n_bands
 }
+
+

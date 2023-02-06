@@ -11,6 +11,10 @@ reference:
       - lsh_right_join
       - lsh_anti_join
 
+  - title: Utilities
+    contents:
+      - jaccard_similarity
+
   - title: Diagnostics
     contents:
       - lsh_curve

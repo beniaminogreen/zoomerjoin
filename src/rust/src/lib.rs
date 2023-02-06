@@ -13,9 +13,8 @@ use crate::shingleset::ShingleSet;
 pub mod minihasher;
 use crate::minihasher::LSHHasher;
 
-/// @export
 #[extendr]
-fn str_dist(left_string_r: Robj, right_string_r: Robj, ngram_width: i64) -> Doubles {
+fn rust_jaccard_similarity(left_string_r: Robj, right_string_r: Robj, ngram_width: i64) -> Doubles {
     let left_string_vec = <Vec<String>>::from_robj(&left_string_r).unwrap();
     let right_string_vec = <Vec<String>>::from_robj(&right_string_r).unwrap();
 
@@ -155,5 +154,5 @@ fn rust_lsh_join(
 extendr_module! {
     mod zoomerjoin;
     fn rust_lsh_join;
-    fn str_dist;
+    fn rust_jaccard_similarity;
 }

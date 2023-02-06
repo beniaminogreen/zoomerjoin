@@ -30,6 +30,7 @@ impl ShingleSet {
         ShingleSet { shingles: out_set , shingle_len , index}
     }
 
+    #[inline]
     pub fn jaccard_similarity(&self, b: &Self) -> f64 {
         // println!("{:?}",self.shingles.intersection(&b.shingles));
         // println!("{:?}", self.shingles.union(&b.shingles));
