@@ -19,8 +19,7 @@ reference:
     contents:
       - lsh_curve
       - lsh_probability
-
-  - title: Other Tools (In Progress)
-    contents:
-      em_link
+  # - title: Other Tools (In Progress)
+  #   contents:
+  #     em_link
 
