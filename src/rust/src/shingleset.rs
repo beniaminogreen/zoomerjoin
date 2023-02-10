@@ -11,13 +11,17 @@ pub struct ShingleSet {
 }
 
 impl ShingleSet {
-    pub fn new(string: &String, shingle_len: usize, index: usize) -> Self {
+    pub fn new(string: &String, shingle_len: usize, index: usize, salt : Option<&String>) -> Self {
         let mut out_set: IntSet<u32> = IntSet::default();
 
         let char_vec: Vec<char> = string.chars().collect();
 
         for window in char_vec.windows(shingle_len) {
             let mut hasher = FxHasher::default();
+
+            if let Some(salt_str) = salt {
+                salt_str.hash(&mut hasher);
+            };
 
             window.hash(&mut hasher);
 
@@ -26,16 +30,23 @@ impl ShingleSet {
             out_set.insert(result);
         }
 
+        Self{
+            shingles: out_set,
+            shingle_len,
+            index
+        }
 
-        ShingleSet { shingles: out_set , shingle_len , index}
     }
 
     #[inline]
     pub fn jaccard_similarity(&self, b: &Self) -> f64 {
-        // println!("{:?}",self.shingles.intersection(&b.shingles));
-        // println!("{:?}", self.shingles.union(&b.shingles));
-
+        if self.shingles.is_empty() {
+            0.0
+        } else if b.shingles.is_empty(){
+            0.0
+        } else {
         self.shingles.intersection(&b.shingles).count() as f64
             / self.shingles.union(&b.shingles).count() as f64
+        }
     }
 }

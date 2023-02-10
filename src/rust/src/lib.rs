@@ -13,6 +13,33 @@ use crate::shingleset::ShingleSet;
 pub mod minihasher;
 use crate::minihasher::LSHHasher;
 
+pub mod em_link;
+use crate::em_link::EMLinker;
+
+/// @export
+#[extendr]
+fn em_link(comparison_robj: Robj, params_given_match : Robj, params_given_not_match : Robj, lambda: f64, tol : f64) -> Doubles{
+    let comparisons = <ArrayView2<Rbool>>::from_robj(&comparison_robj).unwrap();
+
+    let params_given_match = <ArrayView1<f64>>::from_robj(&params_given_match)
+        .unwrap()
+        .to_owned();
+
+    let params_given_not_match = <ArrayView1<f64>>::from_robj(&params_given_not_match)
+        .unwrap()
+        .to_owned();
+
+    let comparisons = comparisons.mapv(|elem| elem.to_bool());
+
+    let mut linker = EMLinker::new(comparisons.view(),params_given_match, params_given_not_match, lambda);
+
+    linker.train(tol);
+    println!("trained");
+
+    linker.match_probs.unwrap().into_iter().map(|i| Rfloat::from(i)).collect::<Doubles>()
+
+}
+
 #[extendr]
 fn rust_jaccard_similarity(left_string_r: Robj, right_string_r: Robj, ngram_width: i64) -> Doubles {
     let left_string_vec = <Vec<String>>::from_robj(&left_string_r).unwrap();
@@ -22,12 +49,12 @@ fn rust_jaccard_similarity(left_string_r: Robj, right_string_r: Robj, ngram_widt
     let left_set_vec: Vec<ShingleSet> = left_string_vec
         .par_iter()
         .enumerate()
-        .map(|(i, x)| ShingleSet::new(x, ngram_width as usize, i))
+        .map(|(i, x)| ShingleSet::new(x, ngram_width as usize, i, None))
         .collect();
     let right_set_vec: Vec<ShingleSet> = right_string_vec
         .par_iter()
         .enumerate()
-        .map(|(i, x)| ShingleSet::new(x, ngram_width as usize, i))
+        .map(|(i, x)| ShingleSet::new(x, ngram_width as usize, i, None))
         .collect();
 
     let out_vec = left_set_vec
@@ -55,12 +82,12 @@ fn rust_lsh_join(
     let left_set_vec: Vec<ShingleSet> = left_string_vec
         .par_iter()
         .enumerate()
-        .map(|(i, x)| ShingleSet::new(x, ngram_width as usize, i))
+        .map(|(i, x)| ShingleSet::new(x, ngram_width as usize, i, None))
         .collect();
     let right_set_vec: Vec<ShingleSet> = right_string_vec
         .par_iter()
         .enumerate()
-        .map(|(i, x)| ShingleSet::new(x, ngram_width as usize, i))
+        .map(|(i, x)| ShingleSet::new(x, ngram_width as usize, i, None))
         .collect();
 
     let smaller_set;
@@ -82,6 +109,7 @@ fn rust_lsh_join(
     let matched_pairs: Arc<DashSet<(usize, usize)>> = Arc::new(DashSet::new());
 
     for i in 0..n_bands {
+        println!("starting iteration {}", i);
         let small_set_map: Arc<DashMap<u64, Vec<usize>>> = Arc::new(DashMap::default());
 
         let hasher = Arc::new(LSHHasher::new(band_size as usize));
@@ -155,4 +183,5 @@ extendr_module! {
     mod zoomerjoin;
     fn rust_lsh_join;
     fn rust_jaccard_similarity;
+    fn em_link;
 }

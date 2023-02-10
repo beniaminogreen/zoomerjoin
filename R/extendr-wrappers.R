@@ -12,3 +12,6 @@ rust_lsh_join <- function(left_string_r, right_string_r, ngram_width, n_bands, b
 
 rust_jaccard_similarity <- function(left_string_r, right_string_r, ngram_width) .Call(wrap__rust_jaccard_similarity, left_string_r, right_string_r, ngram_width)
 
+#' @export
+em_link <- function(comparison_robj, params_given_match, params_given_not_match, lambda, tol) .Call(wrap__em_link, comparison_robj, params_given_match, params_given_not_match, lambda, tol)
+
