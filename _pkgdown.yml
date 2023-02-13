@@ -3,7 +3,7 @@ template:
   package: preferably
   bootstrap: 5
 reference:
-  - title: Fuzzy Joins
+  - title: dplyr-style tidy joins
     contents:
       - lsh_inner_join
       - lsh_full_join
@@ -19,7 +19,3 @@ reference:
     contents:
       - lsh_curve
       - lsh_probability
-  # - title: Other Tools (In Progress)
-  #   contents:
-  #     em_link
-

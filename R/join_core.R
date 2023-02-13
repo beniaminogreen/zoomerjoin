@@ -1,4 +1,4 @@
-lsh_join <- function (a, b, mode, by, n_gram_width, n_bands, band_width, threshold) {
+lsh_join <- function (a, b, mode, by, n_gram_width, n_bands, band_width, threshold, a_salt = NULL, b_salt = NULL) {
 
     stopifnot("'threshold' must be between 0 and 1" = threshold <= 1 & threshold>=0)
     stopifnot("'n_bands' must be greater than 0" = n_bands > 0)
@@ -26,9 +26,17 @@ lsh_join <- function (a, b, mode, by, n_gram_width, n_bands, band_width, thresho
         stopifnot(by_b %in% names(b))
     }
 
-    match_table <- rust_lsh_join(
-             dplyr::pull(a,by_a), dplyr::pull(b,by_b),
-             n_gram_width, n_bands, band_width, threshold)
+
+    if (is.null(a_salt) && is.null(b_salt)) {
+        match_table <- rust_lsh_join(
+                 dplyr::pull(a,by_a), dplyr::pull(b,by_b),
+                 n_gram_width, n_bands, band_width, threshold)
+    } else {
+        match_table <- rust_salted_lsh_join(
+                 dplyr::pull(a,by_a), dplyr::pull(b,by_b),
+                 dplyr::pull(a, a_salt), dplyr::pull(b, b_salt),
+                 n_gram_width, n_bands, band_width, threshold)
+    }
 
     names_in_both <- intersect(names(a), names(b))
 
