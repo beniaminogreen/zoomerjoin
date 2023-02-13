@@ -10,8 +10,7 @@ NULL
 
 rust_lsh_join <- function(left_string_r, right_string_r, ngram_width, n_bands, band_size, threshold) .Call(wrap__rust_lsh_join, left_string_r, right_string_r, ngram_width, n_bands, band_size, threshold)
 
-rust_jaccard_similarity <- function(left_string_r, right_string_r, ngram_width) .Call(wrap__rust_jaccard_similarity, left_string_r, right_string_r, ngram_width)
+rust_salted_lsh_join <- function(left_string_r, right_string_r, left_salt_r, right_salt_r, ngram_width, n_bands, band_size, threshold) .Call(wrap__rust_salted_lsh_join, left_string_r, right_string_r, left_salt_r, right_salt_r, ngram_width, n_bands, band_size, threshold)
 
-#' @export
-em_link <- function(comparison_robj, params_given_match, params_given_not_match, lambda, tol) .Call(wrap__em_link, comparison_robj, params_given_match, params_given_not_match, lambda, tol)
+rust_jaccard_similarity <- function(left_string_r, right_string_r, ngram_width) .Call(wrap__rust_jaccard_similarity, left_string_r, right_string_r, ngram_width)
 
