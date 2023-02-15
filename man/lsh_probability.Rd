@@ -6,6 +6,15 @@
 \usage{
 lsh_probability(similarity, n_bands, band_width)
 }
+\arguments{
+\item{n_bands:}{The number of LSH bands used in hashing}
+
+\item{band_width:}{The number of hashes in each band}
+}
+\value{
+a decimal number giving the proability that the two items will be
+returned as a candidate pair from the minihash algotithm.
+}
 \description{
 Find Probability of Match Based on Similarity
 }

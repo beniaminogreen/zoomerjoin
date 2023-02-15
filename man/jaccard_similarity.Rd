@@ -6,6 +6,14 @@
 \usage{
 jaccard_similarity(a, b, ngram_width = 2)
 }
+\arguments{
+\item{a}{the first character vector}
+
+\item{b}{the first character vector}
+
+\item{ngram_width}{the length of the shingles / ngrams used in the
+similarity calculation}
+}
 \description{
 Calculate jaccard_similarity of two character vectors
 }
