@@ -36,7 +36,7 @@ lsh_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands, band_width
     by_b <- by[[2]]
 
     # can't impute salt_by
-    if (!is.null(by)) {
+    if (!is.null(salt_by)) {
         salt_by <- simple_by_validate(a,b,salt_by)
         salt_by_a <- salt_by[[1]]
         salt_by_b <- salt_by[[2]]
