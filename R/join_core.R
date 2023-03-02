@@ -35,6 +35,8 @@ lsh_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands, band_width
     by_a <- by[[1]]
     by_b <- by[[2]]
 
+    salt_by_a <- NULL
+    salt_by_b <- NULL
     # don't impute salt_by
     if (!is.null(salt_by)) {
         salt_by <- simple_by_validate(a,b,salt_by)
@@ -48,7 +50,6 @@ lsh_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands, band_width
                  dplyr::pull(a,by_a), dplyr::pull(b,by_b),
                  n_gram_width, n_bands, band_width, threshold)
     } else {
-        print("salting")
         match_table <- rust_salted_lsh_join(
                  dplyr::pull(a,by_a), dplyr::pull(b,by_b),
                  dplyr::pull(a, salt_by_a), dplyr::pull(b, salt_by_b),
