@@ -35,6 +35,9 @@ lsh_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands, band_width
     by_a <- by[[1]]
     by_b <- by[[2]]
 
+    stopifnot("There should be no NA's in by_a"=!any(is.na(dplyr::pull(a,by_a))))
+    stopifnot("There should be no NA's in by_b"=any(is.na(dplyr::pull(b,by_b))))
+
     salt_by_a <- NULL
     salt_by_b <- NULL
     # don't impute salt_by
@@ -42,6 +45,8 @@ lsh_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands, band_width
         salt_by <- simple_by_validate(a,b,salt_by)
         salt_by_a <- salt_by[[1]]
         salt_by_b <- salt_by[[2]]
+        stopifnot("There should be no NA's in by_a"=!any(is.na(dplyr::pull(a,salt_by_a))))
+        stopifnot("There should be no NA's in by_b"=!any(is.na(dplyr::pull(b,salt_by_b))))
     }
 
 
