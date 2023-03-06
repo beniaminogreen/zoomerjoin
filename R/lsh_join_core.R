@@ -5,7 +5,6 @@ simple_by_validate <- function(a,b, by) {
         stopifnot("Can't Determine Column to Match on" = length(by_a)==1)
         message(paste0("Joining by '", by_a, "'\n"))
     } else {
-        stopifnot("'by' vectors must have length 1" = length(by)==1)
         if (!is.null(names(by))) {
             by_a <- names(by)
             by_b <- by
@@ -34,9 +33,11 @@ lsh_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands, band_width
     by <- simple_by_validate(a,b,by)
     by_a <- by[[1]]
     by_b <- by[[2]]
+    stopifnot("'by' vectors must have length 1" = length(by_a)==1)
+    stopifnot("'by' vectors must have length 1" = length(by_b)==1)
 
     stopifnot("There should be no NA's in by_a"=!any(is.na(dplyr::pull(a,by_a))))
-    stopifnot("There should be no NA's in by_b"=any(is.na(dplyr::pull(b,by_b))))
+    stopifnot("There should be no NA's in by_b"=!any(is.na(dplyr::pull(b,by_b))))
 
     salt_by_a <- NULL
     salt_by_b <- NULL
@@ -83,4 +84,5 @@ lsh_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands, band_width
     } else {
         stop("Invalid Mode Selected!")
     }
+    return(matches)
 }

@@ -118,7 +118,7 @@ fn rust_kd_join(a_mat : Robj, b_mat : Robj, radius : f64) -> Robj {
 
     let mut kdtree = KdTree::with_capacity(2,a_mat.nrows());
     for (i, row) in a_mat.axis_iter(Axis(0)).enumerate() {
-        kdtree.add([row[0], row[1]] ,i).expect("error loading tree");
+        kdtree.add([row[0], row[1]] ,i+1).expect("error loading tree");
     }
 
     let mut matches : Vec<[u64; 2]> = Vec::new();
@@ -126,7 +126,7 @@ fn rust_kd_join(a_mat : Robj, b_mat : Robj, radius : f64) -> Robj {
     for (j, row) in b_mat.axis_iter(Axis(0)).enumerate() {
         let closest = kdtree.within(&[row[0], row[1]] ,radius, &squared_euclidean).unwrap();
         for (_, i) in closest {
-            matches.push([*i as u64 ,j as u64 ]);
+            matches.push([*i as u64 ,(j+1) as u64 ]);
         }
     }
 

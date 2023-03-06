@@ -40,7 +40,7 @@ test_that("Match Col Must be in the dataset and of length one", {
         a2 <- a
         names(a2) <- c('ajaaj', 'ahah')
 
-        expect_error(lsh_inner_join(a2,b, by = c('a', "b")), regexp = "length 1")
+        expect_error(lsh_inner_join(a2,a2, by = c('ajaaj', "ahah")), regexp = "length 1")
         expect_error(lsh_inner_join(a2,b, by = c('a'="b")), regexp = "by_a")
         expect_error(lsh_inner_join(a,b, by = c('string'="b")), regexp = "by_b")
 })
