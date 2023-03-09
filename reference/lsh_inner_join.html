@@ -64,7 +64,7 @@
 <span>  <span class="va">a</span>,</span>
 <span>  <span class="va">b</span>,</span>
 <span>  by <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  salt_by <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  block_by <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  n_gram_width <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  n_bands <span class="op">=</span> <span class="fl">45</span>,</span>
 <span>  band_width <span class="op">=</span> <span class="fl">8</span>,</span>
@@ -85,7 +85,7 @@ be the same as dplyr: <code>by = c("column_name_in_df_a" =
 "column_name_in_df_b")</code></p></dd>
 
 
-<dt>salt_by</dt>
+<dt>block_by</dt>
 <dd><p>a named vector indicating which column to block on, such that
 rows that disagree on this field cannot be considered a match. Format should
 be the same as dplyr: <code>by = c("column_name_in_df_a" =

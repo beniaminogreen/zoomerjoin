@@ -3,7 +3,7 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   guided_tour: guided_tour.html
-last_built: 2023-03-09T05:39Z
+last_built: 2023-03-09T18:46Z
 urls:
   reference: https://beniaminogreen.github.io/zoomerjoin/reference
   article: https://beniaminogreen.github.io/zoomerjoin/articles
