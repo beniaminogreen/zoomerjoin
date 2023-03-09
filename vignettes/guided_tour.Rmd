@@ -13,9 +13,7 @@ vignette: >
 library(tidyverse)
 library(microbenchmark)
 library(fuzzyjoin)
-
-rextendr::document()
-devtools::load_all()
+library(zoomerjoin)
 
 n <- 500000
 corpus_1 <- read_csv("bonica.csv")  %>%

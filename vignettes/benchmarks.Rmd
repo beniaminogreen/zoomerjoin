@@ -1,0 +1,35 @@
+---
+title: "benchmarks"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{benchmarks}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, include=F}
+library(zoomerjoin)
+library(arrow)
+library(tidyverse)
+benchmark_data <- read_parquet("benchmark.parquet")
+```
+
+```{r}
+benchmark_data %>%
+    ggplot(aes(x=n, y=time, group=Package, col = Package)) +
+    geom_line() +
+    geom_point() +
+    ylab("Time to Process Joins \n (s)") +
+    xlab("Number of Entries in Each Dataframe") +
+    theme_bw() +
+    theme(legend.position = "none")
+```
+
+
