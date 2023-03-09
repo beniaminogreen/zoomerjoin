@@ -8,7 +8,7 @@ lsh_left_join(
   a,
   b,
   by = NULL,
-  salt_by = NULL,
+  block_by = NULL,
   n_gram_width = 2,
   n_bands = 45,
   band_width = 8,
@@ -24,7 +24,7 @@ lsh_left_join(
 should be the same as dplyr: \code{by = c("column_name_in_df_a" =
 "column_name_in_df_b")}}
 
-\item{salt_by}{a named vector indicating which column to block on, such that
+\item{block_by}{a named vector indicating which column to block on, such that
 rows that disagree on this field cannot be considered a match. Format should
 be the same as dplyr: \code{by = c("column_name_in_df_a" =
 "column_name_in_df_b")}}
