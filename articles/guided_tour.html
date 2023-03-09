@@ -65,6 +65,7 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/benchmarks.html">benchmarks</a>
     <a class="dropdown-item" href="../articles/guided_tour.html">A Zoomerjoin Guided Tour</a>
   </div>
 </li>
@@ -156,23 +157,23 @@ zoomerjoin:</p>
 <span>                           by <span class="op">=</span> <span class="st">"field"</span>, n_gram_width<span class="op">=</span><span class="fl">6</span>,</span>
 <span>                           n_bands<span class="op">=</span><span class="fl">20</span>, band_width<span class="op">=</span><span class="fl">6</span>, threshold <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="va">start_time</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Time difference of 30.15396 secs</span></span></code></pre>
+<pre><code><span><span class="co">## Time difference of 51.5804 secs</span></span></code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">join_out</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 48,011 × 4</span></span></span>
-<span><span class="co">##         a field.x                                b field.y                      </span></span>
-<span><span class="co">##     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                        </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> <span style="text-decoration: underline;">229</span>394 j &amp; j enterprises inc            1<span style="text-decoration: underline;">276</span>350 k &amp; j enterprises inc        </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> <span style="text-decoration: underline;">230</span>653 international bank of commerce    <span style="text-decoration: underline;">862</span>412 international bank of commer…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">63</span>126 sabine pilots association         <span style="text-decoration: underline;">894</span>249 sabine pilots association pa…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> <span style="text-decoration: underline;">275</span>123 key construction inc             1<span style="text-decoration: underline;">063</span>940 sankey construction inc      </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> <span style="text-decoration: underline;">171</span>778 plumbers &amp; pipefitters local 344 1<span style="text-decoration: underline;">228</span>967 plumbers &amp; pipefitters local…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> <span style="text-decoration: underline;">412</span>278 v &amp; r pizzeria                   1<span style="text-decoration: underline;">164</span>187 a &amp; r pizzeria               </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">33</span>667 friends of bob duell              <span style="text-decoration: underline;">881</span>415 friends of bob duell,        </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> <span style="text-decoration: underline;">275</span>891 jeffco painting &amp; coating inc    1<span style="text-decoration: underline;">133</span>665 jeffco painting &amp; coating    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> <span style="text-decoration: underline;">221</span>686 the philanthropic collaborative  1<span style="text-decoration: underline;">231</span>100 philanthropic collaborative  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span> <span style="text-decoration: underline;">171</span>756 plumbers &amp; pipefitters local 706 1<span style="text-decoration: underline;">097</span>224 plumbers &amp; pipefitters local…</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 48,001 more rows</span></span></span></code></pre>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 48,423 × 4</span></span></span>
+<span><span class="co">##         a field.x                                                      b field.y</span></span>
+<span><span class="co">##     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> <span style="text-decoration: underline;">162</span>785 the portela law firm pc                                 1.06<span style="color: #949494;">e</span>6 the po…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> <span style="text-decoration: underline;">306</span>834 international furniture inc                             1.08<span style="color: #949494;">e</span>6 intern…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> <span style="text-decoration: underline;">141</span>975 laborers local 397                                      1.27<span style="color: #949494;">e</span>6 labore…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> <span style="text-decoration: underline;">107</span>003 steelworkers district 2                                 1.07<span style="color: #949494;">e</span>6 steelw…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> <span style="text-decoration: underline;">319</span>964 international brotherhood of electrical workers local … 8.44<span style="color: #949494;">e</span>5 intern…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> <span style="text-decoration: underline;">114</span>477 fraternal order of police lodge 39                      8.36<span style="color: #949494;">e</span>5 frater…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> <span style="text-decoration: underline;">262</span>538 busch entertainment corp                                9.91<span style="color: #949494;">e</span>5 busch …</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">55</span>502 hughes &amp; luce committee for good government,            9.60<span style="color: #949494;">e</span>5 hughes…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> <span style="text-decoration: underline;">119</span>482 48th senate district democrat-farmer-labor party        1.01<span style="color: #949494;">e</span>6 36th s…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> <span style="text-decoration: underline;">101</span>816 plumbers &amp; steamfitters local 265                       1.10<span style="color: #949494;">e</span>6 plumbe…</span></span>
+<span><span class="co">## <span style="color: #949494;"># … with 48,413 more rows</span></span></span></code></pre>
 <p>Below, I provide a short description of the arguments.</p>
 <p>The first two arguments, <code>a</code>, and <code>b</code>, are
 direct analogues of the <code>dplyr</code> arguments, and are the two
