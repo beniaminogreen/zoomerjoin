@@ -44,6 +44,10 @@ jobs:
           extra-packages: any::rcmdcheck
           needs: check
 
+      - uses: r-lib/actions/setup-pandoc@v2
+        with:
+            pandoc-version: '2.17.1' # The pandoc version to download (if necessary) and use.
+
       - uses: r-lib/actions/check-r-package@v2
         with:
           error-on: '"error"'
