@@ -36,7 +36,7 @@ lsh_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands, band_width
     by_b <- by[[2]]
 
     stopifnot("There should be no NA's in by_a"=!any(is.na(dplyr::pull(a,by_a))))
-    stopifnot("There should be no NA's in by_b"=any(is.na(dplyr::pull(b,by_b))))
+    stopifnot("There should be no NA's in by_b"=!any(is.na(dplyr::pull(b,by_b))))
 
     salt_by_a <- NULL
     salt_by_b <- NULL
