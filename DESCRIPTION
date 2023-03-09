@@ -18,7 +18,8 @@ Suggests:
     preferably,
     rmarkdown,
     testthat (>= 3.0.0),
-    tidyverse
+    tidyverse,
+    microbenchmark
 Config/testthat/edition: 3
 URL: https://beniaminogreen.github.io/zoomerjoin/
 VignetteBuilder: knitr
