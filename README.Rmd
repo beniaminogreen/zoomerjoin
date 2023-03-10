@@ -12,7 +12,7 @@ rextendr::document()
 devtools::load_all()
 
 n <- 500000
-corpus_1 <- read_csv("bonica.csv")  %>%
+corpus_1 <- read_csv("vignettes/bonica.csv")  %>%
     head(n)
 names(corpus_1) <- c("a", "field")
 corpus_2 <- read_csv("bonica.csv")  %>%
@@ -93,3 +93,6 @@ print(join_out)
 
 ZoomerJoin finds and joins on the matching rows in just a few seconds.
 
+## References:
+
+Bonica, Adam. 2016. Database on Ideology, Money in Politics, and Elections: Public version 2.0 [Computer file]. Stanford, CA: Stanford University Libraries.

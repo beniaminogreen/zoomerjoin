@@ -7,7 +7,7 @@
 #' be the same as dplyr: \code{by = c("column_name_in_df_a" =
 #' "column_name_in_df_b")}
 #'
-#' @param salt_by a named vector indicating which column to block on, such that
+#' @param block_by a named vector indicating which column to block on, such that
 #' rows that disagree on this field cannot be considered a match. Format should
 #' be the same as dplyr: \code{by = c("column_name_in_df_a" =
 #' "column_name_in_df_b")}
@@ -39,9 +39,9 @@
 #' dissimilar.
 #'
 #' @export
-lsh_inner_join <- function(a, b, by = NULL, salt_by = NULL, n_gram_width = 2, n_bands = 45,
-                           band_width = 8, threshold = .95) { lsh_join(a, b,
-                           mode = "inner", by = by, salt_by = salt_by, n_gram_width =
+lsh_inner_join <- function(a, b, by = NULL, block_by = NULL, n_gram_width = 2, n_bands = 45,
+                           band_width = 8, threshold = .7) { lsh_join(a, b,
+                           mode = "inner", by = by, salt_by = block_by, n_gram_width =
                                n_gram_width, n_bands = n_bands, band_width =
                                band_width, threshold =  threshold) }
 
@@ -54,7 +54,7 @@ lsh_inner_join <- function(a, b, by = NULL, salt_by = NULL, n_gram_width = 2, n_
 #' should be the same as dplyr: \code{by = c("column_name_in_df_a" =
 #' "column_name_in_df_b")}
 #'
-#' @param salt_by a named vector indicating which column to block on, such that
+#' @param block_by a named vector indicating which column to block on, such that
 #' rows that disagree on this field cannot be considered a match. Format should
 #' be the same as dplyr: \code{by = c("column_name_in_df_a" =
 #' "column_name_in_df_b")}
@@ -88,13 +88,13 @@ lsh_inner_join <- function(a, b, by = NULL, salt_by = NULL, n_gram_width = 2, n_
 #' @export
 lsh_anti_join <- function(a, b,
                             by = NULL,
-                            salt_by = NULL,
+                            block_by = NULL,
                             n_gram_width = 2,
                             n_bands = 45,
                             band_width = 8,
-                            threshold = .95) {
+                            threshold = .7) {
     lsh_join(a, b, mode = "anti", by = by,
-                salt_by = salt_by,
+                salt_by = block_by,
                    n_gram_width = n_gram_width,
                    n_bands = n_bands, band_width = band_width,
                    threshold =  threshold)
@@ -109,7 +109,7 @@ lsh_anti_join <- function(a, b,
 #' should be the same as dplyr: \code{by = c("column_name_in_df_a" =
 #' "column_name_in_df_b")}
 #'
-#' @param salt_by a named vector indicating which column to block on, such that
+#' @param block_by a named vector indicating which column to block on, such that
 #' rows that disagree on this field cannot be considered a match. Format should
 #' be the same as dplyr: \code{by = c("column_name_in_df_a" =
 #' "column_name_in_df_b")}
@@ -143,13 +143,13 @@ lsh_anti_join <- function(a, b,
 #' @export
 lsh_left_join <- function(a, b,
                             by = NULL,
-                            salt_by = NULL,
+                            block_by = NULL,
                             n_gram_width = 2,
                             n_bands = 45,
                             band_width = 8,
-                            threshold = .95) {
+                            threshold = .7) {
     lsh_join(a, b, mode = "left", by = by,
-                salt_by = salt_by,
+                salt_by = block_by,
                    n_gram_width = n_gram_width,
                    n_bands = n_bands, band_width = band_width,
                    threshold =  threshold)
@@ -164,7 +164,7 @@ lsh_left_join <- function(a, b,
 #' should be the same as dplyr: \code{by = c("column_name_in_df_a" =
 #' "column_name_in_df_b")}
 #'
-#' @param salt_by a named vector indicating which column to block on, such that
+#' @param block_by a named vector indicating which column to block on, such that
 #' rows that disagree on this field cannot be considered a match. Format should
 #' be the same as dplyr: \code{by = c("column_name_in_df_a" =
 #' "column_name_in_df_b")}
@@ -198,13 +198,13 @@ lsh_left_join <- function(a, b,
 #' @export
 lsh_right_join <- function(a, b,
                             by = NULL,
-                            salt_by = NULL,
+                            block_by = NULL,
                             n_gram_width = 2,
                             n_bands = 45,
                             band_width = 8,
-                            threshold = .95) {
+                            threshold = .7) {
     lsh_join(a, b, mode = "right", by = by,
-                salt_by = salt_by,
+                salt_by = block_by,
                    n_gram_width = n_gram_width,
                    n_bands = n_bands, band_width = band_width,
                    threshold =  threshold)
@@ -219,7 +219,7 @@ lsh_right_join <- function(a, b,
 #' should be the same as dplyr: \code{by = c("column_name_in_df_a" =
 #' "column_name_in_df_b")}
 #'
-#' @param salt_by a named vector indicating which column to block on, such that
+#' @param block_by a named vector indicating which column to block on, such that
 #' rows that disagree on this field cannot be considered a match. Format should
 #' be the same as dplyr: \code{by = c("column_name_in_df_a" =
 #' "column_name_in_df_b")}
@@ -253,13 +253,13 @@ lsh_right_join <- function(a, b,
 #' @export
 lsh_full_join <- function(a, b,
                             by = NULL,
-                            salt_by = NULL,
+                            block_by = NULL,
                             n_gram_width = 2,
                             n_bands = 45,
                             band_width = 8,
-                            threshold = .95) {
+                            threshold = .7) {
     lsh_join(a, b, mode = "full", by = by,
-        salt_by = salt_by,
+        salt_by = block_by,
         n_gram_width = n_gram_width,
         n_bands = n_bands, band_width = band_width,
         threshold =  threshold)

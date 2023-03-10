@@ -1,0 +1,92 @@
+---
+title: "A Zoomerjoin Guided Tour"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{A Zoomerjoin Guided Tour}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+### Introduction:
+
+```{r, include=F}
+library(tidyverse)
+library(microbenchmark)
+library(fuzzyjoin)
+library(zoomerjoin)
+
+n <- 500000
+corpus_1 <- read_csv("bonica.csv")  %>%
+    head(n)
+names(corpus_1) <- c("a", "field")
+corpus_2 <- read_csv("bonica.csv")  %>%
+    tail(n)
+names(corpus_2) <- c("b", "field")
+
+```
+
+This vignette gives a basic overview of the core functionality of the
+zoomerjoin package. Zoomerjoin empowers you to fuzzily-match datasets with
+millions of rows in seconds, while staying light on memory usage.
+
+### Basic Syntax:
+
+If you're familiar with the logical-join syntax from `dplyr`, then you already
+know how to use fuzzy join to join two datasets. Zoomerjoin provides
+`lsh_inner_join` and `lsh_full_join` (among others), which are the
+fuzzy-joining analogues of the corresponding dplyr functions.
+
+I demonstrate the syntax by using the package to join to corpuses, which formed
+from entries from the [Database on Ideology, Money in Politics, and Elections
+(DIME)](https://data.stanford.edu/dime) (Bonica 2016).
+
+The first corpus looks as follows:
+
+```{r}
+corpus_1
+```
+
+And the second looks as follows:
+
+```{r}
+corpus_2
+```
+
+The two Corpuses can't be directly joined because of misspellings. This means
+we must use the fuzzy-matching capabilities of zoomerjoin:
+
+```{r}
+start_time <- Sys.time()
+join_out <- lsh_inner_join(corpus_1, corpus_2,
+                           by = "field", n_gram_width=6,
+                           n_bands=20, band_width=6, threshold = .8)
+print(Sys.time() - start_time)
+print(join_out)
+```
+
+Below, I provide a short description of the arguments.
+
+The first two arguments, `a`, and `b`, are direct analogues of the `dplyr`
+arguments, and are the two data frames you want to join. The `by` field also
+acts the same as it does in 'dplyr' (it provides the function the columns you
+want to match on).
+
+The `n_gram_width` parameter determines how wide the n-grams that are used in
+the similarity evaluation should be, while the `threshold` argument determines
+how similar a pair of strings has to be (in Jaccard similarity) to be
+considered a match. Users of the `stringdist` or `fuzzyjoin` package will be
+familiar with both of these arguments, but should bear in mind that those
+packages measure *string distance* (where a distance of 0 indicates complete
+similarity), while this package operates on *string similarity,* so a threshold
+of .8 will keep matches above 80% Jaccard similarity.
+
+The `n_bands` and `band_width` parameters govern the performance of the LSH.
+The default parameters should perform well for medium-size (n < 10^7) datasets
+where matches are somewhat similar (similarity > .8), but may require tuning in
+other settings. For more details, the `textreuse` package has an excellent
+vignette, and I have re-implemented many of it's profiling tools in another
+section.
+
+### References:
+
+Bonica, Adam. 2016. Database on Ideology, Money in Politics, and Elections: Public version 2.0 [Computer file]. Stanford, CA: Stanford University Libraries.
