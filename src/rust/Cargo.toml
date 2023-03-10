@@ -10,10 +10,12 @@ name = 'zoomerjoin'
 [dependencies]
 dashmap = "5.4.0"
 extendr-api = {version ="0.3.1", features =["ndarray"]}
+kdtree = "0.7.0"
 ndarray = {version ="0.15.6", features = ["rayon"]}
 ndarray-rand = "0.14.0"
 nohash-hasher = "0.2.0"
 num_cpus = "1.15.0"
+ordered-float = "3.4.0"
 rand = "0.8.5"
 rayon = "1.6.1"
 rustc-hash = "1.1.0"

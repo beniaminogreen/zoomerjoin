@@ -3,6 +3,9 @@ use extendr_api::prelude::*;
 
 use rayon::prelude::*;
 
+use kdtree::KdTree;
+use kdtree::distance::squared_euclidean;
+
 pub mod shingleset;
 use crate::shingleset::ShingleSet;
 
@@ -65,6 +68,7 @@ fn rust_lsh_join(
     Robj::try_from(&out_arr).into()
 }
 
+/// @export
 #[extendr]
 fn rust_salted_lsh_join(
     left_string_r: Robj,
@@ -101,6 +105,37 @@ fn rust_salted_lsh_join(
     Robj::try_from(&out_arr).into()
 }
 
+/// @export
+#[extendr]
+fn rust_kd_join(a_mat : Robj, b_mat : Robj, radius : f64) -> Robj {
+    let a_mat = <ArrayView2<f64>>::from_robj(&a_mat)
+        .unwrap()
+        .to_owned();
+
+    let b_mat = <ArrayView2<f64>>::from_robj(&b_mat)
+        .unwrap()
+        .to_owned();
+
+    let mut kdtree = KdTree::with_capacity(2,a_mat.nrows());
+    for (i, row) in a_mat.axis_iter(Axis(0)).enumerate() {
+        kdtree.add([row[0], row[1]] ,i+1).expect("error loading tree");
+    }
+
+    let mut matches : Vec<[u64; 2]> = Vec::new();
+
+    for (j, row) in b_mat.axis_iter(Axis(0)).enumerate() {
+        let closest = kdtree.within(&[row[0], row[1]] ,radius, &squared_euclidean).unwrap();
+        for (_, i) in closest {
+            matches.push([*i as u64 ,(j+1) as u64 ]);
+        }
+    }
+
+    let out_arr: Array2<u64> = matches.into();
+
+    Robj::try_from(&out_arr).into()
+}
+
+
 // Macro to generate exports.
 // This ensures exported functions are registered with R.
 // See corresponding C code in `entrypoint.c`.
@@ -108,6 +143,7 @@ extendr_module! {
     mod zoomerjoin;
     fn rust_lsh_join;
     fn rust_salted_lsh_join;
+    fn rust_kd_join;
     fn rust_jaccard_similarity;
     // fn em_link;
 }
