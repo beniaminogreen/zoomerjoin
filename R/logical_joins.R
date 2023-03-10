@@ -40,7 +40,7 @@
 #'
 #' @export
 lsh_inner_join <- function(a, b, by = NULL, block_by = NULL, n_gram_width = 2, n_bands = 45,
-                           band_width = 8, threshold = .95) { lsh_join(a, b,
+                           band_width = 8, threshold = .7) { lsh_join(a, b,
                            mode = "inner", by = by, salt_by = block_by, n_gram_width =
                                n_gram_width, n_bands = n_bands, band_width =
                                band_width, threshold =  threshold) }
@@ -92,7 +92,7 @@ lsh_anti_join <- function(a, b,
                             n_gram_width = 2,
                             n_bands = 45,
                             band_width = 8,
-                            threshold = .95) {
+                            threshold = .7) {
     lsh_join(a, b, mode = "anti", by = by,
                 salt_by = block_by,
                    n_gram_width = n_gram_width,
@@ -147,7 +147,7 @@ lsh_left_join <- function(a, b,
                             n_gram_width = 2,
                             n_bands = 45,
                             band_width = 8,
-                            threshold = .95) {
+                            threshold = .7) {
     lsh_join(a, b, mode = "left", by = by,
                 salt_by = block_by,
                    n_gram_width = n_gram_width,
@@ -202,7 +202,7 @@ lsh_right_join <- function(a, b,
                             n_gram_width = 2,
                             n_bands = 45,
                             band_width = 8,
-                            threshold = .95) {
+                            threshold = .7) {
     lsh_join(a, b, mode = "right", by = by,
                 salt_by = block_by,
                    n_gram_width = n_gram_width,
@@ -257,7 +257,7 @@ lsh_full_join <- function(a, b,
                             n_gram_width = 2,
                             n_bands = 45,
                             band_width = 8,
-                            threshold = .95) {
+                            threshold = .7) {
     lsh_join(a, b, mode = "full", by = by,
         salt_by = block_by,
         n_gram_width = n_gram_width,
