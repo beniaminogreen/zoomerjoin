@@ -10,7 +10,7 @@ test_that("kd_join_core works on toy datasets", {
         X_1$id_1 <- 1:n
         X_2$id_2 <- 1:n
 
-        join_out <- kd_join_core(X_1, X_2, radius=.00005)
+        join_out <- kd_join_core(X_1, X_2, threshold =.00005)
 
         expect_true(all(join_out$id_1 == join_out$id_2))
 
