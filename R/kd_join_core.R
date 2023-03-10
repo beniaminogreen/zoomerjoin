@@ -23,9 +23,9 @@ kd_by_validate <- function(a,b, by) {
 }
 
 #' @export
-kd_join_core <- function (a, b, by = NULL, radius=1.0, mode="inner") {
+kd_join_core <- function (a, b, by = NULL, threshold=1.0, mode="inner") {
 
-    stopifnot("'radius' must be greater than 0" = radius > 0)
+    stopifnot("'radius' must be greater than 0" = threshold > 0)
 
     by <- kd_by_validate(a,b,by)
     by_a <- by[[1]]
@@ -47,7 +47,7 @@ kd_join_core <- function (a, b, by = NULL, radius=1.0, mode="inner") {
                                       dplyr::pull(b, by_b[1]),
                                       dplyr::pull(b, by_b[2])
                                       ),
-                                radius^2
+                                threshold^2
                                 )
 
     names_in_both <- intersect(names(a), names(b))
