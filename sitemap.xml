@@ -28,6 +28,21 @@
     <loc>https://beniaminogreen.github.io/zoomerjoin/reference/jaccard_similarity.html</loc>
   </url>
   <url>
+    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/kd_anti_join.html</loc>
+  </url>
+  <url>
+    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/kd_full_join.html</loc>
+  </url>
+  <url>
+    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/kd_inner_join.html</loc>
+  </url>
+  <url>
+    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/kd_left_join.html</loc>
+  </url>
+  <url>
+    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/kd_right_join.html</loc>
+  </url>
+  <url>
     <loc>https://beniaminogreen.github.io/zoomerjoin/reference/lsh_anti_join.html</loc>
   </url>
   <url>
