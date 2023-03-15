@@ -21,7 +21,11 @@ names(corpus_2) <- c("b", "field")
 ```
 
 
-# zoomerjoin [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+# zoomerjoin
+<!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![Codecov test coverage](https://codecov.io/gh/beniaminogreen/zoomerjoin/branch/main/graph/badge.svg)](https://app.codecov.io/gh/beniaminogreen/zoomerjoin?branch=main)
+<!-- badges: end -->
 
 INSANELY, BLAZINGLY FAST fuzzy joins in R. Implimented using
 [MinHash](https://en.wikipedia.org/wiki/MinHash) to cut down on the number of
