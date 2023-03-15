@@ -22,7 +22,7 @@ simple_by_validate <- function(a,b, by) {
                 ))
 }
 
-lsh_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands, band_width, threshold, a_salt = NULL, b_salt = NULL) {
+lsh_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands, band_width, threshold, a_salt = NULL, b_salt = NULL, clean=F) {
 
     stopifnot("'threshold' must be between 0 and 1" = threshold <= 1 & threshold>=0)
     stopifnot("'n_bands' must be greater than 0" = n_bands > 0)
@@ -50,15 +50,32 @@ lsh_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands, band_width
         stopifnot("There should be no NA's in by_b"=!any(is.na(dplyr::pull(b,salt_by_b))))
     }
 
+    if (clean){
+        a_col <- gsub("[[:punct:] ]", "", dplyr::pull(a,by_a))
+        b_col <- gsub("[[:punct:] ]", "", dplyr::pull(b,by_b))
+
+        if (!is.null(salt_by_a) && !is.null(salt_by_b)) {
+            a_salt_col <- gsub("[[:punct:] ]", "", dplyr::pull(a,salt_by_a))
+            b_salt_col <- gsub("[[:punct:] ]", "", dplyr::pull(b,salt_by_b))
+        }
+    } else{
+        a_col <- dplyr::pull(a,by_a)
+        b_col <- dplyr::pull(b,by_b)
+
+        if (!is.null(salt_by_a) && !is.null(salt_by_b)) {
+            a_salt_col <- dplyr::pull(a,salt_by_a)
+            b_salt_col <- dplyr::pull(b,salt_by_b)
+        }
+    }
 
     if (is.null(salt_by_a) | is.null(salt_by_b)) {
         match_table <- rust_lsh_join(
-                 dplyr::pull(a,by_a), dplyr::pull(b,by_b),
+                 a_col, b_col,
                  n_gram_width, n_bands, band_width, threshold)
     } else {
         match_table <- rust_salted_lsh_join(
-                 dplyr::pull(a,by_a), dplyr::pull(b,by_b),
-                 dplyr::pull(a, salt_by_a), dplyr::pull(b, salt_by_b),
+                 a_col, b_col,
+                 a_salt_col, b_salt_col,
                  n_gram_width, n_bands, band_width, threshold)
     }
 
