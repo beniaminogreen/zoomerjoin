@@ -35,7 +35,3 @@ test_that("kd_join_core works on toy datasets", {
     })
     }
 })
-
-
-
-devtools::load_all()
