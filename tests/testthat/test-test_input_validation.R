@@ -29,6 +29,10 @@ test_that("validates n_gram_width is positive", {
         expect_error(lsh_inner_join(a,b, n_gram_width = -5), regexp = "n_gram_width")
 })
 
+test_that("validates mode is correct", {
+        expect_error(kd_join_core(a,b, by = "string", mode="000000000"))
+})
+
 test_that("Throws error when no shared columns", {
         a2 <- a
         names(a2) <- c('ajaaj', 'ahah')
