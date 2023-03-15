@@ -15,7 +15,7 @@ n <- 500000
 corpus_1 <- read_csv("vignettes/bonica.csv")  %>%
     head(n)
 names(corpus_1) <- c("a", "field")
-corpus_2 <- read_csv("bonica.csv")  %>%
+corpus_2 <- read_csv("vignettes/bonica.csv")  %>%
     tail(n)
 names(corpus_2) <- c("b", "field")
 ```
