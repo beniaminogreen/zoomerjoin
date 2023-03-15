@@ -53,6 +53,17 @@ test_that("lsh_inner_join works on tiny dataset", {
     expect_identical(sort(test$id_2), c(1,2))
 
 })
+test_that("lsh_full_join works on tiny dataset", {
+    capture_messages(
+        test <- lsh_full_join(dataset_1, dataset_2, threshold=.6)
+    )
+
+    expect_true(all(test$id_1 == test$id_2, na.rm=T))
+
+    expect_identical(sort(test$id_1), c(1,2,3))
+    expect_identical(sort(test$id_2), c(1,2,3))
+
+})
 test_that("lsh_left_join works on tiny dataset", {
     capture_messages(
         test <- lsh_left_join(dataset_1, dataset_2, threshold=.6)
