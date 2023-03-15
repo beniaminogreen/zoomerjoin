@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   benchmarks: benchmarks.html
   guided_tour: guided_tour.html
-last_built: 2023-03-15T18:37Z
+last_built: 2023-03-15T19:54Z
 urls:
   reference: https://beniaminogreen.github.io/zoomerjoin/reference
   article: https://beniaminogreen.github.io/zoomerjoin/articles
