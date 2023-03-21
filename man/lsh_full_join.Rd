@@ -12,7 +12,8 @@ lsh_full_join(
   n_gram_width = 2,
   n_bands = 45,
   band_width = 8,
-  threshold = 0.7
+  threshold = 0.7,
+  clean = FALSE
 )
 }
 \arguments{

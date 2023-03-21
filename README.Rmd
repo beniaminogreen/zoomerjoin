@@ -27,10 +27,18 @@ names(corpus_2) <- c("b", "field")
 [![Codecov test coverage](https://codecov.io/gh/beniaminogreen/zoomerjoin/branch/main/graph/badge.svg)](https://app.codecov.io/gh/beniaminogreen/zoomerjoin?branch=main)
 <!-- badges: end -->
 
-INSANELY, BLAZINGLY FAST fuzzy joins in R. Implimented using
-[MinHash](https://en.wikipedia.org/wiki/MinHash) to cut down on the number of
-comparisons that need to be made in calculating matches. This results in
-matches that return orders of magnitude faster than other matches.
+zoomerjoin is an R package that empowers you to fuzzy-join massive datasets
+rapidly, and with little memory consumption. Its backbone is a high-performance
+implementation of [MinHash](https://en.wikipedia.org/wiki/MinHash), an
+algorithm which shortcuts the expensive computational step of comparing all
+possible pairings of records between the two datasets. In practice, this means
+zoomerjoin can fuzzily-join datasets days, or even years faster than other
+matching packages. zoomerjoin has been used in-production to join datasets of
+hundreds of millions of names in a few hours.
+
+The package also wraps the [kdtree](https://docs.rs/kdtree/latest/kdtree/) Rust
+crate to provide blazingly fast spatial joins.
+
 
 #### Installation
 
@@ -39,23 +47,25 @@ matches that return orders of magnitude faster than other matches.
 ##### Installing Rust:
 
 You must have [Rust](https://www.rust-lang.org/tools/install) installed to
-compile this package. The rust website provides an excellent installation
-script that has never caused me any issues.
+compile this package. After the package is compiled, Rust is no longer
+required, and can be safely uninstalled.
 
-On Linux or MacOs, you can install Rust with:
+To install Rust on windows, you can use the Rust installation wizard, found
+[here](https://forge.rust-lang.org/infra/other-installation-methods.html). On
+Linux or MacOs, you can install Rust with:
 
 ``` sh
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-On Windows, I use the rust installation wizard, found
-[here](https://forge.rust-lang.org/infra/other-installation-methods.html).
 
 ##### Installing Package from Github:
 
-Once you install Rust, you should be able to install the package with:
+Once you have rust installed Rust, you should be able to install the package
+with:
 
 ``` r
+#install.packages("devtools")
 devtools::install_github("beniaminogreen/zoomerjoin")
 ```
 
@@ -63,8 +73,8 @@ devtools::install_github("beniaminogreen/zoomerjoin")
 
 ---
 
-The package provides the following functions, which are designed to be near to
-drop-ins for the corresponding dplyr/fuzzyjoin commands:
+zoomerjoin provides the lsh_join family of functions, which are designed to be
+near drop-ins for the corresponding dplyr/fuzzyjoin commands:
 
 * `lsh_left_join()`
 * `lsh_right_join()`

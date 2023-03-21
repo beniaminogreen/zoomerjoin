@@ -9,11 +9,19 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 coverage](https://codecov.io/gh/beniaminogreen/zoomerjoin/branch/main/graph/badge.svg)](https://app.codecov.io/gh/beniaminogreen/zoomerjoin?branch=main)
 <!-- badges: end -->
 
-INSANELY, BLAZINGLY FAST fuzzy joins in R. Implimented using
-[MinHash](https://en.wikipedia.org/wiki/MinHash) to cut down on the
-number of comparisons that need to be made in calculating matches. This
-results in matches that return orders of magnitude faster than other
-matches.
+zoomerjoin is an R package that empowers you to fuzzy-join massive
+datasets rapidly, and with little memory consumption. Its backbone is a
+high-performance implementation of
+[MinHash](https://en.wikipedia.org/wiki/MinHash), an algorithm which
+shortcuts the expensive computational step of comparing all possible
+pairings of records between the two datasets. In practice, this means
+zoomerjoin can fuzzily-join datasets days, or even years faster than
+other matching packages. zoomerjoin has been used in-production to join
+datasets of hundreds of millions of names in a few hours.
+
+The package also wraps the
+[kdtree](https://docs.rs/kdtree/latest/kdtree/) Rust crate to provide
+blazingly fast spatial joins.
 
 #### Installation
 
@@ -22,23 +30,25 @@ matches.
 ##### Installing Rust:
 
 You must have [Rust](https://www.rust-lang.org/tools/install) installed
-to compile this package. The rust website provides an excellent
-installation script that has never caused me any issues.
+to compile this package. After the package is compiled, Rust is no
+longer required, and can be safely uninstalled.
 
+To install Rust on windows, you can use the Rust installation wizard,
+found
+[here](https://forge.rust-lang.org/infra/other-installation-methods.html).
 On Linux or MacOs, you can install Rust with:
 
 ``` sh
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-On Windows, I use the rust installation wizard, found
-[here](https://forge.rust-lang.org/infra/other-installation-methods.html).
-
 ##### Installing Package from Github:
 
-Once you install Rust, you should be able to install the package with:
+Once you have rust installed Rust, you should be able to install the
+package with:
 
 ``` r
+#install.packages("devtools")
 devtools::install_github("beniaminogreen/zoomerjoin")
 ```
 
@@ -46,8 +56,8 @@ devtools::install_github("beniaminogreen/zoomerjoin")
 
 ------------------------------------------------------------------------
 
-The package provides the following functions, which are designed to be
-near to drop-ins for the corresponding dplyr/fuzzyjoin commands:
+zoomerjoin provides the lsh_join family of functions, which are designed
+to be near drop-ins for the corresponding dplyr/fuzzyjoin commands:
 
 - `lsh_left_join()`
 - `lsh_right_join()`
@@ -113,26 +123,26 @@ join_out <- lsh_inner_join(corpus_1, corpus_2, n_gram_width=6, n_bands=20, band_
 print(Sys.time() - start_time)
 ```
 
-    ## Time difference of 9.633906 secs
+    ## Time difference of 9.592785 secs
 
 ``` r
 print(join_out)
 ```
 
-    ## # A tibble: 176,367 × 4
+    ## # A tibble: 181,266 × 4
     ##         a field.x                                                      b field.y
     ##     <dbl> <chr>                                                    <dbl> <chr>  
-    ##  1 286800 buffalo teachers federation inc                         1.07e6 buffal…
-    ##  2  20694 calaveras county democratic central cmte                1.16e6 ch cou…
-    ##  3 375638 drc development llc                                     1.08e6 dc dev…
-    ##  4 106547 or league of conservation voters                        8.91e5 texas …
-    ##  5  55079 houston fire fighters pac,                              8.35e5 housto…
-    ##  6 239797 dhp holdings llc                                        1.17e6 wp hol…
-    ##  7  98767 united health alliance                                  1.06e6 united…
-    ##  8  55756 the hartford advocates fund multi candidate committee   8.80e5 hartfo…
-    ##  9 430560 thompson leasing co                                     8.90e5 thomps…
-    ## 10  74095 international brotherhood of electrical workers local … 9.60e5 intern…
-    ## # … with 176,357 more rows
+    ##  1 421197 tyus family limited partnership                         1.28e6 klein …
+    ##  2 264740 arg development corp                                    1.21e6 hr dev…
+    ##  3  88713 ross county republican party                            1.23e6 pettis…
+    ##  4 401680 winnland realtors                                       8.88e5 winnla…
+    ##  5 467310 scherr & legate                                         8.64e5 scherr…
+    ##  6  52763 american federation of state, county and municipal emp… 8.58e5 americ…
+    ##  7  57682 american federation of state & municipal employees ca … 9.96e5 americ…
+    ##  8  52581 santa clara county republican party                     9.02e5 santa …
+    ##  9  83650 plumbers & pipefitters local 160                        1.23e6 plumbe…
+    ## 10  35800 the american electric power company texas committee fo… 9.33e5 the am…
+    ## # … with 181,256 more rows
 
 ZoomerJoin finds and joins on the matching rows in just a few seconds.
 
