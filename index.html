@@ -71,7 +71,8 @@
 </div>
 <!-- badges: start -->
 
-<p>INSANELY, BLAZINGLY FAST fuzzy joins in R. Implimented using <a href="https://en.wikipedia.org/wiki/MinHash" class="external-link">MinHash</a> to cut down on the number of comparisons that need to be made in calculating matches. This results in matches that return orders of magnitude faster than other matches.</p>
+<p>zoomerjoin is an R package that empowers you to fuzzy-join massive datasets rapidly, and with little memory consumption. Its backbone is a high-performance implementation of <a href="https://en.wikipedia.org/wiki/MinHash" class="external-link">MinHash</a>, an algorithm which shortcuts the expensive computational step of comparing all possible pairings of records between the two datasets. In practice, this means zoomerjoin can fuzzily-join datasets days, or even years faster than other matching packages. zoomerjoin has been used in-production to join datasets of hundreds of millions of names in a few hours.</p>
+<p>The package also wraps the <a href="https://docs.rs/kdtree/latest/kdtree/" class="external-link">kdtree</a> Rust crate to provide blazingly fast spatial joins.</p>
 <div class="section level4">
 <h4 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h4>
@@ -79,24 +80,24 @@
 <div class="section level5">
 <h5 id="installing-rust">Installing Rust:<a class="anchor" aria-label="anchor" href="#installing-rust"></a>
 </h5>
-<p>You must have <a href="https://www.rust-lang.org/tools/install" class="external-link">Rust</a> installed to compile this package. The rust website provides an excellent installation script that has never caused me any issues.</p>
-<p>On Linux or MacOs, you can install Rust with:</p>
+<p>You must have <a href="https://www.rust-lang.org/tools/install" class="external-link">Rust</a> installed to compile this package. After the package is compiled, Rust is no longer required, and can be safely uninstalled.</p>
+<p>To install Rust on windows, you can use the Rust installation wizard, found <a href="https://forge.rust-lang.org/infra/other-installation-methods.html" class="external-link">here</a>. On Linux or MacOs, you can install Rust with:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">--proto</span> <span class="st">'=https'</span> <span class="at">--tlsv1.2</span> <span class="at">-sSf</span> https://sh.rustup.rs <span class="kw">|</span> <span class="fu">sh</span></span></code></pre></div>
-<p>On Windows, I use the rust installation wizard, found <a href="https://forge.rust-lang.org/infra/other-installation-methods.html" class="external-link">here</a>.</p>
 </div>
 <div class="section level5">
 <h5 id="installing-package-from-github">Installing Package from Github:<a class="anchor" aria-label="anchor" href="#installing-package-from-github"></a>
 </h5>
-<p>Once you install Rust, you should be able to install the package with:</p>
+<p>Once you have rust installed Rust, you should be able to install the package with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"beniaminogreen/zoomerjoin"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">#install.packages("devtools")</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"beniaminogreen/zoomerjoin"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level3">
 <h3 id="usage">Usage:<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h3>
 <hr>
-<p>The package provides the following functions, which are designed to be near to drop-ins for the corresponding dplyr/fuzzyjoin commands:</p>
+<p>zoomerjoin provides the lsh_join family of functions, which are designed to be near drop-ins for the corresponding dplyr/fuzzyjoin commands:</p>
 <ul>
 <li><code><a href="reference/lsh_left_join.html">lsh_left_join()</a></code></li>
 <li><code><a href="reference/lsh_right_join.html">lsh_right_join()</a></code></li>
@@ -146,23 +147,23 @@
 <div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Joining by 'field'</span></span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="va">start_time</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Time difference of 9.633906 secs</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Time difference of 9.592785 secs</span></span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">join_out</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 176,367 × 4</span></span>
+<div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 181,266 × 4</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="do">##         a field.x                                                      b field.y</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="do">##     &lt;dbl&gt; &lt;chr&gt;                                                    &lt;dbl&gt; &lt;chr&gt;  </span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 286800 buffalo teachers federation inc                         1.07e6 buffal…</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  2  20694 calaveras county democratic central cmte                1.16e6 ch cou…</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 375638 drc development llc                                     1.08e6 dc dev…</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 106547 or league of conservation voters                        8.91e5 texas …</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  5  55079 houston fire fighters pac,                              8.35e5 housto…</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 239797 dhp holdings llc                                        1.17e6 wp hol…</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  7  98767 united health alliance                                  1.06e6 united…</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  8  55756 the hartford advocates fund multi candidate committee   8.80e5 hartfo…</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 430560 thompson leasing co                                     8.90e5 thomps…</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 10  74095 international brotherhood of electrical workers local … 9.60e5 intern…</span></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 176,357 more rows</span></span></code></pre></div>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 421197 tyus family limited partnership                         1.28e6 klein …</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 264740 arg development corp                                    1.21e6 hr dev…</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  3  88713 ross county republican party                            1.23e6 pettis…</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 401680 winnland realtors                                       8.88e5 winnla…</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 467310 scherr &amp; legate                                         8.64e5 scherr…</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  6  52763 american federation of state, county and municipal emp… 8.58e5 americ…</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  7  57682 american federation of state &amp; municipal employees ca … 9.96e5 americ…</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  8  52581 santa clara county republican party                     9.02e5 santa …</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  9  83650 plumbers &amp; pipefitters local 160                        1.23e6 plumbe…</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 10  35800 the american electric power company texas committee fo… 9.33e5 the am…</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 181,256 more rows</span></span></code></pre></div>
 <p>ZoomerJoin finds and joins on the matching rows in just a few seconds.</p>
 </div>
 <div class="section level2">
