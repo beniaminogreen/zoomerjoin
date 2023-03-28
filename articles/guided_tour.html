@@ -113,7 +113,7 @@ Politics, and Elections (DIME)</a> (Bonica 2016).</p>
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span>     8 minnesota gun owners' political victory fund                           </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span>     9 metropolitan detroit afl cio cope committee                            </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span>    10 carpenters legislative improvement committee united brotherhood of car…</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 499,990 more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># ℹ 499,990 more rows</span></span></span></code></pre>
 <p>And the second looks as follows:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">corpus_2</span></span></code></pre></div>
@@ -130,7 +130,7 @@ Politics, and Elections (DIME)</a> (Bonica 2016).</p>
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> <span style="text-decoration: underline;">832</span>478 arvance turkey ranch inc            </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> <span style="text-decoration: underline;">832</span>479 arizona federation of teachers      </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> <span style="text-decoration: underline;">832</span>480 arianas restaurant                  </span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 499,990 more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># ℹ 499,990 more rows</span></span></span></code></pre>
 <p>The two Corpuses can’t be directly joined because of misspellings.
 This means we must use the fuzzy-matching capabilities of
 zoomerjoin:</p>
@@ -140,23 +140,23 @@ zoomerjoin:</p>
 <span>                           by <span class="op">=</span> <span class="st">"field"</span>, n_gram_width<span class="op">=</span><span class="fl">6</span>,</span>
 <span>                           n_bands<span class="op">=</span><span class="fl">20</span>, band_width<span class="op">=</span><span class="fl">6</span>, threshold <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="va">start_time</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Time difference of 28.87714 secs</span></span></code></pre>
+<pre><code><span><span class="co">## Time difference of 31.08722 secs</span></span></code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">join_out</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 47,817 × 4</span></span></span>
-<span><span class="co">##         a field.x                                        b field.y              </span></span>
-<span><span class="co">##     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> <span style="text-decoration: underline;">245</span>786 bs contracting inc                       1<span style="text-decoration: underline;">130</span>090 k&amp;s contracting inc  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">85</span>393 william murphy funeral home              1<span style="text-decoration: underline;">172</span>688 william murphy funer…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> <span style="text-decoration: underline;">171</span>752 plumbers &amp; pipefitters local 14          1<span style="text-decoration: underline;">097</span>221 plumbers &amp; pipefitte…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">43</span>396 boyle county democratic executive cmte   1<span style="text-decoration: underline;">071</span>314 noble county democra…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">82</span>156 electrical workers local 81              1<span style="text-decoration: underline;">147</span>276 electrical workers l…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">75</span>453 the committee for responsible government  <span style="text-decoration: underline;">985</span>568 committee for respon…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> <span style="text-decoration: underline;">122</span>351 sills cummis &amp; gross                     1<span style="text-decoration: underline;">090</span>066 sills cummis &amp; gross…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">64</span>511 friends of jim maloney                   1<span style="text-decoration: underline;">107</span>819 friends of jim malone</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> <span style="text-decoration: underline;">192</span>060 van der kemp, florence h                 1<span style="text-decoration: underline;">298</span>690 van der kemp, floren…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span> <span style="text-decoration: underline;">110</span>646 cmte to elect gary c ovitt supervisor     <span style="text-decoration: underline;">983</span>572 cte to elect gary c …</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 47,807 more rows</span></span></span></code></pre>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 47,967 × 4</span></span></span>
+<span><span class="co">##         a field.x                                                      b field.y</span></span>
+<span><span class="co">##     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">31</span>840 schlichter bogard &amp; denton                              1.21<span style="color: #949494;">e</span>6 schlic…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> <span style="text-decoration: underline;">187</span>123 st john, ellen m                                        1.28<span style="color: #949494;">e</span>6 st joh…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> <span style="text-decoration: underline;">314</span>844 mann enterprises                                        8.81<span style="color: #949494;">e</span>5 gann e…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">45</span>240 national organization for women                         8.45<span style="color: #949494;">e</span>5 ca nat…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">24</span>275 h &amp; g construction                                      1.22<span style="color: #949494;">e</span>6 r &amp; g …</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">37</span>720 law offices of phillip b greer                          9.07<span style="color: #949494;">e</span>5 law of…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">92</span>386 electrical workers local 2323                           1.15<span style="color: #949494;">e</span>6 electr…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> <span style="text-decoration: underline;">118</span>011 food &amp; commercial workers local 227                     1.14<span style="color: #949494;">e</span>6 food &amp;…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">70</span>481 associated builders and contractors of texas pac,       9.76<span style="color: #949494;">e</span>5 associ…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">70</span>560 american federation of state, county and municipal emp… 9.96<span style="color: #949494;">e</span>5 americ…</span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ 47,957 more rows</span></span></span></code></pre>
 <p>Below, I provide a short description of the arguments.</p>
 <p>The first two arguments, <code>a</code>, and <code>b</code>, are
 direct analogues of the <code>dplyr</code> arguments, and are the two

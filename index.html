@@ -87,7 +87,7 @@
 <div class="section level5">
 <h5 id="installing-package-from-github">Installing Package from Github:<a class="anchor" aria-label="anchor" href="#installing-package-from-github"></a>
 </h5>
-<p>Once you have rust installed Rust, you should be able to install the package with:</p>
+<p>Once you have rust installed Rust, you should be able to install the package with the <code>install_github</code> function from the <code>devtools</code> package:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#install.packages("devtools")</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"beniaminogreen/zoomerjoin"</span><span class="op">)</span></span></code></pre></div>
@@ -96,17 +96,15 @@
 <div class="section level3">
 <h3 id="usage">Usage:<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h3>
-<hr>
-<p>zoomerjoin provides the lsh_join family of functions, which are designed to be near drop-ins for the corresponding dplyr/fuzzyjoin commands:</p>
+<p>The flagship feature of zoomerjoins are the lsh_join family of functions, which are designed to be near drop-ins for the corresponding dplyr/fuzzyjoin commands:</p>
 <ul>
 <li><code><a href="reference/lsh_left_join.html">lsh_left_join()</a></code></li>
 <li><code><a href="reference/lsh_right_join.html">lsh_right_join()</a></code></li>
 <li><code><a href="reference/lsh_inner_join.html">lsh_inner_join()</a></code></li>
 <li><code><a href="reference/lsh_full_join.html">lsh_full_join()</a></code></li>
-<li><code><a href="reference/lsh_anti_join.html">lsh_anti_join()</a></code></li>
 </ul>
-<p>Here’s a snippet showing off how to use the <code>lhs_left_join()</code> command:</p>
-<p>I start with two corpses I would like to combine, <code>corpus_1</code>:</p>
+<p>Here’s a snippet showing off how to use the <code>lhs_inner_join()</code> merge two datasets of political donors in the <a href="https://data.stanford.edu/dime" class="external-link">Database on Ideology, Money in Politics, and Elections (DIME)</a>.</p>
+<p>I start with two corpuses I would like to combine, <code>corpus_1</code>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">corpus_1</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 500,000 × 2</span></span>
@@ -140,36 +138,38 @@
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 832479 arizona federation of teachers      </span></span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 832480 arianas restaurant                  </span></span>
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 499,990 more rows</span></span></code></pre></div>
-<p>The two Corpuses can’t be directly joined because of misspellings. This means we must use the fuzzy-matching capabilities of zoomerjoin:</p>
+<p>Both corpuses have an observation ID column, and a donor name column. We would like to join the two datasets on the donor names column, but the two can’t be directly joined because of misspellings. Because of this, we will use the lsh_inner_join function to fuzzily join the two on the donor name column.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">start_time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">join_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/lsh_inner_join.html">lsh_inner_join</a></span><span class="op">(</span><span class="va">corpus_1</span>, <span class="va">corpus_2</span>, n_gram_width<span class="op">=</span><span class="fl">6</span>, n_bands<span class="op">=</span><span class="fl">20</span>, band_width<span class="op">=</span><span class="fl">6</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Joining by 'field'</span></span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="va">start_time</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Time difference of 9.592785 secs</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Time difference of 11.51791 secs</span></span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">join_out</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 181,266 × 4</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="do">##         a field.x                                                      b field.y</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="do">##     &lt;dbl&gt; &lt;chr&gt;                                                    &lt;dbl&gt; &lt;chr&gt;  </span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 421197 tyus family limited partnership                         1.28e6 klein …</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 264740 arg development corp                                    1.21e6 hr dev…</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  3  88713 ross county republican party                            1.23e6 pettis…</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 401680 winnland realtors                                       8.88e5 winnla…</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 467310 scherr &amp; legate                                         8.64e5 scherr…</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  6  52763 american federation of state, county and municipal emp… 8.58e5 americ…</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  7  57682 american federation of state &amp; municipal employees ca … 9.96e5 americ…</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  8  52581 santa clara county republican party                     9.02e5 santa …</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  9  83650 plumbers &amp; pipefitters local 160                        1.23e6 plumbe…</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 10  35800 the american electric power company texas committee fo… 9.33e5 the am…</span></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 181,256 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 181,386 × 4</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="do">##         a field.x                                    b field.y                  </span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="do">##     &lt;dbl&gt; &lt;chr&gt;                                  &lt;dbl&gt; &lt;chr&gt;                    </span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 244482 c&amp;d properties llc                    882381 dvd properties llc       </span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 130873 general alarm                        1078391 general alarm co         </span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 331804 gentry county democratic womens club 1199331 stanley county democrati…</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 257098 epic mechanical contractors           980156 ach mechanical contracto…</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 123728 rms management services               998504 ag management services   </span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 228044 mbk construction inc                 1233272 peck construction inc    </span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 175185 rnm responsible citizens group        863855 tnmp pnm responsible cit…</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 375985 djc insurance &amp; financial services    882725 dga insurance &amp; financia…</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 422765 t &amp; s painting &amp; decorating inc      1132025 j&amp;t painting &amp; decoratin…</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 497812 plumbers &amp; pipefitters local 95      1228972 plumbers &amp; pipefitters l…</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 181,376 more rows</span></span></code></pre></div>
 <p>ZoomerJoin finds and joins on the matching rows in just a few seconds.</p>
 </div>
 <div class="section level2">
 <h2 id="references">References:<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
 <p>Bonica, Adam. 2016. Database on Ideology, Money in Politics, and Elections: Public version 2.0 [Computer file]. Stanford, CA: Stanford University Libraries.</p>
+<p>Jure Leskovec, Anand Rajaraman, and Jeffrey David Ullman. 2014. Mining of Massive Datasets (2nd. ed.). Cambridge University Press, USA.</p>
+<p>Broder, Andrei Z. (1997), “On the resemblance and containment of documents”, Compression and Complexity of Sequences: Proceedings. Positano, Salerno, Italy</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="license">
