@@ -8,7 +8,7 @@ library(tidyverse)
 library(microbenchmark)
 library(fuzzyjoin)
 
-rextendr::document()
+# rextendr::document()
 devtools::load_all()
 
 n <- 500000
@@ -58,11 +58,10 @@ Linux or MacOs, you can install Rust with:
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-
 ##### Installing Package from Github:
 
 Once you have rust installed Rust, you should be able to install the package
-with:
+with the `install_github` function from the `devtools` package:
 
 ``` r
 #install.packages("devtools")
@@ -71,32 +70,35 @@ devtools::install_github("beniaminogreen/zoomerjoin")
 
 ### Usage:
 
----
-
-zoomerjoin provides the lsh_join family of functions, which are designed to be
-near drop-ins for the corresponding dplyr/fuzzyjoin commands:
+The flagship feature of zoomerjoins are the lsh_join family of functions, which
+are designed to be near drop-ins for the corresponding dplyr/fuzzyjoin
+commands:
 
 * `lsh_left_join()`
 * `lsh_right_join()`
 * `lsh_inner_join()`
 * `lsh_full_join()`
-* `lsh_anti_join()`
 
-Here's a snippet showing off how to use the `lhs_left_join()` command:
+Here's a snippet showing off how to use the `lhs_inner_join()` merge two
+datasets of political donors in the [Database on Ideology, Money in Politics,
+and Elections (DIME)](https://data.stanford.edu/dime).
 
-I start with two corpses I would like to combine, `corpus_1`:
+I start with two corpuses I would like to combine, `corpus_1`:
 
 ```{r}
 corpus_1
 ```
 
 And `corpus_2`:
+
 ```{r}
 corpus_2
 ```
 
-The two Corpuses can't be directly joined because of misspellings. This means
-we must use the fuzzy-matching capabilities of zoomerjoin:
+Both corpuses have an observation ID column, and a donor name column. We would
+like to join the two datasets on the donor names column, but the two can't be
+directly joined because of misspellings. Because of this, we will use the
+lsh_inner_join function to fuzzily join the two on the donor name column.
 
 ```{r}
 start_time <- Sys.time()
@@ -110,3 +112,7 @@ ZoomerJoin finds and joins on the matching rows in just a few seconds.
 ## References:
 
 Bonica, Adam. 2016. Database on Ideology, Money in Politics, and Elections: Public version 2.0 [Computer file]. Stanford, CA: Stanford University Libraries.
+
+Jure Leskovec, Anand Rajaraman, and Jeffrey David Ullman. 2014. Mining of Massive Datasets (2nd. ed.). Cambridge University Press, USA.
+
+Broder, Andrei Z. (1997), "On the resemblance and containment of documents", Compression and Complexity of Sequences: Proceedings. Positano, Salerno, Italy
