@@ -45,7 +45,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ##### Installing Package from Github:
 
 Once you have rust installed Rust, you should be able to install the
-package with:
+package with the `install_github` function from the `devtools` package:
 
 ``` r
 #install.packages("devtools")
@@ -54,20 +54,20 @@ devtools::install_github("beniaminogreen/zoomerjoin")
 
 ### Usage:
 
-------------------------------------------------------------------------
-
-zoomerjoin provides the lsh_join family of functions, which are designed
-to be near drop-ins for the corresponding dplyr/fuzzyjoin commands:
+The flagship feature of zoomerjoins are the lsh_join family of
+functions, which are designed to be near drop-ins for the corresponding
+dplyr/fuzzyjoin commands:
 
 - `lsh_left_join()`
 - `lsh_right_join()`
 - `lsh_inner_join()`
 - `lsh_full_join()`
-- `lsh_anti_join()`
 
-Here’s a snippet showing off how to use the `lhs_left_join()` command:
+Here’s a snippet showing off how to use the `lhs_inner_join()` merge two
+datasets of political donors in the [Database on Ideology, Money in
+Politics, and Elections (DIME)](https://data.stanford.edu/dime).
 
-I start with two corpses I would like to combine, `corpus_1`:
+I start with two corpuses I would like to combine, `corpus_1`:
 
 ``` r
 corpus_1
@@ -109,8 +109,11 @@ corpus_2
     ## 10 832480 arianas restaurant                  
     ## # … with 499,990 more rows
 
-The two Corpuses can’t be directly joined because of misspellings. This
-means we must use the fuzzy-matching capabilities of zoomerjoin:
+Both corpuses have an observation ID column, and a donor name column. We
+would like to join the two datasets on the donor names column, but the
+two can’t be directly joined because of misspellings. Because of this,
+we will use the lsh_inner_join function to fuzzily join the two on the
+donor name column.
 
 ``` r
 start_time <- Sys.time()
@@ -123,26 +126,26 @@ join_out <- lsh_inner_join(corpus_1, corpus_2, n_gram_width=6, n_bands=20, band_
 print(Sys.time() - start_time)
 ```
 
-    ## Time difference of 9.592785 secs
+    ## Time difference of 11.51791 secs
 
 ``` r
 print(join_out)
 ```
 
-    ## # A tibble: 181,266 × 4
-    ##         a field.x                                                      b field.y
-    ##     <dbl> <chr>                                                    <dbl> <chr>  
-    ##  1 421197 tyus family limited partnership                         1.28e6 klein …
-    ##  2 264740 arg development corp                                    1.21e6 hr dev…
-    ##  3  88713 ross county republican party                            1.23e6 pettis…
-    ##  4 401680 winnland realtors                                       8.88e5 winnla…
-    ##  5 467310 scherr & legate                                         8.64e5 scherr…
-    ##  6  52763 american federation of state, county and municipal emp… 8.58e5 americ…
-    ##  7  57682 american federation of state & municipal employees ca … 9.96e5 americ…
-    ##  8  52581 santa clara county republican party                     9.02e5 santa …
-    ##  9  83650 plumbers & pipefitters local 160                        1.23e6 plumbe…
-    ## 10  35800 the american electric power company texas committee fo… 9.33e5 the am…
-    ## # … with 181,256 more rows
+    ## # A tibble: 181,386 × 4
+    ##         a field.x                                    b field.y                  
+    ##     <dbl> <chr>                                  <dbl> <chr>                    
+    ##  1 244482 c&d properties llc                    882381 dvd properties llc       
+    ##  2 130873 general alarm                        1078391 general alarm co         
+    ##  3 331804 gentry county democratic womens club 1199331 stanley county democrati…
+    ##  4 257098 epic mechanical contractors           980156 ach mechanical contracto…
+    ##  5 123728 rms management services               998504 ag management services   
+    ##  6 228044 mbk construction inc                 1233272 peck construction inc    
+    ##  7 175185 rnm responsible citizens group        863855 tnmp pnm responsible cit…
+    ##  8 375985 djc insurance & financial services    882725 dga insurance & financia…
+    ##  9 422765 t & s painting & decorating inc      1132025 j&t painting & decoratin…
+    ## 10 497812 plumbers & pipefitters local 95      1228972 plumbers & pipefitters l…
+    ## # … with 181,376 more rows
 
 ZoomerJoin finds and joins on the matching rows in just a few seconds.
 
@@ -151,3 +154,10 @@ ZoomerJoin finds and joins on the matching rows in just a few seconds.
 Bonica, Adam. 2016. Database on Ideology, Money in Politics, and
 Elections: Public version 2.0 \[Computer file\]. Stanford, CA: Stanford
 University Libraries.
+
+Jure Leskovec, Anand Rajaraman, and Jeffrey David Ullman. 2014. Mining
+of Massive Datasets (2nd. ed.). Cambridge University Press, USA.
+
+Broder, Andrei Z. (1997), “On the resemblance and containment of
+documents”, Compression and Complexity of Sequences: Proceedings.
+Positano, Salerno, Italy
