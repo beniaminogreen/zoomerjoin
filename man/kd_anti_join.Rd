@@ -21,3 +21,18 @@ two columns must be specified in each dataset (x column and y column).}
 \description{
 Spatial Anti Join Using KD-Trees
 }
+\examples{
+n <- 2000
+
+X_1 <- matrix(c(seq(0,1,1/(n-1)), seq(0,1,1/(n-1))), nrow=n)
+X_2 <- X_1 + .0000001
+X_1$id_1 <- 1:n
+X_2$id_2 <- 1:n
+
+X_1 <- as.data.frame(X_1)
+X_2 <- as.data.frame(X_2)
+
+kd_anti_join(X_1, X_2, threshold =.00005)
+
+
+}
