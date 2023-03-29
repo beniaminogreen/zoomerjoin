@@ -14,6 +14,22 @@ knitr::opts_chunk$set(
 )
 ```
 
+
+## Introduction
+
+In this short vignette, I show off benchmarks of the zoomerjoin package,
+comparing it to the excellent [fuzzyjoin](https://github.com/dgrtwo/fuzzyjoin)
+package. The two packages are designed to do different things - the fuzzyjoin
+package is *very fast,* and provides more distance functions (as well as other
+joining modes) - but it's a useful comparison as it shows off the time that can
+be saved using LSH relative to all pairwise comparisons, as long as you are
+okay with using Jaccard similarity.
+
+In the future, I am hoping to expand the package to implement [this LSH method
+for the edit
+distance](https://academic.oup.com/bioinformatics/article/35/14/i127/5529166),
+and will add it to the benchmarks when / if this feature is completed.
+
 ```{r setup, include=F}
 library(zoomerjoin)
 library(arrow)
@@ -21,15 +37,20 @@ library(tidyverse)
 benchmark_data <- read_parquet("benchmark.parquet")
 ```
 
-```{r}
+## Benchmarks
+
+Here, I show the time it takes fuzzyjoin and zoomerjoin to fuzzily join two
+datasets as the size of each dataset increases. Fuzzyjoin is initially quick,
+but the runtime scales with the square of the input size. Zoomerjoin is slower
+for small datasets but is less memory-intensive, and scales with the sum of
+the rows in each dataset, so it becomes quicker for larger datasets.
+
+```{r, echo=F}
 benchmark_data %>%
     ggplot(aes(x=n, y=time, group=Package, col = Package)) +
     geom_line() +
     geom_point() +
     ylab("Time to Process Joins \n (s)") +
     xlab("Number of Entries in Each Dataframe") +
-    theme_bw() +
-    theme(legend.position = "none")
+    theme_bw()
 ```
-
-
