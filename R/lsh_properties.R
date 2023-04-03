@@ -39,3 +39,36 @@ lsh_probability <- function(similarity, n_bands, band_width){
 }
 
 
+#' Choose the Appropriate LSH hyperparamaters
+#'
+#' @export
+lsh_hyperparameters <- function(s1=.1,s2=.7,p1=.001,p2=.999) {
+
+    stopifnot("similarity 1 must be less than similarity 2" = s1 < s2)
+    stopifnot("proability 1 must be less than similarity 2" = p1 < p2)
+
+    df <- expand.grid(
+                band_width = seq(1,20,1),
+                n_bands = seq(1,10000,1)
+            )
+
+    df$p1 <-lsh_probability(s1, n_bands = df$n_bands,  band_width = df$band_width)
+    df$p2 <-lsh_probability(s2, n_bands = df$n_bands,  band_width = df$band_width)
+
+    df$feasible <- (df$p1 < p1) & (df$p2 > p2)
+
+    df$prod <- df$band_width * df$n_bands
+
+    df <- df[df$feasible,]
+
+    selected <- which.min(df$prod)
+
+    return(c(
+        "band_width" = df$band_width[selected] ,
+        "n_bands" = df$n_bands[selected]
+      ))
+
+}
+
+
+
