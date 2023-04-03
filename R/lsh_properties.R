@@ -39,7 +39,7 @@ lsh_probability <- function(similarity, n_bands, band_width){
 }
 
 
-#' Choose the Appropriate LSH hyperparamaters
+#' Help Choose the Appropriate LSH Hyperparamaters
 #'
 #' Runs a grid search to find the hyperparameters that will achieve an
 #' (s1,s2,p1,p2)-sensitive locality sensitive hash. A locality sensitive hash
