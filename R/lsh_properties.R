@@ -39,7 +39,21 @@ lsh_probability <- function(similarity, n_bands, band_width){
 }
 
 
-#' Choose the Appropriate LSH hyperparamaters
+#' Help Choose the Appropriate LSH Hyperparamaters
+#'
+#' Runs a grid search to find the hyperparameters that will achieve an
+#' (s1,s2,p1,p2)-sensitive locality sensitive hash. A locality sensitive hash
+#' can be called (s1,s2,p1,p2)-sensitive if to strings with a similarity less
+#' than s1 have a less than p1 chance of being compared, while two strings with
+#' similarity s2 have a greater than p2 chance of being compared. As an
+#' example, a (.1,.7,.001,.999)-sensitive LSH means that strings with
+#' similarity less than .1 will have a .1% chance of being compared, while
+#' strings with .7 similarity have a 99.9% chance of being compared.
+#'
+#' @param s1: the s1 paramater (the first similaity).
+#' @param s2: the s2 parameter (the second similarity, must be greater than s1).
+#' @param p1: the p1 paramater (the first probability).
+#' @param p2: the p2 parameter (the second probability, must be greater than p1).
 #'
 #' @export
 lsh_hyperparameters <- function(s1=.1,s2=.7,p1=.001,p2=.999) {
