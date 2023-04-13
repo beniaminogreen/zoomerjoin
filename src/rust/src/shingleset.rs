@@ -11,7 +11,7 @@ pub struct ShingleSet {
 }
 
 impl ShingleSet {
-    pub fn new(string: &String, shingle_len: usize, index: usize, salt : Option<&String>) -> Self {
+    pub fn new(string: &str, shingle_len: usize, index: usize, salt : Option<&str>) -> Self {
         let mut out_set: IntSet<u32> = IntSet::default();
 
         let char_vec: Vec<char> = string.chars().collect();

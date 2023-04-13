@@ -3,6 +3,10 @@ use extendr_api::prelude::*;
 
 use rayon::prelude::*;
 
+use std::collections::HashMap;
+
+use itertools::Itertools;
+
 use kdtree::KdTree;
 use kdtree::distance::squared_euclidean;
 
@@ -52,8 +56,8 @@ fn rust_lsh_join(
     band_size: i64,
     threshold: f64,
 ) -> Robj {
-    let left_string_vec = <Vec<String>>::from_robj(&left_string_r).unwrap();
-    let right_string_vec = <Vec<String>>::from_robj(&right_string_r).unwrap();
+    let left_string_vec = left_string_r.as_str_vector().unwrap();
+    let right_string_vec = right_string_r.as_str_vector().unwrap();
 
     let joiner = LSHjoiner::new(left_string_vec, right_string_vec, ngram_width as usize);
 
@@ -80,11 +84,11 @@ fn rust_salted_lsh_join(
     band_size: i64,
     threshold: f64,
 ) -> Robj {
-    let left_string_vec = <Vec<String>>::from_robj(&left_string_r).unwrap();
-    let right_string_vec = <Vec<String>>::from_robj(&right_string_r).unwrap();
+    let left_string_vec = left_string_r.as_str_vector().unwrap();
+    let right_string_vec = right_string_r.as_str_vector().unwrap();
 
-    let left_salt_vec = <Vec<String>>::from_robj(&left_salt_r).unwrap();
-    let right_salt_vec = <Vec<String>>::from_robj(&right_salt_r).unwrap();
+    let right_salt_vec = right_salt_r.as_str_vector().unwrap();
+    let left_salt_vec = left_salt_r.as_str_vector().unwrap();
 
     let joiner = LSHjoiner::new_with_salt(
         left_string_vec,
@@ -145,5 +149,4 @@ extendr_module! {
     fn rust_salted_lsh_join;
     fn rust_kd_join;
     fn rust_jaccard_similarity;
-    // fn em_link;
 }
