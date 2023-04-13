@@ -3,10 +3,6 @@ use extendr_api::prelude::*;
 
 use rayon::prelude::*;
 
-use std::collections::HashMap;
-
-use itertools::Itertools;
-
 use kdtree::KdTree;
 use kdtree::distance::squared_euclidean;
 
