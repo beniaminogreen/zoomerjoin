@@ -3,6 +3,10 @@ use extendr_api::prelude::*;
 
 use rayon::prelude::*;
 
+use std::collections::HashMap;
+
+use itertools::Itertools;
+
 use kdtree::KdTree;
 use kdtree::distance::squared_euclidean;
 
@@ -145,5 +149,5 @@ extendr_module! {
     fn rust_salted_lsh_join;
     fn rust_kd_join;
     fn rust_jaccard_similarity;
-    // fn em_link;
+    fn felligi_sunter;
 }
