@@ -18,6 +18,3 @@ rust_kd_join <- function(a_mat, b_mat, radius) .Call(wrap__rust_kd_join, a_mat, 
 
 rust_jaccard_similarity <- function(left_string_r, right_string_r, ngram_width) .Call(wrap__rust_jaccard_similarity, left_string_r, right_string_r, ngram_width)
 
-#' @export
-felligi_sunter <- function(x_robj) .Call(wrap__felligi_sunter, x_robj)
-

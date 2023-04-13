@@ -15,8 +15,8 @@ pub struct LSHjoiner {
 
 impl LSHjoiner {
     pub fn new(
-        left_string_vec: Vec<String>,
-        right_string_vec: Vec<String>,
+        left_string_vec: Vec<&str>,
+        right_string_vec: Vec<&str>,
         ngram_width: usize
     ) -> Self {
         let left_set_vec: Vec<ShingleSet> = left_string_vec
@@ -37,10 +37,10 @@ impl LSHjoiner {
     }
 
     pub fn new_with_salt(
-        left_string_vec: Vec<String>,
-        right_string_vec: Vec<String>,
-        left_salt_vec: Vec<String>,
-        right_salt_vec: Vec<String>,
+        left_string_vec: Vec<&str>,
+        right_string_vec: Vec<&str>,
+        left_salt_vec: Vec<&str>,
+        right_salt_vec: Vec<&str>,
         ngram_width: usize
         ) -> Self {
 
