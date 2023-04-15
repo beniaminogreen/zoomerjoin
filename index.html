@@ -66,33 +66,39 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header">
-<img src="logo.png" class="logo" alt=""><h1 id="zoomerjoin">zoomerjoin<a class="anchor" aria-label="anchor" href="#zoomerjoin"></a>
+<img src="logo.png" class="logo" alt=""><h1 id="zoomerjoin-">zoomerjoin <a class="anchor" aria-label="anchor" href="#zoomerjoin-"></a>
 </h1>
 </div>
 <!-- badges: start -->
 
 <p>zoomerjoin is an R package that empowers you to fuzzy-join massive datasets rapidly, and with little memory consumption. Its backbone is a high-performance implementation of <a href="https://en.wikipedia.org/wiki/MinHash" class="external-link">MinHash</a>, an algorithm which shortcuts the expensive computational step of comparing all possible pairings of records between the two datasets. In practice, this means zoomerjoin can fuzzily-join datasets days, or even years faster than other matching packages. zoomerjoin has been used in-production to join datasets of hundreds of millions of names in a few hours.</p>
 <p>The package also wraps the <a href="https://docs.rs/kdtree/latest/kdtree/" class="external-link">kdtree</a> Rust crate to provide blazingly fast spatial joins.</p>
-<div class="section level4">
-<h4 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
-</h4>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <hr>
-<div class="section level5">
-<h5 id="installing-rust">Installing Rust:<a class="anchor" aria-label="anchor" href="#installing-rust"></a>
-</h5>
+<div class="section level3">
+<h3 id="preliminaries---installing-rust">Preliminaries - Installing Rust:<a class="anchor" aria-label="anchor" href="#preliminaries---installing-rust"></a>
+</h3>
 <p>You must have <a href="https://www.rust-lang.org/tools/install" class="external-link">Rust</a> installed to compile this package. After the package is compiled, Rust is no longer required, and can be safely uninstalled.</p>
 <p>To install Rust on windows, you can use the Rust installation wizard, found <a href="https://forge.rust-lang.org/infra/other-installation-methods.html" class="external-link">here</a>. On Linux or MacOs, you can install Rust with:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">--proto</span> <span class="st">'=https'</span> <span class="at">--tlsv1.2</span> <span class="at">-sSf</span> https://sh.rustup.rs <span class="kw">|</span> <span class="fu">sh</span></span></code></pre></div>
 </div>
-<div class="section level5">
-<h5 id="installing-package-from-github">Installing Package from Github:<a class="anchor" aria-label="anchor" href="#installing-package-from-github"></a>
-</h5>
+<div class="section level3">
+<h3 id="installing-package-from-github">Installing Package from Github:<a class="anchor" aria-label="anchor" href="#installing-package-from-github"></a>
+</h3>
 <p>Once you have rust installed Rust, you should be able to install the package with the <code>install_github</code> function from the <code>devtools</code> package:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#install.packages("devtools")</span></span>
+<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"beniaminogreen/zoomerjoin"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
+<div class="section level2">
+<h2 id="loading-the-package">Loading The Package<a class="anchor" aria-label="anchor" href="#loading-the-package"></a>
+</h2>
+<p>Load the package by typing</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://beniaminogreen.github.io/zoomerjoin/">zoomerjoin</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="usage">Usage:<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h3>
@@ -103,66 +109,67 @@
 <li><code><a href="reference/lsh_inner_join.html">lsh_inner_join()</a></code></li>
 <li><code><a href="reference/lsh_full_join.html">lsh_full_join()</a></code></li>
 </ul>
-<p>Here’s a snippet showing off how to use the <code>lhs_inner_join()</code> merge two datasets of political donors in the <a href="https://data.stanford.edu/dime" class="external-link">Database on Ideology, Money in Politics, and Elections (DIME)</a>.</p>
+<p>Here’s a snippet showing off how to use the <code>lhs_inner_join()</code> merge two datasets of political donors in the <a href="https://data.stanford.edu/dime" class="external-link">Database on Ideology, Money in Politics, and Elections (DIME)</a>. You can see a more detailed example of this vignette in the <a href="https://beniaminogreen.github.io/zoomerjoin/articles/guided_tour.html">introductory vignette</a>.</p>
 <p>I start with two corpuses I would like to combine, <code>corpus_1</code>:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">corpus_1</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 500,000 × 2</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="do">##        a field                                                                  </span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;dbl&gt; &lt;chr&gt;                                                                  </span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  1     1 ufwa cope committee                                                    </span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  2     2 committee to re elect charles e. bennett                               </span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  3     3 montana democratic party non federal account                           </span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  4     4 mississippi power &amp; light company management political action and educ…</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  5     5 napus pac for postmasters                                              </span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  6     6 aminoil good government fund                                           </span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  7     7 national women's political caucus of california                        </span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  8     8 minnesota gun owners' political victory fund                           </span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  9     9 metropolitan detroit afl cio cope committee                            </span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 10    10 carpenters legislative improvement committee united brotherhood of car…</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 499,990 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 500,000 × 2</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="do">##        a field                                                                  </span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;dbl&gt; &lt;chr&gt;                                                                  </span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  1     1 ufwa cope committee                                                    </span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  2     2 committee to re elect charles e. bennett                               </span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  3     3 montana democratic party non federal account                           </span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  4     4 mississippi power &amp; light company management political action and educ…</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  5     5 napus pac for postmasters                                              </span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  6     6 aminoil good government fund                                           </span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  7     7 national women's political caucus of california                        </span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  8     8 minnesota gun owners' political victory fund                           </span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  9     9 metropolitan detroit afl cio cope committee                            </span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 10    10 carpenters legislative improvement committee united brotherhood of car…</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 499,990 more rows</span></span></code></pre></div>
 <p>And <code>corpus_2</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">corpus_2</span></span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 500,000 × 2</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="do">##         b field                               </span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="do">##     &lt;dbl&gt; &lt;chr&gt;                               </span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 832471 avrp studios inc                    </span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 832472 avrd design                         </span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 832473 avenales cattle co                  </span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 832474 auto dealers of michigan political a</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 832475 atty &amp; counselor at law             </span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 832476 at&amp;t united way                     </span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 832477 ashland food &amp; liquors              </span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 832478 arvance turkey ranch inc            </span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 832479 arizona federation of teachers      </span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 832480 arianas restaurant                  </span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 499,990 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 500,000 × 2</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="do">##         b field                               </span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="do">##     &lt;dbl&gt; &lt;chr&gt;                               </span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 832471 avrp studios inc                    </span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 832472 avrd design                         </span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 832473 avenales cattle co                  </span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 832474 auto dealers of michigan political a</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 832475 atty &amp; counselor at law             </span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 832476 at&amp;t united way                     </span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 832477 ashland food &amp; liquors              </span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 832478 arvance turkey ranch inc            </span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 832479 arizona federation of teachers      </span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 832480 arianas restaurant                  </span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 499,990 more rows</span></span></code></pre></div>
 <p>Both corpuses have an observation ID column, and a donor name column. We would like to join the two datasets on the donor names column, but the two can’t be directly joined because of misspellings. Because of this, we will use the lsh_inner_join function to fuzzily join the two on the donor name column.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">start_time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">join_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/lsh_inner_join.html">lsh_inner_join</a></span><span class="op">(</span><span class="va">corpus_1</span>, <span class="va">corpus_2</span>, n_gram_width<span class="op">=</span><span class="fl">6</span>, n_bands<span class="op">=</span><span class="fl">20</span>, band_width<span class="op">=</span><span class="fl">6</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Joining by 'field'</span></span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Joining by 'field'</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="va">start_time</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Time difference of 9.075234 secs</span></span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Time difference of 9.807082 secs</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">join_out</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 178,204 × 4</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="do">##         a field.x                                        b field.y              </span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="do">##     &lt;dbl&gt; &lt;chr&gt;                                      &lt;dbl&gt; &lt;chr&gt;                </span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 445604 strange &amp; downing pc                      934593 strange &amp; downing pc…</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 301868 top side construction inc                 889906 top side construction</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  3  88848 plumbers &amp; pipefitters local 34          1097220 plumbers &amp; pipefitte…</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  4  88832 powell county republican central cmte    1103454 niob county republic…</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 109775 gordon anderson for state representative 1130996 keven anderson for s…</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  6  32856 law office of janet mccullar pc           864917 law office of janet …</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 415258 vep enterprises inc                      1077077 aep enterprises inc  </span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 121588 steelworkers local 5                      934842 steelworkers local 7…</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 227160 schultz engineering services inc         1209811 schultz engineering …</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 317814 j h design group                          972630 hh design group      </span></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 178,194 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 178,130 × 4</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="do">##         a field.x                                                      b field.y</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="do">##     &lt;dbl&gt; &lt;chr&gt;                                                    &lt;dbl&gt; &lt;chr&gt;  </span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 330353 gm transportation inc                                   1.27e6 ksea t…</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 319593 iowa association of realtors                            1.10e6 or ass…</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 143116 joaquin castro for state representative                 9.58e5 joaqui…</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  4  63678 los angeles turf club and its affiliated entity, pacif… 9.51e5 los an…</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  5  61672 faculty for our university s future, a committee spons… 8.82e5 facult…</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  6   7712 boise county republican central cmte                    1.20e6 sonoma…</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 363965 mlg family limited partnership                          9.07e5 lrc fa…</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  8  88701 sac county republican party                             1.26e6 luna c…</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 174972 north dakota republicans district 17                    1.10e6 north …</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 173608 pace of ca school employees                             8.73e5 pace o…</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 178,120 more rows</span></span></code></pre></div>
 <p>ZoomerJoin finds and joins on the matching rows in just a few seconds.</p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="references">References:<a class="anchor" aria-label="anchor" href="#references"></a>
