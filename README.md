@@ -1,5 +1,5 @@
 
-# zoomerjoin
+# zoomerjoin <img src='man/figures/logo.png' align="right" height="139" />
 
 <!-- badges: start -->
 
@@ -23,11 +23,11 @@ The package also wraps the
 [kdtree](https://docs.rs/kdtree/latest/kdtree/) Rust crate to provide
 blazingly fast spatial joins.
 
-#### Installation
+## Installation
 
 ------------------------------------------------------------------------
 
-##### Installing Rust:
+### Preliminaries - Installing Rust:
 
 You must have [Rust](https://www.rust-lang.org/tools/install) installed
 to compile this package. After the package is compiled, Rust is no
@@ -42,14 +42,22 @@ On Linux or MacOs, you can install Rust with:
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-##### Installing Package from Github:
+### Installing Package from Github:
 
 Once you have rust installed Rust, you should be able to install the
 package with the `install_github` function from the `devtools` package:
 
 ``` r
-#install.packages("devtools")
+# install.packages("devtools")
 devtools::install_github("beniaminogreen/zoomerjoin")
+```
+
+## Loading The Package
+
+Load the package by typing
+
+``` r
+library(zoomerjoin)
 ```
 
 ### Usage:
@@ -65,7 +73,9 @@ dplyr/fuzzyjoin commands:
 
 Here’s a snippet showing off how to use the `lhs_inner_join()` merge two
 datasets of political donors in the [Database on Ideology, Money in
-Politics, and Elections (DIME)](https://data.stanford.edu/dime).
+Politics, and Elections (DIME)](https://data.stanford.edu/dime). You can
+see a more detailed example of this vignette in the [introductory
+vignette](https://beniaminogreen.github.io/zoomerjoin/articles/guided_tour.html).
 
 I start with two corpuses I would like to combine, `corpus_1`:
 
@@ -126,26 +136,26 @@ join_out <- lsh_inner_join(corpus_1, corpus_2, n_gram_width=6, n_bands=20, band_
 print(Sys.time() - start_time)
 ```
 
-    ## Time difference of 9.075234 secs
+    ## Time difference of 9.807082 secs
 
 ``` r
 print(join_out)
 ```
 
-    ## # A tibble: 178,204 × 4
-    ##         a field.x                                        b field.y              
-    ##     <dbl> <chr>                                      <dbl> <chr>                
-    ##  1 445604 strange & downing pc                      934593 strange & downing pc…
-    ##  2 301868 top side construction inc                 889906 top side construction
-    ##  3  88848 plumbers & pipefitters local 34          1097220 plumbers & pipefitte…
-    ##  4  88832 powell county republican central cmte    1103454 niob county republic…
-    ##  5 109775 gordon anderson for state representative 1130996 keven anderson for s…
-    ##  6  32856 law office of janet mccullar pc           864917 law office of janet …
-    ##  7 415258 vep enterprises inc                      1077077 aep enterprises inc  
-    ##  8 121588 steelworkers local 5                      934842 steelworkers local 7…
-    ##  9 227160 schultz engineering services inc         1209811 schultz engineering …
-    ## 10 317814 j h design group                          972630 hh design group      
-    ## # … with 178,194 more rows
+    ## # A tibble: 178,130 × 4
+    ##         a field.x                                                      b field.y
+    ##     <dbl> <chr>                                                    <dbl> <chr>  
+    ##  1 330353 gm transportation inc                                   1.27e6 ksea t…
+    ##  2 319593 iowa association of realtors                            1.10e6 or ass…
+    ##  3 143116 joaquin castro for state representative                 9.58e5 joaqui…
+    ##  4  63678 los angeles turf club and its affiliated entity, pacif… 9.51e5 los an…
+    ##  5  61672 faculty for our university s future, a committee spons… 8.82e5 facult…
+    ##  6   7712 boise county republican central cmte                    1.20e6 sonoma…
+    ##  7 363965 mlg family limited partnership                          9.07e5 lrc fa…
+    ##  8  88701 sac county republican party                             1.26e6 luna c…
+    ##  9 174972 north dakota republicans district 17                    1.10e6 north …
+    ## 10 173608 pace of ca school employees                             8.73e5 pace o…
+    ## # … with 178,120 more rows
 
 ZoomerJoin finds and joins on the matching rows in just a few seconds.
 
