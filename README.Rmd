@@ -21,7 +21,7 @@ names(corpus_2) <- c("b", "field")
 ```
 
 
-# zoomerjoin
+# zoomerjoin <img src='man/figures/logo.png' align="right" height="139" />
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![Codecov test coverage](https://codecov.io/gh/beniaminogreen/zoomerjoin/branch/main/graph/badge.svg)](https://app.codecov.io/gh/beniaminogreen/zoomerjoin?branch=main)
@@ -40,11 +40,11 @@ The package also wraps the [kdtree](https://docs.rs/kdtree/latest/kdtree/) Rust
 crate to provide blazingly fast spatial joins.
 
 
-#### Installation
+## Installation
 
 ---
 
-##### Installing Rust:
+### Preliminaries - Installing Rust:
 
 You must have [Rust](https://www.rust-lang.org/tools/install) installed to
 compile this package. After the package is compiled, Rust is no longer
@@ -58,14 +58,22 @@ Linux or MacOs, you can install Rust with:
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-##### Installing Package from Github:
+### Installing Package from Github:
 
 Once you have rust installed Rust, you should be able to install the package
 with the `install_github` function from the `devtools` package:
 
 ``` r
-#install.packages("devtools")
+# install.packages("devtools")
 devtools::install_github("beniaminogreen/zoomerjoin")
+```
+
+## Loading The Package
+
+Load the package by typing
+
+```{r, warning = FALSE, message = FALSE}
+library(zoomerjoin)
 ```
 
 ### Usage:
@@ -81,7 +89,8 @@ commands:
 
 Here's a snippet showing off how to use the `lhs_inner_join()` merge two
 datasets of political donors in the [Database on Ideology, Money in Politics,
-and Elections (DIME)](https://data.stanford.edu/dime).
+and Elections (DIME)](https://data.stanford.edu/dime). You can see a more
+detailed example of this vignette in the [introductory vignette](https://beniaminogreen.github.io/zoomerjoin/articles/guided_tour.html).
 
 I start with two corpuses I would like to combine, `corpus_1`:
 
