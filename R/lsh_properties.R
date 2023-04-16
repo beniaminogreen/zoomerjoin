@@ -1,4 +1,4 @@
-#' Plot S-Curve for a given LSH function
+#' Plot S-Curve for a LSH with given hyperparameters
 #'
 #' @param n_bands: The number of LSH bands calculated
 #'
@@ -26,9 +26,17 @@ lsh_curve <- function(n_bands, band_width) {
 
 #' Find Probability of Match Based on Similarity
 #'
-#' @param n_bands: The number of LSH bands used in hashing
+#' This is essentially a port of the
+#' [lsh_probability](https://docs.ropensci.org/textreuse/reference/lsh_probability.html)
+#' function from the
+#' [textreuse](https://cran.r-project.org/web/packages/textreuse/index.html)
+#' package. It gives the probability that two strings of jaccard similarity
+#' `similarity` will be matched, given the chosen bandwidth and number of
+#' bands.
 #'
-#' @param band_width: The number of hashes in each band
+#' @param n_bands: The number of LSH bands used in hashing.
+#'
+#' @param band_width: The number of hashes in each band.
 #'
 #' @return a decimal number giving the proability that the two items will be
 #' returned as a candidate pair from the minihash algotithm.
@@ -55,8 +63,14 @@ lsh_probability <- function(similarity, n_bands, band_width){
 #' @param p1: the p1 paramater (the first probability).
 #' @param p2: the p2 parameter (the second probability, must be greater than p1).
 #'
+#' @examples
+#' # Help me find the parameters that will minimize runtime while ensuring that
+#' # two strings with similarity .1 will be compared less than .1% of the time,
+#' # strings with .8 similaity will have a 99.95% chance of being compared:
+#' lsh_hyper_grid_search(.1,.9,.001,.995)
+#'
 #' @export
-lsh_hyperparameters <- function(s1=.1,s2=.7,p1=.001,p2=.999) {
+lsh_hyper_grid_search <- function(s1=.1,s2=.7,p1=.001,p2=.999) {
 
     stopifnot("similarity 1 must be less than similarity 2" = s1 < s2)
     stopifnot("proability 1 must be less than similarity 2" = p1 < p2)

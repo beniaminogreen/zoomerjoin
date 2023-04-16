@@ -26,4 +26,4 @@ reference:
     contents:
       - lsh_curve
       - lsh_probability
-      - lsh_hyperparameters
+      - lsh_hyper_grid_search

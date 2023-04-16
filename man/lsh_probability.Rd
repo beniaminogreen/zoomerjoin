@@ -7,14 +7,20 @@
 lsh_probability(similarity, n_bands, band_width)
 }
 \arguments{
-\item{n_bands:}{The number of LSH bands used in hashing}
+\item{n_bands:}{The number of LSH bands used in hashing.}
 
-\item{band_width:}{The number of hashes in each band}
+\item{band_width:}{The number of hashes in each band.}
 }
 \value{
 a decimal number giving the proability that the two items will be
 returned as a candidate pair from the minihash algotithm.
 }
 \description{
-Find Probability of Match Based on Similarity
+This is essentially a port of the
+\href{https://docs.ropensci.org/textreuse/reference/lsh_probability.html}{lsh_probability}
+function from the
+\href{https://cran.r-project.org/web/packages/textreuse/index.html}{textreuse}
+package. It gives the probability that two strings of jaccard similarity
+\code{similarity} will be matched, given the chosen bandwidth and number of
+bands.
 }
