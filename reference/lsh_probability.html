@@ -72,11 +72,15 @@ bands.</p>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>n_bands:</dt>
+    <dl><dt>similarity</dt>
+<dd><p>the similarity of the two strings you want to compare</p></dd>
+
+
+<dt>n_bands</dt>
 <dd><p>The number of LSH bands used in hashing.</p></dd>
 
 
-<dt>band_width:</dt>
+<dt>band_width</dt>
 <dd><p>The number of hashes in each band.</p></dd>
 
 </dl></div>
@@ -88,6 +92,14 @@ bands.</p>
 returned as a candidate pair from the minihash algotithm.</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Find the probability two pairs will be matched given they have a jaccard_similarity of .8,</span></span></span>
+<span class="r-in"><span><span class="co"># band width of 5, and 50 bands:</span></span></span>
+<span class="r-in"><span><span class="fu">lsh_probability</span><span class="op">(</span><span class="fl">.8</span>,<span class="fl">5</span>,<span class="fl">50</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 7.136035e-05</span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 

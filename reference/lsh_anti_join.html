@@ -119,7 +119,7 @@ dissimilar.</p></li>
 </ul></dd>
 
 
-<dt>clean:</dt>
+<dt>clean</dt>
 <dd><p>should the strings that you fuzzy join on be cleaned (coerced
 to lower-case, stripped of punctuation and spaces)? Default is FALSE</p></dd>
 
@@ -146,9 +146,10 @@ to lower-case, stripped of punctuation and spaces)? Default is FALSE</p></dd>
 <span class="r-in"><span>              n_bands <span class="op">=</span> <span class="fl">20</span>,</span></span>
 <span class="r-in"><span>              band_width <span class="op">=</span> <span class="fl">6</span>,</span></span>
 <span class="r-in"><span>              n_gram_width <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>              clean <span class="op">=</span> <span class="cn">FALSE</span> <span class="co"># default</span></span></span>
 <span class="r-in"><span>              <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">joined_names</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 162,991 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 161,754 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    name      name_wo_vowels</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> mary      <span style="color: #BB0000;">NA</span>            </span>
@@ -161,7 +162,7 @@ to lower-case, stripped of punctuation and spaces)? Default is FALSE</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> alice     <span style="color: #BB0000;">NA</span>            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> bertha    <span style="color: #BB0000;">NA</span>            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> sarah     <span style="color: #BB0000;">NA</span>            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 162,981 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 161,744 more rows</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
