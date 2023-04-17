@@ -1,8 +1,9 @@
 capture_messages({
-    library(tibble)
-    library(dplyr)
-    library(babynames)
-    library(fuzzyjoin)
+    require(tibble)
+    require(dplyr)
+    require(babynames)
+    require(fuzzyjoin)
+    require(stringdist)
 })
 
 dataset_1 <- tribble(
@@ -10,14 +11,16 @@ dataset_1 <- tribble(
                      1, "beniamino green",
                      2, "ben green",
                      3, "jack green"
-)
+) %>%
+as.data.frame()
 
 dataset_2 <- tribble(
                      ~id_2, ~string,
                      1, "teniamino green",
                      2, "beni green",
                      3, "gibberish"
-)
+) %>%
+as.data.frame()
 
 
 

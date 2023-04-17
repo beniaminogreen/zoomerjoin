@@ -38,6 +38,32 @@
 #' identical, while a similarity of zero implies the strings are completely
 #' dissimilar.
 #'
+#' @param clean: should the strings that you fuzzy join on be cleaned (coerced
+#' to lower-case, stripped of punctuation and spaces)? Default is FALSE
+#'
+#' @examples
+#'# load baby names data
+#'library(babynames)
+#'
+#'baby_names <- data.frame(name = tolower(unique(babynames$name)))
+#'baby_names_sans_vowels <- data.frame(
+#'                 name_wo_vowels =gsub("[aeiouy]","", baby_names$name)
+#'    )
+#'# Check the probability two pairs of strings with
+#'# similarity .8 will be matched with a band width of 30
+#'# and 30 bands using the `lsh_probability` function:
+#'lsh_probability(.8,30,8)
+#'# Run the join:
+#'joined_names <- lsh_inner_join(
+#'               baby_names,
+#'               baby_names_sans_vowels,
+#'               by = c("name"= "name_wo_vowels"),
+#'               threshold = .8,
+#'               n_bands = 20,
+#'               band_width = 6,
+#'               n_gram_width = 1,
+#'               )
+#'joined_names
 #' @export
 lsh_inner_join <- function(a, b, by = NULL, block_by = NULL, n_gram_width = 2, n_bands = 45,
                            band_width = 8, threshold = .7, clean = F) { lsh_join(a, b,
@@ -84,7 +110,32 @@ lsh_inner_join <- function(a, b, by = NULL, block_by = NULL, n_gram_width = 2, n
 #' - the jaccard distance between the two strings, so 1 implies the strings are
 #' identical, while a similarity of zero implies the strings are completely
 #' dissimilar.
-#' '
+#'
+#' @param clean: should the strings that you fuzzy join on be cleaned (coerced
+#' to lower-case, stripped of punctuation and spaces)? Default is FALSE
+#'
+#' @examples
+#'# load baby names data
+#'library(babynames)
+#'
+#'baby_names <- data.frame(name = tolower(unique(babynames$name)))
+#'baby_names_sans_vowels <- data.frame(
+#'                 name_wo_vowels =gsub("[aeiouy]","", baby_names$name)
+#'    )
+#'# Check the probability two pairs of strings with
+#'# similarity .8 will be matched with a band width of 30
+#'# and 30 bands using the `lsh_probability` function:
+#'# Run the join:
+#'joined_names <- lsh_anti_join(
+#'               baby_names,
+#'               baby_names_sans_vowels,
+#'               by = c("name"= "name_wo_vowels"),
+#'               threshold = .8,
+#'               n_bands = 20,
+#'               band_width = 6,
+#'               n_gram_width = 1,
+#'               )
+#'joined_names
 #' @export
 lsh_anti_join <- function(a, b,
                             by = NULL,
@@ -141,6 +192,32 @@ lsh_anti_join <- function(a, b,
 #' identical, while a similarity of zero implies the strings are completely
 #' dissimilar.
 #' '
+#' @param clean: should the strings that you fuzzy join on be cleaned (coerced
+#' to lower-case, stripped of punctuation and spaces)? Default is FALSE
+#'
+#' @examples
+#'# load baby names data
+#'library(babynames)
+#'
+#'baby_names <- data.frame(name = tolower(unique(babynames$name)))
+#'baby_names_sans_vowels <- data.frame(
+#'                 name_wo_vowels =gsub("[aeiouy]","", baby_names$name)
+#'    )
+#'# Check the probability two pairs of strings with
+#'# similarity .8 will be matched with a band width of 30
+#'# and 30 bands using the `lsh_probability` function:
+#'lsh_probability(.8,30,8)
+#'# Run the join:
+#'joined_names <- lsh_left_join(
+#'               baby_names,
+#'               baby_names_sans_vowels,
+#'               by = c("name"= "name_wo_vowels"),
+#'               threshold = .8,
+#'               n_bands = 20,
+#'               band_width = 6,
+#'               n_gram_width = 1,
+#'               )
+#'joined_names
 #' @export
 lsh_left_join <- function(a, b,
                             by = NULL,
@@ -198,6 +275,32 @@ lsh_left_join <- function(a, b,
 #' identical, while a similarity of zero implies the strings are completely
 #' dissimilar.
 #' '
+#' @param clean: should the strings that you fuzzy join on be cleaned (coerced
+#' to lower-case, stripped of punctuation and spaces)? Default is FALSE
+#'
+#' @examples
+#'# load baby names data
+#'library(babynames)
+#'
+#'baby_names <- data.frame(name = tolower(unique(babynames$name)))
+#'baby_names_sans_vowels <- data.frame(
+#'                 name_wo_vowels =gsub("[aeiouy]","", baby_names$name)
+#'    )
+#'# Check the probability two pairs of strings with
+#'# similarity .8 will be matched with a band width of 30
+#'# and 30 bands using the `lsh_probability` function:
+#'lsh_probability(.8,30,8)
+#'# Run the join:
+#'joined_names <- lsh_right_join(
+#'               baby_names,
+#'               baby_names_sans_vowels,
+#'               by = c("name"= "name_wo_vowels"),
+#'               threshold = .8,
+#'               n_bands = 20,
+#'               band_width = 6,
+#'               n_gram_width = 1,
+#'               )
+#'joined_names
 #' @export
 lsh_right_join <- function(a, b,
                             by = NULL,
@@ -254,6 +357,32 @@ lsh_right_join <- function(a, b,
 #' identical, while a similarity of zero implies the strings are completely
 #' dissimilar.
 #' '
+#' @param clean: should the strings that you fuzzy join on be cleaned (coerced
+#' to lower-case, stripped of punctuation and spaces)? Default is FALSE
+#'
+#' @examples
+#'# load baby names data
+#'library(babynames)
+#'
+#'baby_names <- data.frame(name = tolower(unique(babynames$name)))
+#'baby_names_sans_vowels <- data.frame(
+#'                 name_wo_vowels =gsub("[aeiouy]","", baby_names$name)
+#'    )
+#'# Check the probability two pairs of strings with
+#'# similarity .8 will be matched with a band width of 30
+#'# and 30 bands using the `lsh_probability` function:
+#'lsh_probability(.8,30,8)
+#'# Run the join:
+#'joined_names <- lsh_full_join(
+#'               baby_names,
+#'               baby_names_sans_vowels,
+#'               by = c("name"= "name_wo_vowels"),
+#'               threshold = .8,
+#'               n_bands = 20,
+#'               band_width = 6,
+#'               n_gram_width = 1,
+#'               )
+#'joined_names
 #' @export
 lsh_full_join <- function(a, b,
                             by = NULL,

@@ -62,3 +62,26 @@ dissimilar.
 \description{
 Fuzzy anti-join using minihashing
 }
+\examples{
+# load baby names data
+library(babynames)
+
+baby_names <- data.frame(name = tolower(unique(babynames$name)))
+baby_names_sans_vowels <- data.frame(
+                name_wo_vowels =gsub("[aeiouy]","", baby_names$name)
+   )
+# Check the probability two pairs of strings with
+# similarity .8 will be matched with a band width of 30
+# and 30 bands using the `lsh_probability` function:
+# Run the join:
+joined_names <- lsh_anti_join(
+              baby_names,
+              baby_names_sans_vowels,
+              by = c("name"= "name_wo_vowels"),
+              threshold = .8,
+              n_bands = 20,
+              band_width = 6,
+              n_gram_width = 1,
+              )
+joined_names
+}
