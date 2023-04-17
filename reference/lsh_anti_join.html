@@ -115,9 +115,13 @@ of greater than .8 have a &gt;99.9% chance of being compared.</p></dd>
 <dd><p>the jaccard similarity threshold above which two strings
 should be considered a match (default is .95). The similarity is euqal to 1</p><ul><li><p>the jaccard distance between the two strings, so 1 implies the strings are
 identical, while a similarity of zero implies the strings are completely
-dissimilar.
-'</p></li>
+dissimilar.</p></li>
 </ul></dd>
+
+
+<dt>clean:</dt>
+<dd><p>should the strings that you fuzzy join on be cleaned (coerced
+to lower-case, stripped of punctuation and spaces)? Default is FALSE</p></dd>
 
 </dl></div>
 
@@ -144,7 +148,7 @@ dissimilar.
 <span class="r-in"><span>              n_gram_width <span class="op">=</span> <span class="fl">1</span>,</span></span>
 <span class="r-in"><span>              <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">joined_names</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 162,133 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 162,991 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    name      name_wo_vowels</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> mary      <span style="color: #BB0000;">NA</span>            </span>
@@ -157,7 +161,7 @@ dissimilar.
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> alice     <span style="color: #BB0000;">NA</span>            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> bertha    <span style="color: #BB0000;">NA</span>            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> sarah     <span style="color: #BB0000;">NA</span>            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 162,123 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 162,981 more rows</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
