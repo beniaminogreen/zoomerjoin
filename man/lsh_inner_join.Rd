@@ -56,6 +56,9 @@ should be considered a match (default is .95). The similarity is euqal to 1
 identical, while a similarity of zero implies the strings are completely
 dissimilar.
 }}
+
+\item{clean:}{should the strings that you fuzzy join on be cleaned (coerced
+to lower-case, stripped of punctuation and spaces)? Default is FALSE}
 }
 \description{
 Fuzzy inner-join using minihashing
