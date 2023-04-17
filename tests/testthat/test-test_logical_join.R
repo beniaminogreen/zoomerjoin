@@ -1,8 +1,9 @@
 capture_messages({
-    library(tibble)
-    library(dplyr)
-    library(babynames)
-    library(fuzzyjoin)
+    require(tibble)
+    require(dplyr)
+    require(babynames)
+    require(fuzzyjoin)
+    require(stringdist)
 })
 
 dataset_1 <- tribble(

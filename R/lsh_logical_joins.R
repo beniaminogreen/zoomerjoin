@@ -38,6 +38,9 @@
 #' identical, while a similarity of zero implies the strings are completely
 #' dissimilar.
 #'
+#' @param clean: should the strings that you fuzzy join on be cleaned (coerced
+#' to lower-case, stripped of punctuation and spaces)? Default is FALSE
+#'
 #' @examples
 #'# load baby names data
 #'library(babynames)
@@ -107,7 +110,10 @@ lsh_inner_join <- function(a, b, by = NULL, block_by = NULL, n_gram_width = 2, n
 #' - the jaccard distance between the two strings, so 1 implies the strings are
 #' identical, while a similarity of zero implies the strings are completely
 #' dissimilar.
-#' '
+#'
+#' @param clean: should the strings that you fuzzy join on be cleaned (coerced
+#' to lower-case, stripped of punctuation and spaces)? Default is FALSE
+#'
 #' @examples
 #'# load baby names data
 #'library(babynames)
@@ -186,6 +192,9 @@ lsh_anti_join <- function(a, b,
 #' identical, while a similarity of zero implies the strings are completely
 #' dissimilar.
 #' '
+#' @param clean: should the strings that you fuzzy join on be cleaned (coerced
+#' to lower-case, stripped of punctuation and spaces)? Default is FALSE
+#'
 #' @examples
 #'# load baby names data
 #'library(babynames)
@@ -266,6 +275,9 @@ lsh_left_join <- function(a, b,
 #' identical, while a similarity of zero implies the strings are completely
 #' dissimilar.
 #' '
+#' @param clean: should the strings that you fuzzy join on be cleaned (coerced
+#' to lower-case, stripped of punctuation and spaces)? Default is FALSE
+#'
 #' @examples
 #'# load baby names data
 #'library(babynames)
@@ -345,6 +357,9 @@ lsh_right_join <- function(a, b,
 #' identical, while a similarity of zero implies the strings are completely
 #' dissimilar.
 #' '
+#' @param clean: should the strings that you fuzzy join on be cleaned (coerced
+#' to lower-case, stripped of punctuation and spaces)? Default is FALSE
+#'
 #' @examples
 #'# load baby names data
 #'library(babynames)
