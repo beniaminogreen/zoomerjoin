@@ -68,7 +68,6 @@ fn rust_lsh_join(
     Robj::try_from(&out_arr).into()
 }
 
-/// @export
 #[extendr]
 fn rust_salted_lsh_join(
     left_string_r: Robj,
@@ -105,7 +104,6 @@ fn rust_salted_lsh_join(
     Robj::try_from(&out_arr).into()
 }
 
-/// @export
 #[extendr]
 fn rust_kd_join(a_mat : Robj, b_mat : Robj, radius : f64) -> Robj {
     let a_mat = <ArrayView2<f64>>::from_robj(&a_mat)

@@ -1,6 +1,6 @@
 test_that("jaccard sim works", {
-    library(babynames)
-    library(stringdist)
+    require(babynames)
+    require(stringdist)
 
     for (i in 1:20) {
         nameys <- tolower(unique(babynames$name))

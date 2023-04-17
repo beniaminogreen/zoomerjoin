@@ -7,9 +7,9 @@
 lsh_curve(n_bands, band_width)
 }
 \arguments{
-\item{n_bands:}{The number of LSH bands calculated}
+\item{n_bands}{The number of LSH bands calculated}
 
-\item{band_width:}{The number of hashes in each band}
+\item{band_width}{The number of hashes in each band}
 }
 \value{
 A plot showing the probability a pair is proposed as a match, given
@@ -17,4 +17,10 @@ the Jaccard similarity of the two items.
 }
 \description{
 Plot S-Curve for a LSH with given hyperparameters
+}
+\examples{
+# Plot the probability two pairs will be matched as a function of their
+# jaccard similarity, given the hyperparameters n_bands and band_width.
+lsh_curve(40,6)
+
 }

@@ -13,12 +13,13 @@ lsh_inner_join(
   n_bands = 45,
   band_width = 8,
   threshold = 0.7,
-  clean = F
+  clean = FALSE
 )
 }
 \arguments{
-\item{a}{the first dataframe you wish to join. @param b the second dataframe
-you wish to join.}
+\item{a}{the first dataframe you wish to join.}
+
+\item{b}{the second dataframe you wish to join.}
 
 \item{by}{a named vector indicating which columns to join on. Format should
 be the same as dplyr: \code{by = c("column_name_in_df_a" =
@@ -57,7 +58,7 @@ identical, while a similarity of zero implies the strings are completely
 dissimilar.
 }}
 
-\item{clean:}{should the strings that you fuzzy join on be cleaned (coerced
+\item{clean}{should the strings that you fuzzy join on be cleaned (coerced
 to lower-case, stripped of punctuation and spaces)? Default is FALSE}
 }
 \description{
@@ -84,6 +85,7 @@ joined_names <- lsh_inner_join(
               n_bands = 20,
               band_width = 6,
               n_gram_width = 1,
+              clean = FALSE # default
               )
 joined_names
 }

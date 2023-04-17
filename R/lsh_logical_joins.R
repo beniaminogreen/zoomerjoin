@@ -1,7 +1,8 @@
 #' Fuzzy inner-join using minihashing
 #'
-#' @param a the first dataframe you wish to join. @param b the second dataframe
-#' you wish to join.
+#' @param a the first dataframe you wish to join.
+#'
+#' @param b the second dataframe you wish to join.
 #'
 #' @param by a named vector indicating which columns to join on. Format should
 #' be the same as dplyr: \code{by = c("column_name_in_df_a" =
@@ -38,7 +39,7 @@
 #' identical, while a similarity of zero implies the strings are completely
 #' dissimilar.
 #'
-#' @param clean: should the strings that you fuzzy join on be cleaned (coerced
+#' @param clean should the strings that you fuzzy join on be cleaned (coerced
 #' to lower-case, stripped of punctuation and spaces)? Default is FALSE
 #'
 #' @examples
@@ -62,11 +63,12 @@
 #'               n_bands = 20,
 #'               band_width = 6,
 #'               n_gram_width = 1,
+#'               clean = FALSE # default
 #'               )
 #'joined_names
 #' @export
 lsh_inner_join <- function(a, b, by = NULL, block_by = NULL, n_gram_width = 2, n_bands = 45,
-                           band_width = 8, threshold = .7, clean = F) { lsh_join(a, b,
+                           band_width = 8, threshold = .7, clean = FALSE) { lsh_join(a, b,
                            mode = "inner", by = by, salt_by = block_by, n_gram_width =
                                n_gram_width, n_bands = n_bands, band_width =
                                band_width, threshold =  threshold, clean=clean) }
@@ -111,7 +113,7 @@ lsh_inner_join <- function(a, b, by = NULL, block_by = NULL, n_gram_width = 2, n
 #' identical, while a similarity of zero implies the strings are completely
 #' dissimilar.
 #'
-#' @param clean: should the strings that you fuzzy join on be cleaned (coerced
+#' @param clean should the strings that you fuzzy join on be cleaned (coerced
 #' to lower-case, stripped of punctuation and spaces)? Default is FALSE
 #'
 #' @examples
@@ -134,6 +136,7 @@ lsh_inner_join <- function(a, b, by = NULL, block_by = NULL, n_gram_width = 2, n
 #'               n_bands = 20,
 #'               band_width = 6,
 #'               n_gram_width = 1,
+#'               clean = FALSE # default
 #'               )
 #'joined_names
 #' @export
@@ -192,7 +195,7 @@ lsh_anti_join <- function(a, b,
 #' identical, while a similarity of zero implies the strings are completely
 #' dissimilar.
 #' '
-#' @param clean: should the strings that you fuzzy join on be cleaned (coerced
+#' @param clean should the strings that you fuzzy join on be cleaned (coerced
 #' to lower-case, stripped of punctuation and spaces)? Default is FALSE
 #'
 #' @examples
@@ -216,6 +219,7 @@ lsh_anti_join <- function(a, b,
 #'               n_bands = 20,
 #'               band_width = 6,
 #'               n_gram_width = 1,
+#'               clean = FALSE # default
 #'               )
 #'joined_names
 #' @export
@@ -275,7 +279,7 @@ lsh_left_join <- function(a, b,
 #' identical, while a similarity of zero implies the strings are completely
 #' dissimilar.
 #' '
-#' @param clean: should the strings that you fuzzy join on be cleaned (coerced
+#' @param clean should the strings that you fuzzy join on be cleaned (coerced
 #' to lower-case, stripped of punctuation and spaces)? Default is FALSE
 #'
 #' @examples
@@ -299,6 +303,7 @@ lsh_left_join <- function(a, b,
 #'               n_bands = 20,
 #'               band_width = 6,
 #'               n_gram_width = 1,
+#'               clean = FALSE # default
 #'               )
 #'joined_names
 #' @export
@@ -357,7 +362,7 @@ lsh_right_join <- function(a, b,
 #' identical, while a similarity of zero implies the strings are completely
 #' dissimilar.
 #' '
-#' @param clean: should the strings that you fuzzy join on be cleaned (coerced
+#' @param clean should the strings that you fuzzy join on be cleaned (coerced
 #' to lower-case, stripped of punctuation and spaces)? Default is FALSE
 #'
 #' @examples
@@ -381,6 +386,7 @@ lsh_right_join <- function(a, b,
 #'               n_bands = 20,
 #'               band_width = 6,
 #'               n_gram_width = 1,
+#'               clean = FALSE # default
 #'               )
 #'joined_names
 #' @export

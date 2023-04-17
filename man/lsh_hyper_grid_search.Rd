@@ -7,13 +7,13 @@
 lsh_hyper_grid_search(s1 = 0.1, s2 = 0.7, p1 = 0.001, p2 = 0.999)
 }
 \arguments{
-\item{s1:}{the s1 paramater (the first similaity).}
+\item{s1}{the s1 paramater (the first similaity).}
 
-\item{s2:}{the s2 parameter (the second similarity, must be greater than s1).}
+\item{s2}{the s2 parameter (the second similarity, must be greater than s1).}
 
-\item{p1:}{the p1 paramater (the first probability).}
+\item{p1}{the p1 paramater (the first probability).}
 
-\item{p2:}{the p2 parameter (the second probability, must be greater than p1).}
+\item{p2}{the p2 parameter (the second probability, must be greater than p1).}
 }
 \description{
 Runs a grid search to find the hyperparameters that will achieve an

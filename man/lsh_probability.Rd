@@ -7,9 +7,11 @@
 lsh_probability(similarity, n_bands, band_width)
 }
 \arguments{
-\item{n_bands:}{The number of LSH bands used in hashing.}
+\item{similarity}{the similarity of the two strings you want to compare}
 
-\item{band_width:}{The number of hashes in each band.}
+\item{n_bands}{The number of LSH bands used in hashing.}
+
+\item{band_width}{The number of hashes in each band.}
 }
 \value{
 a decimal number giving the proability that the two items will be
@@ -23,4 +25,9 @@ function from the
 package. It gives the probability that two strings of jaccard similarity
 \code{similarity} will be matched, given the chosen bandwidth and number of
 bands.
+}
+\examples{
+# Find the probability two pairs will be matched given they have a jaccard_similarity of .8,
+# band width of 5, and 50 bands:
+lsh_probability(.8,5,50)
 }
