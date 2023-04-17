@@ -22,7 +22,6 @@ kd_by_validate <- function(a,b, by) {
                 ))
 }
 
-#' @export
 kd_join_core <- function (a, b, by = NULL, threshold=1.0, mode="inner") {
 
     stopifnot("'radius' must be greater than 0" = threshold > 0)

@@ -1,11 +1,16 @@
 #' Plot S-Curve for a LSH with given hyperparameters
 #'
-#' @param n_bands: The number of LSH bands calculated
+#' @param n_bands The number of LSH bands calculated
 #'
-#' @param band_width: The number of hashes in each band
+#' @param band_width The number of hashes in each band
 #'
 #' @return A plot showing the probability a pair is proposed as a match, given
 #' the Jaccard similarity of the two items.
+#'
+#' @examples
+#' # Plot the probability two pairs will be matched as a function of their
+#' # jaccard similarity, given the hyperparameters n_bands and band_width.
+#' lsh_curve(40,6)
 #'
 #' @export
 lsh_curve <- function(n_bands, band_width) {
@@ -34,13 +39,19 @@ lsh_curve <- function(n_bands, band_width) {
 #' `similarity` will be matched, given the chosen bandwidth and number of
 #' bands.
 #'
-#' @param n_bands: The number of LSH bands used in hashing.
+#' @param similarity the similarity of the two strings you want to compare
 #'
-#' @param band_width: The number of hashes in each band.
+#' @param n_bands The number of LSH bands used in hashing.
+#'
+#' @param band_width The number of hashes in each band.
 #'
 #' @return a decimal number giving the proability that the two items will be
 #' returned as a candidate pair from the minihash algotithm.
 #'
+#' @examples
+#' # Find the probability two pairs will be matched given they have a jaccard_similarity of .8,
+#' # band width of 5, and 50 bands:
+#' lsh_probability(.8,5,50)
 #' @export
 lsh_probability <- function(similarity, n_bands, band_width){
     1-(1-similarity^band_width)^n_bands
@@ -58,10 +69,10 @@ lsh_probability <- function(similarity, n_bands, band_width){
 #' similarity less than .1 will have a .1% chance of being compared, while
 #' strings with .7 similarity have a 99.9% chance of being compared.
 #'
-#' @param s1: the s1 paramater (the first similaity).
-#' @param s2: the s2 parameter (the second similarity, must be greater than s1).
-#' @param p1: the p1 paramater (the first probability).
-#' @param p2: the p2 parameter (the second probability, must be greater than p1).
+#' @param s1  the s1 paramater (the first similaity).
+#' @param s2  the s2 parameter (the second similarity, must be greater than s1).
+#' @param p1  the p1 paramater (the first probability).
+#' @param p2  the p2 parameter (the second probability, must be greater than p1).
 #'
 #' @examples
 #' # Help me find the parameters that will minimize runtime while ensuring that

@@ -59,7 +59,7 @@ dissimilar.
 '
 }}
 
-\item{clean:}{should the strings that you fuzzy join on be cleaned (coerced
+\item{clean}{should the strings that you fuzzy join on be cleaned (coerced
 to lower-case, stripped of punctuation and spaces)? Default is FALSE}
 }
 \description{
@@ -86,6 +86,7 @@ joined_names <- lsh_right_join(
               n_bands = 20,
               band_width = 6,
               n_gram_width = 1,
+              clean = FALSE # default
               )
 joined_names
 }
