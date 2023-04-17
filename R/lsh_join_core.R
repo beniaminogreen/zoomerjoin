@@ -23,8 +23,8 @@ simple_by_validate <- function(a,b, by) {
 }
 
 lsh_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands, band_width, threshold, a_salt = NULL, b_salt = NULL, clean=F) {
-    a <- as_tibble(a)
-    b <- as_tibble(b)
+    a <- tibble::as_tibble(a)
+    b <- tibble::as_tibble(b)
 
     stopifnot("'threshold' must be between 0 and 1" = threshold <= 1 & threshold>=0)
     stopifnot("'n_bands' must be greater than 0" = n_bands > 0)
