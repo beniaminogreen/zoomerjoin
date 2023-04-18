@@ -8,6 +8,10 @@
 #'
 #' @return a vector of jaccard similarities of the strings
 #'
+#' @examples
+#' jaccard_similarity(c("the quick brown fox","jumped over the lazy dog"),
+#'     c("the quck bron fx","jumped over hte lazy dog"))
+#'
 #' @export
 jaccard_similarity <- function(a, b, ngram_width=2) {
     stopifnot(length(a) == length(b))
