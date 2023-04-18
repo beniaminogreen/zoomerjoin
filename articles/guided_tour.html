@@ -90,12 +90,30 @@
 </h3>
 <p>This vignette gives a basic overview of the core functionality of the
 zoomerjoin package. Zoomerjoin empowers you to fuzzily-match datasets
-with millions of rows in seconds, while staying light on memory
-usage.</p>
+with millions of rows in seconds, while staying light on memory usage.
+This makes it feasible to perform fuzzy-joins on datasets in the
+hundreds of millions of observations in a matter of minutes.</p>
+<p>As an added feature, the package also provides a wrapper for fast
+2-dimensional spatial joins using the rust <code>kdtree</code>
+crate.</p>
 </div>
-<div class="section level3">
-<h3 id="basic-syntax">Basic Syntax:<a class="anchor" aria-label="anchor" href="#basic-syntax"></a>
-</h3>
+<div class="section level2">
+<h2 id="how-does-it-work">How Does it Work?<a class="anchor" aria-label="anchor" href="#how-does-it-work"></a>
+</h2>
+<p>Zoomerjoin’s blazingly fast joins are made possible by an optimized,
+performant implimentation of the <a href="https://en.wikipedia.org/wiki/MinHash" class="external-link">MinHash</a> algorithm
+written in Rust.</p>
+<p>While most conventional joining packages compare the all pairs of
+records in the two datasets you wish to join, the MinHash algorithm
+manages to compare only similar records to each other. This results in
+matches that are orders of magnitudes faster than other matching
+software packages: <code>zoomerjoin</code> takes hours or minutes to
+join datasets that would have taken centuries to join using other
+matching methods.</p>
+</div>
+<div class="section level2">
+<h2 id="basic-syntax">Basic Syntax:<a class="anchor" aria-label="anchor" href="#basic-syntax"></a>
+</h2>
 <p>If you’re familiar with the logical-join syntax from
 <code>dplyr</code>, then you already know how to use fuzzy join to join
 two datasets. Zoomerjoin provides <code>lsh_inner_join</code> and
@@ -147,23 +165,23 @@ zoomerjoin:</p>
 <span>                           by <span class="op">=</span> <span class="st">"field"</span>, n_gram_width<span class="op">=</span><span class="fl">6</span>,</span>
 <span>                           n_bands<span class="op">=</span><span class="fl">20</span>, band_width<span class="op">=</span><span class="fl">6</span>, threshold <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="va">start_time</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Time difference of 32.73938 secs</span></span></code></pre>
+<pre><code><span><span class="co">## Time difference of 33.51812 secs</span></span></code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">join_out</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 47,907 × 4</span></span></span>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 48,077 × 4</span></span></span>
 <span><span class="co">##         a field.x                                                      b field.y</span></span>
 <span><span class="co">##     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">57</span>173 peace officers research association of ca               8.55<span style="color: #949494;">e</span>5 peace …</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> <span style="text-decoration: underline;">119</span>497 35th district republicans                               1.01<span style="color: #949494;">e</span>6 26th d…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> <span style="text-decoration: underline;">171</span>766 plumbers &amp; pipefitters local 4                          1.23<span style="color: #949494;">e</span>6 plumbe…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">86</span>109 service employees local 4                               1.21<span style="color: #949494;">e</span>6 servic…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> <span style="text-decoration: underline;">373</span>453 fraternal order of police lodge 128                     8.36<span style="color: #949494;">e</span>5 frater…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">60</span>949 plumbers &amp; steamfitters local union 230                 9.05<span style="color: #949494;">e</span>5 plumbe…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">55</span>956 la county firefighters local 1014 legislative fund com… 8.56<span style="color: #949494;">e</span>5 la cou…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> <span style="text-decoration: underline;">250</span>698 joy insurance agency inc                                1.19<span style="color: #949494;">e</span>6 troy i…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> <span style="text-decoration: underline;">230</span>814 inre financial llc                                      1.22<span style="color: #949494;">e</span>6 re fin…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">48</span>830 35th senate district dfl new                            1.01<span style="color: #949494;">e</span>6 24th s…</span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ 47,897 more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">71</span>022 the hartford advocates fund multicandidate committe     8.64<span style="color: #949494;">e</span>5 the ha…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">67</span>737 construction &amp; general laborers local union 304         8.57<span style="color: #949494;">e</span>5 constr…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">21</span>739 deputy sheriffs association                             9.76<span style="color: #949494;">e</span>5 deputy…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> <span style="text-decoration: underline;">239</span>165 downtown alameda industrial center                      8.76<span style="color: #949494;">e</span>5 downto…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> <span style="text-decoration: underline;">222</span>088 real estate enterprises llc                             8.83<span style="color: #949494;">e</span>5 d&amp;l re…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">53</span>815 american federation of state, county &amp; municipal emplo… 8.87<span style="color: #949494;">e</span>5 americ…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> <span style="text-decoration: underline;">423</span>278 t &amp; r trucking                                          9.08<span style="color: #949494;">e</span>5 h &amp; r …</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> <span style="text-decoration: underline;">339</span>820 general aviation manufacturers assoc                    1.03<span style="color: #949494;">e</span>6 genera…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">95</span>291 wayne m labiche engineering                             1.18<span style="color: #949494;">e</span>6 wayne …</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> <span style="text-decoration: underline;">141</span>224 leboeuf lamb greene &amp; macrae                            1.27<span style="color: #949494;">e</span>6 leboeu…</span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ 48,067 more rows</span></span></span></code></pre>
 <p>Below, I provide a short description of the arguments.</p>
 <p>The first two arguments, <code>a</code>, and <code>b</code>, are
 direct analogues of the <code>dplyr</code> arguments, and are the two
@@ -184,16 +202,20 @@ indicates complete similarity), while this package operates on
 govern the performance of the LSH. The default parameters should perform
 well for medium-size (n &lt; 10^7) datasets where matches are somewhat
 similar (similarity &gt; .8), but may require tuning in other settings.
-For more details, the <code>textreuse</code> package has an excellent
-vignette, and I have re-implemented many of it’s profiling tools in
-another section.</p>
-</div>
+the <code>lsh_hyper_grid_search</code> function can help select these
+parameters for you given the properties of the LSH you desire.</p>
+<p>For more details, the <code>textreuse</code> package has an excellent
+vignette, and zoomerjoin provides a re-implimentation of its profiling
+tools, <code>lsh_probability,</code> and <code>lsh_bandwidth</code>
+(although the implementations differ slightly as the hyperparameters in
+each package are different).</p>
 <div class="section level3">
 <h3 id="references">References:<a class="anchor" aria-label="anchor" href="#references"></a>
 </h3>
 <p>Bonica, Adam. 2016. Database on Ideology, Money in Politics, and
 Elections: Public version 2.0 [Computer file]. Stanford, CA: Stanford
 University Libraries.</p>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
