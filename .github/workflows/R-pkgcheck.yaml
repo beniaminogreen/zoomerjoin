@@ -20,5 +20,7 @@ jobs:
 
       - name: Set up Rust
         uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: stable
 
       - uses: ropensci-review-tools/pkgcheck-action@main
