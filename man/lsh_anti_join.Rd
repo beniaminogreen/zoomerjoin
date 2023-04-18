@@ -61,6 +61,11 @@ dissimilar.
 \item{clean}{should the strings that you fuzzy join on be cleaned (coerced
 to lower-case, stripped of punctuation and spaces)? Default is FALSE}
 }
+\value{
+a tibble fuzzily-joined on the basis of the variables in \code{by.} Tries
+to adhere to the same standards as the dplyr-joins, and uses the same
+logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
+}
 \description{
 Fuzzy anti-join using minihashing
 }

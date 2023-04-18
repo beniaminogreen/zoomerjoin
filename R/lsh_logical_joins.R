@@ -42,6 +42,10 @@
 #' @param clean should the strings that you fuzzy join on be cleaned (coerced
 #' to lower-case, stripped of punctuation and spaces)? Default is FALSE
 #'
+#' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
+#' to adhere to the same standards as the dplyr-joins, and uses the same
+#' logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
+#'
 #' @examples
 #'# load baby names data
 #'library(babynames)
@@ -115,6 +119,10 @@ lsh_inner_join <- function(a, b, by = NULL, block_by = NULL, n_gram_width = 2, n
 #'
 #' @param clean should the strings that you fuzzy join on be cleaned (coerced
 #' to lower-case, stripped of punctuation and spaces)? Default is FALSE
+#'
+#' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
+#' to adhere to the same standards as the dplyr-joins, and uses the same
+#' logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
 #'
 #' @examples
 #'# load baby names data
@@ -197,6 +205,10 @@ lsh_anti_join <- function(a, b,
 #' '
 #' @param clean should the strings that you fuzzy join on be cleaned (coerced
 #' to lower-case, stripped of punctuation and spaces)? Default is FALSE
+#'
+#' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
+#' to adhere to the same standards as the dplyr-joins, and uses the same
+#' logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
 #'
 #' @examples
 #'# load baby names data
@@ -282,6 +294,10 @@ lsh_left_join <- function(a, b,
 #' @param clean should the strings that you fuzzy join on be cleaned (coerced
 #' to lower-case, stripped of punctuation and spaces)? Default is FALSE
 #'
+#' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
+#' to adhere to the same standards as the dplyr-joins, and uses the same
+#' logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
+#'
 #' @examples
 #'# load baby names data
 #'library(babynames)
@@ -364,6 +380,10 @@ lsh_right_join <- function(a, b,
 #' '
 #' @param clean should the strings that you fuzzy join on be cleaned (coerced
 #' to lower-case, stripped of punctuation and spaces)? Default is FALSE
+#'
+#' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
+#' to adhere to the same standards as the dplyr-joins, and uses the same
+#' logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
 #'
 #' @examples
 #'# load baby names data
