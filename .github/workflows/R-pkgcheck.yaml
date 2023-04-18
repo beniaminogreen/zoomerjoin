@@ -17,8 +17,8 @@ jobs:
   pkgcheck:
     runs-on: ubuntu-latest
     steps:
+
       - name: Set up Rust
         uses: dtolnay/rust-toolchain@master
-        with:
-          toolchain: ${{ matrix.config.rust }}
+
       - uses: ropensci-review-tools/pkgcheck-action@main
