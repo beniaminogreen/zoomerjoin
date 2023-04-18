@@ -13,7 +13,7 @@ lsh_anti_join(
   n_bands = 45,
   band_width = 8,
   threshold = 0.7,
-  clean = F
+  clean = FALSE
 )
 }
 \arguments{
