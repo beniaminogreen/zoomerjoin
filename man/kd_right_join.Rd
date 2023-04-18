@@ -18,6 +18,11 @@ two columns must be specified in each dataset (x column and y column).}
 
 \item{threshold}{the distance threshold below which units should be considered a match}
 }
+\value{
+a tibble fuzzily-joined on the basis of the variables in \code{by.} Tries
+to adhere to the same standards as the dplyr-joins, and uses the same
+logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
+}
 \description{
 Spatial Right Join Using KD-Trees
 }
@@ -32,7 +37,7 @@ X_2 <- as.data.frame(X_2)
 X_1$id_1 <- 1:n
 X_2$id_2 <- 1:n
 
-kd_right_join(X_1, X_2, threshold =.00005)
+kd_right_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
 
 
 }

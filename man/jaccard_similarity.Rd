@@ -14,6 +14,14 @@ jaccard_similarity(a, b, ngram_width = 2)
 \item{ngram_width}{the length of the shingles / ngrams used in the
 similarity calculation}
 }
+\value{
+a vector of jaccard similarities of the strings
+}
 \description{
 Calculate jaccard_similarity of two character vectors
+}
+\examples{
+jaccard_similarity(c("the quick brown fox","jumped over the lazy dog"),
+    c("the quck bron fx","jumped over hte lazy dog"))
+
 }

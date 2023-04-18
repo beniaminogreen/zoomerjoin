@@ -6,6 +6,11 @@
 #' @param ngram_width the length of the shingles / ngrams used in the
 #' similarity calculation
 #'
+#' @return a vector of jaccard similarities of the strings
+#'
+#' @examples
+#' jaccard_similarity(c("the quick brown fox","jumped over the lazy dog"),
+#'     c("the quck bron fx","jumped over hte lazy dog"))
 #'
 #' @export
 jaccard_similarity <- function(a, b, ngram_width=2) {

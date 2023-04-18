@@ -4,3 +4,4 @@
 ^pkgdown$
 ^\.github$
 ^codecov\.yml$
+^codemeta\.json$
