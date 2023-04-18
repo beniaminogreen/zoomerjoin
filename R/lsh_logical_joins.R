@@ -147,7 +147,7 @@ lsh_anti_join <- function(a, b,
                             n_bands = 45,
                             band_width = 8,
                             threshold = .7,
-                            clean =F) {
+                            clean =FALSE) {
     lsh_join(a, b, mode = "anti", by = by,
                 salt_by = block_by,
                    n_gram_width = n_gram_width,
