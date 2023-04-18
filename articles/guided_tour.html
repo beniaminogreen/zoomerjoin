@@ -57,7 +57,14 @@
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
 </form>
 
-      <ul class="navbar-nav"></ul>
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/beniaminogreen/zoomerjoin/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 
     
@@ -72,7 +79,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>A Zoomerjoin Guided Tour</h1>
             
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/beniaminogreen/zoomerjoin/blob/HEAD/vignettes/guided_tour.Rmd" class="external-link"><code>vignettes/guided_tour.Rmd</code></a></small>
       <div class="d-none name"><code>guided_tour.Rmd</code></div>
     </div>
 
@@ -140,23 +147,23 @@ zoomerjoin:</p>
 <span>                           by <span class="op">=</span> <span class="st">"field"</span>, n_gram_width<span class="op">=</span><span class="fl">6</span>,</span>
 <span>                           n_bands<span class="op">=</span><span class="fl">20</span>, band_width<span class="op">=</span><span class="fl">6</span>, threshold <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="va">start_time</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Time difference of 49.74691 secs</span></span></code></pre>
+<pre><code><span><span class="co">## Time difference of 32.80656 secs</span></span></code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">join_out</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 48,397 × 4</span></span></span>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 47,731 × 4</span></span></span>
 <span><span class="co">##         a field.x                                                      b field.y</span></span>
 <span><span class="co">##     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> <span style="text-decoration: underline;">185</span>619 international union of operating engineers local 139    9.02<span style="color: #949494;">e</span>5 intern…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> <span style="text-decoration: underline;">450</span>805 sr properties llc                                       9.17<span style="color: #949494;">e</span>5 msr pr…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> <span style="text-decoration: underline;">101</span>007 kansas city southern industries                         1.03<span style="color: #949494;">e</span>6 kansas…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> <span style="text-decoration: underline;">259</span>863 cook insurance agency inc                               9.49<span style="color: #949494;">e</span>5 mc coo…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">94</span>994 electrical workers local 11                             8.44<span style="color: #949494;">e</span>5 electr…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">60</span>283 american federation of state, county &amp; municipal emplo… 9.96<span style="color: #949494;">e</span>5 americ…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> <span style="text-decoration: underline;">113</span>852 management associates                                   1.26<span style="color: #949494;">e</span>6 manage…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> <span style="text-decoration: underline;">112</span>293 laborers local 6                                        1.27<span style="color: #949494;">e</span>6 labore…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> <span style="text-decoration: underline;">318</span>422 j brown inc                                             9.97<span style="color: #949494;">e</span>5 aj bro…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span> <span style="text-decoration: underline;">146</span>153 george cole for central basin water district            9.65<span style="color: #949494;">e</span>5 george…</span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ 48,387 more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">15</span>520 marty block for state senate 2012                       8.48<span style="color: #949494;">e</span>5 marty …</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">51</span>003 political action for classified employees of californi… 9.41<span style="color: #949494;">e</span>5 politi…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> <span style="text-decoration: underline;">192</span>895 solganick donohue, judy                                 1.30<span style="color: #949494;">e</span>6 solgan…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">49</span>133 17th senate district dfl new                            8.33<span style="color: #949494;">e</span>5 28th s…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">16</span>702 american federation of state county &amp; municipal employ… 8.78<span style="color: #949494;">e</span>5 americ…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> <span style="text-decoration: underline;">268</span>518 mgw investments llc                                     1.01<span style="color: #949494;">e</span>6 cw inv…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">60</span>041 columbia hca texas good govt. fund                      9.86<span style="color: #949494;">e</span>5 columb…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> <span style="text-decoration: underline;">104</span>698 operating engineers local 4                             1.24<span style="color: #949494;">e</span>6 operat…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> <span style="text-decoration: underline;">292</span>211 ag services inc                                         1.19<span style="color: #949494;">e</span>6 tg ser…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">58</span>140 mike eng for la community college board of trustee 2013 9.06<span style="color: #949494;">e</span>5 mike e…</span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ 47,721 more rows</span></span></span></code></pre>
 <p>Below, I provide a short description of the arguments.</p>
 <p>The first two arguments, <code>a</code>, and <code>b</code>, are
 direct analogues of the <code>dplyr</code> arguments, and are the two

@@ -45,7 +45,13 @@ strings with .7 similarity have a 99.9% chance of being compared."><meta propert
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
-      <ul class="navbar-nav"></ul></div>
+      <ul class="navbar-nav"><li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/beniaminogreen/zoomerjoin/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div>
 
     
   </div>
@@ -53,7 +59,7 @@ strings with .7 similarity have a 99.9% chance of being compared."><meta propert
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Help Choose the Appropriate LSH Hyperparamaters</h1>
-      
+      <small class="dont-index">Source: <a href="https://github.com/beniaminogreen/zoomerjoin/blob/HEAD/R/lsh_properties.R" class="external-link"><code>R/lsh_properties.R</code></a></small>
       <div class="d-none name"><code>lsh_hyper_grid_search.Rd</code></div>
     </div>
 
@@ -91,6 +97,13 @@ strings with .7 similarity have a 99.9% chance of being compared.</p>
 <dd><p>the p2 parameter (the second probability, must be greater than p1).</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    
+
+<p>a named vector with the hyperparameters that will meet the LSH
+criteria, while reducing runitme.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

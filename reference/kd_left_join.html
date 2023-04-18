@@ -31,7 +31,13 @@
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
-      <ul class="navbar-nav"></ul></div>
+      <ul class="navbar-nav"><li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/beniaminogreen/zoomerjoin/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div>
 
     
   </div>
@@ -39,7 +45,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Spatial Left Join Using KD-Trees</h1>
-      
+      <small class="dont-index">Source: <a href="https://github.com/beniaminogreen/zoomerjoin/blob/HEAD/R/kd_logical_joins.R" class="external-link"><code>R/kd_logical_joins.R</code></a></small>
       <div class="d-none name"><code>kd_left_join.Rd</code></div>
     </div>
 
@@ -73,6 +79,14 @@ two columns must be specified in each dataset (x column and y column).</p></dd>
 <dd><p>the distance threshold below which units should be considered a match</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    
+
+<p>a tibble fuzzily-joined on the basis of the variables in <code>by.</code> Tries
+to adhere to the same standards as the dplyr-joins, and uses the same
+logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
@@ -87,7 +101,7 @@ two columns must be specified in each dataset (x column and y column).</p></dd>
 <span class="r-in"><span><span class="va">X_1</span><span class="op">$</span><span class="va">id_1</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="va">n</span></span></span>
 <span class="r-in"><span><span class="va">X_2</span><span class="op">$</span><span class="va">id_2</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="va">n</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">kd_left_join</span><span class="op">(</span><span class="va">X_1</span>, <span class="va">X_2</span>, threshold <span class="op">=</span><span class="fl">.00005</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">kd_left_join</span><span class="op">(</span><span class="va">X_1</span>, <span class="va">X_2</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"V1"</span>, <span class="st">"V2"</span><span class="op">)</span>, threshold <span class="op">=</span><span class="fl">.00005</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         V1.x      V2.x id_1      V1.y      V2.y id_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.0000000 0.0000000    1 0.0000001 0.0000001    1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.1111111 0.1111111    2 0.1111112 0.1111112    2</span>
