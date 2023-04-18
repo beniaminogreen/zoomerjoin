@@ -27,9 +27,27 @@ names(corpus_2) <- c("b", "field")
 
 This vignette gives a basic overview of the core functionality of the
 zoomerjoin package. Zoomerjoin empowers you to fuzzily-match datasets with
-millions of rows in seconds, while staying light on memory usage.
+millions of rows in seconds, while staying light on memory usage. This makes it
+feasible to perform fuzzy-joins on datasets in the hundreds of millions of
+observations in a matter of minutes.
 
-### Basic Syntax:
+As an added feature, the package  also provides a wrapper for fast
+2-dimensional spatial joins using the rust `kdtree` crate.
+
+## How Does it Work?
+
+Zoomerjoin's blazingly fast joins are made possible by an optimized, performant
+implimentation of the [MinHash](https://en.wikipedia.org/wiki/MinHash)
+algorithm written in Rust.
+
+While most conventional joining packages compare the all pairs of records in
+the two datasets you wish to join, the MinHash algorithm manages to compare
+only similar records to each other. This results in matches that are orders of
+magnitudes faster than other matching software packages: `zoomerjoin` takes
+hours or minutes to join datasets that would have taken centuries to join using
+other matching methods.
+
+## Basic Syntax:
 
 If you're familiar with the logical-join syntax from `dplyr`, then you already
 know how to use fuzzy join to join two datasets. Zoomerjoin provides
@@ -83,9 +101,13 @@ of .8 will keep matches above 80% Jaccard similarity.
 The `n_bands` and `band_width` parameters govern the performance of the LSH.
 The default parameters should perform well for medium-size (n < 10^7) datasets
 where matches are somewhat similar (similarity > .8), but may require tuning in
-other settings. For more details, the `textreuse` package has an excellent
-vignette, and I have re-implemented many of it's profiling tools in another
-section.
+other settings. the `lsh_hyper_grid_search` function can help select these
+parameters for you given the properties of the LSH you desire.
+
+For more details, the `textreuse` package has an excellent vignette, and
+zoomerjoin provides a re-implimentation of its profiling tools,
+`lsh_probability,` and `lsh_bandwidth` (although the implementations differ
+slightly as the hyperparameters in each package are different).
 
 ### References:
 
