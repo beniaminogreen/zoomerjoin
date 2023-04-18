@@ -15,6 +15,10 @@ lsh_hyper_grid_search(s1 = 0.1, s2 = 0.7, p1 = 0.001, p2 = 0.999)
 
 \item{p2}{the p2 parameter (the second probability, must be greater than p1).}
 }
+\value{
+a named vector with the hyperparameters that will meet the LSH
+criteria, while reducing runitme.
+}
 \description{
 Runs a grid search to find the hyperparameters that will achieve an
 (s1,s2,p1,p2)-sensitive locality sensitive hash. A locality sensitive hash

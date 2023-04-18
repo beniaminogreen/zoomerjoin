@@ -2,8 +2,8 @@ kd_by_validate <- function(a,b, by) {
     if (is.null(by)) {
         by_a <- intersect(names(a), names(b))
         by_b <- intersect(names(a), names(b))
-        stopifnot("Can't Determine Columns to Match on" = length(by_a)==2)
-        stopifnot("Can't Determine Columns to Match on" = length(by_b)==2)
+        stopifnot("Can't Determine Columns to Match on" = length(by_a) == 2)
+        stopifnot("Can't Determine Columns to Match on" = length(by_b) == 2)
     } else {
         if (!is.null(names(by))) {
             by_a <- names(by)
@@ -51,12 +51,14 @@ kd_join_core <- function (a, b, by = NULL, threshold=1.0, mode="inner") {
 
     names_in_both <- intersect(names(a), names(b))
 
-    names(a)[names(a) %in% names_in_both] <- paste0(names(a)[names(a) %in% names_in_both], ".x")
-    names(b)[names(b) %in% names_in_both] <- paste0(names(b)[names(b) %in% names_in_both], ".y")
+    names(a)[names(a) %in% names_in_both] <-
+        paste0(names(a)[names(a) %in% names_in_both], ".x")
+    names(b)[names(b) %in% names_in_both] <-
+        paste0(names(b)[names(b) %in% names_in_both], ".y")
 
     matches <- dplyr::bind_cols(a[match_table[, 1], ], b[match_table[, 2], ])
-    not_matched_a <- ! 1:nrow(a) %in% match_table[,1]
-    not_matched_b <- ! 1:nrow(b) %in% match_table[,2]
+    not_matched_a <- ! seq(nrow(a)) %in% match_table[,1]
+    not_matched_b <- ! seq(nrow(b)) %in% match_table[,2]
 
     if (mode == "left") {
         matches <- dplyr::bind_rows(matches,a[not_matched_a,])

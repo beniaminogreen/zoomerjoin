@@ -14,10 +14,14 @@
 #'
 #' @export
 lsh_curve <- function(n_bands, band_width) {
-    similarity <- seq(0,1,.005)
+
+    stopifnot("number of bands must be a single integer" = length(n_bands)==1)
+    stopifnot("band width must be a single integer" = length(band_width)==1)
 
     stopifnot(n_bands > 0)
     stopifnot(band_width > 0)
+
+    similarity <- seq(0,1,.005)
 
     probs <- 1-(1-similarity^band_width)^n_bands
 
@@ -74,6 +78,9 @@ lsh_probability <- function(similarity, n_bands, band_width){
 #' @param p1  the p1 paramater (the first probability).
 #' @param p2  the p2 parameter (the second probability, must be greater than p1).
 #'
+#' @return a named vector with the hyperparameters that will meet the LSH
+#' criteria, while reducing runitme.
+#'
 #' @examples
 #' # Help me find the parameters that will minimize runtime while ensuring that
 #' # two strings with similarity .1 will be compared less than .1% of the time,
@@ -82,6 +89,11 @@ lsh_probability <- function(similarity, n_bands, band_width){
 #'
 #' @export
 lsh_hyper_grid_search <- function(s1=.1,s2=.7,p1=.001,p2=.999) {
+
+    stopifnot("s1 must be a single number"=length(s1)==1)
+    stopifnot("s2 must be a single number"=length(s2)==1)
+    stopifnot("p1 must be a single number"=length(p1)==1)
+    stopifnot("p2 must be a single number"=length(p2)==1)
 
     stopifnot("similarity 1 must be less than similarity 2" = s1 < s2)
     stopifnot("proability 1 must be less than similarity 2" = p1 < p2)

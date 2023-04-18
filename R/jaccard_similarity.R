@@ -6,6 +6,7 @@
 #' @param ngram_width the length of the shingles / ngrams used in the
 #' similarity calculation
 #'
+#' @return a vector of jaccard similarities of the strings
 #'
 #' @export
 jaccard_similarity <- function(a, b, ngram_width=2) {
