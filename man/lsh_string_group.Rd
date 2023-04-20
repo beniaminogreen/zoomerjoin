@@ -53,6 +53,6 @@ installed to run properly
 
 string <- c("beniamino", "jack", "benjamin", "beniamin",
     "jacky", "giacomo", "gaicomo")
-lsh_string_group(string)
+lsh_string_group(string, threshold = .2, n_bands=90)
 
 }

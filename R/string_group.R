@@ -38,7 +38,7 @@
 #'
 #' string <- c("beniamino", "jack", "benjamin", "beniamin",
 #'     "jacky", "giacomo", "gaicomo")
-#' lsh_string_group(string)
+#' lsh_string_group(string, threshold = .2, n_bands=90)
 #'
 #' @export
 lsh_string_group <- function(string, n_gram_width = 2, n_bands = 45, band_width = 8, threshold = .7) {
