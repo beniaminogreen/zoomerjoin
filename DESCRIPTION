@@ -14,16 +14,17 @@ Imports:
     dplyr,
     tibble
 Suggests:
+    arrow,
     babynames,
+    covr
     fuzzyjoin,
-    stringdist,
+    igraph,
     knitr,
+    microbenchmark,
     rmarkdown,
+    stringdist,
     testthat (>= 3.0.0),
     tidyverse,
-    microbenchmark,
-    arrow,
-    covr
 Config/testthat/edition: 3
 URL: https://beniaminogreen.github.io/zoomerjoin/
 BugReports: https://github.com/beniaminogreen/zoomerjoin/issues/
