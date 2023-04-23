@@ -10,6 +10,10 @@ reference:
       - lsh_right_join
       - lsh_anti_join
 
+  - title: string deduplication
+    contents:
+      - lsh_string_group
+
   - title: dplyr-style distance joins
     contents:
       - kd_inner_join
