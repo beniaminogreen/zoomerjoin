@@ -18,16 +18,14 @@ pub mod lshjoiner;
 use crate::lshjoiner::LSHjoiner;
 
 #[extendr]
-fn em_link(x_robj: Robj, probs : &[f64]) -> Vec<f64>{
+fn rust_em_link(x_robj: Robj, probs : &[f64], tol : f64, max_iter : i32) -> Vec<f64>{
     let x_mat = <ArrayView2<i32>>::from_robj(&x_robj)
         .unwrap()
         .to_owned()
         .map(|x| *x as usize);
 
     let mut linker = EMLinker::new(x_mat.view(), probs);
-    let out = linker.link();
-    // println!("constructed!");
-    out
+    linker.link(tol, max_iter)
 }
 
 #[extendr]
@@ -158,5 +156,5 @@ extendr_module! {
     fn rust_salted_lsh_join;
     fn rust_kd_join;
     fn rust_jaccard_similarity;
-    fn em_link;
+    fn rust_em_link;
 }

@@ -13,7 +13,7 @@ struct AgreeBundle {
 }
 
 impl AgreeBundle {
-    fn new(pattern: ArrayView1<usize>, id: usize, prob : f64) -> Self {
+    fn new(pattern: ArrayView1<usize>, id: usize, prob: f64) -> Self {
         Self {
             pattern: pattern.to_owned(),
             ids: vec![id],
@@ -37,7 +37,7 @@ pub struct EMLinker {
 }
 
 impl EMLinker {
-    pub fn new(x_mat: ArrayView2<usize>, guesses : &[f64]) -> Self {
+    pub fn new(x_mat: ArrayView2<usize>, guesses: &[f64]) -> Self {
         let mut agree_collection: HashMap<u64, AgreeBundle> = HashMap::new();
         let mut match_params = Vec::new();
         let mut not_match_params = Vec::new();
@@ -72,7 +72,6 @@ impl EMLinker {
     }
 
     fn m_step(&mut self) {
-
         // update lambda
         self.lambda = self
             .bundles
@@ -83,13 +82,13 @@ impl EMLinker {
 
         // set paramaters to zero
         for variable in &mut self.match_params {
-            for paramater in variable.iter_mut(){
+            for paramater in variable.iter_mut() {
                 *paramater = 0.0;
             }
         }
 
         for variable in self.not_match_params.iter_mut() {
-            for paramater in variable.iter_mut(){
+            for paramater in variable.iter_mut() {
                 *paramater = 0.0;
             }
         }
@@ -97,11 +96,12 @@ impl EMLinker {
         // update match and not_match params
         for bundle in &self.bundles {
             for (i, agree_level) in bundle.pattern.iter().enumerate() {
-                self.match_params[i][*agree_level] += bundle.n*bundle.prob_match/(self.n*self.lambda);
-                self.not_match_params[i][*agree_level] += bundle.n*(1.0 - bundle.prob_match)/(self.n * (1.0 - self.lambda));
+                self.match_params[i][*agree_level] +=
+                    bundle.n * bundle.prob_match / (self.n * self.lambda);
+                self.not_match_params[i][*agree_level] +=
+                    bundle.n * (1.0 - bundle.prob_match) / (self.n * (1.0 - self.lambda));
             }
         }
-
     }
 
     fn e_step(&mut self) {
@@ -114,17 +114,58 @@ impl EMLinker {
                 not_match_likelihood *= self.not_match_params[i][*agree_level];
             }
 
-            bundle.prob_match = self.lambda * match_likelihood /
-                (self.lambda * match_likelihood + (1.0-self.lambda) * not_match_likelihood);
+            bundle.prob_match = self.lambda * match_likelihood
+                / (self.lambda * match_likelihood + (1.0 - self.lambda) * not_match_likelihood);
         }
-
     }
 
-    pub fn link(&mut self) -> Vec<f64>{
+    fn unlist_parameters(&self) -> Vec<f64> {
+        let mut unlisted_parameters = Vec::new();
+
+        for col in self.not_match_params.iter() {
+            for param in col {
+                unlisted_parameters.push(*param);
+            }
+        }
+
+        for col in self.match_params.iter() {
+            for param in col {
+                unlisted_parameters.push(*param);
+            }
+        }
+
+        unlisted_parameters
+    }
+
+    pub fn link(&mut self, tol : f64, max_iter : i32) -> Vec<f64> {
         self.m_step();
-        for _ in 0..10 {
+
+        let mut max_diff = 80.0;
+        let mut old_parameters = self.unlist_parameters();
+        let mut i = 0;
+
+        while max_diff > tol {
+            i += 1;
+            println!("iteration {}", i);
+
+            if i > max_iter {
+                panic!("maxium iterations exceeded!");
+            }
+
             self.e_step();
             self.m_step();
+
+            let new_parameters = self.unlist_parameters();
+
+            max_diff = old_parameters
+                .iter()
+                .zip(new_parameters.iter())
+                .map(|(x, y)| x - y)
+                .max_by(|a, b| a.total_cmp(b))
+                .unwrap();
+
+            old_parameters = new_parameters;
+
         }
 
         let mut out_vec = vec![0.0; self.n as usize];
