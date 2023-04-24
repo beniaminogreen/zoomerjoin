@@ -16,5 +16,5 @@ rust_kd_join <- function(a_mat, b_mat, radius) .Call(wrap__rust_kd_join, a_mat, 
 
 rust_jaccard_similarity <- function(left_string_r, right_string_r, ngram_width) .Call(wrap__rust_jaccard_similarity, left_string_r, right_string_r, ngram_width)
 
-agreement_linker <- function(x_robj) invisible(.Call(wrap__agreement_linker, x_robj))
+rust_em_link <- function(x_robj, probs, tol, max_iter) .Call(wrap__rust_em_link, x_robj, probs, tol, max_iter)
 

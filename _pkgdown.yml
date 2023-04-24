@@ -10,6 +10,10 @@ reference:
       - lsh_right_join
       - lsh_anti_join
 
+  - title: Probabilistic Matching Algorithms
+    contents:
+      - em_link
+
   - title: string deduplication
     contents:
       - lsh_string_group
@@ -31,3 +35,4 @@ reference:
       - lsh_curve
       - lsh_probability
       - lsh_hyper_grid_search
+
