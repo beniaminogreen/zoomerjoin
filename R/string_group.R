@@ -1,9 +1,9 @@
 #' Fuzzy String Grouping Using Minhashing
 #'
-#' Fuzzily groups a character vector so that similar strings land in the same
-#' group the same group. Uses the `fastgreedy.community` community detection
-#' algorithm from the `igraph` package to create the groups. Must have igraph
-#' installed in order to use this function.
+#' Performs fuzzy string grouping in which similar strings are assigned to the
+#' same group. Uses the `fastgreedy.community` community detection algorithm
+#' from the `igraph` package to create the groups. Must have igraph installed
+#' in order to use this function.
 #'
 #'
 #' @param string a character you wish to perform entity resolution on.
@@ -34,6 +34,10 @@
 #' identical, while a similarity of zero implies the strings are completely
 #' dissimilar.
 #'
+#' @return a string vector storing the group of each element in the original
+#' input strings. The input vector is grouped so that similar strings belong to
+#' the same group, which is given a standardized name.
+#'
 #' @examples
 #'
 #' string <- c("beniamino", "jack", "benjamin", "beniamin",
@@ -58,7 +62,7 @@ lsh_string_group <- function(string, n_gram_width = 2, n_bands = 45, band_width 
     fc <- igraph::fastgreedy.community(igraph::as.undirected(graph))
 
     groups <- igraph::groups(fc)
-    lookup_table <- sapply(groups, function(x){x[[1]]})
+    lookup_table <- vapply(groups, function(x){x[[1]]}, integer(1))
 
     membership <- igraph::membership(fc)
 
