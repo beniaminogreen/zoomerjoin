@@ -43,11 +43,16 @@ identical, while a similarity of zero implies the strings are completely
 dissimilar.
 }}
 }
+\value{
+a string vector storing the group of each element in the original
+input strings. The input vector is grouped so that similar strings belong to
+the same group, which is given a standardized name.
+}
 \description{
-Fuzzily groups a character vector so that similar strings land in the same
-group the same group. Uses the \code{fastgreedy.community} community detection
-algorithm from the \code{igraph} package to create the groups. Must have igraph
-installed in order to use this function.
+Performs fuzzy string grouping in which similar strings are assigned to the
+same group. Uses the \code{fastgreedy.community} community detection algorithm
+from the \code{igraph} package to create the groups. Must have igraph installed
+in order to use this function.
 }
 \examples{
 
