@@ -1,10 +1,10 @@
-test_that("string_group dedups string correctly", {
+test_that("Naive Bayes Model Achieves > 95 perecent accuracy on toy dataset", {
     inv_logit <- function (x) {
         exp(x)/(1+exp(x))
     }
 
-    for (i in 1:5) {
-        n <- 10^6
+    for (i in 1:10) {
+        n <- 10^5
         d <- 1:n %% 5 == 0
         X <- cbind(
              as.integer(ifelse(d, runif(n)<.8, runif(n)<.2)),

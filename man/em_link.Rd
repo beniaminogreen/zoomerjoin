@@ -14,7 +14,10 @@ as three is omitted}
 
 \item{g}{a vector of initial guesses that are iteratively improved using the
 EM algorithm (my personal approach is to guess at logistic regression
-coefficients and use them to create the intitial probability guesses)}
+coefficients and use them to create the intitial probability guesses). This
+is chosen to avoid the model getting stuck in a local optimum, and to avoid
+the problem of label-switching, where the labels for matches and non-matches
+are reversed.}
 
 \item{tol}{tolerance in the sense of the infinity norm. i.e. how close the
 parameters have to be between iterations before the EM algorithm terminates.}
@@ -27,7 +30,17 @@ a vector of probabilities representing the posterior probability
 each record pair is a match.
 }
 \description{
-Fit a Probabilistic Matching Model using Naive Bayes + E.M.
+A Rust implementation of the Naive Bayes / Fellegi-Sunter model of record
+linkage as detailed in the article "Using a Probabilistic Model to Assist
+Merging of Large-Scale Administrative Records" by Enamorado, Fifield and
+Imai (2019). Takes an integer matrix describing the similarities between
+each possible pair of observations, and a vector of initial guesses of the
+probability each pair is a match (these can either be set from domain
+knowledge, or one can hand-label a subset of the data and leave the rest as
+p=.5). Iteratively refines these guesses using the Expectation Maximization
+algorithm until an optima is reached. for more details, see
+\url{https://doi.org/10.1017/S0003055418000783} and
+\url{http://dx.doi.org/10.1080/01621459.1969.10501049}.
 }
 \examples{
 
@@ -47,8 +60,9 @@ X <- cbind(
         as.integer(ifelse(d, runif(n)<.8, runif(n)<.01))
         )
 
-# inital guess at class assignments based on
-# a hypothetical logistic regression. Should be based on domain knowledge.
+# inital guess at class assignments based on # a hypothetical logistic
+# regression. Should be based on domain knowledge, or a handful of hand-coded
+# observations.
 
 x_sum <- rowSums(X)
 g <- inv_logit((x_sum - mean(x_sum))/sd(x_sum))

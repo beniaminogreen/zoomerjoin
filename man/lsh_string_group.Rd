@@ -44,15 +44,15 @@ dissimilar.
 }}
 }
 \description{
-Fuzzily groups a character vector so that similar strings are assigned to
-the same group. Uses the \code{fastgreedy.community} community detection
+Fuzzily groups a character vector so that similar strings land in the same
+group the same group. Uses the \code{fastgreedy.community} community detection
 algorithm from the \code{igraph} package to create the groups. Must have igraph
-installed to run properly
+installed in order to use this function.
 }
 \examples{
 
 string <- c("beniamino", "jack", "benjamin", "beniamin",
     "jacky", "giacomo", "gaicomo")
-lsh_string_group(string, threshold = .2, n_bands=90)
+lsh_string_group(string, threshold = .2, n_bands=90, n_gram_width=1)
 
 }
