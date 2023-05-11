@@ -20,11 +20,11 @@ reference:
 
   - title: dplyr-style distance joins
     contents:
-      - euclidian_inner_join
-      - euclidian_full_join
-      - euclidian_left_join
-      - euclidian_right_join
-      - euclidian_anti_join
+      - euclidean_inner_join
+      - euclidean_full_join
+      - euclidean_left_join
+      - euclidean_right_join
+      - euclidean_anti_join
 
   - title: Utilities
     contents:
