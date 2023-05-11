@@ -51,7 +51,7 @@ other matching methods.
 
 If you're familiar with the logical-join syntax from `dplyr`, then you already
 know how to use fuzzy join to join two datasets. Zoomerjoin provides
-`lsh_inner_join` and `lsh_full_join` (among others), which are the
+`jaccard_inner_join` and `jaccard_full_join` (among others), which are the
 fuzzy-joining analogues of the corresponding dplyr functions.
 
 I demonstrate the syntax by using the package to join to corpuses, which formed
@@ -75,7 +75,7 @@ we must use the fuzzy-matching capabilities of zoomerjoin:
 
 ```{r}
 start_time <- Sys.time()
-join_out <- lsh_inner_join(corpus_1, corpus_2,
+join_out <- jaccard_inner_join(corpus_1, corpus_2,
                            by = "field", n_gram_width=6,
                            n_bands=20, band_width=6, threshold = .8)
 print(Sys.time() - start_time)
@@ -101,12 +101,12 @@ of .8 will keep matches above 80% Jaccard similarity.
 The `n_bands` and `band_width` parameters govern the performance of the LSH.
 The default parameters should perform well for medium-size (n < 10^7) datasets
 where matches are somewhat similar (similarity > .8), but may require tuning in
-other settings. the `lsh_hyper_grid_search` function can help select these
+other settings. the `jaccard_hyper_grid_search` function can help select these
 parameters for you given the properties of the LSH you desire.
 
 For more details, the `textreuse` package has an excellent vignette, and
 zoomerjoin provides a re-implimentation of its profiling tools,
-`lsh_probability,` and `lsh_bandwidth` (although the implementations differ
+`jaccard_probability,` and `jaccard_bandwidth` (although the implementations differ
 slightly as the hyperparameters in each package are different).
 
 ### References:

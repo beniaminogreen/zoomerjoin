@@ -62,14 +62,14 @@ library(zoomerjoin)
 
 ### Usage:
 
-The flagship feature of zoomerjoins are the lsh_join family of
+The flagship feature of zoomerjoins are the jaccard_join family of
 functions, which are designed to be near drop-ins for the corresponding
 dplyr/fuzzyjoin commands:
 
-- `lsh_left_join()`
-- `lsh_right_join()`
-- `lsh_inner_join()`
-- `lsh_full_join()`
+- `jaccard_left_join()`
+- `jaccard_right_join()`
+- `jaccard_inner_join()`
+- `jaccard_full_join()`
 
 Here’s a snippet showing off how to use the `lhs_inner_join()` merge two
 datasets of political donors in the [Database on Ideology, Money in
@@ -122,12 +122,12 @@ corpus_2
 Both corpuses have an observation ID column, and a donor name column. We
 would like to join the two datasets on the donor names column, but the
 two can’t be directly joined because of misspellings. Because of this,
-we will use the lsh_inner_join function to fuzzily join the two on the
-donor name column.
+we will use the jaccard_inner_join function to fuzzily join the two on
+the donor name column.
 
 ``` r
 start_time <- Sys.time()
-join_out <- lsh_inner_join(corpus_1, corpus_2, n_gram_width=6, n_bands=20, band_width=6)
+join_out <- jaccard_inner_join(corpus_1, corpus_2, n_gram_width=6, n_bands=20, band_width=6)
 ```
 
     ## Joining by 'field'
@@ -136,26 +136,26 @@ join_out <- lsh_inner_join(corpus_1, corpus_2, n_gram_width=6, n_bands=20, band_
 print(Sys.time() - start_time)
 ```
 
-    ## Time difference of 9.807082 secs
+    ## Time difference of 10.51507 secs
 
 ``` r
 print(join_out)
 ```
 
-    ## # A tibble: 178,130 × 4
-    ##         a field.x                                                      b field.y
-    ##     <dbl> <chr>                                                    <dbl> <chr>  
-    ##  1 330353 gm transportation inc                                   1.27e6 ksea t…
-    ##  2 319593 iowa association of realtors                            1.10e6 or ass…
-    ##  3 143116 joaquin castro for state representative                 9.58e5 joaqui…
-    ##  4  63678 los angeles turf club and its affiliated entity, pacif… 9.51e5 los an…
-    ##  5  61672 faculty for our university s future, a committee spons… 8.82e5 facult…
-    ##  6   7712 boise county republican central cmte                    1.20e6 sonoma…
-    ##  7 363965 mlg family limited partnership                          9.07e5 lrc fa…
-    ##  8  88701 sac county republican party                             1.26e6 luna c…
-    ##  9 174972 north dakota republicans district 17                    1.10e6 north …
-    ## 10 173608 pace of ca school employees                             8.73e5 pace o…
-    ## # … with 178,120 more rows
+    ## # A tibble: 180,356 × 4
+    ##         a field.x                                             b field.y         
+    ##     <dbl> <chr>                                           <dbl> <chr>           
+    ##  1  44376 armani restorations                            928176 domani restorat…
+    ##  2  73712 myers & associates                            1248413 myers & associa…
+    ##  3 436479 texas industries employee pac texas inc        889736 trinity industr…
+    ##  4 390156 noble finance corp 973                        1243453 noble finance c…
+    ##  5  96351 cmte to elect john rogers                     1073822 cmte to elect j…
+    ##  6 239816 dgd development limited partnership            992417 biggi developme…
+    ##  7 462926 sfp limited partnership                        958554 jbj limited par…
+    ##  8 157082 arizona federation of democratic womens clubs 1112423 arizona federat…
+    ##  9 289143 cmc construction inc                          1178516 vm construction…
+    ## 10 110477 laborers union local 291                       954982 laborers union …
+    ## # … with 180,346 more rows
 
 ZoomerJoin finds and joins on the matching rows in just a few seconds.
 
