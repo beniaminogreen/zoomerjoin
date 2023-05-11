@@ -16,7 +16,7 @@ reference:
 
   - title: string deduplication
     contents:
-      - lsh_string_group
+      - jaccard_string_group
 
   - title: dplyr-style distance joins
     contents:
@@ -32,7 +32,7 @@ reference:
 
   - title: Diagnostics
     contents:
-      - lsh_curve
-      - lsh_probability
-      - lsh_hyper_grid_search
+      - jaccard_curve
+      - jaccard_probability
+      - jaccard_hyper_grid_search
 
