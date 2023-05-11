@@ -100,8 +100,8 @@ lsh_hyper_grid_search <- function(s1=.1,s2=.7,p1=.001,p2=.999) {
     stopifnot("proability 1 must be less than similarity 2" = p1 < p2)
 
     df <- expand.grid(
-                band_width = seq(1,20,1),
-                n_bands = seq(1,10000,1)
+                band_width = seq(1,75,1),
+                n_bands = seq(1,50000,1)
             )
 
     df$p1 <-lsh_probability(s1, n_bands = df$n_bands,  band_width = df$band_width)

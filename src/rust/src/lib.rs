@@ -1,6 +1,8 @@
 use extendr_api::prelude::parallel::prelude::ParallelIterator;
 use extendr_api::prelude::*;
 
+use std::collections::{HashMap, HashSet};
+
 use rayon::prelude::*;
 
 use kdtree::distance::squared_euclidean;
@@ -14,11 +16,14 @@ use crate::em_link::EMLinker;
 
 pub mod minihasher;
 
-pub mod lshjoiner;
-use crate::lshjoiner::LSHjoiner;
+pub mod euclidianhasher;
+use crate::euclidianhasher::EuclidianHasher;
+
+pub mod minhashjoiner;
+use crate::minhashjoiner::MinHashJoiner;
 
 #[extendr]
-fn rust_em_link(x_robj: Robj, probs : &[f64], tol : f64, max_iter : i32) -> Vec<f64>{
+fn rust_em_link(x_robj: Robj, probs: &[f64], tol: f64, max_iter: i32) -> Vec<f64> {
     let x_mat = <ArrayView2<i32>>::from_robj(&x_robj)
         .unwrap()
         .to_owned()
@@ -69,7 +74,7 @@ fn rust_lsh_join(
     let left_string_vec = left_string_r.as_str_vector().unwrap();
     let right_string_vec = right_string_r.as_str_vector().unwrap();
 
-    let joiner = LSHjoiner::new(left_string_vec, right_string_vec, ngram_width as usize);
+    let joiner = MinHashJoiner::new(left_string_vec, right_string_vec, ngram_width as usize);
 
     let chosen_indexes = joiner.join(n_bands as usize, band_size as usize, threshold);
 
@@ -99,7 +104,7 @@ fn rust_salted_lsh_join(
     let right_salt_vec = right_salt_r.as_str_vector().unwrap();
     let left_salt_vec = left_salt_r.as_str_vector().unwrap();
 
-    let joiner = LSHjoiner::new_with_salt(
+    let joiner = MinHashJoiner::new_with_salt(
         left_string_vec,
         right_string_vec,
         left_salt_vec,
@@ -143,9 +148,62 @@ fn rust_kd_join(a_mat: Robj, b_mat: Robj, radius: f64) -> Robj {
     }
 
     let out_arr: Array2<u64> = matches.into();
-
     Robj::try_from(&out_arr).into()
 }
+
+#[extendr]
+fn rust_p_norm_join(a_mat: Robj, b_mat: Robj, radius: f64, band_width : u64, n_bands: u64, r : f64) -> Robj {
+    let a_mat = <ArrayView2<f64>>::from_robj(&a_mat).unwrap().to_owned();
+    let b_mat = <ArrayView2<f64>>::from_robj(&b_mat).unwrap().to_owned();
+
+    let mut pairs: HashSet<(usize, usize)> = HashSet::new();
+    let mut store: HashMap<u64, Vec<usize>> = HashMap::new();
+
+    let hasher = EuclidianHasher::new(r, band_width as usize, b_mat.ncols());
+
+    for _ in 0..n_bands {
+        for (i, x) in a_mat.axis_iter(Axis(0)).enumerate() {
+            let hash = hasher.hash(x);
+            if store.contains_key(&hash) {
+                store.get_mut(&hash).unwrap().push(i);
+            } else {
+                store.insert(hash, vec![i]);
+            }
+        }
+
+        for (j, x) in b_mat.axis_iter(Axis(0)).enumerate() {
+            let hash = hasher.hash(x);
+            if store.contains_key(&hash) {
+                let potential_matches = store.get(&hash).unwrap();
+
+                for i in potential_matches {
+                    let dist: f64 = b_mat
+                        .row(j)
+                        .iter()
+                        .zip(a_mat.row(*i).iter())
+                        .map(|(a, b)| (a - b).powi(2))
+                        .sum::<f64>().sqrt();
+
+                    if dist < radius {
+                        pairs.insert((*i,j));
+                    }
+                }
+            }
+        }
+        store.clear()
+        }
+
+    let mut out_arr : Array2<u64> = Array2::zeros((pairs.len(),2));
+
+    for (idx, (i,j)) in pairs.into_iter().enumerate(){
+        out_arr[[idx, 0]] = i as u64 + 1;
+        out_arr[[idx, 1]] = j as u64 + 1;
+    }
+
+    Robj::try_from(&out_arr).into()
+
+}
+
 
 // Macro to generate exports.
 // This ensures exported functions are registered with R.
@@ -157,4 +215,5 @@ extendr_module! {
     fn rust_kd_join;
     fn rust_jaccard_similarity;
     fn rust_em_link;
+    fn rust_p_norm_join;
 }

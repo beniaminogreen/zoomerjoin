@@ -4,6 +4,7 @@ test_that("Naive Bayes Model Achieves > 95 perecent accuracy on toy dataset", {
     }
 
     for (i in 1:10) {
+
         n <- 10^5
         d <- 1:n %% 5 == 0
         X <- cbind(
@@ -19,7 +20,6 @@ test_that("Naive Bayes Model Achieves > 95 perecent accuracy on toy dataset", {
 
         x_sum <- rowSums(X)
         g <- inv_logit((x_sum - mean(x_sum))/sd(x_sum))
-
         out <- em_link(X, g,tol=.0001, max_iter = 100)
 
         confusion_vector <- c(prop.table(table(out>.5, d)))

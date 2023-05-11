@@ -1,4 +1,4 @@
-#' Spatial Anti Join Using KD-Trees
+#' Spatial Anti Join Using LSH
 #'
 #' @param a the first dataframe you wish to join.
 #' @param b the second dataframe
@@ -27,15 +27,15 @@
 #'X_2$id_2 <- 1:n
 #'
 #'
-#'kd_anti_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
+#'pnorm_anti_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
 #'
 #'
 #' @export
-kd_anti_join <- function(a, b, by = NULL, threshold = 1) {
-    kd_join_core(a, b, mode = "anti", by = by, threshold =  threshold)
+pnorm_anti_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5) {
+    euclidian_join_core(a, b, mode = "anti", by = by, threshold =  threshold, n_bands = n_bands, band_width = band_width, r = r)
 }
 
-#' Spatial Inner Join Using KD-Trees
+#' Spatial Inner Join Using LSH
 #'
 #' @param a the first dataframe you wish to join.
 #' @param b the second dataframe
@@ -63,15 +63,15 @@ kd_anti_join <- function(a, b, by = NULL, threshold = 1) {
 #'X_1$id_1 <- 1:n
 #'X_2$id_2 <- 1:n
 #'
-#'kd_inner_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
+#'pnorm_inner_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
 #'
 #'
 #' @export
-kd_inner_join <- function(a, b, by = NULL, threshold = 1) {
-    kd_join_core(a, b, mode = "inner", by = by, threshold =  threshold)
+pnorm_inner_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5) {
+    euclidian_join_core(a, b, mode = "inner", by = by, threshold =  threshold, n_bands = n_bands, band_width = band_width, r = r)
 }
 
-#' Spatial Left Join Using KD-Trees
+#' Spatial Left Join Using LSH
 #'
 #' @param a the first dataframe you wish to join.
 #' @param b the second dataframe
@@ -99,15 +99,15 @@ kd_inner_join <- function(a, b, by = NULL, threshold = 1) {
 #'X_1$id_1 <- 1:n
 #'X_2$id_2 <- 1:n
 #'
-#'kd_left_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
+#'pnorm_left_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
 #'
 #'
 #' @export
-kd_left_join <- function(a, b, by = NULL, threshold = 1) {
-    kd_join_core(a, b, mode = "left", by = by, threshold =  threshold)
+pnorm_left_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5) {
+    euclidian_join_core(a, b, mode = "left", by = by, threshold =  threshold, n_bands = n_bands, band_width = band_width, r = r)
 }
 
-#' Spatial Right Join Using KD-Trees
+#' Spatial Right Join Using LSH
 #'
 #' @param a the first dataframe you wish to join.
 #' @param b the second dataframe
@@ -134,15 +134,15 @@ kd_left_join <- function(a, b, by = NULL, threshold = 1) {
 #'X_1$id_1 <- 1:n
 #'X_2$id_2 <- 1:n
 #'
-#'kd_right_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
+#'pnorm_right_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
 #'
 #'
 #' @export
-kd_right_join <- function(a, b, by = NULL, threshold = 1) {
-    kd_join_core(a, b, mode = "right", by = by, threshold =  threshold)
+pnorm_right_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5) {
+    euclidian_join_core(a, b, mode = "right", by = by, threshold =  threshold, n_bands = n_bands, band_width = band_width, r = r)
 }
 
-#' Spatial Full Join Using KD-Trees
+#' Spatial Full Join Using LSH
 #'
 #' @param a the first dataframe you wish to join.
 #' @param b the second dataframe
@@ -170,9 +170,9 @@ kd_right_join <- function(a, b, by = NULL, threshold = 1) {
 #'X_1$id_1 <- 1:n
 #'X_2$id_2 <- 1:n
 #'
-#'kd_full_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
+#'pnorm_full_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
 #'
 #' @export
-kd_full_join <- function(a, b, by = NULL, threshold = 1) {
-    kd_join_core(a, b, mode = "full", by = by, threshold =  threshold)
+pnorm_full_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5) {
+    euclidian_join_core(a, b, mode = "full", by = by, threshold =  threshold, n_bands = n_bands, band_width = band_width, r = r)
 }

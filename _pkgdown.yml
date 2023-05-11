@@ -20,11 +20,11 @@ reference:
 
   - title: dplyr-style distance joins
     contents:
-      - kd_inner_join
-      - kd_full_join
-      - kd_left_join
-      - kd_right_join
-      - kd_anti_join
+      - pnorm_inner_join
+      - pnorm_full_join
+      - pnorm_left_join
+      - pnorm_right_join
+      - pnorm_anti_join
 
   - title: Utilities
     contents:
