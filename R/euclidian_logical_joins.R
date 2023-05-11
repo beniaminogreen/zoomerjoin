@@ -27,12 +27,12 @@
 #'X_2$id_2 <- 1:n
 #'
 #'
-#'eucidian_anti_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
+#'euclidean_anti_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
 #'
 #'
 #' @export
-eucidian_anti_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5) {
-    euclidian_join_core(a, b, mode = "anti", by = by, threshold =  threshold, n_bands = n_bands, band_width = band_width, r = r)
+euclidean_anti_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5) {
+    euclidean_join_core(a, b, mode = "anti", by = by, threshold =  threshold, n_bands = n_bands, band_width = band_width, r = r)
 }
 
 #' Spatial Inner Join Using LSH
@@ -63,12 +63,12 @@ eucidian_anti_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, ban
 #'X_1$id_1 <- 1:n
 #'X_2$id_2 <- 1:n
 #'
-#'eucidian_inner_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
+#'euclidean_inner_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
 #'
 #'
 #' @export
-eucidian_inner_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5) {
-    euclidian_join_core(a, b, mode = "inner", by = by, threshold =  threshold, n_bands = n_bands, band_width = band_width, r = r)
+euclidean_inner_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5) {
+    euclidean_join_core(a, b, mode = "inner", by = by, threshold =  threshold, n_bands = n_bands, band_width = band_width, r = r)
 }
 
 #' Spatial Left Join Using LSH
@@ -99,12 +99,12 @@ eucidian_inner_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, ba
 #'X_1$id_1 <- 1:n
 #'X_2$id_2 <- 1:n
 #'
-#'eucidian_left_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
+#'euclidean_left_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
 #'
 #'
 #' @export
-eucidian_left_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5) {
-    euclidian_join_core(a, b, mode = "left", by = by, threshold =  threshold, n_bands = n_bands, band_width = band_width, r = r)
+euclidean_left_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5) {
+    euclidean_join_core(a, b, mode = "left", by = by, threshold =  threshold, n_bands = n_bands, band_width = band_width, r = r)
 }
 
 #' Spatial Right Join Using LSH
@@ -134,12 +134,12 @@ eucidian_left_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, ban
 #'X_1$id_1 <- 1:n
 #'X_2$id_2 <- 1:n
 #'
-#'eucidian_right_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
+#'euclidean_right_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
 #'
 #'
 #' @export
-eucidian_right_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5) {
-    euclidian_join_core(a, b, mode = "right", by = by, threshold =  threshold, n_bands = n_bands, band_width = band_width, r = r)
+euclidean_right_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5) {
+    euclidean_join_core(a, b, mode = "right", by = by, threshold =  threshold, n_bands = n_bands, band_width = band_width, r = r)
 }
 
 #' Spatial Full Join Using LSH
@@ -170,9 +170,9 @@ eucidian_right_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, ba
 #'X_1$id_1 <- 1:n
 #'X_2$id_2 <- 1:n
 #'
-#'eucidian_full_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
+#'euclidean_full_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
 #'
 #' @export
-eucidian_full_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5) {
-    euclidian_join_core(a, b, mode = "full", by = by, threshold =  threshold, n_bands = n_bands, band_width = band_width, r = r)
+euclidean_full_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5) {
+    euclidean_join_core(a, b, mode = "full", by = by, threshold =  threshold, n_bands = n_bands, band_width = band_width, r = r)
 }
