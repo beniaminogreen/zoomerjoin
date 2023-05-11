@@ -28,51 +28,51 @@
     <loc>https://beniaminogreen.github.io/zoomerjoin/reference/em_link.html</loc>
   </url>
   <url>
+    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/euclidean_anti_join.html</loc>
+  </url>
+  <url>
+    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/euclidean_full_join.html</loc>
+  </url>
+  <url>
+    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/euclidean_inner_join.html</loc>
+  </url>
+  <url>
+    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/euclidean_left_join.html</loc>
+  </url>
+  <url>
+    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/euclidean_right_join.html</loc>
+  </url>
+  <url>
     <loc>https://beniaminogreen.github.io/zoomerjoin/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/jaccard_anti_join.html</loc>
+  </url>
+  <url>
+    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/jaccard_curve.html</loc>
+  </url>
+  <url>
+    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/jaccard_full_join.html</loc>
+  </url>
+  <url>
+    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/jaccard_hyper_grid_search.html</loc>
+  </url>
+  <url>
+    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/jaccard_inner_join.html</loc>
+  </url>
+  <url>
+    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/jaccard_left_join.html</loc>
+  </url>
+  <url>
+    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/jaccard_probability.html</loc>
+  </url>
+  <url>
+    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/jaccard_right_join.html</loc>
   </url>
   <url>
     <loc>https://beniaminogreen.github.io/zoomerjoin/reference/jaccard_similarity.html</loc>
   </url>
   <url>
-    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/kd_anti_join.html</loc>
-  </url>
-  <url>
-    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/kd_full_join.html</loc>
-  </url>
-  <url>
-    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/kd_inner_join.html</loc>
-  </url>
-  <url>
-    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/kd_left_join.html</loc>
-  </url>
-  <url>
-    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/kd_right_join.html</loc>
-  </url>
-  <url>
-    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/lsh_anti_join.html</loc>
-  </url>
-  <url>
-    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/lsh_curve.html</loc>
-  </url>
-  <url>
-    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/lsh_full_join.html</loc>
-  </url>
-  <url>
-    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/lsh_hyper_grid_search.html</loc>
-  </url>
-  <url>
-    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/lsh_inner_join.html</loc>
-  </url>
-  <url>
-    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/lsh_left_join.html</loc>
-  </url>
-  <url>
-    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/lsh_probability.html</loc>
-  </url>
-  <url>
-    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/lsh_right_join.html</loc>
-  </url>
-  <url>
-    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/lsh_string_group.html</loc>
+    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/jaccard_string_group.html</loc>
   </url>
 </urlset>

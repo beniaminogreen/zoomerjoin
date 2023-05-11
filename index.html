@@ -109,12 +109,12 @@
 <div class="section level3">
 <h3 id="usage">Usage:<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h3>
-<p>The flagship feature of zoomerjoins are the lsh_join family of functions, which are designed to be near drop-ins for the corresponding dplyr/fuzzyjoin commands:</p>
+<p>The flagship feature of zoomerjoins are the jaccard_join family of functions, which are designed to be near drop-ins for the corresponding dplyr/fuzzyjoin commands:</p>
 <ul>
-<li><code><a href="reference/lsh_left_join.html">lsh_left_join()</a></code></li>
-<li><code><a href="reference/lsh_right_join.html">lsh_right_join()</a></code></li>
-<li><code><a href="reference/lsh_inner_join.html">lsh_inner_join()</a></code></li>
-<li><code><a href="reference/lsh_full_join.html">lsh_full_join()</a></code></li>
+<li><code><a href="reference/jaccard_left_join.html">jaccard_left_join()</a></code></li>
+<li><code><a href="reference/jaccard_right_join.html">jaccard_right_join()</a></code></li>
+<li><code><a href="reference/jaccard_inner_join.html">jaccard_inner_join()</a></code></li>
+<li><code><a href="reference/jaccard_full_join.html">jaccard_full_join()</a></code></li>
 </ul>
 <p>Here’s a snippet showing off how to use the <code>lhs_inner_join()</code> merge two datasets of political donors in the <a href="https://data.stanford.edu/dime" class="external-link">Database on Ideology, Money in Politics, and Elections (DIME)</a>. You can see a more detailed example of this vignette in the <a href="https://beniaminogreen.github.io/zoomerjoin/articles/guided_tour.html">introductory vignette</a>.</p>
 <p>I start with two corpuses I would like to combine, <code>corpus_1</code>:</p>
@@ -151,30 +151,30 @@
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 832479 arizona federation of teachers      </span></span>
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 832480 arianas restaurant                  </span></span>
 <span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 499,990 more rows</span></span></code></pre></div>
-<p>Both corpuses have an observation ID column, and a donor name column. We would like to join the two datasets on the donor names column, but the two can’t be directly joined because of misspellings. Because of this, we will use the lsh_inner_join function to fuzzily join the two on the donor name column.</p>
+<p>Both corpuses have an observation ID column, and a donor name column. We would like to join the two datasets on the donor names column, but the two can’t be directly joined because of misspellings. Because of this, we will use the jaccard_inner_join function to fuzzily join the two on the donor name column.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">start_time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">join_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/lsh_inner_join.html">lsh_inner_join</a></span><span class="op">(</span><span class="va">corpus_1</span>, <span class="va">corpus_2</span>, n_gram_width<span class="op">=</span><span class="fl">6</span>, n_bands<span class="op">=</span><span class="fl">20</span>, band_width<span class="op">=</span><span class="fl">6</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">join_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/jaccard_inner_join.html">jaccard_inner_join</a></span><span class="op">(</span><span class="va">corpus_1</span>, <span class="va">corpus_2</span>, n_gram_width<span class="op">=</span><span class="fl">6</span>, n_bands<span class="op">=</span><span class="fl">20</span>, band_width<span class="op">=</span><span class="fl">6</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Joining by 'field'</span></span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="va">start_time</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Time difference of 9.807082 secs</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Time difference of 10.51507 secs</span></span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">join_out</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 178,130 × 4</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="do">##         a field.x                                                      b field.y</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="do">##     &lt;dbl&gt; &lt;chr&gt;                                                    &lt;dbl&gt; &lt;chr&gt;  </span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 330353 gm transportation inc                                   1.27e6 ksea t…</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 319593 iowa association of realtors                            1.10e6 or ass…</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 143116 joaquin castro for state representative                 9.58e5 joaqui…</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  4  63678 los angeles turf club and its affiliated entity, pacif… 9.51e5 los an…</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  5  61672 faculty for our university s future, a committee spons… 8.82e5 facult…</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  6   7712 boise county republican central cmte                    1.20e6 sonoma…</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 363965 mlg family limited partnership                          9.07e5 lrc fa…</span></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  8  88701 sac county republican party                             1.26e6 luna c…</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 174972 north dakota republicans district 17                    1.10e6 north …</span></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 173608 pace of ca school employees                             8.73e5 pace o…</span></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 178,120 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 180,356 × 4</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="do">##         a field.x                                             b field.y         </span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="do">##     &lt;dbl&gt; &lt;chr&gt;                                           &lt;dbl&gt; &lt;chr&gt;           </span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  1  44376 armani restorations                            928176 domani restorat…</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  2  73712 myers &amp; associates                            1248413 myers &amp; associa…</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 436479 texas industries employee pac texas inc        889736 trinity industr…</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 390156 noble finance corp 973                        1243453 noble finance c…</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  5  96351 cmte to elect john rogers                     1073822 cmte to elect j…</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 239816 dgd development limited partnership            992417 biggi developme…</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 462926 sfp limited partnership                        958554 jbj limited par…</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 157082 arizona federation of democratic womens clubs 1112423 arizona federat…</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 289143 cmc construction inc                          1178516 vm construction…</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 110477 laborers union local 291                       954982 laborers union …</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 180,346 more rows</span></span></code></pre></div>
 <p>ZoomerJoin finds and joins on the matching rows in just a few seconds.</p>
 </div>
 </div>
