@@ -56,10 +56,10 @@
 #'    )
 #'# Check the probability two pairs of strings with
 #'# similarity .8 will be matched with a band width of 30
-#'# and 30 bands using the `lsh_probability` function:
-#'lsh_probability(.8,30,8)
+#'# and 30 bands using the `jaccard_probability` function:
+#'jaccard_probability(.8,30,8)
 #'# Run the join:
-#'joined_names <- lsh_inner_join(
+#'joined_names <- jaccard_inner_join(
 #'               baby_names,
 #'               baby_names_sans_vowels,
 #'               by = c("name"= "name_wo_vowels"),
@@ -71,8 +71,8 @@
 #'               )
 #'joined_names
 #' @export
-lsh_inner_join <- function(a, b, by = NULL, block_by = NULL, n_gram_width = 2, n_bands = 45,
-                           band_width = 8, threshold = .7, clean = FALSE) { lsh_join(a, b,
+jaccard_inner_join <- function(a, b, by = NULL, block_by = NULL, n_gram_width = 2, n_bands = 45,
+                           band_width = 8, threshold = .7, clean = FALSE) { jaccard_join(a, b,
                            mode = "inner", by = by, salt_by = block_by, n_gram_width =
                                n_gram_width, n_bands = n_bands, band_width =
                                band_width, threshold =  threshold, clean=clean) }
@@ -134,9 +134,9 @@ lsh_inner_join <- function(a, b, by = NULL, block_by = NULL, n_gram_width = 2, n
 #'    )
 #'# Check the probability two pairs of strings with
 #'# similarity .8 will be matched with a band width of 30
-#'# and 30 bands using the `lsh_probability` function:
+#'# and 30 bands using the `jaccard_probability` function:
 #'# Run the join:
-#'joined_names <- lsh_anti_join(
+#'joined_names <- jaccard_anti_join(
 #'               baby_names,
 #'               baby_names_sans_vowels,
 #'               by = c("name"= "name_wo_vowels"),
@@ -148,7 +148,7 @@ lsh_inner_join <- function(a, b, by = NULL, block_by = NULL, n_gram_width = 2, n
 #'               )
 #'joined_names
 #' @export
-lsh_anti_join <- function(a, b,
+jaccard_anti_join <- function(a, b,
                             by = NULL,
                             block_by = NULL,
                             n_gram_width = 2,
@@ -156,7 +156,7 @@ lsh_anti_join <- function(a, b,
                             band_width = 8,
                             threshold = .7,
                             clean =FALSE) {
-    lsh_join(a, b, mode = "anti", by = by,
+    jaccard_join(a, b, mode = "anti", by = by,
                 salt_by = block_by,
                    n_gram_width = n_gram_width,
                    n_bands = n_bands, band_width = band_width,
@@ -220,10 +220,10 @@ lsh_anti_join <- function(a, b,
 #'    )
 #'# Check the probability two pairs of strings with
 #'# similarity .8 will be matched with a band width of 30
-#'# and 30 bands using the `lsh_probability` function:
-#'lsh_probability(.8,30,8)
+#'# and 30 bands using the `jaccard_probability` function:
+#'jaccard_probability(.8,30,8)
 #'# Run the join:
-#'joined_names <- lsh_left_join(
+#'joined_names <- jaccard_left_join(
 #'               baby_names,
 #'               baby_names_sans_vowels,
 #'               by = c("name"= "name_wo_vowels"),
@@ -235,7 +235,7 @@ lsh_anti_join <- function(a, b,
 #'               )
 #'joined_names
 #' @export
-lsh_left_join <- function(a, b,
+jaccard_left_join <- function(a, b,
                             by = NULL,
                             block_by = NULL,
                             n_gram_width = 2,
@@ -244,7 +244,7 @@ lsh_left_join <- function(a, b,
                             threshold = .7,
                             clean = FALSE
                             ) {
-    lsh_join(a, b, mode = "left", by = by,
+    jaccard_join(a, b, mode = "left", by = by,
                 salt_by = block_by,
                    n_gram_width = n_gram_width,
                    n_bands = n_bands, band_width = band_width,
@@ -308,10 +308,10 @@ lsh_left_join <- function(a, b,
 #'    )
 #'# Check the probability two pairs of strings with
 #'# similarity .8 will be matched with a band width of 30
-#'# and 30 bands using the `lsh_probability` function:
-#'lsh_probability(.8,30,8)
+#'# and 30 bands using the `jaccard_probability` function:
+#'jaccard_probability(.8,30,8)
 #'# Run the join:
-#'joined_names <- lsh_right_join(
+#'joined_names <- jaccard_right_join(
 #'               baby_names,
 #'               baby_names_sans_vowels,
 #'               by = c("name"= "name_wo_vowels"),
@@ -323,7 +323,7 @@ lsh_left_join <- function(a, b,
 #'               )
 #'joined_names
 #' @export
-lsh_right_join <- function(a, b,
+jaccard_right_join <- function(a, b,
                             by = NULL,
                             block_by = NULL,
                             n_gram_width = 2,
@@ -331,7 +331,7 @@ lsh_right_join <- function(a, b,
                             band_width = 8,
                             threshold = .7,
                             clean = FALSE){
-    lsh_join(a, b, mode = "right", by = by,
+    jaccard_join(a, b, mode = "right", by = by,
                 salt_by = block_by,
                    n_gram_width = n_gram_width,
                    n_bands = n_bands, band_width = band_width,
@@ -395,10 +395,10 @@ lsh_right_join <- function(a, b,
 #'    )
 #'# Check the probability two pairs of strings with
 #'# similarity .8 will be matched with a band width of 30
-#'# and 30 bands using the `lsh_probability` function:
-#'lsh_probability(.8,30,8)
+#'# and 30 bands using the `jaccard_probability` function:
+#'jaccard_probability(.8,30,8)
 #'# Run the join:
-#'joined_names <- lsh_full_join(
+#'joined_names <- jaccard_full_join(
 #'               baby_names,
 #'               baby_names_sans_vowels,
 #'               by = c("name"= "name_wo_vowels"),
@@ -410,7 +410,7 @@ lsh_right_join <- function(a, b,
 #'               )
 #'joined_names
 #' @export
-lsh_full_join <- function(a, b,
+jaccard_full_join <- function(a, b,
                             by = NULL,
                             block_by = NULL,
                             n_gram_width = 2,
@@ -418,7 +418,7 @@ lsh_full_join <- function(a, b,
                             band_width = 8,
                             threshold = .7,
                             clean = FALSE){
-    lsh_join(a, b, mode = "full", by = by,
+    jaccard_join(a, b, mode = "full", by = by,
         salt_by = block_by,
         n_gram_width = n_gram_width,
         n_bands = n_bands, band_width = band_width,

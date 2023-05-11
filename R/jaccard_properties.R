@@ -10,10 +10,10 @@
 #' @examples
 #' # Plot the probability two pairs will be matched as a function of their
 #' # jaccard similarity, given the hyperparameters n_bands and band_width.
-#' lsh_curve(40,6)
+#' jaccard_curve(40,6)
 #'
 #' @export
-lsh_curve <- function(n_bands, band_width) {
+jaccard_curve <- function(n_bands, band_width) {
 
     stopifnot("number of bands must be a single integer" = length(n_bands)==1)
     stopifnot("band width must be a single integer" = length(band_width)==1)
@@ -36,7 +36,7 @@ lsh_curve <- function(n_bands, band_width) {
 #' Find Probability of Match Based on Similarity
 #'
 #' This is a port of the
-#' [lsh_probability](https://docs.ropensci.org/textreuse/reference/lsh_probability.html)
+#' [jaccard_probability](https://docs.ropensci.org/textreuse/reference/jaccard_probability.html)
 #' function from the
 #' [textreuse](https://cran.r-project.org/web/packages/textreuse/index.html)
 #' package, with arguments changed to reflect the hyperparameters in this
@@ -56,9 +56,9 @@ lsh_curve <- function(n_bands, band_width) {
 #' @examples
 #' # Find the probability two pairs will be matched given they have a jaccard_similarity of .8,
 #' # band width of 5, and 50 bands:
-#' lsh_probability(.8,5,50)
+#' jaccard_probability(.8,5,50)
 #' @export
-lsh_probability <- function(similarity, n_bands, band_width){
+jaccard_probability <- function(similarity, n_bands, band_width){
     1-(1-similarity^band_width)^n_bands
 }
 
@@ -86,10 +86,10 @@ lsh_probability <- function(similarity, n_bands, band_width){
 #' # Help me find the parameters that will minimize runtime while ensuring that
 #' # two strings with similarity .1 will be compared less than .1% of the time,
 #' # strings with .8 similaity will have a 99.95% chance of being compared:
-#' lsh_hyper_grid_search(.1,.9,.001,.995)
+#' jaccard_hyper_grid_search(.1,.9,.001,.995)
 #'
 #' @export
-lsh_hyper_grid_search <- function(s1=.1,s2=.7,p1=.001,p2=.999) {
+jaccard_hyper_grid_search <- function(s1=.1,s2=.7,p1=.001,p2=.999) {
 
     stopifnot("s1 must be a single number"=length(s1)==1)
     stopifnot("s2 must be a single number"=length(s2)==1)
@@ -100,12 +100,12 @@ lsh_hyper_grid_search <- function(s1=.1,s2=.7,p1=.001,p2=.999) {
     stopifnot("proability 1 must be less than similarity 2" = p1 < p2)
 
     df <- expand.grid(
-                band_width = seq(1,20,1),
-                n_bands = seq(1,10000,1)
+                band_width = seq(1,75,1),
+                n_bands = seq(1,50000,1)
             )
 
-    df$p1 <-lsh_probability(s1, n_bands = df$n_bands,  band_width = df$band_width)
-    df$p2 <-lsh_probability(s2, n_bands = df$n_bands,  band_width = df$band_width)
+    df$p1 <-jaccard_probability(s1, n_bands = df$n_bands,  band_width = df$band_width)
+    df$p2 <-jaccard_probability(s2, n_bands = df$n_bands,  band_width = df$band_width)
 
     df$feasible <- (df$p1 < p1) & (df$p2 > p2)
 

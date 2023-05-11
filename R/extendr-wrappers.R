@@ -8,13 +8,13 @@
 #' @useDynLib zoomerjoin, .registration = TRUE
 NULL
 
-rust_lsh_join <- function(left_string_r, right_string_r, ngram_width, n_bands, band_size, threshold) .Call(wrap__rust_lsh_join, left_string_r, right_string_r, ngram_width, n_bands, band_size, threshold)
+rust_jaccard_join <- function(left_string_r, right_string_r, ngram_width, n_bands, band_size, threshold) .Call(wrap__rust_jaccard_join, left_string_r, right_string_r, ngram_width, n_bands, band_size, threshold)
 
-rust_salted_lsh_join <- function(left_string_r, right_string_r, left_salt_r, right_salt_r, ngram_width, n_bands, band_size, threshold) .Call(wrap__rust_salted_lsh_join, left_string_r, right_string_r, left_salt_r, right_salt_r, ngram_width, n_bands, band_size, threshold)
-
-rust_kd_join <- function(a_mat, b_mat, radius) .Call(wrap__rust_kd_join, a_mat, b_mat, radius)
+rust_salted_jaccard_join <- function(left_string_r, right_string_r, left_salt_r, right_salt_r, ngram_width, n_bands, band_size, threshold) .Call(wrap__rust_salted_jaccard_join, left_string_r, right_string_r, left_salt_r, right_salt_r, ngram_width, n_bands, band_size, threshold)
 
 rust_jaccard_similarity <- function(left_string_r, right_string_r, ngram_width) .Call(wrap__rust_jaccard_similarity, left_string_r, right_string_r, ngram_width)
 
 rust_em_link <- function(x_robj, probs, tol, max_iter) .Call(wrap__rust_em_link, x_robj, probs, tol, max_iter)
+
+rust_p_norm_join <- function(a_mat, b_mat, radius, band_width, n_bands, r) .Call(wrap__rust_p_norm_join, a_mat, b_mat, radius, band_width, n_bands, r)
 

@@ -78,14 +78,14 @@ library(zoomerjoin)
 
 ### Usage:
 
-The flagship feature of zoomerjoins are the lsh_join family of functions, which
+The flagship feature of zoomerjoins are the jaccard_join family of functions, which
 are designed to be near drop-ins for the corresponding dplyr/fuzzyjoin
 commands:
 
-* `lsh_left_join()`
-* `lsh_right_join()`
-* `lsh_inner_join()`
-* `lsh_full_join()`
+* `jaccard_left_join()`
+* `jaccard_right_join()`
+* `jaccard_inner_join()`
+* `jaccard_full_join()`
 
 Here's a snippet showing off how to use the `lhs_inner_join()` merge two
 datasets of political donors in the [Database on Ideology, Money in Politics,
@@ -107,11 +107,11 @@ corpus_2
 Both corpuses have an observation ID column, and a donor name column. We would
 like to join the two datasets on the donor names column, but the two can't be
 directly joined because of misspellings. Because of this, we will use the
-lsh_inner_join function to fuzzily join the two on the donor name column.
+jaccard_inner_join function to fuzzily join the two on the donor name column.
 
 ```{r}
 start_time <- Sys.time()
-join_out <- lsh_inner_join(corpus_1, corpus_2, n_gram_width=6, n_bands=20, band_width=6)
+join_out <- jaccard_inner_join(corpus_1, corpus_2, n_gram_width=6, n_bands=20, band_width=6)
 print(Sys.time() - start_time)
 print(join_out)
 ```

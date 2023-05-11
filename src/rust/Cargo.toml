@@ -2,6 +2,7 @@
 name = 'zoomerjoin'
 version = '0.1.0'
 edition = '2021'
+authors = ["Beniamino Green <beniamino.green@yale.edu>"]
 
 [lib]
 crate-type = [ 'staticlib' ]

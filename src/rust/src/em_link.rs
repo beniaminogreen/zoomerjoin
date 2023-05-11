@@ -146,7 +146,6 @@ impl EMLinker {
 
         while max_diff > tol {
             i += 1;
-            println!("iteration {}", i);
 
             if i > max_iter {
                 panic!("maxium iterations exceeded!");

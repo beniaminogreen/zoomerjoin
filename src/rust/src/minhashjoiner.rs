@@ -6,14 +6,14 @@ use dashmap::{DashMap, DashSet};
 
 use std::sync::Arc;
 
-use crate::minihasher::LSHHasher;
+use crate::minihasher::MinHasher;
 
-pub struct LSHjoiner {
+pub struct MinHashJoiner {
     smaller_set: Vec<ShingleSet>,
     larger_set: Vec<ShingleSet>
 }
 
-impl LSHjoiner {
+impl MinHashJoiner {
     pub fn new(
         left_string_vec: Vec<&str>,
         right_string_vec: Vec<&str>,
@@ -71,11 +71,11 @@ impl LSHjoiner {
     //let mut matched_pairs: HashSet<(usize, usize)> = HashSet::new();
     let matched_pairs: Arc<DashSet<(usize, usize)>> = Arc::new(DashSet::new());
 
-    for i in 0..n_bands {
-        println!("starting iteration {}", i);
+    for _ in 0..n_bands {
+        // println!("starting iteration {}", i);
         let small_set_map: Arc<DashMap<u64, Vec<usize>>> = Arc::new(DashMap::default());
 
-        let hasher = Arc::new(LSHHasher::new(band_size as usize));
+        let hasher = Arc::new(MinHasher::new(band_size as usize));
         let chunks = self.smaller_set.chunks(chunk_len);
 
         std::thread::scope(|scope| {

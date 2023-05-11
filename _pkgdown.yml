@@ -4,11 +4,11 @@ template:
 reference:
   - title: dplyr-style fuzzy joins
     contents:
-      - lsh_inner_join
-      - lsh_full_join
-      - lsh_left_join
-      - lsh_right_join
-      - lsh_anti_join
+      - jaccard_inner_join
+      - jaccard_full_join
+      - jaccard_left_join
+      - jaccard_right_join
+      - jaccard_anti_join
 
   - title: Probabilistic Matching Algorithms
     contents:
@@ -16,15 +16,15 @@ reference:
 
   - title: string deduplication
     contents:
-      - lsh_string_group
+      - jaccard_string_group
 
   - title: dplyr-style distance joins
     contents:
-      - kd_inner_join
-      - kd_full_join
-      - kd_left_join
-      - kd_right_join
-      - kd_anti_join
+      - euclidean_inner_join
+      - euclidean_full_join
+      - euclidean_left_join
+      - euclidean_right_join
+      - euclidean_anti_join
 
   - title: Utilities
     contents:
@@ -32,7 +32,7 @@ reference:
 
   - title: Diagnostics
     contents:
-      - lsh_curve
-      - lsh_probability
-      - lsh_hyper_grid_search
+      - jaccard_curve
+      - jaccard_probability
+      - jaccard_hyper_grid_search
 
