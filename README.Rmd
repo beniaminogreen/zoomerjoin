@@ -36,10 +36,6 @@ zoomerjoin can fuzzily-join datasets days, or even years faster than other
 matching packages. zoomerjoin has been used in-production to join datasets of
 hundreds of millions of names in a few hours.
 
-The package also wraps the [kdtree](https://docs.rs/kdtree/latest/kdtree/) Rust
-crate to provide blazingly fast spatial joins.
-
-
 ## Installation
 
 ---
