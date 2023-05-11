@@ -22,7 +22,7 @@ simple_by_validate <- function(a,b, by) {
                 ))
 }
 
-lsh_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands,
+jaccard_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands,
                       band_width, threshold, a_salt = NULL, b_salt = NULL,
                       clean=FALSE) {
 
@@ -82,11 +82,11 @@ lsh_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands,
     }
 
     if (is.null(salt_by_a) | is.null(salt_by_b)) {
-        match_table <- rust_lsh_join(
+        match_table <- rust_jaccard_join(
                  a_col, b_col,
                  n_gram_width, n_bands, band_width, threshold)
     } else {
-        match_table <- rust_salted_lsh_join(
+        match_table <- rust_salted_jaccard_join(
                  a_col, b_col,
                  a_salt_col, b_salt_col,
                  n_gram_width, n_bands, band_width, threshold)

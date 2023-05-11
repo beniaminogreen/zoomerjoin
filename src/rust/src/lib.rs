@@ -5,9 +5,6 @@ use std::collections::{HashMap, HashSet};
 
 use rayon::prelude::*;
 
-use kdtree::distance::squared_euclidean;
-use kdtree::KdTree;
-
 pub mod shingleset;
 use crate::shingleset::ShingleSet;
 
@@ -63,7 +60,7 @@ fn rust_jaccard_similarity(left_string_r: Robj, right_string_r: Robj, ngram_widt
 }
 
 #[extendr]
-fn rust_lsh_join(
+fn rust_jaccard_join(
     left_string_r: Robj,
     right_string_r: Robj,
     ngram_width: i64,
@@ -88,7 +85,7 @@ fn rust_lsh_join(
 }
 
 #[extendr]
-fn rust_salted_lsh_join(
+fn rust_salted_jaccard_join(
     left_string_r: Robj,
     right_string_r: Robj,
     left_salt_r: Robj,
@@ -120,34 +117,6 @@ fn rust_salted_lsh_join(
         out_arr[[i, 1]] = pair.0 as u64 + 1;
     }
 
-    Robj::try_from(&out_arr).into()
-}
-
-#[extendr]
-fn rust_kd_join(a_mat: Robj, b_mat: Robj, radius: f64) -> Robj {
-    let a_mat = <ArrayView2<f64>>::from_robj(&a_mat).unwrap().to_owned();
-
-    let b_mat = <ArrayView2<f64>>::from_robj(&b_mat).unwrap().to_owned();
-
-    let mut kdtree = KdTree::with_capacity(2, a_mat.nrows());
-    for (i, row) in a_mat.axis_iter(Axis(0)).enumerate() {
-        kdtree
-            .add([row[0], row[1]], i + 1)
-            .expect("error loading tree");
-    }
-
-    let mut matches: Vec<[u64; 2]> = Vec::new();
-
-    for (j, row) in b_mat.axis_iter(Axis(0)).enumerate() {
-        let closest = kdtree
-            .within(&[row[0], row[1]], radius, &squared_euclidean)
-            .unwrap();
-        for (_, i) in closest {
-            matches.push([*i as u64, (j + 1) as u64]);
-        }
-    }
-
-    let out_arr: Array2<u64> = matches.into();
     Robj::try_from(&out_arr).into()
 }
 
@@ -210,9 +179,8 @@ fn rust_p_norm_join(a_mat: Robj, b_mat: Robj, radius: f64, band_width : u64, n_b
 // See corresponding C code in `entrypoint.c`.
 extendr_module! {
     mod zoomerjoin;
-    fn rust_lsh_join;
-    fn rust_salted_lsh_join;
-    fn rust_kd_join;
+    fn rust_jaccard_join;
+    fn rust_salted_jaccard_join;
     fn rust_jaccard_similarity;
     fn rust_em_link;
     fn rust_p_norm_join;

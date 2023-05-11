@@ -42,16 +42,16 @@
 #'
 #' string <- c("beniamino", "jack", "benjamin", "beniamin",
 #'     "jacky", "giacomo", "gaicomo")
-#' lsh_string_group(string, threshold = .2, n_bands=90, n_gram_width=1)
+#' jaccard_string_group(string, threshold = .2, n_bands=90, n_gram_width=1)
 #'
 #' @export
-lsh_string_group <- function(string, n_gram_width = 2, n_bands = 45, band_width = 8, threshold = .7) {
+jaccard_string_group <- function(string, n_gram_width = 2, n_bands = 45, band_width = 8, threshold = .7) {
 
     if (!"igraph" %in% rownames(installed.packages())) {
             stop("library 'igraph' must be installed to run this package")
     }
 
-    pairs <- rust_lsh_join(string,
+    pairs <- rust_jaccard_join(string,
                            string,
                            ngram_width = n_gram_width,
                            n_bands,

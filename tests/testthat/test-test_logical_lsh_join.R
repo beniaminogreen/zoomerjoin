@@ -45,9 +45,9 @@ misspelled_name_df <- names_df %>%
            name = misspell(name),
     )
 
-test_that("lsh_inner_join works on tiny dataset", {
+test_that("jaccard_inner_join works on tiny dataset", {
     capture_messages(
-        test <- lsh_inner_join(dataset_1, dataset_2, threshold=.6, n_bands=300)
+        test <- jaccard_inner_join(dataset_1, dataset_2, threshold=.6, n_bands=300)
     )
 
     expect_true(all(test$id_1 == test$id_2, na.rm=T))
@@ -56,9 +56,9 @@ test_that("lsh_inner_join works on tiny dataset", {
     expect_identical(sort(test$id_2), c(1,2))
 
 })
-test_that("lsh_full_join works on tiny dataset", {
+test_that("jaccard_full_join works on tiny dataset", {
     capture_messages(
-        test <- lsh_full_join(dataset_1, dataset_2, threshold=.6, n_bands=300)
+        test <- jaccard_full_join(dataset_1, dataset_2, threshold=.6, n_bands=300)
     )
 
     expect_true(all(test$id_1 == test$id_2, na.rm=T))
@@ -67,9 +67,9 @@ test_that("lsh_full_join works on tiny dataset", {
     expect_identical(sort(test$id_2), c(1,2,3))
 
 })
-test_that("lsh_left_join works on tiny dataset", {
+test_that("jaccard_left_join works on tiny dataset", {
     capture_messages(
-        test <- lsh_left_join(dataset_1, dataset_2, threshold=.6, n_bands=300)
+        test <- jaccard_left_join(dataset_1, dataset_2, threshold=.6, n_bands=300)
     )
 
     expect_true(all(test$id_1 == test$id_2, na.rm=T))
@@ -78,9 +78,9 @@ test_that("lsh_left_join works on tiny dataset", {
     expect_identical(sort(test$id_2), c(1,2))
 
 })
-test_that("lsh_right_join works on tiny dataset", {
+test_that("jaccard_right_join works on tiny dataset", {
     capture_messages(
-        test <- lsh_right_join(dataset_1, dataset_2, threshold=.6, n_bands=300)
+        test <- jaccard_right_join(dataset_1, dataset_2, threshold=.6, n_bands=300)
                      )
 
 
@@ -90,10 +90,10 @@ test_that("lsh_right_join works on tiny dataset", {
     expect_identical(sort(test$id_2), c(1,2,3))
 })
 
-test_that("lsh_inner_join gives same results as stringdist_inner_join", {
+test_that("jaccard_inner_join gives same results as stringdist_inner_join", {
     for (i in 1:20) {
     capture_messages({
-        zoomer_join_out <- lsh_inner_join(names_df, misspelled_name_df, n_gram_width = 1, threshold = .9, n_bands=150, band_width = 5) %>%
+        zoomer_join_out <- jaccard_inner_join(names_df, misspelled_name_df, n_gram_width = 1, threshold = .9, n_bands=150, band_width = 5) %>%
             arrange(id_1)
 
     stringdist_join_out <- stringdist_inner_join(names_df, misspelled_name_df, method="jaccard", max_dist=.1) %>%

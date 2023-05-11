@@ -71,8 +71,8 @@ impl MinHashJoiner {
     //let mut matched_pairs: HashSet<(usize, usize)> = HashSet::new();
     let matched_pairs: Arc<DashSet<(usize, usize)>> = Arc::new(DashSet::new());
 
-    for i in 0..n_bands {
-        println!("starting iteration {}", i);
+    for _ in 0..n_bands {
+        // println!("starting iteration {}", i);
         let small_set_map: Arc<DashMap<u64, Vec<usize>>> = Arc::new(DashMap::default());
 
         let hasher = Arc::new(MinHasher::new(band_size as usize));
