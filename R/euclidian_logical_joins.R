@@ -27,11 +27,11 @@
 #'X_2$id_2 <- 1:n
 #'
 #'
-#'pnorm_anti_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
+#'eucidian_anti_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
 #'
 #'
 #' @export
-pnorm_anti_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5) {
+eucidian_anti_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5) {
     euclidian_join_core(a, b, mode = "anti", by = by, threshold =  threshold, n_bands = n_bands, band_width = band_width, r = r)
 }
 
@@ -63,11 +63,11 @@ pnorm_anti_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_w
 #'X_1$id_1 <- 1:n
 #'X_2$id_2 <- 1:n
 #'
-#'pnorm_inner_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
+#'eucidian_inner_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
 #'
 #'
 #' @export
-pnorm_inner_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5) {
+eucidian_inner_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5) {
     euclidian_join_core(a, b, mode = "inner", by = by, threshold =  threshold, n_bands = n_bands, band_width = band_width, r = r)
 }
 
@@ -99,11 +99,11 @@ pnorm_inner_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_
 #'X_1$id_1 <- 1:n
 #'X_2$id_2 <- 1:n
 #'
-#'pnorm_left_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
+#'eucidian_left_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
 #'
 #'
 #' @export
-pnorm_left_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5) {
+eucidian_left_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5) {
     euclidian_join_core(a, b, mode = "left", by = by, threshold =  threshold, n_bands = n_bands, band_width = band_width, r = r)
 }
 
@@ -134,11 +134,11 @@ pnorm_left_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_w
 #'X_1$id_1 <- 1:n
 #'X_2$id_2 <- 1:n
 #'
-#'pnorm_right_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
+#'eucidian_right_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
 #'
 #'
 #' @export
-pnorm_right_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5) {
+eucidian_right_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5) {
     euclidian_join_core(a, b, mode = "right", by = by, threshold =  threshold, n_bands = n_bands, band_width = band_width, r = r)
 }
 
@@ -170,9 +170,9 @@ pnorm_right_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_
 #'X_1$id_1 <- 1:n
 #'X_2$id_2 <- 1:n
 #'
-#'pnorm_full_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
+#'eucidian_full_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
 #'
 #' @export
-pnorm_full_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5) {
+eucidian_full_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5) {
     euclidian_join_core(a, b, mode = "full", by = by, threshold =  threshold, n_bands = n_bands, band_width = band_width, r = r)
 }

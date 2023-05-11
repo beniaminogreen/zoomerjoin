@@ -4,11 +4,11 @@ template:
 reference:
   - title: dplyr-style fuzzy joins
     contents:
-      - lsh_inner_join
-      - lsh_full_join
-      - lsh_left_join
-      - lsh_right_join
-      - lsh_anti_join
+      - jaccard_inner_join
+      - jaccard_full_join
+      - jaccard_left_join
+      - jaccard_right_join
+      - jaccard_anti_join
 
   - title: Probabilistic Matching Algorithms
     contents:
@@ -20,11 +20,11 @@ reference:
 
   - title: dplyr-style distance joins
     contents:
-      - pnorm_inner_join
-      - pnorm_full_join
-      - pnorm_left_join
-      - pnorm_right_join
-      - pnorm_anti_join
+      - euclidian_inner_join
+      - euclidian_full_join
+      - euclidian_left_join
+      - euclidian_right_join
+      - euclidian_anti_join
 
   - title: Utilities
     contents:
