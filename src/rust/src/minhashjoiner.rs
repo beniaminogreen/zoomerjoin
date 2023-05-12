@@ -4,8 +4,6 @@ use rayon::prelude::*;
 
 use dashmap::{DashMap, DashSet};
 
-use std::sync::Arc;
-
 use crate::minihasher::MinHasher;
 
 pub struct MinHashJoiner {
@@ -65,70 +63,42 @@ impl MinHashJoiner {
 
     pub fn join(&self, n_bands : usize, band_size : usize, threshold : f64) -> DashSet<(usize, usize)>{
 
-    let processors = num_cpus::get();
-    let chunk_len = ((self.smaller_set.len() / processors) + 1) as usize;
-
     //let mut matched_pairs: HashSet<(usize, usize)> = HashSet::new();
-    let matched_pairs: Arc<DashSet<(usize, usize)>> = Arc::new(DashSet::new());
+    let matched_pairs: DashSet<(usize, usize)> = DashSet::new();
 
     for _ in 0..n_bands {
         // println!("starting iteration {}", i);
-        let small_set_map: Arc<DashMap<u64, Vec<usize>>> = Arc::new(DashMap::default());
+        let small_set_map: DashMap<u64, Vec<usize>> = DashMap::default();
 
-        let hasher = Arc::new(MinHasher::new(band_size as usize));
-        let chunks = self.smaller_set.chunks(chunk_len);
+        let hasher = MinHasher::new(band_size as usize);
 
-        std::thread::scope(|scope| {
-            for chunk in chunks {
-                let small_set_map = Arc::clone(&small_set_map);
-                let hasher = Arc::clone(&hasher);
-
-                scope.spawn(move || {
-                    for shingleset in chunk {
-                        let key = hasher.hash(shingleset);
-                        if small_set_map.contains_key(&key) {
-                            small_set_map.get_mut(&key).unwrap().push(shingleset.index);
-                        } else {
-                            small_set_map.insert(hasher.hash(shingleset), vec![shingleset.index]);
-                        }
-                    }
-                });
+        self.smaller_set.par_iter().for_each(|shingleset|{
+            let key = hasher.hash(shingleset);
+            if small_set_map.contains_key(&key) {
+                small_set_map.get_mut(&key).unwrap().push(shingleset.index);
+            } else {
+                small_set_map.insert(hasher.hash(shingleset), vec![shingleset.index]);
             }
         });
 
-        let chunk_len = ((self.smaller_set.len() / processors) + 1) as usize;
-        let chunks = self.larger_set.chunks(chunk_len);
-
-        let smaller_set = Arc::new(&self.smaller_set);
-
-        std::thread::scope(|scope| {
-            for chunk in chunks {
-                let matched_pairs = Arc::clone(&matched_pairs);
-                let small_set_map = Arc::clone(&small_set_map);
-                let hasher = Arc::clone(&hasher);
-                let smaller_set = Arc::clone(&smaller_set);
-
-                scope.spawn(move || {
-                    for shingleset in chunk.iter() {
-                        let key = hasher.hash(&shingleset);
-                        if small_set_map.contains_key(&key) {
-                            for matched in small_set_map.get(&key).unwrap().iter() {
-                                if !matched_pairs.contains(&(shingleset.index, *matched)) {
-                                    if shingleset.jaccard_similarity(&smaller_set[*matched])
-                                        >= threshold
-                                    {
-                                        matched_pairs.insert((shingleset.index, *matched));
-                                    }
-                                }
-                            }
+        self.larger_set.par_iter().for_each(|shingleset| {
+            let key = hasher.hash(&shingleset);
+            if small_set_map.contains_key(&key) {
+                for matched in small_set_map.get(&key).unwrap().iter() {
+                    if !matched_pairs.contains(&(shingleset.index, *matched)) {
+                        if shingleset.jaccard_similarity(&self.smaller_set[*matched])
+                            >= threshold
+                        {
+                            matched_pairs.insert((shingleset.index, *matched));
                         }
                     }
-                });
+                }
             }
         });
+
     }
 
-    Arc::try_unwrap(matched_pairs).expect("Still has multiple owners")
+    matched_pairs
 
     }
 
