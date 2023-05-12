@@ -1,7 +1,7 @@
 use extendr_api::prelude::parallel::prelude::ParallelIterator;
 use extendr_api::prelude::*;
 
-use std::collections::{HashMap, HashSet};
+use dashmap::{DashMap, DashSet};
 
 use rayon::prelude::*;
 
@@ -125,42 +125,44 @@ fn rust_p_norm_join(a_mat: Robj, b_mat: Robj, radius: f64, band_width : u64, n_b
     let a_mat = <ArrayView2<f64>>::from_robj(&a_mat).unwrap().to_owned();
     let b_mat = <ArrayView2<f64>>::from_robj(&b_mat).unwrap().to_owned();
 
-    let mut pairs: HashSet<(usize, usize)> = HashSet::new();
-    let mut store: HashMap<u64, Vec<usize>> = HashMap::new();
+    let pairs: DashSet<(usize, usize)> = DashSet::new();
+    let store: DashMap<u64, Vec<usize>> = DashMap::new();
 
     let hasher = EuclidianHasher::new(r, band_width as usize, b_mat.ncols());
 
     for _ in 0..n_bands {
-        for (i, x) in a_mat.axis_iter(Axis(0)).enumerate() {
+        a_mat.axis_iter(Axis(0)).into_par_iter().enumerate().for_each(|(i,x)| {
             let hash = hasher.hash(x);
             if store.contains_key(&hash) {
                 store.get_mut(&hash).unwrap().push(i);
             } else {
                 store.insert(hash, vec![i]);
             }
-        }
+        });
 
-        for (j, x) in b_mat.axis_iter(Axis(0)).enumerate() {
+        b_mat.axis_iter(Axis(0)).into_par_iter().enumerate().for_each(|(j,x)| {
             let hash = hasher.hash(x);
             if store.contains_key(&hash) {
-                let potential_matches = store.get(&hash).unwrap();
+                let potential_matches = store.get(&hash).unwrap().clone();
 
                 for i in potential_matches {
                     let dist: f64 = b_mat
                         .row(j)
                         .iter()
-                        .zip(a_mat.row(*i).iter())
+                        .zip(a_mat.row(i).iter())
                         .map(|(a, b)| (a - b).powi(2))
                         .sum::<f64>().sqrt();
 
                     if dist < radius {
-                        pairs.insert((*i,j));
+                        pairs.insert((i,j));
                     }
                 }
             }
-        }
-        store.clear()
-        }
+        });
+
+
+    store.clear()
+    }
 
     let mut out_arr : Array2<u64> = Array2::zeros((pairs.len(),2));
 
