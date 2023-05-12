@@ -40,13 +40,11 @@ impl ShingleSet {
 
     #[inline]
     pub fn jaccard_similarity(&self, b: &Self) -> f64 {
-        if self.shingles.is_empty() {
-            0.0
-        } else if b.shingles.is_empty(){
+        if self.shingles.is_empty() | b.shingles.is_empty(){
             0.0
         } else {
-        self.shingles.intersection(&b.shingles).count() as f64
-            / self.shingles.union(&b.shingles).count() as f64
+            self.shingles.intersection(&b.shingles).count() as f64
+                / self.shingles.union(&b.shingles).count() as f64
         }
     }
 }
