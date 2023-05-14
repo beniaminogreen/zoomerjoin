@@ -79,12 +79,15 @@ you wish to join.</p></dd>
 
 <dt>by</dt>
 <dd><p>a named vector indicating which columns to join on. Format should
-be the same as dplyr: <code>by = c("column_name_in_df_a" = "column_name_in_df_b")</code>, but
-two columns must be specified in each dataset (x column and y column).</p></dd>
+be the same as dplyr: <code>by = c("column_name_in_df_a" = "column_name_in_df_b")</code>.</p></dd>
 
 
 <dt>threshold</dt>
 <dd><p>the distance threshold below which units should be considered a match</p></dd>
+
+
+<dt>r</dt>
+<dd><p>the r hyperparameter used to govern the sensitivity of the locality sensitive hash, as described in</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -94,6 +97,13 @@ two columns must be specified in each dataset (x column and y column).</p></dd>
 <p>a tibble fuzzily-joined on the basis of the variables in <code>by.</code> Tries
 to adhere to the same standards as the dplyr-joins, and uses the same
 logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).</p>
+    </div>
+    <div class="section level2">
+    <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
+    <p>Datar, Mayur, Nicole Immorlica, Pitor Indyk, and Vahab Mirrokni.
+"Locality-Sensitive Hashing Scheme Based on p-Stable Distributions" SCG '04:
+Proceedings of the twentieth annual symposium on Computational geometry
+(2004): 253-262</p>
     </div>
 
     <div class="section level2">

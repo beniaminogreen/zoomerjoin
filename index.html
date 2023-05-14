@@ -79,7 +79,6 @@
 <!-- badges: start -->
 
 <p>zoomerjoin is an R package that empowers you to fuzzy-join massive datasets rapidly, and with little memory consumption. Its backbone is a high-performance implementation of <a href="https://en.wikipedia.org/wiki/MinHash" class="external-link">MinHash</a>, an algorithm which shortcuts the expensive computational step of comparing all possible pairings of records between the two datasets. In practice, this means zoomerjoin can fuzzily-join datasets days, or even years faster than other matching packages. zoomerjoin has been used in-production to join datasets of hundreds of millions of names in a few hours.</p>
-<p>The package also wraps the <a href="https://docs.rs/kdtree/latest/kdtree/" class="external-link">kdtree</a> Rust crate to provide blazingly fast spatial joins.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -158,23 +157,23 @@
 <div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Joining by 'field'</span></span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="va">start_time</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Time difference of 10.51507 secs</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Time difference of 9.761639 secs</span></span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">join_out</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 180,356 × 4</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="do">##         a field.x                                             b field.y         </span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="do">##     &lt;dbl&gt; &lt;chr&gt;                                           &lt;dbl&gt; &lt;chr&gt;           </span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  1  44376 armani restorations                            928176 domani restorat…</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  2  73712 myers &amp; associates                            1248413 myers &amp; associa…</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 436479 texas industries employee pac texas inc        889736 trinity industr…</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 390156 noble finance corp 973                        1243453 noble finance c…</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  5  96351 cmte to elect john rogers                     1073822 cmte to elect j…</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 239816 dgd development limited partnership            992417 biggi developme…</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 462926 sfp limited partnership                        958554 jbj limited par…</span></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 157082 arizona federation of democratic womens clubs 1112423 arizona federat…</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 289143 cmc construction inc                          1178516 vm construction…</span></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 110477 laborers union local 291                       954982 laborers union …</span></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 180,346 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 181,488 × 4</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="do">##         a field.x                                                      b field.y</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="do">##     &lt;dbl&gt; &lt;chr&gt;                                                    &lt;dbl&gt; &lt;chr&gt;  </span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 218002 laborers international local 616                        1.27e6 labore…</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  2  16382 communications workers of america afl cio district 9    9.85e5 commun…</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  3  58034 political action for classified employees of ca school  9.41e5 politi…</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 400938 wmc properties llc                                      9.93e5 bbc pr…</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 366431 leno family limited partnership                         1.16e6 bww fa…</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 330123 golden state leadership council: jim nielsen ballot me… 9.13e5 golden…</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  7  12779 iger &amp; associates                                       1.14e6 geiger…</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 117007 law offices of george e phillips                        8.56e5 law of…</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 160332 warren county democratic executive cmte                 1.18e6 tucker…</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 377140 tds investments inc                                     1.26e6 lvs in…</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 181,478 more rows</span></span></code></pre></div>
 <p>ZoomerJoin finds and joins on the matching rows in just a few seconds.</p>
 </div>
 </div>

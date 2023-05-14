@@ -59,7 +59,7 @@ bands."><meta property="og:image" content="https://beniaminogreen.github.io/zoom
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Find Probability of Match Based on Similarity</h1>
-      <small class="dont-index">Source: <a href="https://github.com/beniaminogreen/zoomerjoin/blob/HEAD/R/jaccard_properties.R" class="external-link"><code>R/jaccard_properties.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/beniaminogreen/zoomerjoin/blob/HEAD/R/lsh_properties.R" class="external-link"><code>R/lsh_properties.R</code></a></small>
       <div class="d-none name"><code>jaccard_probability.Rd</code></div>
     </div>
 
@@ -103,7 +103,8 @@ returned as a candidate pair from the minihash algotithm.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Find the probability two pairs will be matched given they have a jaccard_similarity of .8,</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Find the probability two pairs will be matched given they have a</span></span></span>
+<span class="r-in"><span><span class="co"># jaccard_similarity of .8,</span></span></span>
 <span class="r-in"><span><span class="co"># band width of 5, and 50 bands:</span></span></span>
 <span class="r-in"><span><span class="fu">jaccard_probability</span><span class="op">(</span><span class="fl">.8</span>,<span class="fl">5</span>,<span class="fl">50</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 7.136035e-05</span>
