@@ -101,6 +101,7 @@ fn rust_salted_jaccard_join(
     let right_salt_vec = right_salt_r.as_str_vector().unwrap();
     let left_salt_vec = left_salt_r.as_str_vector().unwrap();
 
+
     let joiner = MinHashJoiner::new_with_salt(
         left_string_vec,
         right_string_vec,

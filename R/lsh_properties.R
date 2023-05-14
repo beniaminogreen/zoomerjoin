@@ -54,12 +54,60 @@ jaccard_curve <- function(n_bands, band_width) {
 #' returned as a candidate pair from the minihash algotithm.
 #'
 #' @examples
-#' # Find the probability two pairs will be matched given they have a jaccard_similarity of .8,
+#' # Find the probability two pairs will be matched given they have a
+#' # jaccard_similarity of .8,
 #' # band width of 5, and 50 bands:
 #' jaccard_probability(.8,5,50)
 #' @export
 jaccard_probability <- function(similarity, n_bands, band_width){
     1-(1-similarity^band_width)^n_bands
+}
+
+#' Plot S-Curve for a LSH with given hyperparameters
+#'
+#' @param n_bands The number of LSH bands calculated
+#'
+#' @param band_width The number of hashes in each band
+#'
+#' @param r the "r" hyperparameter used to govern the sensitivity of the hash.
+#'
+#' @param up_to the right extent of the x axis.
+#'
+#' @return A plot showing the probability a pair is proposed as a match, given
+#' the Jaccard similarity of the two items.
+#'
+euclidean_curve <- function(n_bands, band_width, r, up_to = 100) {
+    x <- seq(0, up_to)
+    y <- euclidean_probability(x, n_bands, band_width,r)
+
+
+    plot(x, y,
+         xlab = "Euclidian Distance Between Two Vectors",
+         ylab = "Probability that Vectors are Proposed as a Match",
+         type="l",
+         col = "blue"
+    )
+}
+
+#' Find Probability of Match Based on Similarity
+#'
+#' @param distance the euclidian distance between the two vectors you want to
+#' compare.
+#'
+#' @param n_bands The number of LSH bands used in hashing.
+#'
+#' @param band_width The number of hashes in each band.
+#'
+#' @param r the "r" hyperparameter used to govern the sensitivity of the hash.
+#'
+#' @return a decimal number giving the proability that the two items will be
+#' returned as a candidate pair from the minihash algotithm.
+#'
+#' @export
+euclidean_probability <- function(distance, n_bands, band_width, r) {
+    p <- 1 - 2*pnorm(-r/distance) - 2/(sqrt(2*pi)*r/distance)*(1-exp(-(r^2/(2*distance^2))))
+
+    1 - (1-p^band_width)^n_bands
 }
 
 

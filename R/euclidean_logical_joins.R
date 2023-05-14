@@ -5,14 +5,21 @@
 #' you wish to join.
 #'
 #' @param by a named vector indicating which columns to join on. Format should
-#' be the same as dplyr: \code{by = c("column_name_in_df_a" = "column_name_in_df_b")}, but
-#' two columns must be specified in each dataset (x column and y column).
+#' be the same as dplyr: \code{by = c("column_name_in_df_a" = "column_name_in_df_b")}.
+#'
 #'
 #' @param threshold the distance threshold below which units should be considered a match
+#'
+#' @param r the r hyperparameter used to govern the sensitivity of the locality sensitive hash, as described in
 #'
 #' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
 #' to adhere to the same standards as the dplyr-joins, and uses the same
 #' logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
+#'
+#' @references Datar, Mayur, Nicole Immorlica, Pitor Indyk, and Vahab Mirrokni.
+#' "Locality-Sensitive Hashing Scheme Based on p-Stable Distributions" SCG '04:
+#' Proceedings of the twentieth annual symposium on Computational geometry
+#' (2004): 253-262
 #'
 #' @examples
 #'n <- 10
@@ -51,6 +58,11 @@ euclidean_anti_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, ba
 #' to adhere to the same standards as the dplyr-joins, and uses the same
 #' logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
 #'
+#' @references Datar, Mayur, Nicole Immorlica, Pitor Indyk, and Vahab Mirrokni.
+#' "Locality-Sensitive Hashing Scheme Based on p-Stable Distributions" SCG '04:
+#' Proceedings of the twentieth annual symposium on Computational geometry
+#' (2004): 253-262
+#'
 #' @examples
 #'n <- 10
 #'
@@ -86,6 +98,11 @@ euclidean_inner_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, b
 #' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
 #' to adhere to the same standards as the dplyr-joins, and uses the same
 #' logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
+#'
+#' @references Datar, Mayur, Nicole Immorlica, Pitor Indyk, and Vahab Mirrokni.
+#' "Locality-Sensitive Hashing Scheme Based on p-Stable Distributions" SCG '04:
+#' Proceedings of the twentieth annual symposium on Computational geometry
+#' (2004): 253-262
 #'
 #' @examples
 #'n <- 10
@@ -123,6 +140,11 @@ euclidean_left_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, ba
 #' to adhere to the same standards as the dplyr-joins, and uses the same
 #' logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
 #'
+#' @references Datar, Mayur, Nicole Immorlica, Pitor Indyk, and Vahab Mirrokni.
+#' "Locality-Sensitive Hashing Scheme Based on p-Stable Distributions" SCG '04:
+#' Proceedings of the twentieth annual symposium on Computational geometry
+#' (2004): 253-262
+#'
 #' @examples
 #'n <- 10
 #'
@@ -157,6 +179,11 @@ euclidean_right_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, b
 #' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
 #' to adhere to the same standards as the dplyr-joins, and uses the same
 #' logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
+#'
+#' @references Datar, Mayur, Nicole Immorlica, Pitor Indyk, and Vahab Mirrokni.
+#' "Locality-Sensitive Hashing Scheme Based on p-Stable Distributions" SCG '04:
+#' Proceedings of the twentieth annual symposium on Computational geometry
+#' (2004): 253-262
 #'
 #' @examples
 #'n <- 10
