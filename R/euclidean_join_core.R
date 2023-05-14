@@ -2,8 +2,6 @@ multi_by_validate <- function(a,b, by) {
     if (is.null(by)) {
         by_a <- intersect(names(a), names(b))
         by_b <- intersect(names(a), names(b))
-        stopifnot("Can't Determine Columns to Match on" = length(by_a) == 2)
-        stopifnot("Can't Determine Columns to Match on" = length(by_b) == 2)
     } else {
         if (!is.null(names(by))) {
             by_a <- names(by)
