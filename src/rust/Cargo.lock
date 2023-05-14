@@ -541,7 +541,6 @@ dependencies = [
  "ndarray",
  "ndarray-rand",
  "nohash-hasher",
- "num_cpus",
  "ordered-float",
  "rand",
  "rayon",

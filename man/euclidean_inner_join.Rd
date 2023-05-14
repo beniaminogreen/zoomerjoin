@@ -50,3 +50,9 @@ euclidean_inner_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
 
 
 }
+\references{
+Datar, Mayur, Nicole Immorlica, Pitor Indyk, and Vahab Mirrokni.
+"Locality-Sensitive Hashing Scheme Based on p-Stable Distributions" SCG '04:
+Proceedings of the twentieth annual symposium on Computational geometry
+(2004): 253-262
+}

@@ -35,4 +35,6 @@ reference:
       - jaccard_curve
       - jaccard_probability
       - jaccard_hyper_grid_search
+      - euclidean_curve
+      - euclidean_probability
 

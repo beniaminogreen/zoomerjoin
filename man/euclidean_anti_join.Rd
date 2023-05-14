@@ -21,10 +21,11 @@ euclidean_anti_join(
 you wish to join.}
 
 \item{by}{a named vector indicating which columns to join on. Format should
-be the same as dplyr: \code{by = c("column_name_in_df_a" = "column_name_in_df_b")}, but
-two columns must be specified in each dataset (x column and y column).}
+be the same as dplyr: \code{by = c("column_name_in_df_a" = "column_name_in_df_b")}.}
 
 \item{threshold}{the distance threshold below which units should be considered a match}
+
+\item{r}{the r hyperparameter used to govern the sensitivity of the locality sensitive hash, as described in}
 }
 \value{
 a tibble fuzzily-joined on the basis of the variables in \code{by.} Tries
@@ -50,4 +51,10 @@ X_2$id_2 <- 1:n
 euclidean_anti_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
 
 
+}
+\references{
+Datar, Mayur, Nicole Immorlica, Pitor Indyk, and Vahab Mirrokni.
+"Locality-Sensitive Hashing Scheme Based on p-Stable Distributions" SCG '04:
+Proceedings of the twentieth annual symposium on Computational geometry
+(2004): 253-262
 }
