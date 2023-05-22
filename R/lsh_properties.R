@@ -77,7 +77,7 @@ jaccard_probability <- function(similarity, n_bands, band_width){
 #' the Jaccard similarity of the two items.
 #'
 euclidean_curve <- function(n_bands, band_width, r, up_to = 100) {
-    x <- seq(0, up_to)
+    x <- seq(0, up_to, length.out=1500)
     y <- euclidean_probability(x, n_bands, band_width,r)
 
 
