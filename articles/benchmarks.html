@@ -108,6 +108,14 @@ initially quick, but the runtime scales with the square of the input
 size. Zoomerjoin is slower for small datasets but is less
 memory-intensive, and scales with the sum of the rows in each dataset,
 so it becomes quicker for larger datasets.</p>
+<pre><code><span><span class="co">#&gt; <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">60</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">5</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span></span>
+<span><span class="co">#&gt; <span style="font-weight: bold;">Delimiter:</span> ","</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">chr</span> (3): package, join_type, name</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">dbl</span> (2): n, value</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span></code></pre>
 <p><img src="benchmarks_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
