@@ -31,10 +31,7 @@ distance](https://academic.oup.com/bioinformatics/article/35/14/i127/5529166),
 and will add it to the benchmarks when / if this feature is completed.
 
 ```{r setup, include=F}
-library(zoomerjoin)
-library(arrow)
 library(tidyverse)
-benchmark_data <- read_parquet("benchmark.parquet")
 ```
 
 ## Benchmarks
@@ -46,11 +43,17 @@ for small datasets but is less memory-intensive, and scales with the sum of
 the rows in each dataset, so it becomes quicker for larger datasets.
 
 ```{r, echo=F}
-benchmark_data %>%
-    ggplot(aes(x=n, y=time, group=Package, col = Package)) +
-    geom_line() +
+sim_data <- read_csv("sim_data.csv")
+sim_data  %>%
+    mutate(
+           name = ifelse(name == "time", "Time Usage (s)", "Memory Usage (MB)"),
+           join_type = ifelse(join_type == "Jaccard Distance",
+                              "Jaccard Distance Join",
+                              "Euclidean Distance Joins"),
+           ) %>%
+    ggplot(aes(x=as.numeric(n), y=value, col = package, linetype = package)) +
     geom_point() +
-    ylab("Time to Process Joins \n (s)") +
-    xlab("Number of Entries in Each Dataframe") +
-    theme_bw()
+    geom_line() +
+    facet_wrap(~ join_type + name, scales = 'free') +
+    scale_y_continuous("Time (s) / memory (MB)")
 ```
