@@ -12,7 +12,8 @@ RoxygenNote: 7.2.1
 SystemRequirements: Cargo (>= 1.56) (Rust's package manager), rustc
 Imports:
     dplyr,
-    tibble
+    tibble,
+    tidyr
 Suggests:
     arrow,
     babynames,

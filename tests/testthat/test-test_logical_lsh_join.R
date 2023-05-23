@@ -93,17 +93,28 @@ test_that("jaccard_right_join works on tiny dataset", {
 test_that("jaccard_inner_join gives same results as stringdist_inner_join", {
     for (i in 1:20) {
     capture_messages({
-        zoomer_join_out <- jaccard_inner_join(names_df, misspelled_name_df, n_gram_width = 1, threshold = .9, n_bands=150, band_width = 5) %>%
-            arrange(id_1)
+
+    zoomer_join_out <- jaccard_inner_join(names_df, misspelled_name_df, n_gram_width = 1, threshold = .9, n_bands=150, band_width = 5) %>%
+            arrange(id_1, id_2)
 
     stringdist_join_out <- stringdist_inner_join(names_df, misspelled_name_df, method="jaccard", max_dist=.1) %>%
-        arrange(id_1)
+        arrange(id_1, id_2)
+
     })
 
-    expect_true(all_equal(zoomer_join_out, stringdist_join_out))
+    expect_true(all.equal(zoomer_join_out, stringdist_join_out))
 
     }
 })
 
+test_that("Blocking Functionality works correctly for jaccard_inner_join", {
+      joined_block_on_one <- jaccard_inner_join(iris, iris, by = c("Species"), block_by = "Petal.Width")
 
+      expect_equal(joined_block_on_one$Petal.Width.y, joined_block_on_one$Petal.Width.x)
+
+      joined_block_on_two <- jaccard_inner_join(iris, iris, by = c("Species"), block_by = c("Petal.Width", "Sepal.Width"))
+
+      expect_equal(joined_block_on_two$Petal.Width.y, joined_block_on_two$Petal.Width.x)
+      expect_equal(joined_block_on_two$Sepal.Width.y, joined_block_on_two$Sepal.Width.x)
+})
 
