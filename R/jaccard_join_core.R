@@ -58,8 +58,10 @@ jaccard_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands,
         salt_by <- simple_by_validate(a,b,salt_by)
         salt_by_a <- salt_by[[1]]
         salt_by_b <- salt_by[[2]]
-        stopifnot("There should be no NA's in the blocking variables"=!any(is.na(dplyr::pull(a,salt_by_a))))
-        stopifnot("There should be no NA's in the blocking variables"=!any(is.na(dplyr::pull(b,salt_by_b))))
+        stopifnot("There should be no NA's in the blocking variables"=!
+                  any(is.na(dplyr::select(a,dplyr::all_of(salt_by_a)))))
+        stopifnot("There should be no NA's in the blocking variables"=!
+                  any(is.na(dplyr::select(b,dplyr::all_of(salt_by_b)))))
     }
 
     # Clean strings that are matched on
@@ -68,16 +70,25 @@ jaccard_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands,
         b_col <- gsub("[[:punct:] ]", "", dplyr::pull(b,by_b))
 
         if (!is.null(salt_by_a) && !is.null(salt_by_b)) {
-            a_salt_col <- gsub("[[:punct:] ]", "", dplyr::pull(a,salt_by_a))
-            b_salt_col <- gsub("[[:punct:] ]", "", dplyr::pull(b,salt_by_b))
+            a_salt_col <- tidyr::unite(a,"salt_by_a", dplyr::all_of(salt_by_a)) %>%
+                dplyr::pull("salt_by_a")
+            b_salt_col <- tidyr::unite(b,"salt_by_b", dplyr::all_of(salt_by_b)) %>%
+                dplyr::pull("salt_by_b")
+
+            a_salt_col <- gsub("[[:punct:] ]", "", a_salt_col)
+            b_salt_col <- gsub("[[:punct:] ]", "", b_salt_col)
         }
     } else{
         a_col <- dplyr::pull(a,by_a)
         b_col <- dplyr::pull(b,by_b)
 
         if (!is.null(salt_by_a) && !is.null(salt_by_b)) {
-            a_salt_col <- dplyr::pull(a,salt_by_a)
-            b_salt_col <- dplyr::pull(b,salt_by_b)
+
+            a_salt_col <- tidyr::unite(a,"salt_by_a", dplyr::all_of(salt_by_a)) %>%
+                dplyr::pull("salt_by_a")
+
+            b_salt_col <- tidyr::unite(b,"salt_by_b", dplyr::all_of(salt_by_b)) %>%
+                dplyr::pull("salt_by_b")
         }
     }
 
