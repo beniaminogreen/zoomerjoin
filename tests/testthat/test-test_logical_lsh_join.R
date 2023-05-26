@@ -108,11 +108,11 @@ test_that("jaccard_inner_join gives same results as stringdist_inner_join", {
 })
 
 test_that("Blocking Functionality works correctly for jaccard_inner_join", {
-      joined_block_on_one <- jaccard_inner_join(iris, iris, by = c("Species"), block_by = "Petal.Width")
+      joined_block_on_one <- jaccard_inner_join(iris, iris, by = c("Species"), block_by = "Petal.Width", n_bands = 190)
 
       expect_equal(joined_block_on_one$Petal.Width.y, joined_block_on_one$Petal.Width.x)
 
-      joined_block_on_two <- jaccard_inner_join(iris, iris, by = c("Species"), block_by = c("Petal.Width", "Sepal.Width"))
+      joined_block_on_two <- jaccard_inner_join(iris, iris, by = c("Species"), block_by = c("Petal.Width", "Sepal.Width"), n_bands = 190)
 
       expect_equal(joined_block_on_two$Petal.Width.y, joined_block_on_two$Petal.Width.x)
       expect_equal(joined_block_on_two$Sepal.Width.y, joined_block_on_two$Sepal.Width.x)

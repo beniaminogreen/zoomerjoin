@@ -41,6 +41,17 @@ jaccard_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands,
     stopifnot("'n_gram_width' must be greater than 0" = n_gram_width > 0)
     stopifnot("'n_gram_width' must be length than 1" = length(n_gram_width) == 1)
 
+    thresh_prob <- jaccard_probability(threshold, n_bands, band_width)
+
+    if (thresh_prob < .95) {
+        str <- paste0("A pair of records at the threshold (", threshold,
+                     ") have only a ", round(thresh_prob*100), "% chance of being compared.\n",
+                     "Please consider changing `n_bands` and `band_width`.")
+
+        warning(str)
+    }
+
+
 
     by <- simple_by_validate(a,b,by)
     by_a <- by[[1]]
