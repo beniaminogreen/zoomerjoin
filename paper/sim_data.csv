@@ -1,0 +1,17 @@
+n,package,join_type,name,value
+250,fuzzyjoin,Euclidean Distance,time,0.5548689786000001
+250,fuzzyjoin,Euclidean Distance,memory,83.78836
+500,fuzzyjoin,Euclidean Distance,time,0.9060725292
+500,fuzzyjoin,Euclidean Distance,memory,316.911128
+250,zoomerjoin,Euclidean Distance,time,0.0094661942
+250,zoomerjoin,Euclidean Distance,memory,0.92632
+500,zoomerjoin,Euclidean Distance,time,0.01096498
+500,zoomerjoin,Euclidean Distance,memory,1.682608
+250,fuzzyjoin,Jaccard Distance,time,0.855592932
+250,fuzzyjoin,Jaccard Distance,memory,2.460584
+500,fuzzyjoin,Jaccard Distance,time,6.14329759
+500,fuzzyjoin,Jaccard Distance,memory,8.806248
+250,zoomerjoin,Jaccard Distance,time,0.060598316799999996
+250,zoomerjoin,Jaccard Distance,memory,0.028336
+500,zoomerjoin,Jaccard Distance,time,0.1088535256
+500,zoomerjoin,Jaccard Distance,memory,0.064624
