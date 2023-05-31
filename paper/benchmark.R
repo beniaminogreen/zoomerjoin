@@ -57,7 +57,7 @@ zoomer_jaccard_bench <- function(n) {
   return(c(time = time, memory = mem))
 }
 
-n <- seq(500, 5000, 250)
+n <- seq(500, 4000, 250)
 names(n) <- n
 
 fuzzy_jacard_benches <- map_df(n, fuzzy_jaccard_bench, .id="n")
@@ -108,7 +108,7 @@ zoomer_euclid_bench <- function(n) {
 }
 
 
-n <- seq(250, 5000, 250)
+n <- seq(250, 4000, 250)
 names(n) <- n
 
 fuzzy_euclid_benches <- map_df(n, fuzzy_euclid_bench, .id="n")
