@@ -32,6 +32,16 @@ euclidean_join_core <- function (a, b, by = NULL, n_bands = 30, band_width = 10,
     stopifnot("There should be no NA's in by_b[1]"=!any(is.na(dplyr::pull(b,by_b[1]))))
     stopifnot("There should be no NA's in by_b[2]"=!any(is.na(dplyr::pull(b,by_b[2]))))
 
+    thresh_prob <- euclidian_probability(threshold, n_bands, band_width, r)
+
+    if (thresh_prob < .95) {
+        str <- paste0("A pair of records at the threshold (", threshold,
+                     ") have only a ", round(thresh_prob*100), "% chance of being compared.\n",
+                     "Please consider changing `n_bands` and `band_width`, and `r`.")
+
+        warning(str)
+    }
+
     match_table <- rust_p_norm_join(
                                 as.matrix(dplyr::select(a, dplyr::all_of(by_a))),
                                 as.matrix(dplyr::select(b, dplyr::all_of(by_b))),
