@@ -28,48 +28,56 @@ a computational cost that scales with the product of the rows in each dataset
 $\mathcal{O}(mn)$. As such, these methods do not scale to large datasets.
 
 Zoomerjoin is an R package that empowers users to fuzzily-join massive datasets
-in R. It is backed by two performant, mutlithreaded Locality-Sensitive Hash
-algorithms [@Broder; @Datar_2004], which minimize comparisons between units
-rows that do not match, and typically run in linear, $\mathcal{O(m+n)}$ time.
-The algorithmic details are technical but the results are transformational; for
-the distance-metrics it supports, `zoomerjoin` takes seconds or minutes to join
-datasets that would have taken other matching packages hours or years.
+with millions of rows in seconds or minutes. Backed by two performant,
+mutlithreaded Locality-Sensitive Hash algorithms [@Broder; @Datar_2004],
+`zoomerjoin` saves time by not comparing distant pairs of observations and
+typically runs in runs in linear ($\mathcal{O(m+n)}$) time. The
+algorithmic details are technical but the results are transformational;
+for the distance-metrics it supports, `zoomerjoin` takes seconds or
+minutes to join datasets that would have taken other matching packages
+hours or years.
 
 # Statement of Need
 
-Fuzzy matching is typically defined as linking all pairs of observations
-between two datasets that have distance less than a specified threshold.
-Existing fuzzy-joining methods in R do not scale to large datasets as they make
-a comparison between all pairs of rows between two datasets before returning
-the matching pairs. More pressingly, the most popular implementations generally
-have a space complexity of $O(mn)$, meaning that a patient user cannot simply
-wait for the join to complete, as the memory of even large machines will
-quickly be exhausted by the algorithm.
+Fuzzy matching is typically taken to mean finding all pairs of rows between two
+datasets that have distance less than a specified threshold. Existing
+fuzzy-joining methods in R do not scale to large datasets as they exhaustively
+compare all possible pairs of units and recording all matching pairs, incurring
+a quadratic $\mathcal{O}(mn)$ time cost.  Perhaps worse, the most widely-used
+software packages typically also have a space complexity of $O(mn)$, meaning
+that a patient user cannot simply wait for the join to complete, as the memory
+of even large machines will be quickly exhausted [ @fuzzyjoin ].
 
 Zoomerjoin solves this problem by implementing two Locality-Sensitive Hashing
-algorithms [@Broder; @Datar_2004] which sort observations in each dataset into
-buckets using a bespoke hash function.  The hashing function assgins similar
-entries the same key with high probability, while dissimilar items do not land
-in the same bucket with high probability. After this initial sorting step, the
-algorithm checks pairs of records in the same bucket to see if they are close
-enough to be considered a match. This program then takes $O(\max{m_i n_j})$
-time to run (time proportional to the largest Cartesian product observations in
-any bucket). In the ordinary case that each observation matches to few
-points in another dataset, the running time is dominated by the hashing step,
-and the program finishes in linear time using linear memory.
+algorithms [@Broder; @Datar_2004] which sort observations into buckets using a
+bespoke hash function which assigns similar entries the same key with high
+probability, while dissimilar items are unlikely to be assigned the same key.
+After this initial sorting step, the algorithm checks pairs of records in the
+same bucket to see if they are close enough to be considered a match. Records
+in different buckets are never compared, so the algorithm takes
+$O(\max_{ij}{m_i n_j})$ time to run (time proportional to the size of the
+largest bucket). In the ordinary case that each observation matches to
+few points in another dataset, the running time is dominated by the hashing
+step, and the program finishes in linear time using linear memory.
 
 With this remarkable increase in speed comes two costs: Locality-Sensitive
-hashes are probabilistic, so there is some probability that some true matches
-may be discarded by chance (although the chance that any true matches are
-discarded can be made arbitrarily low by changing parameters of the
-hash). Additionally, they are complex to implement than exhaustive
-searches `zoomerjoin` only hashing schemes for two commonly distances, the
-Jaccard distance (for strings and other data that can be represented as a set)
-and the Euclidean distance (for vectors or points in space).
+hashing is probabilistic a probabilistic algorithm, so there is some
+probability that some true matches may be discarded by chance. This said, the
+chance that any matches are discarded by chance can be made arbitrarily low by
+changing parameters of the hash. Additionally, the LSH algorithms are more
+complex to implement than exhaustive searches; `zoomerjoin` only provides
+hashing schemes for two commonly distances, the Jaccard distance (for strings
+and other data that can be represented as a set) and the Euclidean
+distance (for vectors or points in space).
 
-The Jaccard similarity is defined over two sets, $\mathcal{A}$ and
-$\mathcal{B}$, as the cardinality of their intersection over their union. It
-can take values in the inverval [0,1].
+## Implementation Details:
+
+Zoomerjoin allows users to fuzzily-join on the basis of two distance measures,
+the Euclidean distance and the Jaccard distance. The Jaccard
+similarity is defined over two sets, $\mathcal{A}$ and
+$\mathcal{B}$, as the cardinality of their intersection over the
+cardinality of their union. It can take values in the inverval
+[0,1].
 
 $$sim(\mathcal{A},\mathcal{B}) = \frac{|\mathcal{A} \cap \mathcal{B}|}{|\mathcal{A} \cup \mathcal{B}|}$$
 
@@ -83,8 +91,6 @@ their componentwise distances, and can take values in the interval $[0,
 \infty)$:
 
 $$dist(\overrightarrow{a},\overrightarrow{b}) = ||\overrightarrow{a}-\overrightarrow{b}||_2$$
-
-## Implementation Details
 
 Instrumental to the package's fast performance is the relentlessly-optimized,
  `dashmap` Rust crate [@dashmap], which provides a fast hash map
@@ -116,7 +122,7 @@ donor names from the Database on Ideology, Money in Politics, and Elections
 benchmark other matching / joining algorithms [@Kaufman_2021]. For the
 Euclidean distance, I use the programs to link datasets of points drawn from a
 multivatiate gaussian with 50 dimensions to a copy of this dataset with dataset
-with each observation shifted by a small $\varepsilon = .00001$ upwards along
+with each observation shifted by a small $\varepsilon = .00001$ along
 each axis.
 
 ![Memory Use and Runtime Comparison of Fuzzy-Joining Methods in R](benchmarks.png)
@@ -127,7 +133,7 @@ Zoomerjoin achieves almost linear scaling in both runtime and memory, while
 Jaccard-distance joins implemented in `fuzzyjoin` take over three minutes to
 join. For the largest Euclidean datasets, `fuzzyjoin` almost exhausts the 8GB
 memory capacity of the laptop used for benchmarking, while `zoomerjoin`'s
-memory is never above 8 MB (a thousandfold decrease).
+memory rises above above 8 MB — a thousand-fold decrease.
 
 ## State of the Field:
 
@@ -137,13 +143,13 @@ sub-quadratic time in R. Two similar packages are the aforementioned
 the `textreuse` package [@textreuse] which implements Locality-Sensitive
 Hashing, but does not offer a joining functionality implemented mostly in R.
 
-Zoomerjoin is heavily inspired by both packages, and aims to synthesize and
-extend aspects of both to create a powerful joining toolset. The package
-combines the functionality of the tidy, dplyr-style `fuzzyjoin`s provided by
-`fuzzyjoin` with the performance offered by the same Locality-Sensitive Hashing
-algorithm used in `textreuse`. The core of the package is written in performant
-Rust code, which makes the package suitable for datasets with hundreds of
-millions of observations.
+Zoomerjoin draws from both packages, and aims to synthesize and extend aspects
+of both to create a powerful joining toolset. The package combines the
+functionality of the tidy, dplyr-style `fuzzyjoin`s provided by `fuzzyjoin`
+with the performance offered by the same Locality-Sensitive Hashing algorithm
+used in `textreuse`. The core of the package is written in performant Rust
+code, which makes the package suitable for datasets with hundreds of millions
+of observations.
 
 ## Other Functionalities
 
@@ -159,9 +165,8 @@ into groups. The probabilistic record-linkage algorithm described by
 @Enamorado_2018 provides a way to link entities between two datasets but
 involves comparing all possible pairs between each datasets. A simple
 pre-processing step with the Locality-Sensitive Hashing methods of `zoomerjoin`
-can drastically decrease the runtime by acting as a data-adaptive-blocking
-strategy, limiting comparisons pairs to units that have similar values of a
-blocking field.
+can drastically decrease the runtime, limiting comparisons pairs to units that
+have similar values of a blocking field.
 
 ## Limitations and Future Work
 
