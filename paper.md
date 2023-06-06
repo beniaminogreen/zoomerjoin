@@ -22,7 +22,7 @@ Researchers often have to link large datasets without access to a unique
 identifying key, or on the basis of a field that contains misspellings, small
 errors, or is otherwise inconsistent. In these cases, "fuzzy" matching
 techniques are employed, which are resilient to minor corruptions in the fields
-meant to identify observations in each dataset. However, most popular methods
+meant to identify observations between datasets. Most popular methods
 involve comparing all possible pairs of matches between each dataset, incurring
 a computational cost that scales with the product of the rows in each dataset
 $\mathcal{O}(mn)$. As such, these methods do not scale to large datasets.
@@ -39,14 +39,15 @@ hours or years.
 
 # Statement of Need
 
-Fuzzy matching is typically taken to mean finding all pairs of rows between two
-datasets that have distance less than a specified threshold. Existing
-fuzzy-joining methods in R do not scale to large datasets as they exhaustively
-compare all possible pairs of units and recording all matching pairs, incurring
-a quadratic $\mathcal{O}(mn)$ time cost.  Perhaps worse, the most widely-used
-software packages typically also have a space complexity of $O(mn)$, meaning
-that a patient user cannot simply wait for the join to complete, as the memory
-of even large machines will be quickly exhausted [ @fuzzyjoin ].
+Fuzzy matching is typically taken to mean identifying all pairs of observations
+between two datasets that have distance less than a specified threshold.
+Existing fuzzy-joining methods in R do not scale to large datasets as they
+exhaustively compare all possible pairs of units and recording all matching
+pairs, incurring a quadratic $\mathcal{O}(mn)$ time cost.  Perhaps worse, the
+most widely-used software packages typically also have a space complexity of
+$O(mn)$, meaning that a patient user cannot simply wait for the join to
+complete, as the memory of even large machines will be quickly exhausted [
+@fuzzyjoin ].
 
 Zoomerjoin solves this problem by implementing two Locality-Sensitive Hashing
 algorithms [@Broder; @Datar_2004] which sort observations into buckets using a
@@ -159,14 +160,14 @@ hashing: a fuzzy-string grouping function which is backed by locality-sensitive
 hashing, and an implementation the probabilistic record-linkage algorithm for
 the Fellegi-Sunter model [@Fellegi_1969] developed by @Enamorado_2018.
 
-A fuzzy-string-grouping algorithm provides a principled way to correct
+The fuzzy-string-grouping algorithm provides a principled way to correct
 misspellings in administrative datasets by combining similar pairs of strings
-into groups. The probabilistic record-linkage algorithm described by
-@Enamorado_2018 provides a way to link entities between two datasets but
-involves comparing all possible pairs between each datasets. A simple
-pre-processing step with the Locality-Sensitive Hashing methods of `zoomerjoin`
-can drastically decrease the runtime, limiting comparisons pairs to units that
-have similar values of a blocking field.
+into groups with a standardized name.  The probabilistic record-linkage
+algorithm described by @Enamorado_2018 provides a way to link entities between
+two datasets but involves comparing all possible pairs between each datasets. A
+simple pre-processing step with the Locality-Sensitive Hashing methods of
+`zoomerjoin` can drastically decrease the runtime, by limiting comparisons
+pairs to units that have similar values of one or more blocking fields.
 
 ## Limitations and Future Work
 
