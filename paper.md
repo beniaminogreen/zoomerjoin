@@ -4,8 +4,9 @@ bibliography: paper.bib
 tags:
   - R
   - Rust
-  - Record Linkage
+  - Record linkage
   - Fuzzy-joining
+  - Tidy data manipulation
 authors:
   - name: Beniamino Green
     orcid: 0009-0006-4501-597X
@@ -67,7 +68,7 @@ probability that some true matches may be discarded by chance. This said, the
 chance that any matches are discarded by chance can be made arbitrarily low by
 changing parameters of the hash. Additionally, the LSH algorithms are more
 complex to implement than exhaustive searches; `zoomerjoin` only provides
-hashing schemes for two commonly distances, the Jaccard distance (for strings
+hashing schemes for two common distances, the Jaccard distance (for strings
 and other data that can be represented as a set) and the Euclidean
 distance (for vectors or points in space).
 
@@ -93,7 +94,7 @@ their componentwise distances, and can take values in the interval $[0,
 
 $$dist(\overrightarrow{a},\overrightarrow{b}) = ||\overrightarrow{a}-\overrightarrow{b}||_2$$
 
-Instrumental to the package's fast performance is the relentlessly-optimized,
+Instrumental to the package's fast performance is the relentlessly-optimized
  `dashmap` Rust crate [@dashmap], which provides a fast hash map
  that can be populated by many threads working in parallel.
  `Dashmap`'s concurrent hash maps are used to quickly store the
@@ -122,9 +123,12 @@ donor names from the Database on Ideology, Money in Politics, and Elections
 (DIME) [@DIME], a database of donors to interest groups, a dataset used to
 benchmark other matching / joining algorithms [@Kaufman_2021]. For the
 Euclidean distance, I use the programs to link datasets of points drawn from a
-multivatiate gaussian with 50 dimensions to a copy of this dataset with dataset
-with each observation shifted by a small $\varepsilon = .00001$ along
-each axis.
+multivariate gaussian with 50 dimensions to a copy of this dataset with dataset
+with each observation shifted by a small $\varepsilon = .00001$ along each
+axis. For both joining types, I adjust the hyperparameters until the
+false-negative rate is less than .1%, meaning that fewer than .1% of all
+matches are discarded by random chance. `zoomerjoin` never creates false
+positives.
 
 ![Memory Use and Runtime Comparison of Fuzzy-Joining Methods in R](benchmarks.png)
 
@@ -162,12 +166,15 @@ the Fellegi-Sunter model [@Fellegi_1969] developed by @Enamorado_2018.
 
 The fuzzy-string-grouping algorithm provides a principled way to correct
 misspellings in administrative datasets by combining similar pairs of strings
-into groups with a standardized name.  The probabilistic record-linkage
+into groups with a standardized name. The probabilistic record-linkage
 algorithm described by @Enamorado_2018 provides a way to link entities between
 two datasets but involves comparing all possible pairs between each datasets. A
 simple pre-processing step with the Locality-Sensitive Hashing methods of
-`zoomerjoin` can drastically decrease the runtime, by limiting comparisons
-pairs to units that have similar values of one or more blocking fields.
+`zoomerjoin` can drastically decrease the runtime by limiting comparisons to
+pairs to units that have similar values of one or more blocking fields. This
+allows the algorithm to scale almost linearly with the size of the input
+datasets, at the cost of discarding a small amount of true matches excluded by
+the blocking scheme.
 
 ## Limitations and Future Work
 
@@ -178,6 +185,12 @@ use other metrics, or bespoke combinations of distance metrics. Further work
 could extend the functionality of the package to also support LSH-backed joins
 based on other notions of distance such as the edit distance [@Marais_2019] for
 strings, or the Manhattan distance for points.
+
+## Acknowledgements
+
+I thank Jack Green, Cleo Falvey, John Cho, Matthew Dahl, and Amelia Malpas for
+their feedback and suggestions in designing the package and revising this
+manuscript.
 
 # References :
 
