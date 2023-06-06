@@ -24,7 +24,7 @@ errors, or is otherwise inconsistent. In these cases, "fuzzy" matching
 techniques are employed, which are resilient to minor corruptions in the fields
 meant to identify observations between datasets. Most popular methods
 involve comparing all possible pairs of matches between each dataset, incurring
-a computational cost that scales with the product of the rows in each dataset
+a computational cost proportional to the product of the rows in each dataset
 $\mathcal{O}(mn)$. As such, these methods do not scale to large datasets.
 
 Zoomerjoin is an R package that empowers users to fuzzily-join massive datasets
