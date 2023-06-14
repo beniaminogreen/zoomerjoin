@@ -94,18 +94,18 @@ their componentwise distances, and can take values in the interval $[0,
 
 $$dist(\overrightarrow{a},\overrightarrow{b}) = ||\overrightarrow{a}-\overrightarrow{b}||_2$$
 
-Instrumental to the package's fast performance is the relentlessly-optimized
- `dashmap` Rust crate [@dashmap], which provides a fast hash map
- that can be populated by many threads working in parallel.
- `Dashmap`'s concurrent hash maps are used to quickly store the
- hashes associated with each observation and allow multiple threads
- to compute hashes and write to the hash map at the same time.
- Parallel computation of the hashes is scheduled using the parallel
- iterators provided by the `rayon` crate [@rayon]. The
- Locality-Sensitive Hash implementation for the Jaccard distance is
- modeled after the textbook description by @massive, including the
- technique of storing the hashes of the tokens rather than the
- tokens themselves to save memory.
+Integration between R and rust is managed by the `extendr` and `rextendr` Rust
+and R packages [@rextednr]. Instrumental to the package's fast performance is
+the relentlessly-optimized `dashmap` Rust crate [@dashmap], which provides a
+fast hash map that can be populated by many threads working in parallel.
+`Dashmap`'s concurrent hash maps are used to quickly store the hashes
+associated with each observation and allow multiple threads to compute hashes
+and write to the hash map at the same time. Parallel computation of the hashes
+is scheduled using the parallel iterators provided by the `rayon` crate
+[@rayon]. The Locality-Sensitive Hash implementation for the Jaccard distance
+is modeled after the textbook description by @massive, including the technique
+of storing the hashes of the tokens rather than the tokens themselves to save
+memory.
 
 ## Benchmarks
 
@@ -146,15 +146,16 @@ To the best of my knowledge, no other packages exist for fuzzy-joining in
 sub-quadratic time in R. Two similar packages are the aforementioned
 `fuzzyjoin,` which provides fast, tidy joins for small to medium datasets, and
 the `textreuse` package [@textreuse] which implements Locality-Sensitive
-Hashing, but does not offer a joining functionality implemented mostly in R.
+Hashing, but does not offer a joining functionality, and is implimented
+mostly in R.
 
 Zoomerjoin draws from both packages, and aims to synthesize and extend aspects
 of both to create a powerful joining toolset. The package combines the
 functionality of the tidy, dplyr-style `fuzzyjoin`s provided by `fuzzyjoin`
-with the performance offered by the same Locality-Sensitive Hashing algorithm
-used in `textreuse`. The core of the package is written in performant Rust
-code, which makes the package suitable for datasets with hundreds of millions
-of observations.
+with the performance offered by a Rust implimentation the same
+Locality-Sensitive Hashing algorithm used in `textreuse`. The core of the
+package is written in performant Rust code, which makes the package suitable
+for datasets with hundreds of millions of observations.
 
 ## Other Functionalities
 
