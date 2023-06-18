@@ -4,6 +4,11 @@ use extendr_api::prelude::*;
 use dashmap::{DashMap, DashSet};
 
 use rayon::prelude::*;
+use regex::Regex;
+
+use rustc_hash::FxHasher;
+use std::collections::HashMap;
+use std::hash::{Hash, Hasher};
 
 pub mod shingleset;
 use crate::shingleset::ShingleSet;
@@ -85,6 +90,67 @@ fn rust_jaccard_join(
 }
 
 #[extendr]
+fn rust_regex_join(left_string_r: Robj, _right_string_r: Robj, r_regex: &str) -> Robj {
+    let left_string_vec = left_string_r.as_str_vector().unwrap();
+    // let right_string_vec = right_string_r.as_str_vector().unwrap();
+
+    let re = Regex::new(r_regex).expect("Can't compile regular expression!");
+
+    let mut small_dict: HashMap<u64, Vec<u64>> = HashMap::new();
+
+    for (i, row) in left_string_vec.iter().enumerate() {
+        // let matches = re.find_iter(row).map(|mat| mat.as_str()).collect::<Vec<&str>>();
+        let mut hasher = FxHasher::default();
+
+        for re_match in re.find_iter(row).map(|mat| mat.as_str()) {
+            re_match.hash(&mut hasher)
+        }
+
+        let key = hasher.finish();
+
+        if key != 0 {
+            match small_dict.get_mut(&key) {
+                Some(matches) => matches.push(i as u64 +1),
+                None => {small_dict.insert(key, vec![i as u64 +1]);},
+            }
+        }
+    }
+
+    let mut output_vec: Vec<(u64, u64)> = Vec::new();
+
+    for (j, row) in left_string_vec.iter().enumerate() {
+        // let matches = re.find_iter(row).map(|mat| mat.as_str()).collect::<Vec<&str>>();
+        let mut hasher = FxHasher::default();
+
+        for re_match in re.find_iter(row).map(|mat| mat.as_str()) {
+            re_match.hash(&mut hasher)
+        }
+
+        let key = hasher.finish();
+
+        if key != 0 {
+            // relies on property of fx hasher (will be zero if nothing has been hashed)
+            match small_dict.get(&key) {
+                Some(matches) => {
+                    for i in matches {
+                        output_vec.push((*i, j as u64 + 1))
+                    }
+                }
+                None => {}
+            };
+        }
+    }
+
+    let mut out_arr: Array2<u64> = Array2::zeros((output_vec.len(), 2));
+    for (i, pair) in output_vec.iter().enumerate() {
+        out_arr[[i, 0]] = pair.1 as u64;
+        out_arr[[i, 1]] = pair.0 as u64;
+    }
+
+    Robj::try_from(&out_arr).into()
+}
+
+#[extendr]
 fn rust_salted_jaccard_join(
     left_string_r: Robj,
     right_string_r: Robj,
@@ -100,7 +166,6 @@ fn rust_salted_jaccard_join(
 
     let right_salt_vec = right_salt_r.as_str_vector().unwrap();
     let left_salt_vec = left_salt_r.as_str_vector().unwrap();
-
 
     let joiner = MinHashJoiner::new_with_salt(
         left_string_vec,
@@ -122,7 +187,14 @@ fn rust_salted_jaccard_join(
 }
 
 #[extendr]
-fn rust_p_norm_join(a_mat: Robj, b_mat: Robj, radius: f64, band_width : u64, n_bands: u64, r : f64) -> Robj {
+fn rust_p_norm_join(
+    a_mat: Robj,
+    b_mat: Robj,
+    radius: f64,
+    band_width: u64,
+    n_bands: u64,
+    r: f64,
+) -> Robj {
     let a_mat = <ArrayView2<f64>>::from_robj(&a_mat).unwrap().to_owned();
     let b_mat = <ArrayView2<f64>>::from_robj(&b_mat).unwrap().to_owned();
 
@@ -132,50 +204,56 @@ fn rust_p_norm_join(a_mat: Robj, b_mat: Robj, radius: f64, band_width : u64, n_b
     let hasher = EuclidianHasher::new(r, band_width as usize, b_mat.ncols());
 
     for _ in 0..n_bands {
-        a_mat.axis_iter(Axis(0)).into_par_iter().enumerate().for_each(|(i,x)| {
-            let hash = hasher.hash(x);
-            if store.contains_key(&hash) {
-                store.get_mut(&hash).unwrap().push(i);
-            } else {
-                store.insert(hash, vec![i]);
-            }
-        });
+        a_mat
+            .axis_iter(Axis(0))
+            .into_par_iter()
+            .enumerate()
+            .for_each(|(i, x)| {
+                let hash = hasher.hash(x);
+                if store.contains_key(&hash) {
+                    store.get_mut(&hash).unwrap().push(i);
+                } else {
+                    store.insert(hash, vec![i]);
+                }
+            });
 
-        b_mat.axis_iter(Axis(0)).into_par_iter().enumerate().for_each(|(j,x)| {
-            let hash = hasher.hash(x);
-            if store.contains_key(&hash) {
-                let potential_matches = store.get(&hash).unwrap().clone();
+        b_mat
+            .axis_iter(Axis(0))
+            .into_par_iter()
+            .enumerate()
+            .for_each(|(j, x)| {
+                let hash = hasher.hash(x);
+                if store.contains_key(&hash) {
+                    let potential_matches = store.get(&hash).unwrap().clone();
 
-                for i in potential_matches {
-                    let dist: f64 = b_mat
-                        .row(j)
-                        .iter()
-                        .zip(a_mat.row(i).iter())
-                        .map(|(a, b)| (a - b).powi(2))
-                        .sum::<f64>().sqrt();
+                    for i in potential_matches {
+                        let dist: f64 = b_mat
+                            .row(j)
+                            .iter()
+                            .zip(a_mat.row(i).iter())
+                            .map(|(a, b)| (a - b).powi(2))
+                            .sum::<f64>()
+                            .sqrt();
 
-                    if dist < radius {
-                        pairs.insert((i,j));
+                        if dist < radius {
+                            pairs.insert((i, j));
+                        }
                     }
                 }
-            }
-        });
+            });
 
-
-    store.clear()
+        store.clear()
     }
 
-    let mut out_arr : Array2<u64> = Array2::zeros((pairs.len(),2));
+    let mut out_arr: Array2<u64> = Array2::zeros((pairs.len(), 2));
 
-    for (idx, (i,j)) in pairs.into_iter().enumerate(){
+    for (idx, (i, j)) in pairs.into_iter().enumerate() {
         out_arr[[idx, 0]] = i as u64 + 1;
         out_arr[[idx, 1]] = j as u64 + 1;
     }
 
     Robj::try_from(&out_arr).into()
-
 }
-
 
 // Macro to generate exports.
 // This ensures exported functions are registered with R.
@@ -187,4 +265,5 @@ extendr_module! {
     fn rust_jaccard_similarity;
     fn rust_em_link;
     fn rust_p_norm_join;
+    fn rust_regex_join;
 }
