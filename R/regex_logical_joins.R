@@ -10,7 +10,7 @@
 #' be the same as dplyr: \code{by = c("column_name_in_df_a" =
 #' "column_name_in_df_b")}
 #'
-regex_inner_join <- function(a, b, regex,  by = NULL) {
+re_inner_join <- function(a, b, regex,  by = NULL) {
     regex_join_core(a,b,regex, mode = "inner", by = by)
 }
 
@@ -24,7 +24,7 @@ regex_inner_join <- function(a, b, regex,  by = NULL) {
 #' be the same as dplyr: \code{by = c("column_name_in_df_a" =
 #' "column_name_in_df_b")}
 #'
-regex_left_join <- function(a, b, regex,  by = NULL) {
+re_left_join <- function(a, b, regex,  by = NULL) {
     regex_join_core(a,b,regex, mode = "left", by = by)
 }
 
@@ -40,7 +40,7 @@ regex_left_join <- function(a, b, regex,  by = NULL) {
 #' be the same as dplyr: \code{by = c("column_name_in_df_a" =
 #' "column_name_in_df_b")}
 #'
-regex_right_join <- function(a, b, regex,  by = NULL) {
+re_right_join <- function(a, b, regex,  by = NULL) {
     regex_join_core(a,b,regex, mode = "right", by = by)
 }
 
@@ -56,7 +56,7 @@ regex_right_join <- function(a, b, regex,  by = NULL) {
 #' be the same as dplyr: \code{by = c("column_name_in_df_a" =
 #' "column_name_in_df_b")}
 #'
-regex_anti_join <- function(a, b, regex,  by = NULL) {
+re_anti_join <- function(a, b, regex,  by = NULL) {
     regex_join_core(a,b,regex, mode = "anti", by = by)
 }
 
@@ -72,6 +72,6 @@ regex_anti_join <- function(a, b, regex,  by = NULL) {
 #' be the same as dplyr: \code{by = c("column_name_in_df_a" =
 #' "column_name_in_df_b")}
 #'
-regex_full_join <- function(a, b, regex,  by = NULL) {
+re_full_join <- function(a, b, regex,  by = NULL) {
     regex_join_core(a,b,regex, mode = "full", by = by)
 }

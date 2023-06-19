@@ -16,9 +16,6 @@ regex_join_core <- function(a, b, regex, mode, by) {
     a_col <- dplyr::pull(a,by_a)
     b_col <- dplyr::pull(b,by_b)
 
-    print(a_col)
-    print(b_col)
-
     match_table <- rust_regex_join(a_col, b_col, regex)
 
     names_in_both <- intersect(names(a), names(b))
