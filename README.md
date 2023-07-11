@@ -10,14 +10,14 @@ coverage](https://codecov.io/gh/beniaminogreen/zoomerjoin/branch/main/graph/badg
 <!-- badges: end -->
 
 zoomerjoin is an R package that empowers you to fuzzy-join massive
-datasets rapidly, and with little memory consumption. Its backbone is a
-high-performance implementation of
-[MinHash](https://en.wikipedia.org/wiki/MinHash), an algorithm which
-shortcuts the expensive computational step of comparing all possible
-pairings of records between the two datasets. In practice, this means
-zoomerjoin can fuzzily-join datasets days, or even years faster than
-other matching packages. zoomerjoin has been used in-production to join
-datasets of hundreds of millions of names in a few hours.
+datasets rapidly, and with little memory consumption. It is powered by
+high-performance implementations of [Locality Sensitive
+Hashing](https://en.wikipedia.org/wiki/Locality-sensitive_hashing), an
+algorithm that finds the matches records between two datasets without
+having to compare all possible pairs of observations. In practice, this
+means zoomerjoin can fuzzily-join datasets days, or even years faster
+than other matching packages. zoomerjoin has been used in-production to
+join datasets of hundreds of millions of names in a few hours.
 
 ## Installation
 
@@ -25,9 +25,10 @@ datasets of hundreds of millions of names in a few hours.
 
 ### Preliminaries - Installing Rust:
 
-You must have [Rust](https://www.rust-lang.org/tools/install) installed
-to compile this package. After the package is compiled, Rust is no
-longer required, and can be safely uninstalled.
+You must have the [Rust
+compiler](https://www.rust-lang.org/tools/install) installed to compile
+this package. After the package is compiled, Rust is no longer required,
+and can be safely uninstalled.
 
 To install Rust on windows, you can use the Rust installation wizard,
 found
@@ -41,16 +42,23 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ### Installing Package from Github:
 
 Once you have rust installed Rust, you should be able to install the
-package with the `install_github` function from the `devtools` package:
+package with the `install_github` function from the `devtools` package,
+or with the `pkg_install` function from the `pak` package.
 
 ``` r
+## Install with devtools
 # install.packages("devtools")
 devtools::install_github("beniaminogreen/zoomerjoin")
+
+## Install with pak
+# install.packages("pak")
+pak::pkg_install("beniaminogreen/zoomerjoin")
 ```
 
 ## Loading The Package
 
-Load the package by typing
+Once the package is installed, you can load it into memory as usual by
+typing:
 
 ``` r
 library(zoomerjoin)
@@ -58,14 +66,26 @@ library(zoomerjoin)
 
 ### Usage:
 
-The flagship feature of zoomerjoins are the jaccard_join family of
-functions, which are designed to be near drop-ins for the corresponding
-dplyr/fuzzyjoin commands:
+The flagship feature of zoomerjoins are the jaccard_join and euclidean
+family of functions, which are designed to be near drop-ins for the
+corresponding dplyr/fuzzyjoin commands:
 
 - `jaccard_left_join()`
 - `jaccard_right_join()`
 - `jaccard_inner_join()`
 - `jaccard_full_join()`
+- `euclidean_left_join`
+- `euclidean_right_join`
+- `euclidean_inner_join`
+- `euclidean_full_join`
+
+The `jaccard_join` family of functions provide fast fuzzy-joins for
+strings using the Jaccard distance while the `euclidean_join` family
+provides fuzzy-joins for points or vectors using the Euclidean distance.
+
+#### Example: Joining rows of the Database on Ideology, Money in Politics, and Elections
+
+(DIME)
 
 Here’s a snippet showing off how to use the `lhs_inner_join()` merge two
 datasets of political donors in the [Database on Ideology, Money in
@@ -92,7 +112,7 @@ corpus_1
     ##  8     8 minnesota gun owners' political victory fund                           
     ##  9     9 metropolitan detroit afl cio cope committee                            
     ## 10    10 carpenters legislative improvement committee united brotherhood of car…
-    ## # … with 499,990 more rows
+    ## # ℹ 499,990 more rows
 
 And `corpus_2`:
 
@@ -113,7 +133,7 @@ corpus_2
     ##  8 832478 arvance turkey ranch inc            
     ##  9 832479 arizona federation of teachers      
     ## 10 832480 arianas restaurant                  
-    ## # … with 499,990 more rows
+    ## # ℹ 499,990 more rows
 
 Both corpuses have an observation ID column, and a donor name column. We
 would like to join the two datasets on the donor names column, but the
@@ -121,10 +141,27 @@ two can’t be directly joined because of misspellings. Because of this,
 we will use the jaccard_inner_join function to fuzzily join the two on
 the donor name column.
 
+Importantly, Locality Sensitive Hashing is a [probabilistic
+algorithm](https://en.wikipedia.org/wiki/Randomized_algorithm), so it
+may fail to identify some matches by random chance. I adjust the
+hyperparameters `n_bands` and `band_width` until the chance of true
+matches being dropped is negligible. By default, the package will issue
+a warning if the chance of a true match being discovered is less than
+95%. You can use the `jaccard_probability` and
+`jaccard_hyper_grid_search` to help understand the probability any true
+matches will be discarded by the algorithm.
+
+More details and a more thorough description of how to tune the
+hyperparameters can be can be found in the [guided tour
+vignette](https://beniaminogreen.github.io/zoomerjoin/articles/guided_tour.html).
+
 ``` r
 start_time <- Sys.time()
 join_out <- jaccard_inner_join(corpus_1, corpus_2, n_gram_width=6, n_bands=20, band_width=6)
 ```
+
+    ## Warning in jaccard_join(a, b, mode = "inner", by = by, salt_by = block_by, : A pair of records at the threshold (0.7) have only a 92% chance of being compared.
+    ## Please consider changing `n_bands` and `band_width`.
 
     ## Joining by 'field'
 
@@ -132,26 +169,26 @@ join_out <- jaccard_inner_join(corpus_1, corpus_2, n_gram_width=6, n_bands=20, b
 print(Sys.time() - start_time)
 ```
 
-    ## Time difference of 9.761639 secs
+    ## Time difference of 9.048863 secs
 
 ``` r
 print(join_out)
 ```
 
-    ## # A tibble: 181,488 × 4
+    ## # A tibble: 181,653 × 4
     ##         a field.x                                                      b field.y
     ##     <dbl> <chr>                                                    <dbl> <chr>  
-    ##  1 218002 laborers international local 616                        1.27e6 labore…
-    ##  2  16382 communications workers of america afl cio district 9    9.85e5 commun…
-    ##  3  58034 political action for classified employees of ca school  9.41e5 politi…
-    ##  4 400938 wmc properties llc                                      9.93e5 bbc pr…
-    ##  5 366431 leno family limited partnership                         1.16e6 bww fa…
-    ##  6 330123 golden state leadership council: jim nielsen ballot me… 9.13e5 golden…
-    ##  7  12779 iger & associates                                       1.14e6 geiger…
-    ##  8 117007 law offices of george e phillips                        8.56e5 law of…
-    ##  9 160332 warren county democratic executive cmte                 1.18e6 tucker…
-    ## 10 377140 tds investments inc                                     1.26e6 lvs in…
-    ## # … with 181,478 more rows
+    ##  1 468677 sapurstein & associates                                 1.09e6 stein …
+    ##  2  82599 plumbers & steamfitters local 157                       1.23e6 plumbe…
+    ##  3 486027 re associates                                           1.04e6 bme as…
+    ##  4   4439 service employees international union                   8.71e5 servic…
+    ##  5 269633 impact pac of the independent insurance agents          9.43e5 pac of…
+    ##  6 251059 jnb investments inc                                     1.28e6 kmb in…
+    ##  7 129893 jerry madden campaign & officeholder account            9.58e5 jerry …
+    ##  8  71895 international brotherhood of electrical workers local … 8.49e5 intern…
+    ##  9 296582 ccs financial services inc                              9.10e5 eds fi…
+    ## 10   8117 ted winter volunteer cmte                               1.17e6 winter…
+    ## # ℹ 181,643 more rows
 
 ZoomerJoin finds and joins on the matching rows in just a few seconds.
 
