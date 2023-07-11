@@ -143,6 +143,14 @@ print(join_out)
 
 ZoomerJoin finds and joins on the matching rows in just a few seconds.
 
+# Acknowledgments:
+
+The Zoomerjoin was made using [this SQL join
+illustration](https://commons.wikimedia.org/wiki/File:SQL_Join_-_08_A_Cross_Join_B.svg)
+by [Germanx](https://commons.wikimedia.org/wiki/User:GermanX) and [this speed
+limit sign](https://commons.wikimedia.org/wiki/File:Speed_limit_75_sign.svg) from the
+Federal Highway Administration - MUTCD.
+
 ## References:
 
 Bonica, Adam. 2016. Database on Ideology, Money in Politics, and Elections: Public version 2.0 [Computer file]. Stanford, CA: Stanford University Libraries.
