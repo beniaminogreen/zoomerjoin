@@ -30,3 +30,6 @@ Config/testthat/edition: 3
 URL: https://beniaminogreen.github.io/zoomerjoin/
 BugReports: https://github.com/beniaminogreen/zoomerjoin/issues/
 VignetteBuilder: knitr
+Depends: 
+    R (>= 2.10)
+LazyData: true
