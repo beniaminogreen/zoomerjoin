@@ -8,7 +8,7 @@ Description: Zoomerjoin empowers users to fuzzily-merge dataframes with millions
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 SystemRequirements: Cargo (>= 1.56) (Rust's package manager), rustc
 Imports:
     dplyr,
