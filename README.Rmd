@@ -8,14 +8,13 @@ library(tidyverse)
 library(microbenchmark)
 library(fuzzyjoin)
 
-# rextendr::document()
 devtools::load_all()
 
 n <- 500000
-corpus_1 <- read_csv("vignettes/bonica.csv")  %>%
+corpus_1 <- bonica_data %>%
     head(n)
 names(corpus_1) <- c("a", "field")
-corpus_2 <- read_csv("vignettes/bonica.csv")  %>%
+corpus_2 <- bonica_data %>%
     tail(n)
 names(corpus_2) <- c("b", "field")
 ```
