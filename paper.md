@@ -32,7 +32,7 @@ Zoomerjoin is an R package that empowers users to fuzzily-join massive datasets
 with millions of rows in seconds or minutes. Backed by two performant,
 mutlithreaded Locality-Sensitive Hash algorithms [@Broder; @Datar_2004],
 `zoomerjoin` saves time by not comparing distant pairs of observations and
-typically runs in runs in linear ($\mathcal{O(m+n)}$) time. The
+typically runs in linear ($\mathcal{O(m+n)}$) time. The
 algorithmic details are technical but the results are transformational;
 for the distance-metrics it supports, `zoomerjoin` takes seconds or
 minutes to join datasets that would have taken other matching packages
@@ -63,7 +63,7 @@ few points in another dataset, the running time is dominated by the hashing
 step, and the program finishes in linear time using linear memory.
 
 With this remarkable increase in speed comes two costs: Locality-Sensitive
-hashing is probabilistic a probabilistic algorithm, so there is some
+hashing is a probabilistic algorithm, so there is some
 probability that some true matches may be discarded by chance. This said, the
 chance that any matches are discarded by chance can be made arbitrarily low by
 changing parameters of the hash. Additionally, the LSH algorithms are more
@@ -160,10 +160,10 @@ for datasets with hundreds of millions of observations.
 ## Other Functionalities
 
 The flagship feature of `zoomerjoin` is its fast, dplyr-style joins, but it
-also implements two other algorithms improved by locality-sensitive
-hashing: a fuzzy-string grouping function which is backed by locality-sensitive
-hashing, and an implementation the probabilistic record-linkage algorithm for
-the Fellegi-Sunter model [@Fellegi_1969] developed by @Enamorado_2018.
+also implements two other algorithms improved by locality-sensitive hashing: a
+fuzzy-string grouping function which is backed by locality-sensitive hashing,
+and an implementation of the probabilistic record-linkage algorithm  based
+on the Fellegi-Sunter model [@Fellegi_1969] developed by @Enamorado_2018.
 
 The fuzzy-string-grouping algorithm provides a principled way to correct
 misspellings in administrative datasets by combining similar pairs of strings
@@ -171,11 +171,11 @@ into groups with a standardized name. The probabilistic record-linkage
 algorithm described by @Enamorado_2018 provides a way to link entities between
 two datasets but involves comparing all possible pairs between each datasets. A
 simple pre-processing step with the Locality-Sensitive Hashing methods of
-`zoomerjoin` can drastically decrease the runtime by limiting comparisons to
-pairs to units that have similar values of one or more blocking fields. This
-allows the algorithm to scale almost linearly with the size of the input
-datasets, at the cost of discarding a small amount of true matches excluded by
-the blocking scheme.
+`zoomerjoin` can drastically decrease the runtime by considering as potential
+matches units that have similar values of the blocking fields. This allows the
+algorithm to scale almost linearly with the size of the input datasets, at the
+cost of discarding a small amount of true matches excluded by the blocking
+scheme.
 
 ## Limitations and Future Work
 
