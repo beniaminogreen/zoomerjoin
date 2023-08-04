@@ -14,15 +14,6 @@ library(tidyverse)
 library(microbenchmark)
 library(fuzzyjoin)
 library(zoomerjoin)
-
-n <- 500000
-corpus_1 <- dime_data %>%
-    head(n)
-names(corpus_1) <- c("a", "field")
-corpus_2 <- dime_data %>%
-    tail(n)
-names(corpus_2) <- c("b", "field")
-
 ```
 
 This vignette gives a basic overview of the core functionality of the
@@ -31,14 +22,11 @@ millions of rows in seconds, while staying light on memory usage. This makes it
 feasible to perform fuzzy-joins on datasets in the hundreds of millions of
 observations in a matter of minutes.
 
-As an added feature, the package  also provides a wrapper for fast
-2-dimensional spatial joins using the rust `kdtree` crate.
-
 ## How Does it Work?
 
-Zoomerjoin's blazingly fast joins are made possible by an optimized, performant
-implimentation of the [MinHash](https://en.wikipedia.org/wiki/MinHash)
-algorithm written in Rust.
+Zoomerjoin's blazingly fast joins for the string distance are made possible by
+an optimized, performant implimentation of the
+[MinHash](https://en.wikipedia.org/wiki/MinHash) algorithm written in Rust.
 
 While most conventional joining packages compare the all pairs of records in
 the two datasets you wish to join, the MinHash algorithm manages to compare
@@ -61,12 +49,18 @@ from entries from the [Database on Ideology, Money in Politics, and Elections
 The first corpus looks as follows:
 
 ```{r}
+corpus_1 <- dime_data %>% # dime data is packaged with zoomerjoin
+    head(5*10^5)
+names(corpus_1) <- c("a", "field")
 corpus_1
 ```
 
 And the second looks as follows:
 
 ```{r}
+corpus_2 <- dime_data %>% # dime data is packaged with zoomerjoin
+    tail(5*10^5)
+names(corpus_2) <- c("b", "field")
 corpus_2
 ```
 
@@ -81,8 +75,6 @@ join_out <- jaccard_inner_join(corpus_1, corpus_2,
 print(Sys.time() - start_time)
 print(join_out)
 ```
-
-Below, I provide a short description of the arguments.
 
 The first two arguments, `a`, and `b`, are direct analogues of the `dplyr`
 arguments, and are the two data frames you want to join. The `by` field also
@@ -108,6 +100,36 @@ For more details, the `textreuse` package has an excellent vignette, and
 zoomerjoin provides a re-implimentation of its profiling tools,
 `jaccard_probability,` and `jaccard_bandwidth` (although the implementations differ
 slightly as the hyperparameters in each package are different).
+
+## Standardizing String Names After A Merge
+
+Often after merging, it can help to standardize the names or fields that have
+been joined on. This way, you can assign a unique label or identifying key to
+all observations that have a similar value of the merging variable. The
+`jaccard_string_group` function makes this possible. It first performs locality
+sensitive hashing to identify similar pairs of observations within the dataset,
+and then runs a community detection algorithm to identify clusters of similar
+observations, which are each assinged a label. The community-detection
+algorithm, `fastgreedy.community` from the `igraph` package runs in log-linear
+time, so the entire algorithm completes in linearithmic time.
+
+Here's a short snippet showing how you can use `jaccard_string_group` to
+standardize a set of organization names.
+
+```{r}
+organization_names <- c(
+                        "American Civil Liberties Union",
+                        "American Civil Liberties Union (ACLU)",
+                        "NRA National Rifle Association",
+                        "National Rifle Association NRA",
+                        "National Rifle Association",
+                        "Planned Parenthood",
+                        "Blue Cross"
+)
+standardized_organization_names <- jaccard_string_group(organization_names, threshold=.5, band_width = 3)
+print(standardized_organization_names)
+```
+
 
 ### References:
 
