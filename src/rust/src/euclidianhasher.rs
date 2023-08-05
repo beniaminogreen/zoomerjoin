@@ -28,7 +28,7 @@ impl EuclidianHasher {
         let numerator = x.dot(&self.a_vectors) + &self.b_vectors;
 
         let rounded = (numerator / self.r)
-            .map(|x| x.round() as u64);
+            .map(|x| x.ceil() as u64);
 
         let mut hasher = FxHasher::default();
 
