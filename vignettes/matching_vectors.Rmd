@@ -1,0 +1,89 @@
+---
+title: "matching_vectors"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{matching_vectors}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(zoomerjoin)
+```
+
+# Introduction
+
+The flagship feature of zoomerjoin is are the tidy joins for strings using the
+Jaccard distance, but zoomerjoin also allows you to join vectors using
+Euclidean distance. This can be useful for joining addresses or coordinates in
+space.
+
+Unlike other nearest-neighbor methods such as KD-trees, the joins do not slow
+down as the dimension of the coordinates increases, so zoomerjoin can be used
+can be used to find close points in a high-dimensional space (such as word
+embeddings).
+
+# Demonstration
+
+For this demonstration, I create a simulated dataset of 10^5 points distributed
+uniformly within a 100-dimensional hypercube. I join this to another dataset
+which is a copy of the first with each point shifted an infinitesimal random
+amount.
+
+```{r}
+n <- 10^5 # number of data points
+d <- 10^2 # dimension
+
+# Create a matrix of 10^5 observations in R^100
+X <- matrix(runif(n*d),n,d)
+# Second Dataset is a copy of the first with points shifted an infinitesimal
+# amount
+X_2 <- X + matrix(rnorm(n*d, 0,.0001), n,d)
+
+rowSums((X - X_2)^2) |> sqrt() |> hist()
+
+```
+
+I now want to join these two datasets together. The Euclidean joins take 3
+hyperparameters: `n_bands`, `band_width`, and `r`. Which all have to be chosen
+for the problem domain (although the defaults are generally sensible).
+
+I use the `euclidean_probability` function in the package to understand the
+probability that two observations within a euclidean distance of .5 are found
+as a match.
+
+```{r}
+
+euclidean_probability(.1, n_bands = 40,band_width = 3,r = 1.5)
+
+euclidean_probability(.5, n_bands = 40,band_width = 3,r = 1.5)
+
+euclidean_probability(.5, n_bands = 40,band_width = 3,r = 1.5)
+
+
+```
+
+
+
+
+```{r}
+
+joined_out <- euclidean_inner_join(
+                     as.data.frame(X),
+                     as.data.frame(X_2),
+                     threshold = .7,
+                     n_bands = 4,
+                     band_width = 3,
+                     r=1.5)
+nrow(joined_out)
+
+```
+
+
