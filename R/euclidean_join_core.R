@@ -42,10 +42,12 @@ euclidean_join_core <- function (a, b, by = NULL, n_bands = 30, band_width = 10,
     }
 
     match_table <- rust_p_norm_join(
-                                as.matrix(dplyr::select(a, dplyr::all_of(by_a))),
-                                as.matrix(dplyr::select(b, dplyr::all_of(by_b))),
-                                threshold,
-                                n_bands, band_width, r)
+                                a_mat = as.matrix(dplyr::select(a, dplyr::all_of(by_a))),
+                                b_mat = as.matrix(dplyr::select(b, dplyr::all_of(by_b))),
+                                radius = threshold,
+                                band_width = band_width,
+                                n_bands = n_bands,
+                                r = r)
 
     names_in_both <- intersect(names(a), names(b))
 
