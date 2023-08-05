@@ -93,13 +93,30 @@ of .8 will keep matches above 80% Jaccard similarity.
 The `n_bands` and `band_width` parameters govern the performance of the LSH.
 The default parameters should perform well for medium-size (n < 10^7) datasets
 where matches are somewhat similar (similarity > .8), but may require tuning in
-other settings. the `jaccard_hyper_grid_search` function can help select these
-parameters for you given the properties of the LSH you desire.
+other settings. the `jaccard_hyper_grid_search,` and `jaacrd_curve` functions
+can help select these parameters for you given the properties of the LSH you
+desire.
 
-For more details, the `textreuse` package has an excellent vignette, and
-zoomerjoin provides a re-implimentation of its profiling tools,
-`jaccard_probability,` and `jaccard_bandwidth` (although the implementations differ
-slightly as the hyperparameters in each package are different).
+As an example, you can use the `jaccard_curve` function to plot the probability
+that a pair of records are compared at each possible jaccard distance, $d$
+between zero and one:
+
+```{r}
+jaccard_curve(20,6)
+```
+
+By looking at the plot produced, we can see that using these hyperparameters,
+comparisons will almost never be made between pairs of records that have a
+Jaccard similarity of less than .2 (saving time), pairs of records that have a
+Jaccard similarity of greater than .8 are amost always compared (giving a low
+false-negative rate).
+
+For more details about the hyperparameters, the `textreuse` package has an
+excellent vignette, and zoomerjoin provides a re-implimentation of its
+profiling tools, `jaccard_probability,` and `jaccard_bandwidth` (although the
+implementations differ slightly as the hyperparameters in each package are
+different).
+
 
 ## Standardizing String Names After A Merge
 
