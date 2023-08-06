@@ -129,9 +129,9 @@ fn rust_p_norm_join(a_mat: Robj, b_mat: Robj, radius: f64, band_width : u64, n_b
     let pairs: DashSet<(usize, usize)> = DashSet::new();
     let store: DashMap<u64, Vec<usize>> = DashMap::new();
 
-    let hasher = EuclidianHasher::new(r, band_width as usize, b_mat.ncols());
-
     for _ in 0..n_bands {
+        let hasher = EuclidianHasher::new(r, band_width as usize, b_mat.ncols());
+
         a_mat.axis_iter(Axis(0)).into_par_iter().enumerate().for_each(|(i,x)| {
             let hash = hasher.hash(x);
             if store.contains_key(&hash) {
@@ -161,8 +161,7 @@ fn rust_p_norm_join(a_mat: Robj, b_mat: Robj, radius: f64, band_width : u64, n_b
             }
         });
 
-
-    store.clear()
+        store.clear()
     }
 
     let mut out_arr : Array2<u64> = Array2::zeros((pairs.len(),2));
