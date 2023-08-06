@@ -1,0 +1,95 @@
+---
+title: "matching_vectors"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{matching_vectors}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(zoomerjoin)
+```
+
+# Introduction
+
+The flagship feature of zoomerjoin is are the tidy joins for strings using the
+Jaccard distance, but zoomerjoin also allows you to join vectors using
+Euclidean distance. This can be useful for joining addresses or coordinates in
+space.
+
+Unlike other nearest-neighbor methods such as KD-trees, the joins do not slow
+down as the dimension of the coordinates increases, so zoomerjoin can be used
+can be used to find close points in a high-dimensional space (such as word
+embeddings).
+
+# Demonstration
+
+For this demonstration, I create a simulated dataset of 10^6 points distributed
+uniformly within a 100-dimensional hypercube. I join this to another dataset
+which is a copy of the first with each point shifted an tiny random amount.
+
+```{r}
+n <- 10^6 # number of data points
+d <- 10^2 # dimension
+
+# Create a matrix of 10^6 observations in R^100
+X <- matrix(runif(n*d),n,d)
+# Second Dataset is a copy of the first with points shifted an infinitesimal
+# amount
+X_2 <- as.data.frame(X + matrix(rnorm(n*d, 0,.0001), n,d))
+X <- as.data.frame(X)
+```
+
+I now want to join these two datasets together. The Euclidean joins take 3
+hyperparameters: `n_bands`, `band_width`, and `r`. Which all have to be chosen
+for the problem domain (although the defaults are generally sensible).
+
+I use the `euclidean_probability` function in the package to understand the
+probability that two observations at distance of .01 from each other are
+indentified as a match at a variety of hyperparameter configurations.
+
+```{r}
+euclidean_probability(.01, n_bands = 5,band_width = 8,r = .25)
+euclidean_probability(.1, n_bands = 5,band_width = 8,r = .25)
+
+euclidean_probability(.01, n_bands = 10,band_width = 4,r = .15)
+euclidean_probability(.1, n_bands = 10,band_width = 4,r = .15)
+
+euclidean_probability(.01, n_bands = 40,band_width = 8,r = .15)
+euclidean_probability(.1, n_bands = 40,band_width = 8,r = .15)
+```
+
+Using `n_bands=40`, `band_width=8`, and `r=.15` seems to provide a good balance
+between identifying all true matches (as pairs less than .01 apart are
+guaranteed to be found) with reducing the number of un-promising comparisons
+(as pairs greater than .1 apart are unlikely to be compared). I then use the
+`euclidean_inner_join` to find all matching pairs across the two datasets:
+
+
+```{r}
+start <- Sys.time()
+joined_out <- euclidean_inner_join(
+                     X,
+                     X_2,
+                     threshold = .01,
+                     n_bands = 40,
+                     band_width = 8,
+                     r=.15)
+n_matches <- nrow(joined_out)
+time_taken <- Sys.time() - start
+print(paste("found", n_matches, "matches in", round(time_taken), "seconds"))
+```
+
+Zoomerjoin is able to easily find all pairs in just under 30s, even though the
+points lie in high-dimensional (d=100) space. This makes zoomerjoin a useful
+tool when trying to join or find matches between datasets of word or document
+embeddings.
+
