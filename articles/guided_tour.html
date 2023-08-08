@@ -50,7 +50,7 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/benchmarks.html">Benchmarks</a>
     <a class="dropdown-item" href="../articles/guided_tour.html">A Zoomerjoin Guided Tour</a>
-    <a class="dropdown-item" href="../articles/matching_vectors.html">matching_vectors</a>
+    <a class="dropdown-item" href="../articles/matching_vectors.html">Matching Vectors Based on Euclidean Distance</a>
   </div>
 </li>
       </ul>
@@ -169,23 +169,23 @@ zoomerjoin:</p>
 <span>                           by <span class="op">=</span> <span class="st">"field"</span>, n_gram_width<span class="op">=</span><span class="fl">6</span>,</span>
 <span>                           n_bands<span class="op">=</span><span class="fl">20</span>, band_width<span class="op">=</span><span class="fl">6</span>, threshold <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="va">start_time</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Time difference of 27.96217 secs</span></span></code></pre>
+<pre><code><span><span class="co">## Time difference of 25.44893 secs</span></span></code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">join_out</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 47,917 × 4</span></span></span>
-<span><span class="co">##         a field.x                                                   b field.y   </span></span>
-<span><span class="co">##     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                 <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> <span style="text-decoration: underline;">410</span>117 washington federation of state employees local 1221 1<span style="text-decoration: underline;">115</span>843 washingto…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> <span style="text-decoration: underline;">163</span>742 teamsters local 347                                 1<span style="text-decoration: underline;">192</span>145 teamsters…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> <span style="text-decoration: underline;">323</span>405 holm bambace llp                                     <span style="text-decoration: underline;">920</span>749 holm bamb…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> <span style="text-decoration: underline;">107</span>003 steelworkers district 2                             1<span style="text-decoration: underline;">088</span>065 steelwork…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> <span style="text-decoration: underline;">433</span>312 the montana power company                           1<span style="text-decoration: underline;">123</span>091 montana p…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> <span style="text-decoration: underline;">323</span>299 home builders association of sc                     1<span style="text-decoration: underline;">106</span>582 home buil…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> <span style="text-decoration: underline;">226</span>812 tg investments llc                                  1<span style="text-decoration: underline;">168</span>725 z&amp;g inves…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> <span style="text-decoration: underline;">336</span>826 florida cable telecommunications association         <span style="text-decoration: underline;">990</span>344 ca cable …</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">80</span>134 plumbers &amp; pipefitters local 501                    1<span style="text-decoration: underline;">228</span>969 plumbers …</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">72</span>002 the law office of zoe meigs, pc                      <span style="text-decoration: underline;">907</span>015 law offic…</span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ 47,907 more rows</span></span></span></code></pre>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 47,887 × 4</span></span></span>
+<span><span class="co">##         a field.x                                                  b field.y    </span></span>
+<span><span class="co">##     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">61</span>243 law offices of stanley bernstein                    <span style="text-decoration: underline;">952</span>347 law office…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span>   <span style="text-decoration: underline;">8</span>860 sheet metal workers international assoc pal        1<span style="text-decoration: underline;">011</span>011 sheet meta…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span>   <span style="text-decoration: underline;">7</span>839 62nd senate district democratic farmer labor party  <span style="text-decoration: underline;">832</span>515 3rd senate…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> <span style="text-decoration: underline;">256</span>033 fore construction inc                              1<span style="text-decoration: underline;">170</span>174 wre constr…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> <span style="text-decoration: underline;">108</span>435 plumbers &amp; steamfitters local 166                  1<span style="text-decoration: underline;">228</span>947 plumbers &amp;…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> <span style="text-decoration: underline;">109</span>544 texas association of home care                      <span style="text-decoration: underline;">891</span>565 texas asso…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> <span style="text-decoration: underline;">100</span>162 millwright local 2158                              1<span style="text-decoration: underline;">252</span>982 millwright…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> <span style="text-decoration: underline;">275</span>970 jb construction co                                 1<span style="text-decoration: underline;">157</span>533 cbb constr…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> <span style="text-decoration: underline;">235</span>086 gci printing services inc                          1<span style="text-decoration: underline;">141</span>914 gci printi…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> <span style="text-decoration: underline;">429</span>717 ti laboratories incorporated                       1<span style="text-decoration: underline;">026</span>097 ion labora…</span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ 47,877 more rows</span></span></span></code></pre>
 <p>The first two arguments, <code>a</code>, and <code>b</code>, are
 direct analogues of the <code>dplyr</code> arguments, and are the two
 data frames you want to join. The <code>by</code> field also acts the
