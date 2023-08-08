@@ -1,5 +1,5 @@
 ---
-title: "matching_vectors"
+title: "Matching Vectors Based on Euclidean Distance"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{matching_vectors}
@@ -88,8 +88,8 @@ time_taken <- Sys.time() - start
 print(paste("found", n_matches, "matches in", round(time_taken), "seconds"))
 ```
 
-Zoomerjoin is able to easily find all pairs in just under 30s, even though the
-points lie in high-dimensional (d=100) space. This makes zoomerjoin a useful
-tool when trying to join or find matches between datasets of word or document
-embeddings.
+Zoomerjoin is able to easily find all pairs in just under 30s (perhaps longer
+on the runner that renders the website), even though the points lie in
+high-dimensional (d=100) space. This makes zoomerjoin a useful tool when trying
+to join or find matches between datasets of word or document embeddings.
 
