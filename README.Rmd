@@ -143,6 +143,22 @@ print(join_out)
 
 ZoomerJoin finds and joins on the matching rows in just a few seconds.
 
+# Contributing
+
+Thanks for your interest in contributing to Zoomerjoin!
+
+I am using a gitub-centric workflow to manage the package; You can file a bug report, request a new feature, or ask a question about the package by [filing
+an issue on the issues page](https://github.com/beniaminogreen/zoomerjoin/issues), where you will also
+find a range of templates to help you out. If you'd like to make changes to the code, you can write and file a [pull
+request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests)
+on [this page](https://github.com/beniaminogreen/zoomerjoin/pulls). I'll try to
+respond to all of these in a timely manner (within a week) although
+occasionally I may take longer to respond to a complicated question or issue.
+
+Please also be aware of the [contributor code of
+conduct](https://github.com/beniaminogreen/zoomerjoin/blob/main/CONTRIBUTING.md)
+for contributing to the repository.
+
 # Acknowledgments:
 
 The Zoomerjoin was made using [this SQL join
