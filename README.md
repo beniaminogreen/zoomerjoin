@@ -169,28 +169,48 @@ join_out <- jaccard_inner_join(corpus_1, corpus_2, n_gram_width=6, n_bands=20, b
 print(Sys.time() - start_time)
 ```
 
-    ## Time difference of 9.634931 secs
+    ## Time difference of 8.486629 secs
 
 ``` r
 print(join_out)
 ```
 
-    ## # A tibble: 184,333 × 4
-    ##         a field.x                                            b field.y          
-    ##     <dbl> <chr>                                          <dbl> <chr>            
-    ##  1 290631 acs financial services                       1243590 nm financial ser…
-    ##  2 307900 cis construction                              911262 cis construction…
-    ##  3 129724 j&r chiropractic clinic                       930942 ray chiropractic…
-    ##  4 330137 golden rule insurance co                      964255 golden rule insu…
-    ##  5 271696 communications workers of america local 4322  974260 communications w…
-    ##  6  14495 ck republican women                          1230434 pickwick republi…
-    ##  7 284103 assoc subcontractors of ma inc                994308 assoc subcontrac…
-    ##  8  59341 plumbers & steamfitters local union 409      1017405 plumbers & steam…
-    ##  9  25222 garson & associates                          1157883 carson & associa…
-    ## 10 460305 shunt enterprises inc                        1072688 ht enterprises i…
-    ## # ℹ 184,323 more rows
+    ## # A tibble: 179,497 × 4
+    ##         a field.x                                           b field.y           
+    ##     <dbl> <chr>                                         <dbl> <chr>             
+    ##  1 429211 tim tran insurance & financial services inc 1072466 tsm insurance & f…
+    ##  2 125067 pmw associates                              1131873 jw associates     
+    ##  3 436026 thb family limited partnershi                926219 red family limite…
+    ##  4 297559 clm insurance agency                         853949 arm insurance age…
+    ##  5 228708 js capital management                        999747 aegis capital man…
+    ##  6 274600 peterson & peterson pa                       941914 peterson & peters…
+    ##  7 407841 wel management services inc                 1094976 recon management …
+    ##  8 254313 gray construction inc                        843317 albay constructio…
+    ##  9 367899 klap limited partnership                     882718 dhp limited partn…
+    ## 10 275731 j investments inc                            859655 sri investments i…
+    ## # ℹ 179,487 more rows
 
 ZoomerJoin finds and joins on the matching rows in just a few seconds.
+
+# Contributing
+
+Thanks for your interest in contributing to Zoomerjoin!
+
+I am using a gitub-centric workflow to manage the package; You can file
+a bug report, request a new feature, or ask a question about the package
+by [filing an issue on the issues
+page](https://github.com/beniaminogreen/zoomerjoin/issues), where you
+will also find a range of templates to help you out. If you’d like to
+make changes to the code, you can write and file a [pull
+request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests)
+on [this page](https://github.com/beniaminogreen/zoomerjoin/pulls). I’ll
+try to respond to all of these in a timely manner (within a week)
+although occasionally I may take longer to respond to a complicated
+question or issue.
+
+Please also be aware of the [contributor code of
+conduct](https://github.com/beniaminogreen/zoomerjoin/blob/main/CONTRIBUTING.md)
+for contributing to the repository.
 
 # Acknowledgments:
 
