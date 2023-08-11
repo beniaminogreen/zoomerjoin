@@ -121,14 +121,29 @@ Jaccard distance for strings and the Euclidean distance for points.
 For the Jaccard distance benchmarks, I use both R packages to join rows of
 donor names from the Database on Ideology, Money in Politics, and Elections
 (DIME) [@DIME], a database of donors to interest groups, a dataset used to
-benchmark other matching / joining algorithms [@Kaufman_2021]. For the
-Euclidean distance, I use the programs to link datasets of points drawn from a
-multivariate gaussian with 50 dimensions to a copy of this dataset with dataset
-with each observation shifted by a small $\varepsilon = .00001$ along each
-axis. For both joining types, I adjust the hyperparameters until the
-false-negative rate is less than .1%, meaning that fewer than .1% of all
-matches are discarded by random chance. `zoomerjoin` never creates false
-positives.
+benchmark other matching / joining algorithms [@Kaufman_2021].
+
+For the Euclidean distance, I use the programs to link datasets of points drawn
+from a multivariate gaussian with 50 dimensions to a copy of this dataset with
+dataset with each observation shifted by adding a small $\varepsilon$ along
+each axis. The exact code to generate this dataset can be seen below:
+
+```
+# R Code to create synthetic dataset for Euclidean Joining
+n <- 10^5
+p <- 50
+X <- matrix(rnorm(n * p), n, p)
+
+# First dataframe to join
+X_1 <- as.data.frame(X)
+# Second dataframe to join
+X_2 <- as.data.frame(X + .000000001)
+```
+
+For both types of joins, I adjust the hyperparameters until the false-negative
+rate is less than .1%, meaning that fewer than .1% of all matches are discarded
+by random chance. More details, including the complete benchmarking code can be
+seen in the [package's benchmarking vignette](http://beniamino.org/zoomerjoin/articles/benchmarks.html).
 
 ![Memory Use and Runtime Comparison of Fuzzy-Joining Methods in R](benchmarks.png)
 
@@ -139,6 +154,33 @@ Jaccard-distance joins implemented in `fuzzyjoin` take over three minutes to
 join. For the largest Euclidean datasets, `fuzzyjoin` almost exhausts the 8GB
 memory capacity of the laptop used for benchmarking, while `zoomerjoin`'s
 memory rises above above 8 MB — a thousand-fold decrease.
+
+## Example Usage:
+
+Zoomerjoin is designed to be easy to use for R users familiar with the popular
+dplyr grammar of data manipulation [@dplyr]. To give an example, I show how to
+use the `euclidean_inner_join` function (the fuzzy analogue of `dplyr`'s
+`inner_join`) to join the two datasets from the benchmarking example:
+
+```
+euclidean_inner_join(
+        X_1, X_2,
+        threshold = .1,
+        n_bands = 90,
+        band_width = 2,
+        r = .1
+        )
+```
+
+The first two arguments are exactly the same as those in the corresponding
+`dplyr` function, and should be familiar to most R users. The remaining
+arguments, `threshold`, `n_bands`, `band_width`, and `r` are specific to
+zoomerjoin, and determine how close units must be to be considered a match, as
+well as the performance / recall of the LSH scheme. As with `dplyr`, the
+package also allows users to perform other types of logical joins using the
+`euclidean_(outer`|`left`|`right`|`full`)_`join` family of functions functions.
+A corresponding family of functions also exists for the fuzzy joins based on
+the Jaccard distance.
 
 ## State of the Field:
 
