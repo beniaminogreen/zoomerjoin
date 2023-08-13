@@ -30,14 +30,27 @@ compiler](https://www.rust-lang.org/tools/install) installed to compile
 this package. After the package is compiled, Rust is no longer required,
 and can be safely uninstalled.
 
-To install Rust on windows, you can use the Rust installation wizard,
-found
-[here](https://forge.rust-lang.org/infra/other-installation-methods.html).
-On Linux or MacOs, you can install Rust with:
+#### Installing Rust on Linux or Mac:
+
+To install Rust on Linux or Mac, you can simply run the following
+snippet in your terminal.
 
 ``` sh
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
+
+To install Rust on windows, you can use the Rust installation wizard,
+`rustup-init.exe`, found [at this
+site](https://forge.rust-lang.org/infra/other-installation-methods.html).
+Depending on your version of Windows, you may see an error that looks
+something like this:
+
+    error: toolchain 'stable-x86_64-pc-windows-gnu' is not installed
+
+In this case, you should run
+`rustup install stable-x86_64-pc_windows-gnu` to install the missing
+toolchain. If you’re missing another toolchain, simply type this in the
+place of `stable-x86_64-pc_windows-gnu` in the command above.
 
 ### Installing Package from Github:
 
@@ -55,7 +68,7 @@ devtools::install_github("beniaminogreen/zoomerjoin")
 pak::pkg_install("beniaminogreen/zoomerjoin")
 ```
 
-## Loading The Package
+### Loading The Package
 
 Once the package is installed, you can load it into memory as usual by
 typing:
@@ -64,7 +77,7 @@ typing:
 library(zoomerjoin)
 ```
 
-### Usage:
+## Usage:
 
 The flagship feature of zoomerjoins are the jaccard_join and euclidean
 family of functions, which are designed to be near drop-ins for the
@@ -83,7 +96,7 @@ The `jaccard_join` family of functions provide fast fuzzy-joins for
 strings using the Jaccard distance while the `euclidean_join` family
 provides fuzzy-joins for points or vectors using the Euclidean distance.
 
-#### Example: Joining rows of the Database on Ideology, Money in Politics, and Elections
+### Example: Joining rows of the Database on Ideology, Money in Politics, and Elections
 
 (DIME)
 
@@ -169,30 +182,30 @@ join_out <- jaccard_inner_join(corpus_1, corpus_2, n_gram_width=6, n_bands=20, b
 print(Sys.time() - start_time)
 ```
 
-    ## Time difference of 10.00245 secs
+    ## Time difference of 11.47196 secs
 
 ``` r
 print(join_out)
 ```
 
-    ## # A tibble: 188,352 × 4
-    ##         a field.x                                               b field.y       
-    ##     <dbl> <chr>                                             <dbl> <chr>         
-    ##  1    196 committee for responsible government             868477 tmha committe…
-    ##  2  70987 the law offices of lucio g. valdez               918658 law offices o…
-    ##  3  57366 grande communications networks inc. pac account  963865 grande commun…
-    ##  4 257012 esg international inc                           1002173 acg internati…
-    ##  5  68222 ball and weed                                    886213 ball and weed…
-    ##  6  95976 health care center                              1273955 lake health c…
-    ##  7 128542 mid valley democratic club                       899639 tri valley de…
-    ##  8 121580 steelworkers local 760                          1198389 steelworkers …
-    ##  9 268575 mdsa strategic communications                   1196490 strategic com…
-    ## 10 441473 sw construction inc                             1260268 mat construct…
-    ## # ℹ 188,342 more rows
+    ## # A tibble: 183,482 × 4
+    ##         a field.x                                                      b field.y
+    ##     <dbl> <chr>                                                    <dbl> <chr>  
+    ##  1 112110 platte county democratic central cmte                   1.16e6 ch cou…
+    ##  2 111418 national association of letter carriers branch 193      1.01e6 nattio…
+    ##  3 255150 ga state council of machinist                           8.34e5 kansas…
+    ##  4 422145 turner family limited partnership                       1.13e6 jfk fa…
+    ##  5  79894 international brotherhood of electrical workers, local… 1.02e6 intern…
+    ##  6 125082 plumbers & steamfitters local 43                        1.10e6 plumbe…
+    ##  7 227110 shea communications inc                                 1.12e6 vma co…
+    ##  8  64119 international association of firefighters local 55      9.60e5 intern…
+    ##  9 275144 kcs construction co inc                                 1.09e6 st con…
+    ## 10 358184 scp enterprises                                         1.27e6 lp ent…
+    ## # ℹ 183,472 more rows
 
 ZoomerJoin finds and joins on the matching rows in just a few seconds.
 
-# Acknowledgments:
+## Acknowledgments:
 
 The Zoomerjoin was made using [this SQL join
 illustration](https://commons.wikimedia.org/wiki/File:SQL_Join_-_08_A_Cross_Join_B.svg)
