@@ -56,6 +56,8 @@ your terminal.
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
+#### Installing Rust on Windows:
+
 To install Rust on windows, you can use the Rust installation wizard,
 `rustup-init.exe`, found [at this
 site](https://forge.rust-lang.org/infra/other-installation-methods.html).
