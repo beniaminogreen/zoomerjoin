@@ -47,13 +47,27 @@ You must have the [Rust compiler](https://www.rust-lang.org/tools/install)
 installed to compile this package. After the package is compiled, Rust is no
 longer required, and can be safely uninstalled.
 
-To install Rust on windows, you can use the Rust installation wizard, found
-[here](https://forge.rust-lang.org/infra/other-installation-methods.html). On
-Linux or MacOs, you can install Rust with:
+#### Installing Rust on Linux or Mac:
+
+To install Rust on Linux or Mac, you can simply run the following snippet in
+your terminal.
 
 ``` sh
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
+
+To install Rust on windows, you can use the Rust installation wizard,
+`rustup-init.exe`, found [at this
+site](https://forge.rust-lang.org/infra/other-installation-methods.html).
+Depending on your version of Windows, you may see an error that looks something like this:
+
+```
+error: toolchain 'stable-x86_64-pc-windows-gnu' is not installed
+```
+
+In this case, you should run `rustup install stable-x86_64-pc_windows-gnu` to
+install the missing toolchain. If you're missing another toolchain, simply type
+this in the place of `stable-x86_64-pc_windows-gnu` in the command above.
 
 ### Installing Package from Github:
 
@@ -71,7 +85,7 @@ devtools::install_github("beniaminogreen/zoomerjoin")
 pak::pkg_install("beniaminogreen/zoomerjoin")
 ```
 
-## Loading The Package
+### Loading The Package
 
 Once the package is installed, you can load it into memory as usual by typing:
 
@@ -79,7 +93,7 @@ Once the package is installed, you can load it into memory as usual by typing:
 library(zoomerjoin)
 ```
 
-### Usage:
+## Usage:
 
 The flagship feature of zoomerjoins are the jaccard_join and euclidean family
 of functions, which are designed to be near drop-ins for the corresponding
@@ -98,7 +112,7 @@ The `jaccard_join` family of functions provide fast fuzzy-joins for strings
 using the Jaccard distance while the `euclidean_join` family provides
 fuzzy-joins for points or vectors using the Euclidean distance.
 
-#### Example: Joining rows of the Database on Ideology, Money in Politics, and Elections
+### Example: Joining rows of the Database on Ideology, Money in Politics, and Elections
 (DIME)
 
 Here's a snippet showing off how to use the `lhs_inner_join()` merge two
@@ -159,7 +173,8 @@ Please also be aware of the [contributor code of
 conduct](https://github.com/beniaminogreen/zoomerjoin/blob/main/CONTRIBUTING.md)
 for contributing to the repository.
 
-# Acknowledgments:
+## Acknowledgments:
+
 
 The Zoomerjoin was made using [this SQL join
 illustration](https://commons.wikimedia.org/wiki/File:SQL_Join_-_08_A_Cross_Join_B.svg)

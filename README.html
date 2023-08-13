@@ -624,28 +624,39 @@ Rust:</h3>
 <p>You must have the <a href="https://www.rust-lang.org/tools/install">Rust compiler</a>
 installed to compile this package. After the package is compiled, Rust
 is no longer required, and can be safely uninstalled.</p>
-<p>To install Rust on windows, you can use the Rust installation wizard,
-found <a href="https://forge.rust-lang.org/infra/other-installation-methods.html">here</a>.
-On Linux or MacOs, you can install Rust with:</p>
+<h4 id="installing-rust-on-linux-or-mac">Installing Rust on Linux or
+Mac:</h4>
+<p>To install Rust on Linux or Mac, you can simply run the following
+snippet in your terminal.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">curl</span> <span class="at">--proto</span> <span class="st">&#39;=https&#39;</span> <span class="at">--tlsv1.2</span> <span class="at">-sSf</span> https://sh.rustup.rs <span class="kw">|</span> <span class="fu">sh</span></span></code></pre></div>
+<p>To install Rust on windows, you can use the Rust installation wizard,
+<code>rustup-init.exe</code>, found <a href="https://forge.rust-lang.org/infra/other-installation-methods.html">at
+this site</a>. Depending on your version of Windows, you may see an
+error that looks something like this:</p>
+<pre><code>error: toolchain &#39;stable-x86_64-pc-windows-gnu&#39; is not installed</code></pre>
+<p>In this case, you should run
+<code>rustup install stable-x86_64-pc_windows-gnu</code> to install the
+missing toolchain. If you’re missing another toolchain, simply type this
+in the place of <code>stable-x86_64-pc_windows-gnu</code> in the command
+above.</p>
 <h3 id="installing-package-from-github">Installing Package from
 Github:</h3>
 <p>Once you have rust installed Rust, you should be able to install the
 package with the <code>install_github</code> function from the
 <code>devtools</code> package, or with the <code>pkg_install</code>
 function from the <code>pak</code> package.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="do">## Install with devtools</span></span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="co"># install.packages(&quot;devtools&quot;)</span></span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;beniaminogreen/zoomerjoin&quot;</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="do">## Install with pak</span></span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co"># install.packages(&quot;pak&quot;)</span></span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">&quot;beniaminogreen/zoomerjoin&quot;</span>)</span></code></pre></div>
-<h2 id="loading-the-package">Loading The Package</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="do">## Install with devtools</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co"># install.packages(&quot;devtools&quot;)</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;beniaminogreen/zoomerjoin&quot;</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="do">## Install with pak</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co"># install.packages(&quot;pak&quot;)</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">&quot;beniaminogreen/zoomerjoin&quot;</span>)</span></code></pre></div>
+<h3 id="loading-the-package">Loading The Package</h3>
 <p>Once the package is installed, you can load it into memory as usual
 by typing:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">library</span>(zoomerjoin)</span></code></pre></div>
-<h3 id="usage">Usage:</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">library</span>(zoomerjoin)</span></code></pre></div>
+<h2 id="usage">Usage:</h2>
 <p>The flagship feature of zoomerjoins are the jaccard_join and
 euclidean family of functions, which are designed to be near drop-ins
 for the corresponding dplyr/fuzzyjoin commands:</p>
@@ -663,9 +674,9 @@ for the corresponding dplyr/fuzzyjoin commands:</p>
 fuzzy-joins for strings using the Jaccard distance while the
 <code>euclidean_join</code> family provides fuzzy-joins for points or
 vectors using the Euclidean distance.</p>
-<h4 id="example-joining-rows-of-the-database-on-ideology-money-in-politics-and-elections">Example:
+<h3 id="example-joining-rows-of-the-database-on-ideology-money-in-politics-and-elections">Example:
 Joining rows of the Database on Ideology, Money in Politics, and
-Elections</h4>
+Elections</h3>
 <p>(DIME)</p>
 <p>Here’s a snippet showing off how to use the
 <code>lhs_inner_join()</code> merge two datasets of political donors in
@@ -675,7 +686,7 @@ example of this vignette in the <a href="https://beniaminogreen.github.io/zoomer
 vignette</a>.</p>
 <p>I start with two corpuses I would like to combine,
 <code>corpus_1</code>:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>corpus_1</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>corpus_1</span></code></pre></div>
 <pre><code>## # A tibble: 500,000 × 2
 ##        a field                                                                  
 ##    &lt;dbl&gt; &lt;chr&gt;                                                                  
@@ -691,7 +702,7 @@ vignette</a>.</p>
 ## 10    10 carpenters legislative improvement committee united brotherhood of car…
 ## # ℹ 499,990 more rows</code></pre>
 <p>And <code>corpus_2</code>:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>corpus_2</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>corpus_2</span></code></pre></div>
 <pre><code>## # A tibble: 500,000 × 2
 ##         b field                               
 ##     &lt;dbl&gt; &lt;chr&gt;                               
@@ -723,8 +734,8 @@ probability any true matches will be discarded by the algorithm.</p>
 <p>More details and a more thorough description of how to tune the
 hyperparameters can be can be found in the <a href="https://beniaminogreen.github.io/zoomerjoin/articles/guided_tour.html">guided
 tour vignette</a>.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>start_time <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>join_out <span class="ot">&lt;-</span> <span class="fu">jaccard_inner_join</span>(corpus_1, corpus_2, <span class="at">n_gram_width=</span><span class="dv">6</span>, <span class="at">n_bands=</span><span class="dv">20</span>, <span class="at">band_width=</span><span class="dv">6</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>start_time <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>join_out <span class="ot">&lt;-</span> <span class="fu">jaccard_inner_join</span>(corpus_1, corpus_2, <span class="at">n_gram_width=</span><span class="dv">6</span>, <span class="at">n_bands=</span><span class="dv">20</span>, <span class="at">band_width=</span><span class="dv">6</span>)</span></code></pre></div>
 <pre><code>## Warning in jaccard_join(a, b, mode = &quot;inner&quot;, by = by, salt_by = block_by, : A pair of records at the threshold (0.7) have only a 92% chance of being compared.
 ## Please consider changing `n_bands` and `band_width`.
 
@@ -762,7 +773,7 @@ although occasionally I may take longer to respond to a complicated
 question or issue.</p>
 <p>Please also be aware of the <a href="https://github.com/beniaminogreen/zoomerjoin/blob/main/CONTRIBUTING.md">contributor
 code of conduct</a> for contributing to the repository.</p>
-<h1 id="acknowledgments">Acknowledgments:</h1>
+<h2 id="acknowledgments">Acknowledgments:</h2>
 <p>The Zoomerjoin was made using <a href="https://commons.wikimedia.org/wiki/File:SQL_Join_-_08_A_Cross_Join_B.svg">this
 SQL join illustration</a> by <a href="https://commons.wikimedia.org/wiki/User:GermanX">Germanx</a> and
 <a href="https://commons.wikimedia.org/wiki/File:Speed_limit_75_sign.svg">this
