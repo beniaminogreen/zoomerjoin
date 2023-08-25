@@ -151,6 +151,7 @@ More details and a more thorough description of how to tune the hyperparameters 
 in the [guided tour vignette](https://beniaminogreen.github.io/zoomerjoin/articles/guided_tour.html).
 
 ```{r}
+set.seed(1)
 start_time <- Sys.time()
 join_out <- jaccard_inner_join(corpus_1, corpus_2, n_gram_width=6, n_bands=20, band_width=6)
 print(Sys.time() - start_time)

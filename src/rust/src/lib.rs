@@ -12,12 +12,11 @@ pub mod em_link;
 use crate::em_link::EMLinker;
 
 pub mod minihasher;
-
-pub mod euclidianhasher;
-use crate::euclidianhasher::EuclidianHasher;
-
-pub mod minhashjoiner;
+pub mod euclidianhasher; use crate::euclidianhasher::EuclidianHasher; pub mod minhashjoiner;
 use crate::minhashjoiner::MinHashJoiner;
+
+use rand::rngs::StdRng;
+use rand::SeedableRng;
 
 #[extendr]
 fn rust_em_link(x_robj: Robj, probs: &[f64], tol: f64, max_iter: i32) -> Vec<f64> {
@@ -67,13 +66,14 @@ fn rust_jaccard_join(
     n_bands: i64,
     band_size: i64,
     threshold: f64,
+    seed: u64
 ) -> Robj {
     let left_string_vec = left_string_r.as_str_vector().unwrap();
     let right_string_vec = right_string_r.as_str_vector().unwrap();
 
     let joiner = MinHashJoiner::new(left_string_vec, right_string_vec, ngram_width as usize);
 
-    let chosen_indexes = joiner.join(n_bands as usize, band_size as usize, threshold);
+    let chosen_indexes = joiner.join(n_bands as usize, band_size as usize, threshold, seed);
 
     let mut out_arr: Array2<u64> = Array2::zeros((chosen_indexes.len(), 2));
     for (i, pair) in chosen_indexes.iter().enumerate() {
@@ -94,13 +94,13 @@ fn rust_salted_jaccard_join(
     n_bands: i64,
     band_size: i64,
     threshold: f64,
+    seed : u64,
 ) -> Robj {
     let left_string_vec = left_string_r.as_str_vector().unwrap();
     let right_string_vec = right_string_r.as_str_vector().unwrap();
 
     let right_salt_vec = right_salt_r.as_str_vector().unwrap();
     let left_salt_vec = left_salt_r.as_str_vector().unwrap();
-
 
     let joiner = MinHashJoiner::new_with_salt(
         left_string_vec,
@@ -110,7 +110,7 @@ fn rust_salted_jaccard_join(
         ngram_width as usize,
     );
 
-    let chosen_indexes = joiner.join(n_bands as usize, band_size as usize, threshold);
+    let chosen_indexes = joiner.join(n_bands as usize, band_size as usize, threshold,seed);
 
     let mut out_arr: Array2<u64> = Array2::zeros((chosen_indexes.len(), 2));
     for (i, pair) in chosen_indexes.iter().enumerate() {
@@ -122,59 +122,77 @@ fn rust_salted_jaccard_join(
 }
 
 #[extendr]
-fn rust_p_norm_join(a_mat: Robj, b_mat: Robj, radius: f64, band_width : u64, n_bands: u64, r : f64) -> Robj {
+fn rust_p_norm_join(
+    a_mat: Robj,
+    b_mat: Robj,
+    radius: f64,
+    band_width: u64,
+    n_bands: u64,
+    r: f64,
+    seed: u64,
+) -> Robj {
     let a_mat = <ArrayView2<f64>>::from_robj(&a_mat).unwrap().to_owned();
     let b_mat = <ArrayView2<f64>>::from_robj(&b_mat).unwrap().to_owned();
 
     let pairs: DashSet<(usize, usize)> = DashSet::new();
     let store: DashMap<u64, Vec<usize>> = DashMap::new();
 
+
+    let mut rng = StdRng::seed_from_u64(seed);
     for _ in 0..n_bands {
-        let hasher = EuclidianHasher::new(r, band_width as usize, b_mat.ncols());
+        let hasher = EuclidianHasher::new(r, band_width as usize, b_mat.ncols(), &mut rng);
 
-        a_mat.axis_iter(Axis(0)).into_par_iter().enumerate().for_each(|(i,x)| {
-            let hash = hasher.hash(x);
-            if store.contains_key(&hash) {
-                store.get_mut(&hash).unwrap().push(i);
-            } else {
-                store.insert(hash, vec![i]);
-            }
-        });
+        a_mat
+            .axis_iter(Axis(0))
+            .into_par_iter()
+            .enumerate()
+            .for_each(|(i, x)| {
+                let hash = hasher.hash(x);
 
-        b_mat.axis_iter(Axis(0)).into_par_iter().enumerate().for_each(|(j,x)| {
-            let hash = hasher.hash(x);
-            if store.contains_key(&hash) {
-                let potential_matches = store.get(&hash).unwrap().clone();
+                store
+                    .entry(hash)
+                    .and_modify(|x| x.push(i))
+                    .or_insert(vec![i]);
 
-                for i in potential_matches {
-                    let dist: f64 = b_mat
-                        .row(j)
-                        .iter()
-                        .zip(a_mat.row(i).iter())
-                        .map(|(a, b)| (a - b).powi(2))
-                        .sum::<f64>().sqrt();
+            });
 
-                    if dist < radius {
-                        pairs.insert((i,j));
+        b_mat
+            .axis_iter(Axis(0))
+            .into_par_iter()
+            .enumerate()
+            .for_each(|(j, x)| {
+                let hash = hasher.hash(x);
+                if store.contains_key(&hash) {
+                    let potential_matches = store.get(&hash).unwrap().clone();
+
+                    for i in potential_matches {
+                        let dist: f64 = b_mat
+                            .row(j)
+                            .iter()
+                            .zip(a_mat.row(i).iter())
+                            .map(|(a, b)| (a - b).powi(2))
+                            .sum::<f64>()
+                            .sqrt();
+
+                        if dist < radius {
+                            pairs.insert((i, j));
+                        }
                     }
                 }
-            }
-        });
+            });
 
         store.clear()
     }
 
-    let mut out_arr : Array2<u64> = Array2::zeros((pairs.len(),2));
+    let mut out_arr: Array2<u64> = Array2::zeros((pairs.len(), 2));
 
-    for (idx, (i,j)) in pairs.into_iter().enumerate(){
+    for (idx, (i, j)) in pairs.into_iter().enumerate() {
         out_arr[[idx, 0]] = i as u64 + 1;
         out_arr[[idx, 1]] = j as u64 + 1;
     }
 
     Robj::try_from(&out_arr).into()
-
 }
-
 
 // Macro to generate exports.
 // This ensures exported functions are registered with R.

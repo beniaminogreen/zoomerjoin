@@ -56,7 +56,10 @@ jaccard_string_group <- function(string, n_gram_width = 2, n_bands = 45, band_wi
                            ngram_width = n_gram_width,
                            n_bands,
                            band_size = band_width,
-                           threshold)
+                           threshold,
+                           seed = round(runif(1,0,2^64))
+    )
+
 
     graph <- igraph::graph_from_edgelist(pairs)
     fc <- igraph::fastgreedy.community(igraph::as.undirected(graph))

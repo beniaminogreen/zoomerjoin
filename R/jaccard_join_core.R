@@ -106,12 +106,15 @@ jaccard_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands,
     if (is.null(salt_by_a) | is.null(salt_by_b)) {
         match_table <- rust_jaccard_join(
                  a_col, b_col,
-                 n_gram_width, n_bands, band_width, threshold)
+                 n_gram_width, n_bands, band_width, threshold,
+                 seed = 1)
     } else {
         match_table <- rust_salted_jaccard_join(
                  a_col, b_col,
                  a_salt_col, b_salt_col,
-                 n_gram_width, n_bands, band_width, threshold)
+                 n_gram_width, n_bands, band_width, threshold,
+                 seed = round(runif(1,0,2^64))
+        )
     }
 
     names_in_both <- intersect(names(a), names(b))
