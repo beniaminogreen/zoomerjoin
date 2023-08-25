@@ -32,12 +32,12 @@ embeddings).
 
 # Demonstration
 
-For this demonstration, I create a simulated dataset of 10^6 points distributed
+For this demonstration, I create a simulated dataset of 10^5 points distributed
 uniformly within a 100-dimensional hypercube. I join this to another dataset
 which is a copy of the first with each point shifted an tiny random amount.
 
 ```{r}
-n <- 10^6 # number of data points
+n <- 10^5 # number of data points
 d <- 10^2 # dimension
 
 # Create a matrix of 10^6 observations in R^100
