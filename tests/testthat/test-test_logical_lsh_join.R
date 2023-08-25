@@ -13,7 +13,6 @@ dataset_1 <- tribble(
                      3, "jack green"
 ) %>%
 as.data.frame()
-
 dataset_2 <- tribble(
                      ~id_2, ~string,
                      1, "teniamino green",
@@ -117,4 +116,35 @@ test_that("Blocking Functionality works correctly for jaccard_inner_join", {
       expect_equal(joined_block_on_two$Petal.Width.y, joined_block_on_two$Petal.Width.x)
       expect_equal(joined_block_on_two$Sepal.Width.y, joined_block_on_two$Sepal.Width.x)
 })
+
+test_that("seed works for jaccard joins", {
+    for (i in 1:15) {
+        set.seed(i)
+        suppressWarnings(
+            a <- jaccard_inner_join(
+                          names_df, misspelled_name_df,
+                          by  = "name",
+                          n_gram_width = 1, threshold = .3,
+                          n_bands = 1, band_width = 5
+                          ) %>%
+            arrange(id_1) %>%
+            pull(id_1)
+        )
+
+        set.seed(i)
+        suppressWarnings(
+            b <- jaccard_inner_join(
+                          names_df, misspelled_name_df,
+                          by  = "name",
+                          n_gram_width = 1, threshold = .3,
+                          n_bands = 1, band_width = 5
+                          ) %>%
+            arrange(id_1) %>%
+            pull(id_1)
+        )
+
+        expect_equal(a,b)
+    }
+})
+
 

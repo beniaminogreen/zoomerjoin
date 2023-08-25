@@ -13,12 +13,9 @@ pub struct MinHasher {
 }
 
 impl MinHasher {
-    pub fn new(band_width: usize) -> Self {
-        let mut rng = rand::thread_rng();
-        let dist = Uniform::new(0, 20);
-
-        let seeds: Vec<u64> = (0..band_width).map(|_| rng.sample(&dist)).collect();
-
+    pub fn new<R: Rng>(band_width: usize, rand_state : &mut R) -> Self {
+        let dist = Uniform::new(0, 20000000);
+        let seeds: Vec<u64> = (0..band_width).map(|_| rand_state.sample(&dist)).collect();
         Self { seeds }
     }
 

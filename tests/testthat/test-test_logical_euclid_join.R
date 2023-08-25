@@ -47,3 +47,28 @@ test_that("euclidean_join_core works on toy datasets", {
 
     })
 })
+
+
+test_that("set.seed works with Euclidean join", {
+
+        set.seed(1)
+        n <- 20
+        X_1 <- matrix(c(seq(0,1,1/(n-1)), seq(0,1,1/(n-1))), nrow=n)
+        X_2 <- X_1 + .1
+        X_2 <- rbind(X_2, matrix(rep(c(2,2),10), nrow=10))
+        X_1 <- as.data.frame(X_1)
+        X_2 <- as.data.frame(X_2)
+        X_1$id_1 <- 1:n
+        X_2$id_2 <- 1:(n+10)
+        X_1 <- as.data.frame(X_1)
+        X_2 <- as.data.frame(X_2)
+
+        for (i in 1:20){
+            set.seed(i)
+            suppressWarnings(out_1 <- euclidean_inner_join(X_1, X_2, threshold =5))
+            set.seed(i)
+            suppressWarnings(out_2 <- euclidean_inner_join(X_1, X_2, threshold =5))
+            expect_equal(colSums(out_1), colSums(out_2))
+        }
+
+})

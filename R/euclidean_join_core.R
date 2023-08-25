@@ -47,7 +47,9 @@ euclidean_join_core <- function (a, b, by = NULL, n_bands = 30, band_width = 10,
                                 radius = threshold,
                                 band_width = band_width,
                                 n_bands = n_bands,
-                                r = r)
+                                r = r,
+                                seed = round(runif(1,0,2^32))
+    )
 
     names_in_both <- intersect(names(a), names(b))
 

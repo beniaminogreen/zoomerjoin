@@ -5,6 +5,8 @@ use ndarray_rand::RandomExt;
 use rustc_hash::FxHasher;
 use std::hash::{Hash, Hasher};
 
+use rand::Rng;
+
 #[derive(Debug)]
 pub struct EuclidianHasher {
     a_vectors: Array2<f64>,
@@ -13,13 +15,14 @@ pub struct EuclidianHasher {
 }
 
 impl EuclidianHasher {
-    pub fn new(r: f64, band_width: usize, d: usize) -> Self {
+    pub fn new<R: Rng>(r: f64, band_width: usize, d: usize, rng: &mut R) -> Self {
         Self {
-            a_vectors: Array2::random(
+            a_vectors: Array2::random_using(
                 (d, band_width),
                 Normal::new(0.0, 1.0).expect("could not intialize normal!"),
+                rng
             ),
-            b_vectors: Array1::random(band_width, Uniform::new(0.0, r)),
+            b_vectors: Array1::random_using(band_width, Uniform::new(0.0, r),rng),
             r,
         }
     }
