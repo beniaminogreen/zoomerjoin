@@ -93,6 +93,10 @@
 </h4>
 <p>To install Rust on Linux or Mac, you can simply run the following snippet in your terminal.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">--proto</span> <span class="st">'=https'</span> <span class="at">--tlsv1.2</span> <span class="at">-sSf</span> https://sh.rustup.rs <span class="kw">|</span> <span class="fu">sh</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="installing-rust-on-windows">Installing Rust on Windows:<a class="anchor" aria-label="anchor" href="#installing-rust-on-windows"></a>
+</h4>
 <p>To install Rust on windows, you can use the Rust installation wizard, <code>rustup-init.exe</code>, found <a href="https://forge.rust-lang.org/infra/other-installation-methods.html" class="external-link">at this site</a>. Depending on your version of Windows, you may see an error that looks something like this:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>error<span class="sc">:</span> toolchain <span class="st">'stable-x86_64-pc-windows-gnu'</span> is not installed</span></code></pre></div>
 <p>In this case, you should run <code>rustup install stable-x86_64-pc_windows-gnu</code> to install the missing toolchain. If you’re missing another toolchain, simply type this in the place of <code>stable-x86_64-pc_windows-gnu</code> in the command above.</p>
@@ -177,7 +181,8 @@
 <p>Importantly, Locality Sensitive Hashing is a <a href="https://en.wikipedia.org/wiki/Randomized_algorithm" class="external-link">probabilistic algorithm</a>, so it may fail to identify some matches by random chance. I adjust the hyperparameters <code>n_bands</code> and <code>band_width</code> until the chance of true matches being dropped is negligible. By default, the package will issue a warning if the chance of a true match being discovered is less than 95%. You can use the <code>jaccard_probability</code> and <code>jaccard_hyper_grid_search</code> to help understand the probability any true matches will be discarded by the algorithm.</p>
 <p>More details and a more thorough description of how to tune the hyperparameters can be can be found in the <a href="https://beniaminogreen.github.io/zoomerjoin/articles/guided_tour.html">guided tour vignette</a>.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">start_time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">start_time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">join_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/jaccard_inner_join.html">jaccard_inner_join</a></span><span class="op">(</span><span class="va">corpus_1</span>, <span class="va">corpus_2</span>, n_gram_width<span class="op">=</span><span class="fl">6</span>, n_bands<span class="op">=</span><span class="fl">20</span>, band_width<span class="op">=</span><span class="fl">6</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning in jaccard_join(a, b, mode = "inner", by = by, salt_by = block_by, : A pair of records at the threshold (0.7) have only a 92% chance of being compared.</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Please consider changing `n_bands` and `band_width`.</span></span>
@@ -185,23 +190,23 @@
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Joining by 'field'</span></span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="va">start_time</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Time difference of 11.47196 secs</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Time difference of 5.510203 secs</span></span></code></pre></div>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">join_out</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb14"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 180,398 × 4</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="do">##         a field.x                                                      b field.y</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="do">##     &lt;dbl&gt; &lt;chr&gt;                                                    &lt;dbl&gt; &lt;chr&gt;  </span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 472455 r u enterprises incorporated                            1.10e6 ptc en…</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 386321 service employees local 1100                            1.21e6 servic…</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  3  52266 international brotherhood of electrical workers local … 9.60e5 intern…</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  4  51347 taxpayers for bob huff for senate 2012                  8.92e5 taxpay…</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 332339 gavin family limited partnership                        1.11e6 zarin …</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 275650 jnb properties llc                                      1.11e6 wob pr…</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  7  61887 committee to re elect brian conley                      9.28e5 commit…</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 149123 electrical workers local 141                            1.11e6 electr…</span></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  9  80806 plumbers &amp; pipefitters local 63                         8.67e5 ua plu…</span></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 232490 h&amp;h construction llc                                    1.19e6 tc con…</span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="do">## # ℹ 180,388 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 190,943 × 4</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="do">##         a field.x                                         b field.y             </span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="do">##     &lt;dbl&gt; &lt;chr&gt;                                       &lt;dbl&gt; &lt;chr&gt;               </span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 420917 uinta county democratic party              864170 slo county democrat…</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  2  99578 96th democratic legislative district cmte 1004516 53rd democratic leg…</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 418340 up properties                             1132954 jmp properties      </span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 117463 hocking county republican executive cmte  1001446 adair county republ…</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 405528 whb family limited partnership            1169730 wynn family limited…</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 407527 wes miller &amp; associates                   1269917 lee miller &amp; associ…</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  7  98595 yuma county republican central cmte       1103454 niob county republi…</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 465674 sd47 republican party of minnesota        1086814 sd 46 republican pa…</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 332238 gc management llc                         1264163 mac management llc  </span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 131538 fort worth police officers association     863238 fort worth police o…</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="do">## # ℹ 190,933 more rows</span></span></code></pre></div>
 <p>ZoomerJoin finds and joins on the matching rows in just a few seconds.</p>
 </div>
 </div>
