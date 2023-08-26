@@ -144,6 +144,7 @@ logical joining patterns (i.e. inner-join joins and keeps only observations in b
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># load baby names data</span></span></span>
+<span class="r-in"><span><span class="co">#install.packages("babynames")</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/babynames" class="external-link">babynames</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">baby_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">tolower</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">babynames</span><span class="op">$</span><span class="va">name</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -152,7 +153,7 @@ logical joining patterns (i.e. inner-join joins and keeps only observations in b
 <span class="r-in"><span>   <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Check the probability two pairs of strings with</span></span></span>
 <span class="r-in"><span><span class="co"># similarity .8 will be matched with a band width of 30</span></span></span>
-<span class="r-in"><span><span class="co"># and 30 bands using the `jaccard_probability` function:</span></span></span>
+<span class="r-in"><span><span class="co"># and 30 bands using the `jaccard_probability()` function:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="jaccard_probability.html">jaccard_probability</a></span><span class="op">(</span><span class="fl">.8</span>,<span class="fl">30</span>,<span class="fl">8</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9959518</span>
 <span class="r-in"><span><span class="co"># Run the join:</span></span></span>
@@ -168,18 +169,18 @@ logical joining patterns (i.e. inner-join joins and keeps only observations in b
 <span class="r-in"><span>              <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">joined_names</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 381,803 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    name      name_wo_vowels</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> rl        lr            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> gerben    brgn          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> kashan    nksh          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> hoston    shnth         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> kshon     shnk          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> natasha   snth          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> tandra    tndr          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> cherell   chrrl         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> herchell  chrl          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> mercedese mrcds         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    name     name_wo_vowels</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> tashma   tmsh          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> rahsan   shrn          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> shacara  chrrss        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> trvis    trvs          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> raland   drln          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> kahmal   mklh          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> shron    srnsh         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> alhassan shlnn         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> bender   brndn         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> assandra ndrs          </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 381,793 more rows</span></span>
 </code></pre></div>
     </div>

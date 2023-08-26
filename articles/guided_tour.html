@@ -114,15 +114,31 @@ matching methods.</p>
 </h2>
 <p>If you’re familiar with the logical-join syntax from
 <code>dplyr</code>, then you already know how to use fuzzy join to join
-two datasets. Zoomerjoin provides <code>jaccard_inner_join</code> and
-<code>jaccard_full_join</code> (among others), which are the
+two datasets. Zoomerjoin provides <code><a href="../reference/jaccard_inner_join.html">jaccard_inner_join()</a></code> and
+<code><a href="../reference/jaccard_full_join.html">jaccard_full_join()</a></code> (among others), which are the
 fuzzy-joining analogues of the corresponding dplyr functions.</p>
 <p>I demonstrate the syntax by using the package to join to corpuses,
 which formed from entries from the <a href="https://data.stanford.edu/dime" class="external-link">Database on Ideology, Money in
 Politics, and Elections (DIME)</a> (Bonica 2016).</p>
 <p>The first corpus looks as follows:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">corpus_1</span> <span class="op">&lt;-</span> <span class="va">dime_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="co"># dime data is packaged with zoomerjoin</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## ── <span style="font-weight: bold;">Attaching core tidyverse packages</span> ──────────────────────── tidyverse 2.0.0 ──</span></span>
+<span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">dplyr    </span> 1.1.2     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">readr    </span> 2.1.4</span></span>
+<span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">forcats  </span> 1.0.0     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">stringr  </span> 1.5.0</span></span>
+<span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">ggplot2  </span> 3.4.3     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tibble   </span> 3.2.1</span></span>
+<span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">lubridate</span> 1.9.2     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tidyr    </span> 1.3.0</span></span>
+<span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">purrr    </span> 1.0.2     </span></span>
+<span><span class="co">## ── <span style="font-weight: bold;">Conflicts</span> ────────────────────────────────────────── tidyverse_conflicts() ──</span></span>
+<span><span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">filter()</span> masks <span style="color: #0000BB;">stats</span>::filter()</span></span>
+<span><span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">lag()</span>    masks <span style="color: #0000BB;">stats</span>::lag()</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Use the conflicted package (<span style="color: #0000BB; font-style: italic;">&lt;http://conflicted.r-lib.org/&gt;</span>) to force all conflicts to become errors</span></span></code></pre>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/joshuaulrich/microbenchmark/" class="external-link">microbenchmark</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dgrtwo/fuzzyjoin" class="external-link">fuzzyjoin</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://beniaminogreen.github.io/zoomerjoin/">zoomerjoin</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">corpus_1</span> <span class="op">&lt;-</span> <span class="va">dime_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="co"># dime data is packaged with zoomerjoin</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">5</span><span class="op">*</span><span class="fl">10</span><span class="op">^</span><span class="fl">5</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">corpus_1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"field"</span><span class="op">)</span></span>
 <span><span class="va">corpus_1</span></span></code></pre></div>
@@ -141,7 +157,7 @@ Politics, and Elections (DIME)</a> (Bonica 2016).</p>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span>    10 carpenters legislative improvement committee united brotherhood of car…</span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 499,990 more rows</span></span></span></code></pre>
 <p>And the second looks as follows:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">corpus_2</span> <span class="op">&lt;-</span> <span class="va">dime_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="co"># dime data is packaged with zoomerjoin</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="fl">5</span><span class="op">*</span><span class="fl">10</span><span class="op">^</span><span class="fl">5</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">corpus_2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"b"</span>, <span class="st">"field"</span><span class="op">)</span></span>
@@ -163,28 +179,29 @@ Politics, and Elections (DIME)</a> (Bonica 2016).</p>
 <p>The two Corpuses can’t be directly joined because of misspellings.
 This means we must use the fuzzy-matching capabilities of
 zoomerjoin:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">start_time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">start_time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">join_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/jaccard_inner_join.html">jaccard_inner_join</a></span><span class="op">(</span><span class="va">corpus_1</span>, <span class="va">corpus_2</span>,</span>
 <span>                           by <span class="op">=</span> <span class="st">"field"</span>, n_gram_width<span class="op">=</span><span class="fl">6</span>,</span>
 <span>                           n_bands<span class="op">=</span><span class="fl">20</span>, band_width<span class="op">=</span><span class="fl">6</span>, threshold <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="va">start_time</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Time difference of 20.13623 secs</span></span></code></pre>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<pre><code><span><span class="co">## Time difference of 14.42092 secs</span></span></code></pre>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">join_out</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 48,648 × 4</span></span></span>
-<span><span class="co">##         a field.x                                                      b field.y</span></span>
-<span><span class="co">##     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">66</span>940 national association of social workers california       8.74<span style="color: #949494;">e</span>5 nation…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> <span style="text-decoration: underline;">388</span>549 plumbers &amp; steamfitters local                           1.23<span style="color: #949494;">e</span>6 plumbe…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> <span style="text-decoration: underline;">372</span>750 gardere wynne sewell ll p                               9.65<span style="color: #949494;">e</span>5 garder…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> <span style="text-decoration: underline;">278</span>118 gsc construction                                        8.45<span style="color: #949494;">e</span>5 ssc co…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> <span style="text-decoration: underline;">171</span>763 plumbers &amp; pipefitters local 562                        1.23<span style="color: #949494;">e</span>6 plumbe…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">95</span>380 teamsters local 916                                     1.19<span style="color: #949494;">e</span>6 teamst…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">82</span>447 international brotherhood of electrical workers local … 8.47<span style="color: #949494;">e</span>5 intern…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">55</span>216 american federation of state, county &amp; municipal emplo… 9.96<span style="color: #949494;">e</span>5 americ…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> <span style="text-decoration: underline;">461</span>841 sheet metal workers local 600                           1.21<span style="color: #949494;">e</span>6 sheet …</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span> <span style="text-decoration: underline;">160</span>896 victory for a democratic majority ti                    1.06<span style="color: #949494;">e</span>6 victor…</span></span>
+<span><span class="co">##         a field.x                                   b field.y                   </span></span>
+<span><span class="co">##     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                 <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">63</span>289 porter &amp; hedges, llp,                <span style="text-decoration: underline;">849</span>378 porter &amp; hedges, llp      </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">56</span>341 texas psychological pac,             <span style="text-decoration: underline;">933</span>093 texas psychological pasc  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> <span style="text-decoration: underline;">281</span>060 12th district republicans           1<span style="text-decoration: underline;">005</span>496 26th district republicans </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> <span style="text-decoration: underline;">110</span>193 credit union national association    <span style="text-decoration: underline;">910</span>646 credit union national ass…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> <span style="text-decoration: underline;">138</span>872 mullen sullivan &amp; newton            1<span style="text-decoration: underline;">122</span>518 mullen sullivan &amp; newton …</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> <span style="text-decoration: underline;">136</span>079 west end republican club            1<span style="text-decoration: underline;">188</span>004 the west end republican c…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> <span style="text-decoration: underline;">171</span>790 plumbers &amp; pipefitters local 24     1<span style="text-decoration: underline;">228</span>959 plumbers &amp; pipefitters lo…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> <span style="text-decoration: underline;">336</span>135 food &amp; commercial workers local 222 1<span style="text-decoration: underline;">144</span>181 food &amp; commercial workers…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">73</span>892 law offices of john r. resendez pc   <span style="text-decoration: underline;">952</span>753 law offices of john r. re…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">94</span>424 erie county republican party         <span style="text-decoration: underline;">978</span>403 bowie county republican p…</span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 48,638 more rows</span></span></span></code></pre>
 <p>The first two arguments, <code>a</code>, and <code>b</code>, are
 direct analogues of the <code>dplyr</code> arguments, and are the two
@@ -205,16 +222,16 @@ indicates complete similarity), while this package operates on
 govern the performance of the LSH. The default parameters should perform
 well for medium-size (n &lt; 10^7) datasets where matches are somewhat
 similar (similarity &gt; .8), but may require tuning in other settings.
-the <code>jaccard_hyper_grid_search,</code> and
-<code>jaacrd_curve</code> functions can help select these parameters for
-you given the properties of the LSH you desire.</p>
-<p>As an example, you can use the <code>jaccard_curve</code> function to
-plot the probability that a pair of records are compared at each
+the <code><a href="../reference/jaccard_hyper_grid_search.html">jaccard_hyper_grid_search()</a></code>, and
+<code><a href="../reference/jaccard_curve.html">jaccard_curve()</a></code> functions can help select these parameters
+for you given the properties of the LSH you desire.</p>
+<p>As an example, you can use the <code><a href="../reference/jaccard_curve.html">jaccard_curve()</a></code> function
+to plot the probability that a pair of records are compared at each
 possible jaccard distance, <span class="math inline">\(d\)</span>
 between zero and one:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/jaccard_curve.html">jaccard_curve</a></span><span class="op">(</span><span class="fl">20</span>,<span class="fl">6</span><span class="op">)</span></span></code></pre></div>
-<p><img src="guided_tour_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
+<p><img src="guided_tour_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <p>By looking at the plot produced, we can see that using these
 hyperparameters, comparisons will almost never be made between pairs of
 records that have a Jaccard similarity of less than .2 (saving time),
@@ -233,18 +250,18 @@ each package are different).</p>
 <p>Often after merging, it can help to standardize the names or fields
 that have been joined on. This way, you can assign a unique label or
 identifying key to all observations that have a similar value of the
-merging variable. The <code>jaccard_string_group</code> function makes
+merging variable. The <code><a href="../reference/jaccard_string_group.html">jaccard_string_group()</a></code> function makes
 this possible. It first performs locality sensitive hashing to identify
 similar pairs of observations within the dataset, and then runs a
 community detection algorithm to identify clusters of similar
 observations, which are each assinged a label. The community-detection
-algorithm, <code>fastgreedy.community</code> from the
+algorithm, <code>fastgreedy.community()</code> from the
 <code>igraph</code> package runs in log-linear time, so the entire
 algorithm completes in linearithmic time.</p>
 <p>Here’s a short snippet showing how you can use
-<code>jaccard_string_group</code> to standardize a set of organization
+<code><a href="../reference/jaccard_string_group.html">jaccard_string_group()</a></code> to standardize a set of organization
 names.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">organization_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>                        <span class="st">"American Civil Liberties Union"</span>,</span>
 <span>                        <span class="st">"American Civil Liberties Union (ACLU)"</span>,</span>
