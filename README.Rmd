@@ -105,10 +105,10 @@ dplyr/fuzzyjoin commands:
 * `jaccard_right_join()`
 * `jaccard_inner_join()`
 * `jaccard_full_join()`
-* `euclidean_left_join`
-* `euclidean_right_join`
-* `euclidean_inner_join`
-* `euclidean_full_join`
+* `euclidean_left_join()`
+* `euclidean_right_join()`
+* `euclidean_inner_join()`
+* `euclidean_full_join()`
 
 The `jaccard_join` family of functions provide fast fuzzy-joins for strings
 using the Jaccard distance while the `euclidean_join` family provides

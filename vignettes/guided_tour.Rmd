@@ -9,13 +9,6 @@ vignette: >
 
 ### Introduction:
 
-```{r, include=F}
-library(tidyverse)
-library(microbenchmark)
-library(fuzzyjoin)
-library(zoomerjoin)
-```
-
 This vignette gives a basic overview of the core functionality of the
 zoomerjoin package. Zoomerjoin empowers you to fuzzily-match datasets with
 millions of rows in seconds, while staying light on memory usage. This makes it
@@ -39,7 +32,7 @@ other matching methods.
 
 If you're familiar with the logical-join syntax from `dplyr`, then you already
 know how to use fuzzy join to join two datasets. Zoomerjoin provides
-`jaccard_inner_join` and `jaccard_full_join` (among others), which are the
+`jaccard_inner_join()` and `jaccard_full_join()` (among others), which are the
 fuzzy-joining analogues of the corresponding dplyr functions.
 
 I demonstrate the syntax by using the package to join to corpuses, which formed
@@ -49,6 +42,11 @@ from entries from the [Database on Ideology, Money in Politics, and Elections
 The first corpus looks as follows:
 
 ```{r}
+library(tidyverse)
+library(microbenchmark)
+library(fuzzyjoin)
+library(zoomerjoin)
+
 corpus_1 <- dime_data %>% # dime data is packaged with zoomerjoin
     head(5*10^5)
 names(corpus_1) <- c("a", "field")
@@ -68,6 +66,7 @@ The two Corpuses can't be directly joined because of misspellings. This means
 we must use the fuzzy-matching capabilities of zoomerjoin:
 
 ```{r}
+set.seed(1)
 start_time <- Sys.time()
 join_out <- jaccard_inner_join(corpus_1, corpus_2,
                            by = "field", n_gram_width=6,
@@ -93,11 +92,11 @@ of .8 will keep matches above 80% Jaccard similarity.
 The `n_bands` and `band_width` parameters govern the performance of the LSH.
 The default parameters should perform well for medium-size (n < 10^7) datasets
 where matches are somewhat similar (similarity > .8), but may require tuning in
-other settings. the `jaccard_hyper_grid_search,` and `jaacrd_curve` functions
+other settings. the `jaccard_hyper_grid_search()`, and `jaccard_curve()` functions
 can help select these parameters for you given the properties of the LSH you
 desire.
 
-As an example, you can use the `jaccard_curve` function to plot the probability
+As an example, you can use the `jaccard_curve()` function to plot the probability
 that a pair of records are compared at each possible jaccard distance, $d$
 between zero and one:
 
@@ -123,14 +122,14 @@ different).
 Often after merging, it can help to standardize the names or fields that have
 been joined on. This way, you can assign a unique label or identifying key to
 all observations that have a similar value of the merging variable. The
-`jaccard_string_group` function makes this possible. It first performs locality
+`jaccard_string_group()` function makes this possible. It first performs locality
 sensitive hashing to identify similar pairs of observations within the dataset,
 and then runs a community detection algorithm to identify clusters of similar
 observations, which are each assinged a label. The community-detection
-algorithm, `fastgreedy.community` from the `igraph` package runs in log-linear
+algorithm, `fastgreedy.community()` from the `igraph` package runs in log-linear
 time, so the entire algorithm completes in linearithmic time.
 
-Here's a short snippet showing how you can use `jaccard_string_group` to
+Here's a short snippet showing how you can use `jaccard_string_group()` to
 standardize a set of organization names.
 
 ```{r}
