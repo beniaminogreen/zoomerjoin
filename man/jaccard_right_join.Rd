@@ -72,6 +72,7 @@ Fuzzy right-join using minihashing
 }
 \examples{
 # load baby names data
+install.packages("babynames")
 library(babynames)
 
 baby_names <- data.frame(name = tolower(unique(babynames$name)))
@@ -80,7 +81,7 @@ baby_names_sans_vowels <- data.frame(
    )
 # Check the probability two pairs of strings with
 # similarity .8 will be matched with a band width of 30
-# and 30 bands using the `jaccard_probability` function:
+# and 30 bands using the `jaccard_probability()` function:
 jaccard_probability(.8,30,8)
 # Run the join:
 joined_names <- jaccard_right_join(

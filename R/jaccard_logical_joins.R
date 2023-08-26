@@ -48,6 +48,7 @@
 #'
 #' @examples
 #'# load baby names data
+#'install.packages("babynames")
 #'library(babynames)
 #'
 #'baby_names <- data.frame(name = tolower(unique(babynames$name)))
@@ -56,7 +57,7 @@
 #'    )
 #'# Check the probability two pairs of strings with
 #'# similarity .8 will be matched with a band width of 30
-#'# and 30 bands using the `jaccard_probability` function:
+#'# and 30 bands using the `jaccard_probability()` function:
 #'jaccard_probability(.8,30,8)
 #'# Run the join:
 #'joined_names <- jaccard_inner_join(
@@ -126,6 +127,7 @@ jaccard_inner_join <- function(a, b, by = NULL, block_by = NULL, n_gram_width = 
 #'
 #' @examples
 #'# load baby names data
+#'install.packages("babynames")
 #'library(babynames)
 #'
 #'baby_names <- data.frame(name = tolower(unique(babynames$name)))
@@ -134,7 +136,8 @@ jaccard_inner_join <- function(a, b, by = NULL, block_by = NULL, n_gram_width = 
 #'    )
 #'# Check the probability two pairs of strings with
 #'# similarity .8 will be matched with a band width of 30
-#'# and 30 bands using the `jaccard_probability` function:
+#'# and 30 bands using the `jaccard_probability()` function:
+#'jaccard_probability(.8,30,8)
 #'# Run the join:
 #'joined_names <- jaccard_anti_join(
 #'               baby_names,
@@ -212,6 +215,7 @@ jaccard_anti_join <- function(a, b,
 #'
 #' @examples
 #'# load baby names data
+#'install.packages("babynames")
 #'library(babynames)
 #'
 #'baby_names <- data.frame(name = tolower(unique(babynames$name)))
@@ -220,7 +224,7 @@ jaccard_anti_join <- function(a, b,
 #'    )
 #'# Check the probability two pairs of strings with
 #'# similarity .8 will be matched with a band width of 30
-#'# and 30 bands using the `jaccard_probability` function:
+#'# and 30 bands using the `jaccard_probability()` function:
 #'jaccard_probability(.8,30,8)
 #'# Run the join:
 #'joined_names <- jaccard_left_join(
@@ -300,6 +304,7 @@ jaccard_left_join <- function(a, b,
 #'
 #' @examples
 #'# load baby names data
+#'install.packages("babynames")
 #'library(babynames)
 #'
 #'baby_names <- data.frame(name = tolower(unique(babynames$name)))
@@ -308,7 +313,7 @@ jaccard_left_join <- function(a, b,
 #'    )
 #'# Check the probability two pairs of strings with
 #'# similarity .8 will be matched with a band width of 30
-#'# and 30 bands using the `jaccard_probability` function:
+#'# and 30 bands using the `jaccard_probability()` function:
 #'jaccard_probability(.8,30,8)
 #'# Run the join:
 #'joined_names <- jaccard_right_join(
@@ -387,6 +392,7 @@ jaccard_right_join <- function(a, b,
 #'
 #' @examples
 #'# load baby names data
+#'install.packages("babynames")
 #'library(babynames)
 #'
 #'baby_names <- data.frame(name = tolower(unique(babynames$name)))
@@ -395,7 +401,7 @@ jaccard_right_join <- function(a, b,
 #'    )
 #'# Check the probability two pairs of strings with
 #'# similarity .8 will be matched with a band width of 30
-#'# and 30 bands using the `jaccard_probability` function:
+#'# and 30 bands using the `jaccard_probability()` function:
 #'jaccard_probability(.8,30,8)
 #'# Run the join:
 #'joined_names <- jaccard_full_join(
