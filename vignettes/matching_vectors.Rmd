@@ -75,6 +75,7 @@ guaranteed to be found) with reducing the number of un-promising comparisons
 
 
 ```{r}
+set.seed(1)
 start <- Sys.time()
 joined_out <- euclidean_inner_join(
                      X,
