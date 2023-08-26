@@ -48,7 +48,7 @@
 #'
 #' @examples
 #'# load baby names data
-#'install.packages("babynames")
+#'#install.packages("babynames")
 #'library(babynames)
 #'
 #'baby_names <- data.frame(name = tolower(unique(babynames$name)))
@@ -127,7 +127,7 @@ jaccard_inner_join <- function(a, b, by = NULL, block_by = NULL, n_gram_width = 
 #'
 #' @examples
 #'# load baby names data
-#'install.packages("babynames")
+#'#install.packages("babynames")
 #'library(babynames)
 #'
 #'baby_names <- data.frame(name = tolower(unique(babynames$name)))
@@ -215,7 +215,7 @@ jaccard_anti_join <- function(a, b,
 #'
 #' @examples
 #'# load baby names data
-#'install.packages("babynames")
+#'#install.packages("babynames")
 #'library(babynames)
 #'
 #'baby_names <- data.frame(name = tolower(unique(babynames$name)))
@@ -304,7 +304,7 @@ jaccard_left_join <- function(a, b,
 #'
 #' @examples
 #'# load baby names data
-#'install.packages("babynames")
+#'#install.packages("babynames")
 #'library(babynames)
 #'
 #'baby_names <- data.frame(name = tolower(unique(babynames$name)))
@@ -392,7 +392,7 @@ jaccard_right_join <- function(a, b,
 #'
 #' @examples
 #'# load baby names data
-#'install.packages("babynames")
+#'#install.packages("babynames")
 #'library(babynames)
 #'
 #'baby_names <- data.frame(name = tolower(unique(babynames$name)))

@@ -71,7 +71,7 @@ Fuzzy inner-join using minihashing
 }
 \examples{
 # load baby names data
-install.packages("babynames")
+#install.packages("babynames")
 library(babynames)
 
 baby_names <- data.frame(name = tolower(unique(babynames$name)))
