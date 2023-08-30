@@ -132,10 +132,10 @@
 <li><code><a href="reference/jaccard_right_join.html">jaccard_right_join()</a></code></li>
 <li><code><a href="reference/jaccard_inner_join.html">jaccard_inner_join()</a></code></li>
 <li><code><a href="reference/jaccard_full_join.html">jaccard_full_join()</a></code></li>
-<li><code>euclidean_left_join</code></li>
-<li><code>euclidean_right_join</code></li>
-<li><code>euclidean_inner_join</code></li>
-<li><code>euclidean_full_join</code></li>
+<li><code><a href="reference/euclidean_left_join.html">euclidean_left_join()</a></code></li>
+<li><code><a href="reference/euclidean_right_join.html">euclidean_right_join()</a></code></li>
+<li><code><a href="reference/euclidean_inner_join.html">euclidean_inner_join()</a></code></li>
+<li><code><a href="reference/euclidean_full_join.html">euclidean_full_join()</a></code></li>
 </ul>
 <p>The <code>jaccard_join</code> family of functions provide fast fuzzy-joins for strings using the Jaccard distance while the <code>euclidean_join</code> family provides fuzzy-joins for points or vectors using the Euclidean distance.</p>
 <div class="section level3">
@@ -190,22 +190,22 @@
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Joining by 'field'</span></span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="va">start_time</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Time difference of 5.510203 secs</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Time difference of 5.313324 secs</span></span></code></pre></div>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">join_out</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb14"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 190,943 × 4</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="do">##         a field.x                                         b field.y             </span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="do">##     &lt;dbl&gt; &lt;chr&gt;                                       &lt;dbl&gt; &lt;chr&gt;               </span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 420917 uinta county democratic party              864170 slo county democrat…</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  2  99578 96th democratic legislative district cmte 1004516 53rd democratic leg…</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 418340 up properties                             1132954 jmp properties      </span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 117463 hocking county republican executive cmte  1001446 adair county republ…</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 405528 whb family limited partnership            1169730 wynn family limited…</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 407527 wes miller &amp; associates                   1269917 lee miller &amp; associ…</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  7  98595 yuma county republican central cmte       1103454 niob county republi…</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 465674 sd47 republican party of minnesota        1086814 sd 46 republican pa…</span></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 332238 gc management llc                         1264163 mac management llc  </span></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 131538 fort worth police officers association     863238 fort worth police o…</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="do">##         a field.x                                                      b field.y</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="do">##     &lt;dbl&gt; &lt;chr&gt;                                                    &lt;dbl&gt; &lt;chr&gt;  </span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 485885 recon international inc                                 1.00e6 acn in…</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 115368 41st senate district republican party of minnesota      1.17e6 37th s…</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  3  50846 columbia hca texas good government fund                 9.62e5 hca te…</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 106578 care cmte for the advancement of rural electric         9.86e5 cmte f…</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  5  72312 gibbs &amp; bruns, llp,                                     9.09e5 gibbs …</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 102579 plumbers &amp; steamfitters local 598                       8.67e5 ua plu…</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 458023 skt enterprises                                         1.12e6 tt ent…</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 154536 carpenters local 47                                     1.16e6 carpen…</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 319961 international brotherhood of electrical workers local 4 9.20e5 intern…</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 352431 et enterprises                                          8.54e5 wet en…</span></span>
 <span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="do">## # ℹ 190,933 more rows</span></span></code></pre></div>
 <p>ZoomerJoin finds and joins on the matching rows in just a few seconds.</p>
 </div>
