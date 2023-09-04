@@ -34,6 +34,8 @@
 #' identical, while a similarity of zero implies the strings are completely
 #' dissimilar.
 #'
+#' @param progress set to true to report progress of the algorithm
+#'
 #' @return a string vector storing the group of each element in the original
 #' input strings. The input vector is grouped so that similar strings belong to
 #' the same group, which is given a standardized name.
@@ -45,7 +47,7 @@
 #' jaccard_string_group(string, threshold = .2, n_bands=90, n_gram_width=1)
 #'
 #' @export
-jaccard_string_group <- function(string, n_gram_width = 2, n_bands = 45, band_width = 8, threshold = .7) {
+jaccard_string_group <- function(string, n_gram_width = 2, n_bands = 45, band_width = 8, threshold = .7, progress = FALSE) {
 
     if (!"igraph" %in% rownames(installed.packages())) {
             stop("library 'igraph' must be installed to run this package")
@@ -56,7 +58,8 @@ jaccard_string_group <- function(string, n_gram_width = 2, n_bands = 45, band_wi
                            ngram_width = n_gram_width,
                            n_bands,
                            band_size = band_width,
-                           threshold,
+                           threshold = threshold,
+                           progress = progress,
                            seed = round(runif(1,0,2^64))
     )
 

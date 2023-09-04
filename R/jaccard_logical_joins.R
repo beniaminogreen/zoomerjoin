@@ -266,8 +266,8 @@ jaccard_left_join <- function(a, b,
                 salt_by = block_by,
                    n_gram_width = n_gram_width,
                    n_bands = n_bands, band_width = band_width,
-                threshold =  threshold,
-                porgress = progress,
+                    threshold =  threshold,
+                    progress = progress,
                 clean = clean)
 }
 
