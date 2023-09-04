@@ -63,7 +63,8 @@
 <span>  threshold <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  n_bands <span class="op">=</span> <span class="fl">30</span>,</span>
 <span>  band_width <span class="op">=</span> <span class="fl">5</span>,</span>
-<span>  r <span class="op">=</span> <span class="fl">0.5</span></span>
+<span>  r <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  progress <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -89,6 +90,10 @@ be the same as dplyr: <code>by = c("column_name_in_df_a" = "column_name_in_df_b"
 
 <dt>r</dt>
 <dd><p>the r hyperparameter used to govern the sensitivity of the locality sensitive hash, as described in</p></dd>
+
+
+<dt>progress</dt>
+<dd><p>set to <code>TRUE</code> to print progress</p></dd>
 
 </dl></div>
     <div class="section level2">
