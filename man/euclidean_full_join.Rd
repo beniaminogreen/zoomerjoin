@@ -11,7 +11,8 @@ euclidean_full_join(
   threshold = 1,
   n_bands = 30,
   band_width = 5,
-  r = 0.5
+  r = 0.5,
+  progress = FALSE
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ be the same as dplyr: \code{by = c("column_name_in_df_a" = "column_name_in_df_b"
 two columns must be specified in each dataset (x column and y column).}
 
 \item{threshold}{the distance threshold below which units should be considered a match}
+
+\item{progress}{set to \code{TRUE} to print progress}
 }
 \value{
 a tibble fuzzily-joined on the basis of the variables in \code{by.} Tries

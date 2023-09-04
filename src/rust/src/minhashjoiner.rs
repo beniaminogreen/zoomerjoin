@@ -74,6 +74,7 @@ impl MinHashJoiner {
         n_bands: usize,
         band_size: usize,
         threshold: f64,
+        progress: bool,
         seed: u64,
     ) -> DashSet<(usize, usize)> {
         //let mut matched_pairs: HashSet<(usize, usize)> = HashSet::new();
@@ -82,7 +83,11 @@ impl MinHashJoiner {
         let mut rng = StdRng::seed_from_u64(seed);
         let small_set_map: Arc<DashMap<u64, Vec<usize>>> =
             Arc::new(DashMap::with_capacity(self.smaller_set.len()));
-        for _ in 0..n_bands {
+        for i in 0..n_bands {
+            if progress {
+                println!("starting band {i} out of {n_bands}");
+            }
+
             let hasher = MinHasher::new(band_size as usize, &mut rng);
 
             self.smaller_set.par_iter().for_each(|shingleset| {

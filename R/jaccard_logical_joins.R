@@ -42,6 +42,8 @@
 #' @param clean should the strings that you fuzzy join on be cleaned (coerced
 #' to lower-case, stripped of punctuation and spaces)? Default is FALSE
 #'
+#' @param progress set to `TRUE` to print progress
+#'
 #' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
 #' to adhere to the same standards as the dplyr-joins, and uses the same
 #' logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
@@ -73,10 +75,16 @@
 #'joined_names
 #' @export
 jaccard_inner_join <- function(a, b, by = NULL, block_by = NULL, n_gram_width = 2, n_bands = 45,
-                           band_width = 8, threshold = .7, clean = FALSE) { jaccard_join(a, b,
-                           mode = "inner", by = by, salt_by = block_by, n_gram_width =
-                               n_gram_width, n_bands = n_bands, band_width =
-                               band_width, threshold =  threshold, clean=clean) }
+                           band_width = 8, threshold = .7, progress = FALSE, clean = FALSE) {
+    jaccard_join(a, b, mode = "inner",
+                 by = by, salt_by = block_by,
+                 n_gram_width = n_gram_width,
+                 n_bands = n_bands,
+                 band_width = band_width,
+                 threshold =  threshold,
+                 progress = progress,
+                 clean=clean)
+}
 
 #' Fuzzy anti-join using minihashing
 #'
@@ -121,6 +129,8 @@ jaccard_inner_join <- function(a, b, by = NULL, block_by = NULL, n_gram_width = 
 #' @param clean should the strings that you fuzzy join on be cleaned (coerced
 #' to lower-case, stripped of punctuation and spaces)? Default is FALSE
 #'
+#' @param progress set to `TRUE` to print progress
+#'
 #' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
 #' to adhere to the same standards as the dplyr-joins, and uses the same
 #' logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
@@ -158,12 +168,13 @@ jaccard_anti_join <- function(a, b,
                             n_bands = 45,
                             band_width = 8,
                             threshold = .7,
+                            progress = FALSE,
                             clean =FALSE) {
     jaccard_join(a, b, mode = "anti", by = by,
                 salt_by = block_by,
                    n_gram_width = n_gram_width,
                    n_bands = n_bands, band_width = band_width,
-                    threshold =  threshold, clean = clean)
+                    threshold =  threshold, progress = progress, clean = clean)
 }
 
 #' Fuzzy left-join using minihashing
@@ -209,6 +220,8 @@ jaccard_anti_join <- function(a, b,
 #' @param clean should the strings that you fuzzy join on be cleaned (coerced
 #' to lower-case, stripped of punctuation and spaces)? Default is FALSE
 #'
+#' @param progress set to `TRUE` to print progress
+#'
 #' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
 #' to adhere to the same standards as the dplyr-joins, and uses the same
 #' logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
@@ -246,13 +259,16 @@ jaccard_left_join <- function(a, b,
                             n_bands = 45,
                             band_width = 8,
                             threshold = .7,
+                            progress = FALSE,
                             clean = FALSE
                             ) {
     jaccard_join(a, b, mode = "left", by = by,
                 salt_by = block_by,
                    n_gram_width = n_gram_width,
                    n_bands = n_bands, band_width = band_width,
-                threshold =  threshold, clean = clean)
+                threshold =  threshold,
+                porgress = progress,
+                clean = clean)
 }
 
 #' Fuzzy right-join using minihashing
@@ -298,6 +314,8 @@ jaccard_left_join <- function(a, b,
 #' @param clean should the strings that you fuzzy join on be cleaned (coerced
 #' to lower-case, stripped of punctuation and spaces)? Default is FALSE
 #'
+#' @param progress set to `TRUE` to print progress
+#'
 #' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
 #' to adhere to the same standards as the dplyr-joins, and uses the same
 #' logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
@@ -335,12 +353,15 @@ jaccard_right_join <- function(a, b,
                             n_bands = 45,
                             band_width = 8,
                             threshold = .7,
+                            progress = FALSE,
                             clean = FALSE){
     jaccard_join(a, b, mode = "right", by = by,
                 salt_by = block_by,
                    n_gram_width = n_gram_width,
                    n_bands = n_bands, band_width = band_width,
-                threshold =  threshold, clean = clean)
+                threshold =  threshold,
+                progress = progress,
+                clean = clean)
 }
 
 #' Fuzzy full-join using minihashing
@@ -386,6 +407,8 @@ jaccard_right_join <- function(a, b,
 #' @param clean should the strings that you fuzzy join on be cleaned (coerced
 #' to lower-case, stripped of punctuation and spaces)? Default is FALSE
 #'
+#' @param progress set to `TRUE` to print progress
+#'
 #' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
 #' to adhere to the same standards as the dplyr-joins, and uses the same
 #' logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
@@ -423,10 +446,13 @@ jaccard_full_join <- function(a, b,
                             n_bands = 45,
                             band_width = 8,
                             threshold = .7,
+                            progress = FALSE,
                             clean = FALSE){
     jaccard_join(a, b, mode = "full", by = by,
         salt_by = block_by,
         n_gram_width = n_gram_width,
         n_bands = n_bands, band_width = band_width,
-        threshold =  threshold, clean = clean)
+        threshold =  threshold,
+        progress = progress,
+        clean = clean)
 }
