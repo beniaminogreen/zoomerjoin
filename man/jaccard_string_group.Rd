@@ -9,7 +9,8 @@ jaccard_string_group(
   n_gram_width = 2,
   n_bands = 45,
   band_width = 8,
-  threshold = 0.7
+  threshold = 0.7,
+  progress = FALSE
 )
 }
 \arguments{
@@ -42,6 +43,8 @@ should be considered a match (default is .95). The similarity is euqal to 1
 identical, while a similarity of zero implies the strings are completely
 dissimilar.
 }}
+
+\item{progress}{set to true to report progress of the algorithm}
 }
 \value{
 a string vector storing the group of each element in the original

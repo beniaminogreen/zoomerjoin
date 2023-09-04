@@ -13,6 +13,7 @@ jaccard_full_join(
   n_bands = 45,
   band_width = 8,
   threshold = 0.7,
+  progress = FALSE,
   clean = FALSE
 )
 }
@@ -58,6 +59,8 @@ identical, while a similarity of zero implies the strings are completely
 dissimilar.
 '
 }}
+
+\item{progress}{set to \code{TRUE} to print progress}
 
 \item{clean}{should the strings that you fuzzy join on be cleaned (coerced
 to lower-case, stripped of punctuation and spaces)? Default is FALSE}

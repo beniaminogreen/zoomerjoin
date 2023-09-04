@@ -12,6 +12,8 @@
 #'
 #' @param r the r hyperparameter used to govern the sensitivity of the locality sensitive hash, as described in
 #'
+#' @param progress set to `TRUE` to print progress
+#'
 #' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
 #' to adhere to the same standards as the dplyr-joins, and uses the same
 #' logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
@@ -38,8 +40,8 @@
 #'
 #'
 #' @export
-euclidean_anti_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5) {
-    euclidean_join_core(a, b, mode = "anti", by = by, threshold =  threshold, n_bands = n_bands, band_width = band_width, r = r)
+euclidean_anti_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5,  r=.5, progress = FALSE) {
+    euclidean_join_core(a, b, mode = "anti", by = by, threshold =  threshold, n_bands = n_bands, progress = progress, band_width = band_width, r = r)
 }
 
 #' Spatial Inner Join Using LSH
@@ -53,6 +55,8 @@ euclidean_anti_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, ba
 #' two columns must be specified in each dataset (x column and y column).
 #'
 #' @param threshold the distance threshold below which units should be considered a match
+#'
+#' @param progress set to `TRUE` to print progress
 #'
 #' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
 #' to adhere to the same standards as the dplyr-joins, and uses the same
@@ -79,8 +83,8 @@ euclidean_anti_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, ba
 #'
 #'
 #' @export
-euclidean_inner_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5) {
-    euclidean_join_core(a, b, mode = "inner", by = by, threshold =  threshold, n_bands = n_bands, band_width = band_width, r = r)
+euclidean_inner_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5, progress = FALSE) {
+    euclidean_join_core(a, b, mode = "inner", by = by, threshold =  threshold, n_bands = n_bands,progress = progress,  band_width = band_width, r = r)
 }
 
 #' Spatial Left Join Using LSH
@@ -94,6 +98,8 @@ euclidean_inner_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, b
 #' two columns must be specified in each dataset (x column and y column).
 #'
 #' @param threshold the distance threshold below which units should be considered a match
+#'
+#' @param progress set to `TRUE` to print progress
 #'
 #' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
 #' to adhere to the same standards as the dplyr-joins, and uses the same
@@ -120,8 +126,8 @@ euclidean_inner_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, b
 #'
 #'
 #' @export
-euclidean_left_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5) {
-    euclidean_join_core(a, b, mode = "left", by = by, threshold =  threshold, n_bands = n_bands, band_width = band_width, r = r)
+euclidean_left_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5, progress = FALSE) {
+    euclidean_join_core(a, b, mode = "left", by = by, threshold =  threshold, n_bands = n_bands,progress = progress,  band_width = band_width, r = r)
 }
 
 #' Spatial Right Join Using LSH
@@ -135,6 +141,8 @@ euclidean_left_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, ba
 #' two columns must be specified in each dataset (x column and y column).
 #'
 #' @param threshold the distance threshold below which units should be considered a match
+#'
+#' @param progress set to `TRUE` to print progress
 #'
 #' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
 #' to adhere to the same standards as the dplyr-joins, and uses the same
@@ -160,8 +168,8 @@ euclidean_left_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, ba
 #'
 #'
 #' @export
-euclidean_right_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5) {
-    euclidean_join_core(a, b, mode = "right", by = by, threshold =  threshold, n_bands = n_bands, band_width = band_width, r = r)
+euclidean_right_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5, progress = FALSE) {
+    euclidean_join_core(a, b, mode = "right", by = by, threshold =  threshold, n_bands = n_bands,progress = progress,  band_width = band_width, r = r)
 }
 
 #' Spatial Full Join Using LSH
@@ -175,6 +183,8 @@ euclidean_right_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, b
 #' two columns must be specified in each dataset (x column and y column).
 #'
 #' @param threshold the distance threshold below which units should be considered a match
+#'
+#' @param progress set to `TRUE` to print progress
 #'
 #' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
 #' to adhere to the same standards as the dplyr-joins, and uses the same
@@ -200,6 +210,6 @@ euclidean_right_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, b
 #'euclidean_full_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
 #'
 #' @export
-euclidean_full_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5) {
-    euclidean_join_core(a, b, mode = "full", by = by, threshold =  threshold, n_bands = n_bands, band_width = band_width, r = r)
+euclidean_full_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5, progress = FALSE) {
+    euclidean_join_core(a, b, mode = "full", by = by, threshold =  threshold, n_bands = n_bands, progress = progress, band_width = band_width, r = r)
 }

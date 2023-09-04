@@ -11,7 +11,8 @@ euclidean_anti_join(
   threshold = 1,
   n_bands = 30,
   band_width = 5,
-  r = 0.5
+  r = 0.5,
+  progress = FALSE
 )
 }
 \arguments{
@@ -26,6 +27,8 @@ be the same as dplyr: \code{by = c("column_name_in_df_a" = "column_name_in_df_b"
 \item{threshold}{the distance threshold below which units should be considered a match}
 
 \item{r}{the r hyperparameter used to govern the sensitivity of the locality sensitive hash, as described in}
+
+\item{progress}{set to \code{TRUE} to print progress}
 }
 \value{
 a tibble fuzzily-joined on the basis of the variables in \code{by.} Tries

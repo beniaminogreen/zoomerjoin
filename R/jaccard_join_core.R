@@ -23,7 +23,7 @@ simple_by_validate <- function(a,b, by) {
 }
 
 jaccard_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands,
-                      band_width, threshold, a_salt = NULL, b_salt = NULL,
+                      band_width, threshold, progress = FALSE, a_salt = NULL, b_salt = NULL,
                       clean=FALSE) {
 
     a <- tibble::as_tibble(a)
@@ -107,13 +107,13 @@ jaccard_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands,
         match_table <- rust_jaccard_join(
                  a_col, b_col,
                  n_gram_width, n_bands, band_width, threshold,
-                 seed = 1)
+                 progress, seed = 1)
     } else {
         match_table <- rust_salted_jaccard_join(
                  a_col, b_col,
                  a_salt_col, b_salt_col,
                  n_gram_width, n_bands, band_width, threshold,
-                 seed = round(runif(1,0,2^64))
+                 progress, seed = round(runif(1,0,2^64))
         )
     }
 

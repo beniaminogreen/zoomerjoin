@@ -20,7 +20,7 @@ multi_by_validate <- function(a,b, by) {
                 ))
 }
 
-euclidean_join_core <- function (a, b, by = NULL, n_bands = 30, band_width = 10, threshold=1.0, r=.5, mode="inner") {
+euclidean_join_core <- function (a, b, by = NULL, n_bands = 30, band_width = 10, threshold=1.0, r=.5, progress = FALSE, mode="inner") {
 
     stopifnot("'radius' must be greater than 0" = threshold > 0)
 
@@ -48,6 +48,7 @@ euclidean_join_core <- function (a, b, by = NULL, n_bands = 30, band_width = 10,
                                 band_width = band_width,
                                 n_bands = n_bands,
                                 r = r,
+                                progress = progress,
                                 seed = round(runif(1,0,2^32))
     )
 
