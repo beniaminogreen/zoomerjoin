@@ -145,7 +145,10 @@
 <p>Here’s a snippet showing off how to use the <code>lhs_inner_join()</code> merge two datasets of political donors in the <a href="https://data.stanford.edu/dime" class="external-link">Database on Ideology, Money in Politics, and Elections (DIME)</a>. You can see a more detailed example of this vignette in the <a href="https://beniaminogreen.github.io/zoomerjoin/articles/guided_tour.html">introductory vignette</a>.</p>
 <p>I start with two corpuses I would like to combine, <code>corpus_1</code>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">corpus_1</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">corpus_1</span> <span class="op">&lt;-</span> <span class="va">dime_data</span> <span class="op">%&gt;%</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">500000</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">corpus_1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"field"</span><span class="op">)</span></span>
+<span><span class="va">corpus_1</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 500,000 × 2</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="do">##        a field                                                                  </span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;dbl&gt; &lt;chr&gt;                                                                  </span></span>
@@ -162,7 +165,10 @@
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="do">## # ℹ 499,990 more rows</span></span></code></pre></div>
 <p>And <code>corpus_2</code>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">corpus_2</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">corpus_2</span> <span class="op">&lt;-</span> <span class="va">dime_data</span> <span class="op">%&gt;%</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="fl">500000</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">corpus_2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"b"</span>, <span class="st">"field"</span><span class="op">)</span></span>
+<span><span class="va">corpus_2</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 500,000 × 2</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="do">##         b field                               </span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="do">##     &lt;dbl&gt; &lt;chr&gt;                               </span></span>
@@ -190,22 +196,22 @@
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Joining by 'field'</span></span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="va">start_time</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Time difference of 5.313324 secs</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Time difference of 5.4673 secs</span></span></code></pre></div>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">join_out</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb14"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 190,943 × 4</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="do">##         a field.x                                                      b field.y</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="do">##     &lt;dbl&gt; &lt;chr&gt;                                                    &lt;dbl&gt; &lt;chr&gt;  </span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 485885 recon international inc                                 1.00e6 acn in…</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 115368 41st senate district republican party of minnesota      1.17e6 37th s…</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  3  50846 columbia hca texas good government fund                 9.62e5 hca te…</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 106578 care cmte for the advancement of rural electric         9.86e5 cmte f…</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  5  72312 gibbs &amp; bruns, llp,                                     9.09e5 gibbs …</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 102579 plumbers &amp; steamfitters local 598                       8.67e5 ua plu…</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 458023 skt enterprises                                         1.12e6 tt ent…</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 154536 carpenters local 47                                     1.16e6 carpen…</span></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 319961 international brotherhood of electrical workers local 4 9.20e5 intern…</span></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 352431 et enterprises                                          8.54e5 wet en…</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 144814 henry county republican headquarters                    1.26e6 martin…</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 385156 stone communications                                    8.88e5 zone c…</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  3  69774 communications workers of america local 9408            8.77e5 commun…</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  4  57872 texans for senator john cornyn inc.                     9.24e5 texans…</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 326086 hausman holdings ltd                                    8.80e5 hausma…</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 259059 darke county democratic women                           1.07e6 toole …</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  7  63036 service employees international union local 614         9.36e5 servic…</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 310938 rs &amp; associates inc                                     1.21e6 ross &amp;…</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  9  59678 international brotherhood of electrical workers local … 9.60e5 intern…</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 120877 s &amp; g concrete                                          1.21e6 s &amp; g …</span></span>
 <span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="do">## # ℹ 190,933 more rows</span></span></code></pre></div>
 <p>ZoomerJoin finds and joins on the matching rows in just a few seconds.</p>
 </div>
