@@ -10,14 +10,6 @@ library(fuzzyjoin)
 
 # rextendr::document()
 devtools::load_all()
-
-n <- 500000
-corpus_1 <- dime_data %>%
-    head(n)
-names(corpus_1) <- c("a", "field")
-corpus_2 <- dime_data %>%
-    tail(n)
-names(corpus_2) <- c("b", "field")
 ```
 
 
@@ -125,12 +117,18 @@ detailed example of this vignette in the [introductory vignette](https://beniami
 I start with two corpuses I would like to combine, `corpus_1`:
 
 ```{r}
+corpus_1 <- dime_data %>%
+    head(500000)
+names(corpus_1) <- c("a", "field")
 corpus_1
 ```
 
 And `corpus_2`:
 
 ```{r}
+corpus_2 <- dime_data %>%
+    tail(500000)
+names(corpus_2) <- c("b", "field")
 corpus_2
 ```
 Both corpuses have an observation ID column, and a donor name column. We would
