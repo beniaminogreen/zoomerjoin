@@ -95,7 +95,7 @@ their componentwise distances, and can take values in the interval $[0,
 $$dist(\overrightarrow{a},\overrightarrow{b}) = ||\overrightarrow{a}-\overrightarrow{b}||_2$$
 
 Integration between R and rust is managed by the `extendr` and `rextendr` Rust
-and R packages [@rextednr]. Instrumental to the package's fast performance is
+and R packages [@rextendr]. Instrumental to the package's fast performance is
 the relentlessly-optimized `dashmap` Rust crate [@dashmap], which provides a
 fast hash map that can be populated by many threads working in parallel.
 `Dashmap`'s concurrent hash maps are used to quickly store the hashes
