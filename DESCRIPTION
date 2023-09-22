@@ -1,6 +1,6 @@
 Package: zoomerjoin
 Title: Insanely fast fuzzy joins
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R:
     person("Beniamino", "Green", , "beniamino.green@yale.edu", role = c("aut", "cre")
            )
@@ -30,7 +30,7 @@ Config/testthat/edition: 3
 URL: https://beniaminogreen.github.io/zoomerjoin/
 BugReports: https://github.com/beniaminogreen/zoomerjoin/issues/
 VignetteBuilder: knitr
-Depends: 
+Depends:
     R (>= 2.10)
 LazyData: true
 Config/rextendr/version: 0.3.0
