@@ -32,4 +32,4 @@ clean:
 	rm -Rf $(SHLIB) $(STATLIB) $(OBJECTS) rust/target
 
 rustup:
-	rustup toolchain install $(TARGET) || true
+	rustup toolchain install stable-$(TARGET) || true
