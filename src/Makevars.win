@@ -8,7 +8,7 @@ LIBDIR = $(TARGET_DIR)/$(TARGET)/release
 STATLIB = $(LIBDIR)/libzoomerjoin.a
 PKG_LIBS = -L$(LIBDIR) -lzoomerjoin -lws2_32 -ladvapi32 -luserenv -lbcrypt -lntdll
 
-all: C_clean
+all: C_clean rustup
 
 $(SHLIB): $(STATLIB)
 
@@ -30,3 +30,6 @@ C_clean:
 
 clean:
 	rm -Rf $(SHLIB) $(STATLIB) $(OBJECTS) rust/target
+
+rustup:
+    rustup toolchain install $(TARGET) || true
