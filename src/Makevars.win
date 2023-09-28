@@ -1,4 +1,5 @@
 TARGET = $(subst 64,x86_64,$(subst 32,i686,$(WIN)))-pc-windows-gnu
+TARGET_BASE = $(subst 64,x86_64,$(subst 32,i686,$(WIN)))
 
 # This is provided in Makevars.ucrt for R >= 4.2
 TOOLCHAIN ?= stable-msvc
@@ -32,4 +33,6 @@ clean:
 	rm -Rf $(SHLIB) $(STATLIB) $(OBJECTS) rust/target
 
 rustup:
-	rustup toolchain install stable-$(TARGET) || true
+	rustup toolchain install stable-$(TARGET) && \
+	rustup toolchain install stable-$(TARGET_BASE)-pc-windows-msvc && \
+    || true
