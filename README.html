@@ -618,17 +618,26 @@ datasets days, or even years faster than other matching packages.
 zoomerjoin has been used in-production to join datasets of hundreds of
 millions of names in a few hours.</p>
 <h2 id="installation">Installation</h2>
-<hr />
-<h3 id="preliminaries---installing-rust">Preliminaries - Installing
-Rust:</h3>
-<p>You must have the <a href="https://www.rust-lang.org/tools/install">Rust compiler</a>
-installed to compile this package. After the package is compiled, Rust
-is no longer required, and can be safely uninstalled.</p>
+<h3 id="installing-from-r-universe">Installing from R-Universe:</h3>
+<p>This package is distributed using <a href="https://r-universe.dev/search/">r-universe</a>, which provides
+pre-compiled binaries for common operating systems and recent versions
+of R. To install with r-universe, you can use the following command in
+R:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  <span class="st">&#39;zoomerjoin&#39;</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="at">repos =</span> <span class="fu">c</span>(<span class="st">&#39;https://beniaminogreen.r-universe.dev&#39;</span>, <span class="fu">getOption</span>(<span class="st">&quot;repos&quot;</span>))</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>)</span></code></pre></div>
+<h3 id="installing-rust">Installing Rust</h3>
+<p>If your operating system or version of R is not installed, you must
+have the <a href="https://www.rust-lang.org/tools/install">Rust
+compiler</a> installed to compile this package from sources. After the
+package is compiled, Rust is no longer required, and can be safely
+uninstalled.</p>
 <h4 id="installing-rust-on-linux-or-mac">Installing Rust on Linux or
 Mac:</h4>
 <p>To install Rust on Linux or Mac, you can simply run the following
 snippet in your terminal.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">curl</span> <span class="at">--proto</span> <span class="st">&#39;=https&#39;</span> <span class="at">--tlsv1.2</span> <span class="at">-sSf</span> https://sh.rustup.rs <span class="kw">|</span> <span class="fu">sh</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">curl</span> <span class="at">--proto</span> <span class="st">&#39;=https&#39;</span> <span class="at">--tlsv1.2</span> <span class="at">-sSf</span> https://sh.rustup.rs <span class="kw">|</span> <span class="fu">sh</span></span></code></pre></div>
 <h4 id="installing-rust-on-windows">Installing Rust on Windows:</h4>
 <p>To install Rust on windows, you can use the Rust installation wizard,
 <code>rustup-init.exe</code>, found <a href="https://forge.rust-lang.org/infra/other-installation-methods.html">at
@@ -643,20 +652,21 @@ above.</p>
 <h3 id="installing-package-from-github">Installing Package from
 Github:</h3>
 <p>Once you have rust installed Rust, you should be able to install the
-package with the <code>install_github</code> function from the
-<code>devtools</code> package, or with the <code>pkg_install</code>
-function from the <code>pak</code> package.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="do">## Install with devtools</span></span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co"># install.packages(&quot;devtools&quot;)</span></span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;beniaminogreen/zoomerjoin&quot;</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="do">## Install with pak</span></span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co"># install.packages(&quot;pak&quot;)</span></span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">&quot;beniaminogreen/zoomerjoin&quot;</span>)</span></code></pre></div>
+package with either the install.packages function as above, or using the
+<code>install_github</code> function from the <code>devtools</code>
+package or with the <code>pkg_install</code> function from the
+<code>pak</code> package.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="do">## Install with devtools</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co"># install.packages(&quot;devtools&quot;)</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;beniaminogreen/zoomerjoin&quot;</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="do">## Install with pak</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co"># install.packages(&quot;pak&quot;)</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">&quot;beniaminogreen/zoomerjoin&quot;</span>)</span></code></pre></div>
 <h3 id="loading-the-package">Loading The Package</h3>
 <p>Once the package is installed, you can load it into memory as usual
 by typing:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">library</span>(zoomerjoin)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">library</span>(zoomerjoin)</span></code></pre></div>
 <h2 id="usage">Usage:</h2>
 <p>The flagship feature of zoomerjoins are the jaccard_join and
 euclidean family of functions, which are designed to be near drop-ins
@@ -687,10 +697,10 @@ example of this vignette in the <a href="https://beniaminogreen.github.io/zoomer
 vignette</a>.</p>
 <p>I start with two corpuses I would like to combine,
 <code>corpus_1</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>corpus_1 <span class="ot">&lt;-</span> dime_data <span class="sc">%&gt;%</span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">500000</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="fu">names</span>(corpus_1) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;field&quot;</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>corpus_1</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>corpus_1 <span class="ot">&lt;-</span> dime_data <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">500000</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="fu">names</span>(corpus_1) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;field&quot;</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>corpus_1</span></code></pre></div>
 <pre><code>## # A tibble: 500,000 × 2
 ##        a field                                                                  
 ##    &lt;dbl&gt; &lt;chr&gt;                                                                  
@@ -706,10 +716,10 @@ vignette</a>.</p>
 ## 10    10 carpenters legislative improvement committee united brotherhood of car…
 ## # ℹ 499,990 more rows</code></pre>
 <p>And <code>corpus_2</code>:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>corpus_2 <span class="ot">&lt;-</span> dime_data <span class="sc">%&gt;%</span></span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>    <span class="fu">tail</span>(<span class="dv">500000</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="fu">names</span>(corpus_2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;b&quot;</span>, <span class="st">&quot;field&quot;</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>corpus_2</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>corpus_2 <span class="ot">&lt;-</span> dime_data <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>    <span class="fu">tail</span>(<span class="dv">500000</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="fu">names</span>(corpus_2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;b&quot;</span>, <span class="st">&quot;field&quot;</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>corpus_2</span></code></pre></div>
 <pre><code>## # A tibble: 500,000 × 2
 ##         b field                               
 ##     &lt;dbl&gt; &lt;chr&gt;                               
@@ -741,29 +751,29 @@ probability any true matches will be discarded by the algorithm.</p>
 <p>More details and a more thorough description of how to tune the
 hyperparameters can be can be found in the <a href="https://beniaminogreen.github.io/zoomerjoin/articles/guided_tour.html">guided
 tour vignette</a>.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>start_time <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>join_out <span class="ot">&lt;-</span> <span class="fu">jaccard_inner_join</span>(corpus_1, corpus_2, <span class="at">n_gram_width=</span><span class="dv">6</span>, <span class="at">n_bands=</span><span class="dv">20</span>, <span class="at">band_width=</span><span class="dv">6</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>start_time <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>join_out <span class="ot">&lt;-</span> <span class="fu">jaccard_inner_join</span>(corpus_1, corpus_2, <span class="at">n_gram_width=</span><span class="dv">6</span>, <span class="at">n_bands=</span><span class="dv">20</span>, <span class="at">band_width=</span><span class="dv">6</span>)</span></code></pre></div>
 <pre><code>## Warning in jaccard_join(a, b, mode = &quot;inner&quot;, by = by, salt_by = block_by, : A pair of records at the threshold (0.7) have only a 92% chance of being compared.
 ## Please consider changing `n_bands` and `band_width`.
 
 ## Joining by &#39;field&#39;</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">Sys.time</span>() <span class="sc">-</span> start_time)</span></code></pre></div>
-<pre><code>## Time difference of 5.477059 secs</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">print</span>(join_out)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">Sys.time</span>() <span class="sc">-</span> start_time)</span></code></pre></div>
+<pre><code>## Time difference of 5.446871 secs</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">print</span>(join_out)</span></code></pre></div>
 <pre><code>## # A tibble: 190,943 × 4
 ##         a field.x                                                      b field.y
 ##     &lt;dbl&gt; &lt;chr&gt;                                                    &lt;dbl&gt; &lt;chr&gt;  
-##  1 438998 tb construction inc                                     9.87e5 cj con…
-##  2 485337 redwood republican women federated                      9.50e5 lynwoo…
-##  3  15729 international brotherhood of electrical workers 575     9.02e5 intern…
-##  4 139613 mgf industries                                          8.88e5 zf ind…
-##  5 182982 laborers local 424                                      1.27e6 labore…
-##  6 352431 et enterprises                                          8.54e5 wet en…
-##  7  62337 act for tcta                                            1.00e6 act fo…
-##  8 151697 communications workers of america district 2 pec        9.85e5 commun…
-##  9  31191 anson county democratic party                           1.25e6 minn c…
-## 10   2216 committee for effective government virginia natural ga… 1.01e6 commit…
+##  1 397635 ym international inc                                    1.14e6 gfa in…
+##  2  79992 rural friends of electric cooperatives                  9.38e5 rural …
+##  3  70563 american electric power co tx committee for responsibl… 8.48e5 the am…
+##  4 110462 lapeer county democratic party                          1.18e6 turner…
+##  5  60444 unitedhealth group inc. political fund                  8.89e5 united…
+##  6 200215 gring fee, pamela                                       1.31e6 gring …
+##  7 119519 19th senate district democrat-farmer-labor              1.05e6 47th s…
+##  8  14656 carbon county democratic central cmte                   1.17e6 willia…
+##  9  55487 iupat political action together                         9.01e5 iupat …
+## 10 248039 b2b brokerage inc                                       1.28e6 k-b br…
 ## # ℹ 190,933 more rows</code></pre>
 <p>ZoomerJoin finds and joins on the matching rows in just a few
 seconds.</p>

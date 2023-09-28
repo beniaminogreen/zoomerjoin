@@ -32,13 +32,25 @@ of millions of names in a few hours.
 
 ## Installation
 
----
+### Installing from R-Universe:
 
-### Preliminaries - Installing Rust:
+This package is distributed using [r-universe](https://r-universe.dev/search/),
+which provides pre-compiled binaries for common operating systems and recent
+versions of R. To install with r-universe, you can use the following command in
+R:
 
-You must have the [Rust compiler](https://www.rust-lang.org/tools/install)
-installed to compile this package. After the package is compiled, Rust is no
-longer required, and can be safely uninstalled.
+```r
+install.packages(
+  'zoomerjoin',
+  repos = c('https://beniaminogreen.r-universe.dev', getOption("repos"))
+)
+```
+### Installing Rust
+
+If your operating system or version of R is not installed, you must have the
+[Rust compiler](https://www.rust-lang.org/tools/install) installed to compile
+this package from sources. After the package is compiled, Rust is no longer
+required, and can be safely uninstalled.
 
 #### Installing Rust on Linux or Mac:
 
@@ -67,8 +79,9 @@ this in the place of `stable-x86_64-pc_windows-gnu` in the command above.
 ### Installing Package from Github:
 
 Once you have rust installed Rust, you should be able to install the package
-with the `install_github` function from the `devtools` package, or with the
-`pkg_install` function from the `pak` package.
+with either the install.packages function as above, or using the
+`install_github` function from the `devtools` package or with the `pkg_install`
+function from the `pak` package.
 
 ``` r
 ## Install with devtools

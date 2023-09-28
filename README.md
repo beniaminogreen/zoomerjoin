@@ -22,14 +22,27 @@ join datasets of hundreds of millions of names in a few hours.
 
 ## Installation
 
-------------------------------------------------------------------------
+### Installing from R-Universe:
 
-### Preliminaries - Installing Rust:
+This package is distributed using
+[r-universe](https://r-universe.dev/search/), which provides
+pre-compiled binaries for common operating systems and recent versions
+of R. To install with r-universe, you can use the following command in
+R:
 
-You must have the [Rust
-compiler](https://www.rust-lang.org/tools/install) installed to compile
-this package. After the package is compiled, Rust is no longer required,
-and can be safely uninstalled.
+``` r
+install.packages(
+  'zoomerjoin',
+  repos = c('https://beniaminogreen.r-universe.dev', getOption("repos"))
+)
+```
+
+### Installing Rust
+
+If your operating system or version of R is not installed, you must have
+the [Rust compiler](https://www.rust-lang.org/tools/install) installed
+to compile this package from sources. After the package is compiled,
+Rust is no longer required, and can be safely uninstalled.
 
 #### Installing Rust on Linux or Mac:
 
@@ -58,8 +71,9 @@ place of `stable-x86_64-pc_windows-gnu` in the command above.
 ### Installing Package from Github:
 
 Once you have rust installed Rust, you should be able to install the
-package with the `install_github` function from the `devtools` package,
-or with the `pkg_install` function from the `pak` package.
+package with either the install.packages function as above, or using the
+`install_github` function from the `devtools` package or with the
+`pkg_install` function from the `pak` package.
 
 ``` r
 ## Install with devtools
@@ -192,7 +206,7 @@ join_out <- jaccard_inner_join(corpus_1, corpus_2, n_gram_width=6, n_bands=20, b
 print(Sys.time() - start_time)
 ```
 
-    ## Time difference of 5.477059 secs
+    ## Time difference of 5.446871 secs
 
 ``` r
 print(join_out)
@@ -201,16 +215,16 @@ print(join_out)
     ## # A tibble: 190,943 × 4
     ##         a field.x                                                      b field.y
     ##     <dbl> <chr>                                                    <dbl> <chr>  
-    ##  1 438998 tb construction inc                                     9.87e5 cj con…
-    ##  2 485337 redwood republican women federated                      9.50e5 lynwoo…
-    ##  3  15729 international brotherhood of electrical workers 575     9.02e5 intern…
-    ##  4 139613 mgf industries                                          8.88e5 zf ind…
-    ##  5 182982 laborers local 424                                      1.27e6 labore…
-    ##  6 352431 et enterprises                                          8.54e5 wet en…
-    ##  7  62337 act for tcta                                            1.00e6 act fo…
-    ##  8 151697 communications workers of america district 2 pec        9.85e5 commun…
-    ##  9  31191 anson county democratic party                           1.25e6 minn c…
-    ## 10   2216 committee for effective government virginia natural ga… 1.01e6 commit…
+    ##  1 397635 ym international inc                                    1.14e6 gfa in…
+    ##  2  79992 rural friends of electric cooperatives                  9.38e5 rural …
+    ##  3  70563 american electric power co tx committee for responsibl… 8.48e5 the am…
+    ##  4 110462 lapeer county democratic party                          1.18e6 turner…
+    ##  5  60444 unitedhealth group inc. political fund                  8.89e5 united…
+    ##  6 200215 gring fee, pamela                                       1.31e6 gring …
+    ##  7 119519 19th senate district democrat-farmer-labor              1.05e6 47th s…
+    ##  8  14656 carbon county democratic central cmte                   1.17e6 willia…
+    ##  9  55487 iupat political action together                         9.01e5 iupat …
+    ## 10 248039 b2b brokerage inc                                       1.28e6 k-b br…
     ## # ℹ 190,933 more rows
 
 ZoomerJoin finds and joins on the matching rows in just a few seconds.
