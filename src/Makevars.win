@@ -34,6 +34,6 @@ clean:
 
 rustup:
 	rustup toolchain install stable-gnu && \
-	# rustup toolchain install stable-$(TARGET) && \
+	rustup toolchain install stable-$(TARGET) && \
 	rustup toolchain install stable-msvc \
     || true
