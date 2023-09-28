@@ -33,7 +33,7 @@ clean:
 	rm -Rf $(SHLIB) $(STATLIB) $(OBJECTS) rust/target
 
 rustup:
-	rustup toolchain install stable-win && \
-	rustup toolchain install stable-$(TARGET) && \
+	rustup toolchain install stable-gnu && \
+	# rustup toolchain install stable-$(TARGET) && \
 	rustup toolchain install stable-msvc \
     || true
