@@ -34,5 +34,5 @@ clean:
 
 rustup:
 	rustup toolchain install stable-$(TARGET) && \
-	rustup toolchain install stable-$(TARGET_BASE)-pc-windows-msvc && \
+	rustup toolchain install stable-$(TARGET_BASE)-pc-windows-msvc \
     || true
