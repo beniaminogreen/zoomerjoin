@@ -1,4 +1,5 @@
 TARGET = $(subst 64,x86_64,$(subst 32,i686,$(WIN)))-pc-windows-gnu
+TARGET_BASE = $(subst 64,x86_64,$(subst 32,i686,$(WIN)))
 
 # This is provided in Makevars.ucrt for R >= 4.2
 TOOLCHAIN ?= stable-msvc
@@ -8,7 +9,7 @@ LIBDIR = $(TARGET_DIR)/$(TARGET)/release
 STATLIB = $(LIBDIR)/libzoomerjoin.a
 PKG_LIBS = -L$(LIBDIR) -lzoomerjoin -lws2_32 -ladvapi32 -luserenv -lbcrypt -lntdll
 
-all: C_clean
+all: C_clean rustup
 
 $(SHLIB): $(STATLIB)
 
@@ -30,3 +31,9 @@ C_clean:
 
 clean:
 	rm -Rf $(SHLIB) $(STATLIB) $(OBJECTS) rust/target
+
+rustup:
+	rustup toolchain install stable-gnu && \
+	rustup toolchain install stable-msvc && \
+	rustup target add $(TARGET) \
+    || true
