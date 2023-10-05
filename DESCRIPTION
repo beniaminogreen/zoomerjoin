@@ -4,7 +4,7 @@ Version: 0.1.0
 Authors@R:
     person("Beniamino", "Green", , "beniamino.green@yale.edu", role = c("aut", "cre")
            )
-Description: Zoomerjoin empowers users to fuzzily-merge dataframes with millions or tens of millions of rows in minuites with low memory usage.  The package uses the MinHash algorithm invented by Broder (1997) <doi:10.1109/SEQUEN.1997.666900> to avoid having to compare every pair of records in each dataset, resulting in fuzzy-merges that finish in linear time.  As a secondary feature, the package also wraps the rust kdtree crate to provide euclidian-distance joins that finish in linearithmic time.
+Description: Zoomerjoin empowers users to fuzzily-merge dataframes with millions or tens of millions of rows in minuites with low memory usage.  The package uses two locality sensitive hashing algorithms to avoid having to compare every pair of records in each dataset, resulting in fuzzy-merges that finish in linear time.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
