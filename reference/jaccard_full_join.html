@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">zoomerjoin</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,7 +66,8 @@
 <span>  band_width <span class="op">=</span> <span class="fl">8</span>,</span>
 <span>  threshold <span class="op">=</span> <span class="fl">0.7</span>,</span>
 <span>  progress <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  clean <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  clean <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  similarity_column <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -136,6 +137,12 @@ dissimilar.
 <dd><p>should the strings that you fuzzy join on be cleaned (coerced
 to lower-case, stripped of punctuation and spaces)? Default is FALSE</p></dd>
 
+
+<dt>similarity_column</dt>
+<dd><p>an optional character vector. If provided, the data
+frame will contain a column with this name giving the jaccard similarity
+between the two fields. Extra column will not be present if anti-joining.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -174,18 +181,18 @@ logical joining patterns (i.e. inner-join joins and keeps only observations in b
 <span class="r-in"><span>              <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">joined_names</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 381,803 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    name      name_wo_vowels</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> belden    dbln          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> ashlan    shlln         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> rl        lr            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> sherelene shrrlnn       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> dashanda  dshnn         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> brynly    brln          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> chrissi   chrss         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> machala   mchl          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> brenden   brdnn         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> shawnda   shwnd         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    name     name_wo_vowels</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> sharath  shrrt         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> krish    krsh          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> garland  lgndr         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> sharan   shrn          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> shlanda  lshnd         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> dashanna dnsh          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> saratha  shtrr         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> danasha  dnsh          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> tasharra shtr          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> khalan   khln          </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 381,793 more rows</span></span>
 </code></pre></div>
     </div>
