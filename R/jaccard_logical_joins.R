@@ -44,6 +44,10 @@
 #'
 #' @param progress set to `TRUE` to print progress
 #'
+#' @param similarity_column an optional character vector. If provided, the data
+#' frame will contain a column with this name giving the jaccard similarity
+#' between the two fields. Extra column will not be present if anti-joining.
+#'
 #' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
 #' to adhere to the same standards as the dplyr-joins, and uses the same
 #' logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
@@ -74,8 +78,16 @@
 #'               )
 #'joined_names
 #' @export
-jaccard_inner_join <- function(a, b, by = NULL, block_by = NULL, n_gram_width = 2, n_bands = 45,
-                           band_width = 8, threshold = .7, progress = FALSE, clean = FALSE) {
+jaccard_inner_join <- function(a, b,
+                           by = NULL,
+                           block_by = NULL,
+                           n_gram_width = 2,
+                           n_bands = 45,
+                           band_width = 8,
+                           threshold = .7,
+                           progress = FALSE,
+                           clean = FALSE,
+                           similarity_column=NULL) {
     jaccard_join(a, b, mode = "inner",
                  by = by, salt_by = block_by,
                  n_gram_width = n_gram_width,
@@ -83,6 +95,7 @@ jaccard_inner_join <- function(a, b, by = NULL, block_by = NULL, n_gram_width = 
                  band_width = band_width,
                  threshold =  threshold,
                  progress = progress,
+                 similarity_column =  similarity_column,
                  clean=clean)
 }
 
@@ -131,6 +144,10 @@ jaccard_inner_join <- function(a, b, by = NULL, block_by = NULL, n_gram_width = 
 #'
 #' @param progress set to `TRUE` to print progress
 #'
+#' @param similarity_column an optional character vector. If provided, the data
+#' frame will contain a column with this name giving the jaccard similarity
+#' between the two fields. Extra column will not be present if anti-joining.
+#'
 #' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
 #' to adhere to the same standards as the dplyr-joins, and uses the same
 #' logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
@@ -169,11 +186,12 @@ jaccard_anti_join <- function(a, b,
                             band_width = 8,
                             threshold = .7,
                             progress = FALSE,
-                            clean =FALSE) {
+                            clean =FALSE, similarity_column =NULL) {
     jaccard_join(a, b, mode = "anti", by = by,
                 salt_by = block_by,
                    n_gram_width = n_gram_width,
                    n_bands = n_bands, band_width = band_width,
+                    similarity_column =  similarity_column,
                     threshold =  threshold, progress = progress, clean = clean)
 }
 
@@ -222,6 +240,10 @@ jaccard_anti_join <- function(a, b,
 #'
 #' @param progress set to `TRUE` to print progress
 #'
+#' @param similarity_column an optional character vector. If provided, the data
+#' frame will contain a column with this name giving the jaccard similarity
+#' between the two fields. Extra column will not be present if anti-joining.
+#'
 #' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
 #' to adhere to the same standards as the dplyr-joins, and uses the same
 #' logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
@@ -260,14 +282,16 @@ jaccard_left_join <- function(a, b,
                             band_width = 8,
                             threshold = .7,
                             progress = FALSE,
-                            clean = FALSE
+                            clean = FALSE,
+                            similarity_column = NULL
                             ) {
     jaccard_join(a, b, mode = "left", by = by,
                 salt_by = block_by,
                    n_gram_width = n_gram_width,
                    n_bands = n_bands, band_width = band_width,
-                    threshold =  threshold,
-                    progress = progress,
+                threshold =  threshold,
+                progress = progress,
+                similarity_column =  similarity_column,
                 clean = clean)
 }
 
@@ -316,6 +340,10 @@ jaccard_left_join <- function(a, b,
 #'
 #' @param progress set to `TRUE` to print progress
 #'
+#' @param similarity_column an optional character vector. If provided, the data
+#' frame will contain a column with this name giving the jaccard similarity
+#' between the two fields. Extra column will not be present if anti-joining.
+#'
 #' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
 #' to adhere to the same standards as the dplyr-joins, and uses the same
 #' logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
@@ -354,13 +382,16 @@ jaccard_right_join <- function(a, b,
                             band_width = 8,
                             threshold = .7,
                             progress = FALSE,
-                            clean = FALSE){
+                            clean = FALSE,
+                            similarity_column = NULL
+                            ){
     jaccard_join(a, b, mode = "right", by = by,
                 salt_by = block_by,
                    n_gram_width = n_gram_width,
                    n_bands = n_bands, band_width = band_width,
                 threshold =  threshold,
                 progress = progress,
+                similarity_column =  similarity_column,
                 clean = clean)
 }
 
@@ -409,6 +440,10 @@ jaccard_right_join <- function(a, b,
 #'
 #' @param progress set to `TRUE` to print progress
 #'
+#' @param similarity_column an optional character vector. If provided, the data
+#' frame will contain a column with this name giving the jaccard similarity
+#' between the two fields. Extra column will not be present if anti-joining.
+#'
 #' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
 #' to adhere to the same standards as the dplyr-joins, and uses the same
 #' logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
@@ -447,12 +482,15 @@ jaccard_full_join <- function(a, b,
                             band_width = 8,
                             threshold = .7,
                             progress = FALSE,
-                            clean = FALSE){
+                            clean = FALSE,
+                            similarity_column = NULL
+                            ){
     jaccard_join(a, b, mode = "full", by = by,
         salt_by = block_by,
         n_gram_width = n_gram_width,
         n_bands = n_bands, band_width = band_width,
         threshold =  threshold,
         progress = progress,
+        similarity_column =  similarity_column,
         clean = clean)
 }

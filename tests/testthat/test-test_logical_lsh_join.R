@@ -103,6 +103,8 @@ test_that("jaccard_inner_join gives same results as stringdist_inner_join", {
 
     expect_true(all.equal(zoomer_join_out, stringdist_join_out))
 
+    zoomer_join_out <- jaccard_inner_join(names_df, misspelled_name_df, n_gram_width = 1, threshold = .9, n_bands=150, band_width = 5, similarity_column = "sim")
+    expect_equal(zoomer_join_out$sim, jaccard_similarity(zoomer_join_out$name.x, zoomer_join_out$name.y, ngram_width=1))
     }
 })
 

@@ -14,7 +14,8 @@ jaccard_anti_join(
   band_width = 8,
   threshold = 0.7,
   progress = FALSE,
-  clean = FALSE
+  clean = FALSE,
+  similarity_column = NULL
 )
 }
 \arguments{
@@ -63,6 +64,10 @@ dissimilar.
 
 \item{clean}{should the strings that you fuzzy join on be cleaned (coerced
 to lower-case, stripped of punctuation and spaces)? Default is FALSE}
+
+\item{similarity_column}{an optional character vector. If provided, the data
+frame will contain a column with this name giving the jaccard similarity
+between the two fields. Extra column will not be present if anti-joining.}
 }
 \value{
 a tibble fuzzily-joined on the basis of the variables in \code{by.} Tries
