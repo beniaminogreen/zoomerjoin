@@ -24,7 +24,7 @@ simple_by_validate <- function(a,b, by) {
 
 jaccard_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands,
                       band_width, threshold, progress = FALSE, a_salt = NULL, b_salt = NULL,
-                      clean=FALSE) {
+                      clean=FALSE, similarity_column = NULL) {
 
     a <- tibble::as_tibble(a)
     b <- tibble::as_tibble(b)
@@ -117,16 +117,27 @@ jaccard_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands,
         )
     }
 
-    names_in_both <- intersect(names(a), names(b))
+    if (!is.null(similarity_column)) {
+         similarities <- jaccard_similarity(
+                           pull(a[match_table[, 1],], by_a),
+                           pull(b[match_table[, 2],],by_b),
+                           n_gram_width
+        )
+    }
 
-    names(a)[names(a) %in% names_in_both] <-
-        paste0(names(a)[names(a) %in% names_in_both], ".x")
-    names(b)[names(b) %in% names_in_both] <-
-        paste0(names(b)[names(b) %in% names_in_both], ".y")
+    # Rename Columns in Both Tables
+    names_in_both <- intersect(names(a), names(b))
+    names(a)[names(a) %in% names_in_both] <- paste0(names(a)[names(a) %in% names_in_both], ".x")
+    names(b)[names(b) %in% names_in_both] <- paste0(names(b)[names(b) %in% names_in_both], ".y")
 
     matches <- dplyr::bind_cols(a[match_table[, 1], ], b[match_table[, 2], ])
     not_matched_a <- ! seq(nrow(a)) %in% match_table[,1]
     not_matched_b <- ! seq(nrow(b)) %in% match_table[,2]
+
+    if(!is.null(similarity_column)) {
+        matches[,similarity_column] <- similarities
+    }
+
 
     if (mode == "left") {
         matches <- dplyr::bind_rows(matches,a[not_matched_a,])
@@ -141,5 +152,6 @@ jaccard_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands,
     } else {
         stop("Invalid Mode Selected!")
     }
+
     return(matches)
 }
