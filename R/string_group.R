@@ -47,10 +47,12 @@
 #' jaccard_string_group(string, threshold = .2, n_bands=90, n_gram_width=1)
 #'
 #' @export
+#' @importFrom stats runif
+#' @importFrom utils installed.packages
 jaccard_string_group <- function(string, n_gram_width = 2, n_bands = 45, band_width = 8, threshold = .7, progress = FALSE) {
 
-    if (!"igraph" %in% rownames(installed.packages())) {
-            stop("library 'igraph' must be installed to run this package")
+    if (!"igraph" %in% rownames(utils::installed.packages())) {
+            stop("library 'igraph' must be installed to run this function")
     }
 
     pairs <- rust_jaccard_join(string,
@@ -60,7 +62,7 @@ jaccard_string_group <- function(string, n_gram_width = 2, n_bands = 45, band_wi
                            band_size = band_width,
                            threshold = threshold,
                            progress = progress,
-                           seed = round(runif(1,0,2^64))
+                           seed = round(stats::runif(1,0,2^64))
     )
 
 

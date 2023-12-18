@@ -103,6 +103,7 @@ euclidean_curve <- function(n_bands, band_width, r, up_to = 100) {
 #' @return a decimal number giving the proability that the two items will be
 #' returned as a candidate pair from the minihash algotithm.
 #'
+#' @importFrom stats pnorm
 #' @export
 euclidean_probability <- function(distance, n_bands, band_width, r) {
     p <- 1 - 2*pnorm(-r/distance) - 2/(sqrt(2*pi)*r/distance)*(1-exp(-(r^2/(2*distance^2))))
