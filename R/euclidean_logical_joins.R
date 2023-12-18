@@ -7,6 +7,13 @@
 #' @param by a named vector indicating which columns to join on. Format should
 #' be the same as dplyr: \code{by = c("column_name_in_df_a" = "column_name_in_df_b")}.
 #'
+#' @param n_bands the number of bands used in the LSH algorithm (default
+#' is 30). Use this in conjunction with the \code{band_width} to determine the
+#' performance of the hashing.
+#'
+#' @param band_width the length of each band used in the minihashing algorithm
+#' (default is 5) Use this in conjunction with the \code{n_bands} to determine
+#' the performance of the hashing.
 #'
 #' @param threshold the distance threshold below which units should be considered a match
 #'
@@ -54,7 +61,17 @@ euclidean_anti_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, ba
 #' be the same as dplyr: \code{by = c("column_name_in_df_a" = "column_name_in_df_b")}, but
 #' two columns must be specified in each dataset (x column and y column).
 #'
+#' @param n_bands the number of bands used in the LSH algorithm (default
+#' is 30). Use this in conjunction with the \code{band_width} to determine the
+#' performance of the hashing.
+#'
+#' @param band_width the length of each band used in the minihashing algorithm
+#' (default is 5) Use this in conjunction with the \code{n_bands} to determine
+#' the performance of the hashing.
+#'
 #' @param threshold the distance threshold below which units should be considered a match
+#'
+#' @param r the r hyperparameter used to govern the sensitivity of the locality sensitive hash, as described in
 #'
 #' @param progress set to `TRUE` to print progress
 #'
@@ -97,7 +114,17 @@ euclidean_inner_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, b
 #' be the same as dplyr: \code{by = c("column_name_in_df_a" = "column_name_in_df_b")}, but
 #' two columns must be specified in each dataset (x column and y column).
 #'
+#' @param n_bands the number of bands used in the LSH algorithm (default
+#' is 30). Use this in conjunction with the \code{band_width} to determine the
+#' performance of the hashing.
+#'
+#' @param band_width the length of each band used in the minihashing algorithm
+#' (default is 5) Use this in conjunction with the \code{n_bands} to determine
+#' the performance of the hashing.
+#'
 #' @param threshold the distance threshold below which units should be considered a match
+#'
+#' @param r the r hyperparameter used to govern the sensitivity of the locality sensitive hash, as described in
 #'
 #' @param progress set to `TRUE` to print progress
 #'
@@ -140,7 +167,17 @@ euclidean_left_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, ba
 #' be the same as dplyr: \code{by = c("column_name_in_df_a" = "column_name_in_df_b")}, but
 #' two columns must be specified in each dataset (x column and y column).
 #'
+#' @param n_bands the number of bands used in the LSH algorithm (default
+#' is 30). Use this in conjunction with the \code{band_width} to determine the
+#' performance of the hashing.
+#'
+#' @param band_width the length of each band used in the minihashing algorithm
+#' (default is 5) Use this in conjunction with the \code{n_bands} to determine
+#' the performance of the hashing.
+#'
 #' @param threshold the distance threshold below which units should be considered a match
+#'
+#' @param r the r hyperparameter used to govern the sensitivity of the locality sensitive hash, as described in
 #'
 #' @param progress set to `TRUE` to print progress
 #'
@@ -182,7 +219,17 @@ euclidean_right_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, b
 #' be the same as dplyr: \code{by = c("column_name_in_df_a" = "column_name_in_df_b")}, but
 #' two columns must be specified in each dataset (x column and y column).
 #'
+#' @param n_bands the number of bands used in the LSH algorithm (default
+#' is 30). Use this in conjunction with the \code{band_width} to determine the
+#' performance of the hashing.
+#'
+#' @param band_width the length of each band used in the minihashing algorithm
+#' (default is 5) Use this in conjunction with the \code{n_bands} to determine
+#' the performance of the hashing.
+#'
 #' @param threshold the distance threshold below which units should be considered a match
+#'
+#' @param r the r hyperparameter used to govern the sensitivity of the locality sensitive hash, as described in
 #'
 #' @param progress set to `TRUE` to print progress
 #'

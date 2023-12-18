@@ -27,6 +27,16 @@ two columns must be specified in each dataset (x column and y column).}
 
 \item{threshold}{the distance threshold below which units should be considered a match}
 
+\item{n_bands}{the number of bands used in the LSH algorithm (default
+is 30). Use this in conjunction with the \code{band_width} to determine the
+performance of the hashing.}
+
+\item{band_width}{the length of each band used in the minihashing algorithm
+(default is 5) Use this in conjunction with the \code{n_bands} to determine
+the performance of the hashing.}
+
+\item{r}{the r hyperparameter used to govern the sensitivity of the locality sensitive hash, as described in}
+
 \item{progress}{set to \code{TRUE} to print progress}
 }
 \value{

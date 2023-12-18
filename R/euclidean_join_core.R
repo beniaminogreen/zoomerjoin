@@ -20,6 +20,7 @@ multi_by_validate <- function(a,b, by) {
                 ))
 }
 
+#` @importFrom stats pnorm
 euclidean_join_core <- function (a, b, by = NULL, n_bands = 30, band_width = 10, threshold=1.0, r=.5, progress = FALSE, mode="inner") {
 
     stopifnot("'radius' must be greater than 0" = threshold > 0)
