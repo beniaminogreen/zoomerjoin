@@ -68,7 +68,7 @@ jaccard_string_group <- function(string, n_gram_width = 2, n_bands = 45, band_wi
     fc <- igraph::fastgreedy.community(igraph::as.undirected(graph))
 
     groups <- igraph::groups(fc)
-    lookup_table <- vapply(groups, function(x){x[[1]]}, integer(1))
+    lookup_table <- vapply(groups, "[[", integer(1), 1)
 
     membership <- igraph::membership(fc)
 
