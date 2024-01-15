@@ -46,7 +46,6 @@ test_that("Match Col Must be in the dataset and of length one", {
 })
 
 test_that("Jaccard: using dplyr::join_by() in the 'by' argument works", {
-        skip_if_not_installed("dplyr")
         expect_identical(
                 jaccard_inner_join(a, b, by = "string", band_width = 0.3),
                 jaccard_inner_join(a, b, by = dplyr::join_by(string), band_width = 0.3)
@@ -61,7 +60,6 @@ test_that("Jaccard: using dplyr::join_by() in the 'by' argument works", {
 })
 
 test_that("Euclidean: using dplyr::join_by() in the 'by' argument works", {
-        skip_if_not_installed("dplyr")
         n <- 10
 
         X_1 <- matrix(c(seq(0,1,1/(n-1)), seq(0,1,1/(n-1))), nrow=n)
