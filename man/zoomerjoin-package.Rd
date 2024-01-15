@@ -21,4 +21,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Beniamino Green \email{beniamino.green@yale.edu}
 
+Other contributors:
+\itemize{
+  \item Etienne Bacher \email{etienne.bacher@protonmail.com} [contributor]
 }
+
+}
+\keyword{internal}
