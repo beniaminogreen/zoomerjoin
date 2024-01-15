@@ -1,11 +1,12 @@
 #' Spatial Anti Join Using LSH
 #'
 #' @param a the first dataframe you wish to join.
-#' @param b the second dataframe
-#' you wish to join.
+#' @param b the second dataframe you wish to join.
 #'
 #' @param by a named vector indicating which columns to join on. Format should
-#' be the same as dplyr: \code{by = c("column_name_in_df_a" = "column_name_in_df_b")}.
+#' be the same as dplyr: \code{by = c("column_name_in_df_a" = "column_name_in_df_b")}, but
+#' two columns must be specified in each dataset (x column and y column). Specification
+#' made with `dplyr::join_by()` are also accepted.
 #'
 #'
 #' @param threshold the distance threshold below which units should be considered a match
@@ -89,17 +90,7 @@ euclidean_inner_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, b
 
 #' Spatial Left Join Using LSH
 #'
-#' @param a the first dataframe you wish to join.
-#' @param b the second dataframe
-#' you wish to join.
-#'
-#' @param by a named vector indicating which columns to join on. Format should
-#' be the same as dplyr: \code{by = c("column_name_in_df_a" = "column_name_in_df_b")}, but
-#' two columns must be specified in each dataset (x column and y column).
-#'
-#' @param threshold the distance threshold below which units should be considered a match
-#'
-#' @param progress set to `TRUE` to print progress
+#' @inheritParams euclidean_anti_join
 #'
 #' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
 #' to adhere to the same standards as the dplyr-joins, and uses the same
@@ -132,17 +123,7 @@ euclidean_left_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, ba
 
 #' Spatial Right Join Using LSH
 #'
-#' @param a the first dataframe you wish to join.
-#' @param b the second dataframe
-#' you wish to join.
-#'
-#' @param by a named vector indicating which columns to join on. Format should
-#' be the same as dplyr: \code{by = c("column_name_in_df_a" = "column_name_in_df_b")}, but
-#' two columns must be specified in each dataset (x column and y column).
-#'
-#' @param threshold the distance threshold below which units should be considered a match
-#'
-#' @param progress set to `TRUE` to print progress
+#' @inheritParams euclidean_anti_join
 #'
 #' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
 #' to adhere to the same standards as the dplyr-joins, and uses the same
@@ -174,17 +155,7 @@ euclidean_right_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, b
 
 #' Spatial Full Join Using LSH
 #'
-#' @param a the first dataframe you wish to join.
-#' @param b the second dataframe
-#' you wish to join.
-#'
-#' @param by a named vector indicating which columns to join on. Format should
-#' be the same as dplyr: \code{by = c("column_name_in_df_a" = "column_name_in_df_b")}, but
-#' two columns must be specified in each dataset (x column and y column).
-#'
-#' @param threshold the distance threshold below which units should be considered a match
-#'
-#' @param progress set to `TRUE` to print progress
+#' @inheritParams euclidean_anti_join
 #'
 #' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
 #' to adhere to the same standards as the dplyr-joins, and uses the same

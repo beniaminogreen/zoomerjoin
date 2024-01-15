@@ -1,14 +1,15 @@
 Package: zoomerjoin
 Title: Insanely fast fuzzy joins
 Version: 0.1.1
-Authors@R:
-    person("Beniamino", "Green", , "beniamino.green@yale.edu", role = c("aut", "cre")
-           )
+Authors@R: c(
+    person("Beniamino", "Green", , "beniamino.green@yale.edu", role = c("aut", "cre")),
+    person("Etienne", "Bacher", email = "etienne.bacher@protonmail.com", role = "ctb")
+    )
 Description: Zoomerjoin empowers users to fuzzily-merge dataframes with millions or tens of millions of rows in minuites with low memory usage.  The package uses two locality sensitive hashing algorithms to avoid having to compare every pair of records in each dataset, resulting in fuzzy-merges that finish in linear time.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.0
 SystemRequirements: Cargo (>= 1.56) (Rust's package manager), rustc
 Imports:
     dplyr,

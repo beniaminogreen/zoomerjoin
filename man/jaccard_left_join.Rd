@@ -23,9 +23,10 @@ jaccard_left_join(
 
 \item{b}{the second dataframe you wish to join.}
 
-\item{by}{a named vector indicating which columns to join on. Format
-should be the same as dplyr: \code{by = c("column_name_in_df_a" =
-"column_name_in_df_b")}}
+\item{by}{a named vector indicating which columns to join on. Format should
+be the same as dplyr: \code{by = c("column_name_in_df_a" = "column_name_in_df_b")}, but
+two columns must be specified in each dataset (x column and y column). Specification
+made with \code{dplyr::join_by()} are also accepted.}
 
 \item{block_by}{a named vector indicating which column to block on, such that
 rows that disagree on this field cannot be considered a match. Format should
@@ -58,7 +59,6 @@ should be considered a match (default is .95). The similarity is euqal to 1
 \item the jaccard distance between the two strings, so 1 implies the strings are
 identical, while a similarity of zero implies the strings are completely
 dissimilar.
-'
 }}
 
 \item{progress}{set to \code{TRUE} to print progress}

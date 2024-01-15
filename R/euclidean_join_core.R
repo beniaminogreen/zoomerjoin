@@ -1,4 +1,14 @@
 multi_by_validate <- function(a,b, by) {
+    # first pass to handle dplyr::join_by() call
+    if (inherits(by, "dplyr_join_by")) {
+        if (any(by$condition != "==")) {
+            stop("Inequality joins are not supported.")
+        }
+        new_by <- by$y
+        names(new_by) <- by$x
+        by <- new_by
+    }
+
     if (is.null(by)) {
         by_a <- intersect(names(a), names(b))
         by_b <- intersect(names(a), names(b))

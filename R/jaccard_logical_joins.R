@@ -5,8 +5,9 @@
 #' @param b the second dataframe you wish to join.
 #'
 #' @param by a named vector indicating which columns to join on. Format should
-#' be the same as dplyr: \code{by = c("column_name_in_df_a" =
-#' "column_name_in_df_b")}
+#' be the same as dplyr: \code{by = c("column_name_in_df_a" = "column_name_in_df_b")}, but
+#' two columns must be specified in each dataset (x column and y column). Specification
+#' made with `dplyr::join_by()` are also accepted.
 #'
 #' @param block_by a named vector indicating which column to block on, such that
 #' rows that disagree on this field cannot be considered a match. Format should
@@ -101,52 +102,7 @@ jaccard_inner_join <- function(a, b,
 
 #' Fuzzy anti-join using minihashing
 #'
-#' @param a the first dataframe you wish to join.
-#' @param b the second dataframe you wish to join.
-#'
-#' @param by a named vector indicating which columns to join on. Format
-#' should be the same as dplyr: \code{by = c("column_name_in_df_a" =
-#' "column_name_in_df_b")}
-#'
-#' @param block_by a named vector indicating which column to block on, such that
-#' rows that disagree on this field cannot be considered a match. Format should
-#' be the same as dplyr: \code{by = c("column_name_in_df_a" =
-#' "column_name_in_df_b")}
-#'
-#' @param n_gram_width the length of the n_grams used in calculating the
-#' jaccard similarity. For best performance, I set this large enough that the
-#' chance any string has a specific n_gram is low (i.e. \code{n_gram_width} = 2
-#' or 3 when matching on first names, 5 or 6 when matching on entire
-#' sentences).
-#'
-#' @param n_bands the number of bands used in the minihash algorithm (default
-#' is 40). Use this in conjunction with the \code{band_width} to determine the
-#' performance of the hashing. The default settings are for a
-#' (.2,.8,.001,.999)-sensitive hash i.e. that pairs with a similarity of less
-#' than .2 have a >.1% chance of being compared, while pairs with a similarity
-#' of greater than .8 have a >99.9% chance of being compared.
-#'
-#' @param band_width the length of each band used in the minihashing algorithm
-#' (default is 8) Use this in conjunction with the \code{n_bands} to determine
-#' the performance of the hashing. The default settings are for a
-#' (.2,.8,.001,.999)-sensitive hash i.e. that pairs with a similarity of less
-#' than .2 have a >.1% chance of being compared, while pairs with a similarity
-#' of greater than .8 have a >99.9% chance of being compared.
-#'
-#' @param threshold the jaccard similarity threshold above which two strings
-#' should be considered a match (default is .95). The similarity is euqal to 1
-#' - the jaccard distance between the two strings, so 1 implies the strings are
-#' identical, while a similarity of zero implies the strings are completely
-#' dissimilar.
-#'
-#' @param clean should the strings that you fuzzy join on be cleaned (coerced
-#' to lower-case, stripped of punctuation and spaces)? Default is FALSE
-#'
-#' @param progress set to `TRUE` to print progress
-#'
-#' @param similarity_column an optional character vector. If provided, the data
-#' frame will contain a column with this name giving the jaccard similarity
-#' between the two fields. Extra column will not be present if anti-joining.
+#' @inheritParams jaccard_inner_join
 #'
 #' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
 #' to adhere to the same standards as the dplyr-joins, and uses the same
@@ -197,52 +153,7 @@ jaccard_anti_join <- function(a, b,
 
 #' Fuzzy left-join using minihashing
 #'
-#' @param a the first dataframe you wish to join.
-#' @param b the second dataframe you wish to join.
-#'
-#' @param by a named vector indicating which columns to join on. Format
-#' should be the same as dplyr: \code{by = c("column_name_in_df_a" =
-#' "column_name_in_df_b")}
-#'
-#' @param block_by a named vector indicating which column to block on, such that
-#' rows that disagree on this field cannot be considered a match. Format should
-#' be the same as dplyr: \code{by = c("column_name_in_df_a" =
-#' "column_name_in_df_b")}
-#'
-#' @param n_gram_width the length of the n_grams used in calculating the
-#' jaccard similarity. For best performance, I set this large enough that the
-#' chance any string has a specific n_gram is low (i.e. \code{n_gram_width} = 2
-#' or 3 when matching on first names, 5 or 6 when matching on entire
-#' sentences).
-#'
-#' @param n_bands the number of bands used in the minihash algorithm (default
-#' is 40). Use this in conjunction with the \code{band_width} to determine the
-#' performance of the hashing. The default settings are for a
-#' (.2,.8,.001,.999)-sensitive hash i.e. that pairs with a similarity of less
-#' than .2 have a >.1% chance of being compared, while pairs with a similarity
-#' of greater than .8 have a >99.9% chance of being compared.
-#'
-#' @param band_width the length of each band used in the minihashing algorithm
-#' (default is 8) Use this in conjunction with the \code{n_bands} to determine
-#' the performance of the hashing. The default settings are for a
-#' (.2,.8,.001,.999)-sensitive hash i.e. that pairs with a similarity of less
-#' than .2 have a >.1% chance of being compared, while pairs with a similarity
-#' of greater than .8 have a >99.9% chance of being compared.
-#'
-#' @param threshold the jaccard similarity threshold above which two strings
-#' should be considered a match (default is .95). The similarity is euqal to 1
-#' - the jaccard distance between the two strings, so 1 implies the strings are
-#' identical, while a similarity of zero implies the strings are completely
-#' dissimilar.
-#' '
-#' @param clean should the strings that you fuzzy join on be cleaned (coerced
-#' to lower-case, stripped of punctuation and spaces)? Default is FALSE
-#'
-#' @param progress set to `TRUE` to print progress
-#'
-#' @param similarity_column an optional character vector. If provided, the data
-#' frame will contain a column with this name giving the jaccard similarity
-#' between the two fields. Extra column will not be present if anti-joining.
+#' @inheritParams jaccard_inner_join
 #'
 #' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
 #' to adhere to the same standards as the dplyr-joins, and uses the same
@@ -297,52 +208,7 @@ jaccard_left_join <- function(a, b,
 
 #' Fuzzy right-join using minihashing
 #'
-#' @param a the first dataframe you wish to join.
-#' @param b the second dataframe you wish to join.
-#'
-#' @param by a named vector indicating which columns to join on. Format
-#' should be the same as dplyr: \code{by = c("column_name_in_df_a" =
-#' "column_name_in_df_b")}
-#'
-#' @param block_by a named vector indicating which column to block on, such that
-#' rows that disagree on this field cannot be considered a match. Format should
-#' be the same as dplyr: \code{by = c("column_name_in_df_a" =
-#' "column_name_in_df_b")}
-#'
-#' @param n_gram_width the length of the n_grams used in calculating the
-#' jaccard similarity. For best performance, I set this large enough that the
-#' chance any string has a specific n_gram is low (i.e. \code{n_gram_width} = 2
-#' or 3 when matching on first names, 5 or 6 when matching on entire
-#' sentences).
-#'
-#' @param n_bands the number of bands used in the minihash algorithm (default
-#' is 40). Use this in conjunction with the \code{band_width} to determine the
-#' performance of the hashing. The default settings are for a
-#' (.2,.8,.001,.999)-sensitive hash i.e. that pairs with a similarity of less
-#' than .2 have a >.1% chance of being compared, while pairs with a similarity
-#' of greater than .8 have a >99.9% chance of being compared.
-#'
-#' @param band_width the length of each band used in the minihashing algorithm
-#' (default is 8) Use this in conjunction with the \code{n_bands} to determine
-#' the performance of the hashing. The default settings are for a
-#' (.2,.8,.001,.999)-sensitive hash i.e. that pairs with a similarity of less
-#' than .2 have a >.1% chance of being compared, while pairs with a similarity
-#' of greater than .8 have a >99.9% chance of being compared.
-#'
-#' @param threshold the jaccard similarity threshold above which two strings
-#' should be considered a match (default is .95). The similarity is euqal to 1
-#' - the jaccard distance between the two strings, so 1 implies the strings are
-#' identical, while a similarity of zero implies the strings are completely
-#' dissimilar.
-#' '
-#' @param clean should the strings that you fuzzy join on be cleaned (coerced
-#' to lower-case, stripped of punctuation and spaces)? Default is FALSE
-#'
-#' @param progress set to `TRUE` to print progress
-#'
-#' @param similarity_column an optional character vector. If provided, the data
-#' frame will contain a column with this name giving the jaccard similarity
-#' between the two fields. Extra column will not be present if anti-joining.
+#' @inheritParams jaccard_inner_join
 #'
 #' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
 #' to adhere to the same standards as the dplyr-joins, and uses the same
@@ -397,52 +263,7 @@ jaccard_right_join <- function(a, b,
 
 #' Fuzzy full-join using minihashing
 #'
-#' @param a the first dataframe you wish to join.
-#' @param b the second dataframe you wish to join.
-#'
-#' @param by a named vector indicating which columns to join on. Format
-#' should be the same as dplyr: \code{by = c("column_name_in_df_a" =
-#' "column_name_in_df_b")}
-#'
-#' @param block_by a named vector indicating which column to block on, such that
-#' rows that disagree on this field cannot be considered a match. Format should
-#' be the same as dplyr: \code{by = c("column_name_in_df_a" =
-#' "column_name_in_df_b")}
-#'
-#' @param n_gram_width the length of the n_grams used in calculating the
-#' jaccard similarity. For best performance, I set this large enough that the
-#' chance any string has a specific n_gram is low (i.e. \code{n_gram_width} = 2
-#' or 3 when matching on first names, 5 or 6 when matching on entire
-#' sentences).
-#'
-#' @param n_bands the number of bands used in the minihash algorithm (default
-#' is 40). Use this in conjunction with the \code{band_width} to determine the
-#' performance of the hashing. The default settings are for a
-#' (.2,.8,.001,.999)-sensitive hash i.e. that pairs with a similarity of less
-#' than .2 have a >.1% chance of being compared, while pairs with a similarity
-#' of greater than .8 have a >99.9% chance of being compared.
-#'
-#' @param band_width the length of each band used in the minihashing algorithm
-#' (default is 8) Use this in conjunction with the \code{n_bands} to determine
-#' the performance of the hashing. The default settings are for a
-#' (.2,.8,.001,.999)-sensitive hash i.e. that pairs with a similarity of less
-#' than .2 have a >.1% chance of being compared, while pairs with a similarity
-#' of greater than .8 have a >99.9% chance of being compared.
-#'
-#' @param threshold the jaccard similarity threshold above which two strings
-#' should be considered a match (default is .95). The similarity is euqal to 1
-#' - the jaccard distance between the two strings, so 1 implies the strings are
-#' identical, while a similarity of zero implies the strings are completely
-#' dissimilar.
-#' '
-#' @param clean should the strings that you fuzzy join on be cleaned (coerced
-#' to lower-case, stripped of punctuation and spaces)? Default is FALSE
-#'
-#' @param progress set to `TRUE` to print progress
-#'
-#' @param similarity_column an optional character vector. If provided, the data
-#' frame will contain a column with this name giving the jaccard similarity
-#' between the two fields. Extra column will not be present if anti-joining.
+#' @inheritParams jaccard_inner_join
 #'
 #' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
 #' to adhere to the same standards as the dplyr-joins, and uses the same
