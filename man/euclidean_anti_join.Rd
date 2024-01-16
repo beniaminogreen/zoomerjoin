@@ -18,11 +18,12 @@ euclidean_anti_join(
 \arguments{
 \item{a}{the first dataframe you wish to join.}
 
-\item{b}{the second dataframe
-you wish to join.}
+\item{b}{the second dataframe you wish to join.}
 
 \item{by}{a named vector indicating which columns to join on. Format should
-be the same as dplyr: \code{by = c("column_name_in_df_a" = "column_name_in_df_b")}.}
+be the same as dplyr: \code{by = c("column_name_in_df_a" = "column_name_in_df_b")}, but
+two columns must be specified in each dataset (x column and y column). Specification
+made with \code{dplyr::join_by()} are also accepted.}
 
 \item{threshold}{the distance threshold below which units should be considered a match}
 
