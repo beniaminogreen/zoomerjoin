@@ -1,0 +1,30 @@
+cff-version: "1.2.0"
+authors:
+- family-names: Green
+  given-names: Beniamino
+  orcid: "https://orcid.org/0009-0006-4501-597X"
+contact:
+- family-names: Green
+  given-names: Beniamino
+  orcid: "https://orcid.org/0009-0006-4501-597X"
+doi: 10.5281/zenodo.8370652
+message: If you use this software, please cite our article in the
+  Journal of Open Source Software.
+preferred-citation:
+  authors:
+  - family-names: Green
+    given-names: Beniamino
+    orcid: "https://orcid.org/0009-0006-4501-597X"
+  date-published: 2023-09-26
+  doi: 10.21105/joss.05693
+  issn: 2475-9066
+  issue: 89
+  journal: Journal of Open Source Software
+  publisher:
+    name: Open Journals
+  start: 5693
+  title: "Zoomerjoin: Superlatively-Fast Fuzzy Joins"
+  type: article
+  url: "https://joss.theoj.org/papers/10.21105/joss.05693"
+  volume: 8
+title: "Zoomerjoin: Superlatively-Fast Fuzzy Joins"
