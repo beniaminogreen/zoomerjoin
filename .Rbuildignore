@@ -5,3 +5,9 @@
 ^\.github$
 ^codecov\.yml$
 ^codemeta\.json$
+CITATION.cff
+CONTRIBUTING.md
+logo.png
+README.Rmd
+README.html
+media/
