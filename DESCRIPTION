@@ -1,11 +1,11 @@
 Package: zoomerjoin
-Title: Insanely fast fuzzy joins
+Title: Superlatively Fast Fuzzy Joins
 Version: 0.1.1
 Authors@R: c(
     person("Beniamino", "Green", , "beniamino.green@yale.edu", role = c("aut", "cre")),
     person("Etienne", "Bacher", email = "etienne.bacher@protonmail.com", role = "ctb")
     )
-Description: Zoomerjoin empowers users to fuzzily-merge dataframes with millions or tens of millions of rows in minuites with low memory usage.  The package uses two locality sensitive hashing algorithms to avoid having to compare every pair of records in each dataset, resulting in fuzzy-merges that finish in linear time.
+Description: This package empowers users to fuzzily-merge data frames with millions or tens of millions of rows in minutes with low memory usage.  The package uses two locality sensitive hashing algorithms to avoid having to compare every pair of records in each dataset, resulting in fuzzy-merges that finish in linear time.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -35,5 +35,5 @@ VignetteBuilder: knitr
 Depends:
     R (>= 2.10)
 LazyData: true
-LazyDataCompression:xz
-Config/rextendr/version: 0.3.0
+LazyDataCompression: xz
+Config/rextendr/version: 0.3.1.9000

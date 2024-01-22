@@ -126,7 +126,7 @@ fuzzy-joins for points or vectors using the Euclidean distance.
 Here's a snippet showing off how to use the `lhs_inner_join()` merge two
 datasets of political donors in the [Database on Ideology, Money in Politics,
 and Elections (DIME)](https://data.stanford.edu/dime). You can see a more
-detailed example of this vignette in the [introductory vignette](https://beniaminogreen.github.io/zoomerjoin/articles/guided_tour.html).
+detailed example of this vignette in the [introductory vignette](https://beniamino.org/zoomerjoin/articles/guided_tour.html).
 
 I start with two corpuses I would like to combine, `corpus_1`:
 
@@ -160,7 +160,7 @@ true match being discovered is less than 95%. You can use the
 probability any true matches will be discarded by the algorithm.
 
 More details and a more thorough description of how to tune the hyperparameters can be can be found
-in the [guided tour vignette](https://beniaminogreen.github.io/zoomerjoin/articles/guided_tour.html).
+in the [guided tour vignette](https://beniamino.org/zoomerjoin/articles/guided_tour.html).
 
 ```{r}
 set.seed(1)

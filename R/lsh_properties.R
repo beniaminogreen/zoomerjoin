@@ -36,9 +36,9 @@ jaccard_curve <- function(n_bands, band_width) {
 #' Find Probability of Match Based on Similarity
 #'
 #' This is a port of the
-#' [jaccard_probability](https://docs.ropensci.org/textreuse/reference/jaccard_probability.html)
+#' [lsh_probability](https://docs.ropensci.org/textreuse/reference/lsh_probability.html)
 #' function from the
-#' [textreuse](https://cran.r-project.org/web/packages/textreuse/index.html)
+#' [textreuse](https://cran.r-project.org/package=textreuse)
 #' package, with arguments changed to reflect the hyperparameters in this
 #' package. It gives the probability that two strings of jaccard similarity
 #' `similarity` will be matched, given the chosen bandwidth and number of
