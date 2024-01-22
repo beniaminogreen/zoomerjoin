@@ -25,8 +25,8 @@ join datasets of hundreds of millions of names in a few hours.
 ### Installing from CRAN:
 
 You can install from the CRAN as you would with any other package.
-Please be aware that you will have to have Cargo (the rust compiler)
-installed to build the package from source.
+Please be aware that you will have to have Cargo (the rust toolchain and
+compiler) installed to build the package from source.
 
 ``` r
 install.packages(zoomerjoin)
@@ -142,7 +142,7 @@ names(corpus_1) <- c("a", "field")
 corpus_1
 ```
 
-    ## # A tibble: 500,000 × 2
+    ## # A tibble: 100,000 × 2
     ##        a field                                                                  
     ##    <dbl> <chr>                                                                  
     ##  1     1 ufwa cope committee                                                    
@@ -155,7 +155,7 @@ corpus_1
     ##  8     8 minnesota gun owners' political victory fund                           
     ##  9     9 metropolitan detroit afl cio cope committee                            
     ## 10    10 carpenters legislative improvement committee united brotherhood of car…
-    ## # ℹ 499,990 more rows
+    ## # ℹ 99,990 more rows
 
 And `corpus_2`:
 
@@ -166,20 +166,20 @@ names(corpus_2) <- c("b", "field")
 corpus_2
 ```
 
-    ## # A tibble: 500,000 × 2
-    ##         b field                               
-    ##     <dbl> <chr>                               
-    ##  1 832471 avrp studios inc                    
-    ##  2 832472 avrd design                         
-    ##  3 832473 avenales cattle co                  
-    ##  4 832474 auto dealers of michigan political a
-    ##  5 832475 atty & counselor at law             
-    ##  6 832476 at&t united way                     
-    ##  7 832477 ashland food & liquors              
-    ##  8 832478 arvance turkey ranch inc            
-    ##  9 832479 arizona federation of teachers      
-    ## 10 832480 arianas restaurant                  
-    ## # ℹ 499,990 more rows
+    ## # A tibble: 100,000 × 2
+    ##        b field                                                                  
+    ##    <dbl> <chr>                                                                  
+    ##  1     1 ufwa cope committee                                                    
+    ##  2     2 committee to re elect charles e. bennett                               
+    ##  3     3 montana democratic party non federal account                           
+    ##  4     4 mississippi power & light company management political action and educ…
+    ##  5     5 napus pac for postmasters                                              
+    ##  6     6 aminoil good government fund                                           
+    ##  7     7 national women's political caucus of california                        
+    ##  8     8 minnesota gun owners' political victory fund                           
+    ##  9     9 metropolitan detroit afl cio cope committee                            
+    ## 10    10 carpenters legislative improvement committee united brotherhood of car…
+    ## # ℹ 99,990 more rows
 
 Both corpuses have an observation ID column, and a donor name column. We
 would like to join the two datasets on the donor names column, but the
@@ -216,26 +216,26 @@ join_out <- jaccard_inner_join(corpus_1, corpus_2, n_gram_width=6, n_bands=20, b
 print(Sys.time() - start_time)
 ```
 
-    ## Time difference of 5.489858 secs
+    ## Time difference of 0.9200411 secs
 
 ``` r
 print(join_out)
 ```
 
-    ## # A tibble: 190,943 × 4
-    ##         a field.x                                                   b field.y   
-    ##     <dbl> <chr>                                                 <dbl> <chr>     
-    ##  1  65765 the california republican assembly ie comm           890766 the calif…
-    ##  2 388949 penguin supermarkets inc                            1102956 penguin s…
-    ##  3 397348 young democrats of america-va                       1113615 young dem…
-    ##  4 311162 r & m enterprises                                   1267056 l & m ent…
-    ##  5 386467 se associates                                       1244225 nge assoc…
-    ##  6 301282 hm enterprises                                      1127791 l&m enter…
-    ##  7 266757 stantec consulting services inc                     1199255 stantec c…
-    ##  8  59934 democratic state central committee of california fl  923162 democatic…
-    ##  9 232602 h enterprises llc                                   1274307 lad enter…
-    ## 10  70965 the pac of the american staffing assoc               905272 pac of th…
-    ## # ℹ 190,933 more rows
+    ## # A tibble: 213,218 × 4
+    ##        a field.x                                                       b field.y
+    ##    <dbl> <chr>                                                     <dbl> <chr>  
+    ##  1  1733 nussle for congress                                        1733 nussle…
+    ##  2 35539 big apple wrecking & construct                            35539 big ap…
+    ##  3 30729 fit development lp                                        30729 fit de…
+    ##  4 53451 tom ammiano for assembly 2010                             52053 tom am…
+    ##  5 84615 electrical workers local 716                              94432 electr…
+    ##  6 39228 electrical workers local 363                              96173 electr…
+    ##  7 99572 casey for treasurer cmte                                  99572 casey …
+    ##  8 50990 afscme local 3634                                         18086 afscme…
+    ##  9 74858 bolt farrell, kevin anthony                               74858 bolt f…
+    ## 10 71895 international brotherhood of electrical workers local un… 54279 intern…
+    ## # ℹ 213,208 more rows
 
 ZoomerJoin finds and joins on the matching rows in just a few seconds.
 

@@ -2,19 +2,39 @@
   "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "identifier": "zoomerjoin",
-  "description": "Zoomerjoin empowers users to fuzzily-merge dataframes with millions or tens of millions of rows in minuites with low memory usage. The package uses the MinHash algorithm invented by Broder (1997) <doi:10.1109/SEQUEN.1997.666900> to avoid having to compare every pair of records in each dataset, resulting in fuzzy-merges that finish in linear time. As a secondary feature, the package also wraps the rust kdtree crate to provide euclidian-distance joins that finish in linearithmic time.",
-  "name": "zoomerjoin: Insanely fast fuzzy joins",
-  "codeRepository": "https://github.com/beniaminogreen/zoomerjoin",
+  "description": "Empowers users to fuzzily-merge data frames with millions or tens of millions of rows in minutes with low memory usage. The package uses two locality sensitive hashing algorithms to avoid having to compare every pair of records in each dataset, resulting in fuzzy-merges that finish in linear time.",
+  "name": "zoomerjoin: Superlatively Fast Fuzzy Joins",
+  "codeRepository": "https://beniamino.org/zoomerjoin/",
   "issueTracker": "https://github.com/beniaminogreen/zoomerjoin/issues/",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.0.9000",
+  "version": "0.1.2",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.2.2 (2022-10-31)",
+  "runtimePlatform": "R version 4.3.1 (2023-06-16)",
   "author": [
+    {
+      "@type": "Person",
+      "givenName": "Beniamino",
+      "familyName": "Green",
+      "email": "beniamino.green@yale.edu"
+    }
+  ],
+  "contributor": [
+    {
+      "@type": "Person",
+      "givenName": "Etienne",
+      "familyName": "Bacher",
+      "email": "etienne.bacher@protonmail.com"
+    },
+    {
+      "@type": "Organization",
+      "name": "The authors of the dependency Rust crates"
+    }
+  ],
+  "copyrightHolder": [
     {
       "@type": "Person",
       "givenName": "Beniamino",
@@ -33,6 +53,18 @@
   "softwareSuggestions": [
     {
       "@type": "SoftwareApplication",
+      "identifier": "arrow",
+      "name": "arrow",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=arrow"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "babynames",
       "name": "babynames",
       "provider": {
@@ -42,6 +74,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=babynames"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "covr",
+      "name": "covr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=covr"
     },
     {
       "@type": "SoftwareApplication",
@@ -57,15 +101,15 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "stringdist",
-      "name": "stringdist",
+      "identifier": "igraph",
+      "name": "igraph",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
         "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
       },
-      "sameAs": "https://CRAN.R-project.org/package=stringdist"
+      "sameAs": "https://CRAN.R-project.org/package=igraph"
     },
     {
       "@type": "SoftwareApplication",
@@ -81,6 +125,18 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "microbenchmark",
+      "name": "microbenchmark",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=microbenchmark"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "rmarkdown",
       "name": "rmarkdown",
       "provider": {
@@ -90,6 +146,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "stringdist",
+      "name": "stringdist",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=stringdist"
     },
     {
       "@type": "SoftwareApplication",
@@ -118,39 +186,15 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "microbenchmark",
-      "name": "microbenchmark",
+      "identifier": "purrr",
+      "name": "purrr",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
         "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
       },
-      "sameAs": "https://CRAN.R-project.org/package=microbenchmark"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "arrow",
-      "name": "arrow",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=arrow"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "covr",
-      "name": "covr",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=covr"
+      "sameAs": "https://CRAN.R-project.org/package=purrr"
     }
   ],
   "softwareRequirements": {
@@ -178,12 +222,27 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=tibble"
     },
+    "3": {
+      "@type": "SoftwareApplication",
+      "identifier": "tidyr",
+      "name": "tidyr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=tidyr"
+    },
+    "4": {
+      "@type": "SoftwareApplication",
+      "identifier": "R",
+      "name": "R",
+      "version": ">= 2.10"
+    },
     "SystemRequirements": "Cargo (>= 1.56) (Rust's package manager), rustc"
   },
-  "fileSize": "1017853.428KB",
-  "relatedLink": "https://beniaminogreen.github.io/zoomerjoin/",
-  "readme": "https://github.com/beniaminogreen/zoomerjoin/blob/main/README.md",
+  "fileSize": "225421.347KB",
   "contIntegration": "https://app.codecov.io/gh/beniaminogreen/zoomerjoin?branch=main",
-  "developmentStatus": "https://lifecycle.r-lib.org/articles/stages.html#experimental",
-  "keywords": ["fuzzyjoin", "zoomer", "blazinglyfast", "rust", "r", "join", "r-package", "rstats"]
+  "developmentStatus": "https://lifecycle.r-lib.org/articles/stages.html#experimental"
 }

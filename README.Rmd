@@ -35,7 +35,7 @@ of millions of names in a few hours.
 ### Installing from CRAN:
 
 You can install from the CRAN as you would with any other package. Please be
-aware that you will have to have Cargo (the rust compiler) installed to build
+aware that you will have to have Cargo (the rust toolchain and compiler) installed to build
 the package from source.
 
 ```r

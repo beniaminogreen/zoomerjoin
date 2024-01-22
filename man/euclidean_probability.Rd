@@ -18,7 +18,7 @@ compare.}
 }
 \value{
 a decimal number giving the proability that the two items will be
-returned as a candidate pair from the minihash algotithm.
+returned as a candidate pair from the minihash algorithm.
 }
 \description{
 Find Probability of Match Based on Similarity

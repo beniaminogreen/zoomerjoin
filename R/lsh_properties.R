@@ -50,8 +50,8 @@ jaccard_curve <- function(n_bands, band_width) {
 #'
 #' @param band_width The number of hashes in each band.
 #'
-#' @return a decimal number giving the proability that the two items will be
-#' returned as a candidate pair from the minihash algotithm.
+#' @return a decimal number giving the probability that the two items will be
+#' returned as a candidate pair from the minhash algorithm.
 #'
 #' @examples
 #' # Find the probability two pairs will be matched given they have a
@@ -101,7 +101,7 @@ euclidean_curve <- function(n_bands, band_width, r, up_to = 100) {
 #' @param r the "r" hyperparameter used to govern the sensitivity of the hash.
 #'
 #' @return a decimal number giving the proability that the two items will be
-#' returned as a candidate pair from the minihash algotithm.
+#' returned as a candidate pair from the minihash algorithm.
 #'
 #' @importFrom stats pnorm
 #' @export
@@ -112,7 +112,7 @@ euclidean_probability <- function(distance, n_bands, band_width, r) {
 }
 
 
-#' Help Choose the Appropriate LSH Hyperparamaters
+#' Help Choose the Appropriate LSH Hyperparameters
 #'
 #' Runs a grid search to find the hyperparameters that will achieve an
 #' (s1,s2,p1,p2)-sensitive locality sensitive hash. A locality sensitive hash
@@ -123,9 +123,9 @@ euclidean_probability <- function(distance, n_bands, band_width, r) {
 #' similarity less than .1 will have a .1% chance of being compared, while
 #' strings with .7 similarity have a 99.9% chance of being compared.
 #'
-#' @param s1  the s1 paramater (the first similaity).
+#' @param s1  the s1 parameter (the first similaity).
 #' @param s2  the s2 parameter (the second similarity, must be greater than s1).
-#' @param p1  the p1 paramater (the first probability).
+#' @param p1  the p1 parameter (the first probability).
 #' @param p2  the p2 parameter (the second probability, must be greater than p1).
 #'
 #' @return a named vector with the hyperparameters that will meet the LSH

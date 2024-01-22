@@ -14,8 +14,8 @@ jaccard_probability(similarity, n_bands, band_width)
 \item{band_width}{The number of hashes in each band.}
 }
 \value{
-a decimal number giving the proability that the two items will be
-returned as a candidate pair from the minihash algotithm.
+a decimal number giving the probability that the two items will be
+returned as a candidate pair from the minhash algorithm.
 }
 \description{
 This is a port of the

@@ -18,7 +18,7 @@ observations in a matter of minutes.
 ## How Does it Work?
 
 Zoomerjoin's blazingly fast joins for the string distance are made possible by
-an optimized, performant implimentation of the
+an optimized, performant implementation of the
 [MinHash](https://en.wikipedia.org/wiki/MinHash) algorithm written in Rust.
 
 While most conventional joining packages compare the all pairs of records in
@@ -97,7 +97,7 @@ can help select these parameters for you given the properties of the LSH you
 desire.
 
 As an example, you can use the `jaccard_curve()` function to plot the probability
-that a pair of records are compared at each possible jaccard distance, $d$
+that a pair of records are compared at each possible Jaccard distance, $d$
 between zero and one:
 
 ```{r}
@@ -107,11 +107,11 @@ jaccard_curve(20,6)
 By looking at the plot produced, we can see that using these hyperparameters,
 comparisons will almost never be made between pairs of records that have a
 Jaccard similarity of less than .2 (saving time), pairs of records that have a
-Jaccard similarity of greater than .8 are amost always compared (giving a low
+Jaccard similarity of greater than .8 are almost always compared (giving a low
 false-negative rate).
 
 For more details about the hyperparameters, the `textreuse` package has an
-excellent vignette, and zoomerjoin provides a re-implimentation of its
+excellent vignette, and zoomerjoin provides a re-implementation of its
 profiling tools, `jaccard_probability,` and `jaccard_bandwidth` (although the
 implementations differ slightly as the hyperparameters in each package are
 different).
@@ -125,7 +125,7 @@ all observations that have a similar value of the merging variable. The
 `jaccard_string_group()` function makes this possible. It first performs locality
 sensitive hashing to identify similar pairs of observations within the dataset,
 and then runs a community detection algorithm to identify clusters of similar
-observations, which are each assinged a label. The community-detection
+observations, which are each assigned a label. The community-detection
 algorithm, `fastgreedy.community()` from the `igraph` package runs in log-linear
 time, so the entire algorithm completes in linearithmic time.
 
