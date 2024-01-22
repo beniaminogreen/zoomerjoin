@@ -14,3 +14,4 @@ media/
 ^src/rust/vendor$
 ^src/vendor$
 update_authors.R
+^cran-comments\.md$

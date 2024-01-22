@@ -32,6 +32,17 @@ of millions of names in a few hours.
 
 ## Installation
 
+### Installing from CRAN:
+
+You can install from the CRAN as you would with any other package. Please be
+aware that you will have to have Cargo (the rust compiler) installed to build
+the package from source.
+
+```r
+install.packages(zoomerjoin)
+```
+
+
 ### Installing from R-Universe:
 
 This package is distributed using [r-universe](https://r-universe.dev/search/),

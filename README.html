@@ -618,15 +618,20 @@ datasets days, or even years faster than other matching packages.
 zoomerjoin has been used in-production to join datasets of hundreds of
 millions of names in a few hours.</p>
 <h2 id="installation">Installation</h2>
+<h3 id="installing-from-cran">Installing from CRAN:</h3>
+<p>You can install from the CRAN as you would with any other package.
+Please be aware that you will have to have Cargo (the rust compiler)
+installed to build the package from source.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(zoomerjoin)</span></code></pre></div>
 <h3 id="installing-from-r-universe">Installing from R-Universe:</h3>
 <p>This package is distributed using <a href="https://r-universe.dev/search/">r-universe</a>, which provides
 pre-compiled binaries for common operating systems and recent versions
 of R. To install with r-universe, you can use the following command in
 R:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  <span class="st">&#39;zoomerjoin&#39;</span>,</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="at">repos =</span> <span class="fu">c</span>(<span class="st">&#39;https://beniaminogreen.r-universe.dev&#39;</span>, <span class="fu">getOption</span>(<span class="st">&quot;repos&quot;</span>))</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">install.packages</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="st">&#39;zoomerjoin&#39;</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="at">repos =</span> <span class="fu">c</span>(<span class="st">&#39;https://beniaminogreen.r-universe.dev&#39;</span>, <span class="fu">getOption</span>(<span class="st">&quot;repos&quot;</span>))</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>)</span></code></pre></div>
 <h3 id="installing-rust">Installing Rust</h3>
 <p>If your operating system or version of R is not installed, you must
 have the <a href="https://www.rust-lang.org/tools/install">Rust
@@ -637,7 +642,7 @@ uninstalled.</p>
 Mac:</h4>
 <p>To install Rust on Linux or Mac, you can simply run the following
 snippet in your terminal.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">curl</span> <span class="at">--proto</span> <span class="st">&#39;=https&#39;</span> <span class="at">--tlsv1.2</span> <span class="at">-sSf</span> https://sh.rustup.rs <span class="kw">|</span> <span class="fu">sh</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">curl</span> <span class="at">--proto</span> <span class="st">&#39;=https&#39;</span> <span class="at">--tlsv1.2</span> <span class="at">-sSf</span> https://sh.rustup.rs <span class="kw">|</span> <span class="fu">sh</span></span></code></pre></div>
 <h4 id="installing-rust-on-windows">Installing Rust on Windows:</h4>
 <p>To install Rust on windows, you can use the Rust installation wizard,
 <code>rustup-init.exe</code>, found <a href="https://forge.rust-lang.org/infra/other-installation-methods.html">at
@@ -656,17 +661,17 @@ package with either the install.packages function as above, or using the
 <code>install_github</code> function from the <code>devtools</code>
 package or with the <code>pkg_install</code> function from the
 <code>pak</code> package.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="do">## Install with devtools</span></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co"># install.packages(&quot;devtools&quot;)</span></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;beniaminogreen/zoomerjoin&quot;</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="do">## Install with pak</span></span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co"># install.packages(&quot;pak&quot;)</span></span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">&quot;beniaminogreen/zoomerjoin&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="do">## Install with devtools</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co"># install.packages(&quot;devtools&quot;)</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;beniaminogreen/zoomerjoin&quot;</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="do">## Install with pak</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co"># install.packages(&quot;pak&quot;)</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">&quot;beniaminogreen/zoomerjoin&quot;</span>)</span></code></pre></div>
 <h3 id="loading-the-package">Loading The Package</h3>
 <p>Once the package is installed, you can load it into memory as usual
 by typing:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">library</span>(zoomerjoin)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">library</span>(zoomerjoin)</span></code></pre></div>
 <h2 id="usage">Usage:</h2>
 <p>The flagship feature of zoomerjoins are the jaccard_join and
 euclidean family of functions, which are designed to be near drop-ins
@@ -697,10 +702,10 @@ example of this vignette in the <a href="https://beniamino.org/zoomerjoin/articl
 vignette</a>.</p>
 <p>I start with two corpuses I would like to combine,
 <code>corpus_1</code>:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>corpus_1 <span class="ot">&lt;-</span> dime_data <span class="sc">%&gt;%</span></span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">500000</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="fu">names</span>(corpus_1) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;field&quot;</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>corpus_1</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>corpus_1 <span class="ot">&lt;-</span> dime_data <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">500000</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="fu">names</span>(corpus_1) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;field&quot;</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>corpus_1</span></code></pre></div>
 <pre><code>## # A tibble: 500,000 × 2
 ##        a field                                                                  
 ##    &lt;dbl&gt; &lt;chr&gt;                                                                  
@@ -716,10 +721,10 @@ vignette</a>.</p>
 ## 10    10 carpenters legislative improvement committee united brotherhood of car…
 ## # ℹ 499,990 more rows</code></pre>
 <p>And <code>corpus_2</code>:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>corpus_2 <span class="ot">&lt;-</span> dime_data <span class="sc">%&gt;%</span></span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>    <span class="fu">tail</span>(<span class="dv">500000</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="fu">names</span>(corpus_2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;b&quot;</span>, <span class="st">&quot;field&quot;</span>)</span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>corpus_2</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>corpus_2 <span class="ot">&lt;-</span> dime_data <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>    <span class="fu">tail</span>(<span class="dv">500000</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="fu">names</span>(corpus_2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;b&quot;</span>, <span class="st">&quot;field&quot;</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>corpus_2</span></code></pre></div>
 <pre><code>## # A tibble: 500,000 × 2
 ##         b field                               
 ##     &lt;dbl&gt; &lt;chr&gt;                               
@@ -751,29 +756,29 @@ probability any true matches will be discarded by the algorithm.</p>
 <p>More details and a more thorough description of how to tune the
 hyperparameters can be can be found in the <a href="https://beniamino.org/zoomerjoin/articles/guided_tour.html">guided
 tour vignette</a>.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>start_time <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>join_out <span class="ot">&lt;-</span> <span class="fu">jaccard_inner_join</span>(corpus_1, corpus_2, <span class="at">n_gram_width=</span><span class="dv">6</span>, <span class="at">n_bands=</span><span class="dv">20</span>, <span class="at">band_width=</span><span class="dv">6</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>start_time <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>join_out <span class="ot">&lt;-</span> <span class="fu">jaccard_inner_join</span>(corpus_1, corpus_2, <span class="at">n_gram_width=</span><span class="dv">6</span>, <span class="at">n_bands=</span><span class="dv">20</span>, <span class="at">band_width=</span><span class="dv">6</span>)</span></code></pre></div>
 <pre><code>## Warning in jaccard_join(a, b, mode = &quot;inner&quot;, by = by, salt_by = block_by, : A pair of records at the threshold (0.7) have only a 92% chance of being compared.
 ## Please consider changing `n_bands` and `band_width`.
 
 ## Joining by &#39;field&#39;</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">Sys.time</span>() <span class="sc">-</span> start_time)</span></code></pre></div>
-<pre><code>## Time difference of 5.985792 secs</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">print</span>(join_out)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">Sys.time</span>() <span class="sc">-</span> start_time)</span></code></pre></div>
+<pre><code>## Time difference of 5.489858 secs</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">print</span>(join_out)</span></code></pre></div>
 <pre><code>## # A tibble: 190,943 × 4
-##         a field.x                                               b field.y       
-##     &lt;dbl&gt; &lt;chr&gt;                                             &lt;dbl&gt; &lt;chr&gt;         
-##  1  46207 vcs environmental                               1191945 tecs environm…
-##  2 222953 colon properties llc                            1275508 koon properti…
-##  3  52434 davidson &amp; troilo committee for civic awareness  982988 davidson &amp; tr…
-##  4  38794 federation of teachers local 1796               1076619 federation of…
-##  5  93204 carpenters local 98                             1083751 carpenters lo…
-##  6 175625 new hampshire softink association               1245512 new hampshire…
-##  7 195193 clark thompson, cynthia l                       1320777 clark thompso…
-##  8  23298 knox county republican party central cmte       1209523 scott county …
-##  9  67560 emergency medicine pac,                         1013471 emergency med…
-## 10 159171 wilson law firm                                  888028 wilson law fi…
+##         a field.x                                                   b field.y   
+##     &lt;dbl&gt; &lt;chr&gt;                                                 &lt;dbl&gt; &lt;chr&gt;     
+##  1  65765 the california republican assembly ie comm           890766 the calif…
+##  2 388949 penguin supermarkets inc                            1102956 penguin s…
+##  3 397348 young democrats of america-va                       1113615 young dem…
+##  4 311162 r &amp; m enterprises                                   1267056 l &amp; m ent…
+##  5 386467 se associates                                       1244225 nge assoc…
+##  6 301282 hm enterprises                                      1127791 l&amp;m enter…
+##  7 266757 stantec consulting services inc                     1199255 stantec c…
+##  8  59934 democratic state central committee of california fl  923162 democatic…
+##  9 232602 h enterprises llc                                   1274307 lad enter…
+## 10  70965 the pac of the american staffing assoc               905272 pac of th…
 ## # ℹ 190,933 more rows</code></pre>
 <p>ZoomerJoin finds and joins on the matching rows in just a few
 seconds.</p>
