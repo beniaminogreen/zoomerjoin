@@ -11,3 +11,6 @@ logo.png
 README.Rmd
 README.html
 media/
+^src/rust/vendor$
+^src/vendor$
+update_authors.R
