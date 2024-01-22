@@ -29,7 +29,7 @@ Suggests:
     tidyverse,
     purrr
 Config/testthat/edition: 3
-URL: https://beniaminogreen.github.io/zoomerjoin/
+URL: https://beniamino.org/zoomerjoin/
 BugReports: https://github.com/beniaminogreen/zoomerjoin/issues/
 VignetteBuilder: knitr
 Depends:
