@@ -32,7 +32,7 @@ simple_by_validate <- function(a,b, by) {
                 ))
 }
 
-#' @importFrom dplyr pull `%>%`
+#' @importFrom dplyr pull %>%
 jaccard_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands,
                       band_width, threshold, progress = FALSE, a_salt = NULL, b_salt = NULL,
                       clean=FALSE, similarity_column = NULL) {

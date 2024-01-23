@@ -10,7 +10,7 @@
 #' p=.5). Iteratively refines these guesses using the Expectation Maximization
 #' algorithm until an optima is reached. for more details, see
 #' \doi{10.1017/S0003055418000783} and
-#' doi{doi.org/10.1080/01621459.1969.10501049}.
+#' \doi{doi.org/10.1080/01621459.1969.10501049}.
 #'
 #'
 #' @param X an integer matrix of similarities. Must go from 0 (the most

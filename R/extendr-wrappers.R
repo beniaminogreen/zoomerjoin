@@ -6,10 +6,10 @@
 # This file was created with the following call:
 #   .Call("wrap__make_zoomerjoin_wrappers", use_symbols = TRUE, package_name = "zoomerjoin")
 
+#' @docType package
 #' @usage NULL
 #' @useDynLib zoomerjoin, .registration = TRUE
-#' @keywords internal
-"_PACKAGE"
+NULL
 
 rust_jaccard_join <- function(left_string_r, right_string_r, ngram_width, n_bands, band_size, threshold, progress, seed) .Call(wrap__rust_jaccard_join, left_string_r, right_string_r, ngram_width, n_bands, band_size, threshold, progress, seed)
 

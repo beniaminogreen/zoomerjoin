@@ -15,3 +15,4 @@ media/
 ^src/vendor$
 update_authors.R
 ^cran-comments\.md$
+^CRAN-SUBMISSION$

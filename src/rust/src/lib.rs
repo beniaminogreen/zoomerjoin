@@ -72,6 +72,7 @@ fn rust_jaccard_join(
     seed: u64
 ) -> Robj {
 
+
     let right_string_vec = right_string_r.as_str_vector().unwrap();
     let left_string_vec = left_string_r.as_str_vector().unwrap();
 
