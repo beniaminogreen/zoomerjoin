@@ -39,8 +39,7 @@ probability each pair is a match (these can either be set from domain
 knowledge, or one can hand-label a subset of the data and leave the rest as
 p=.5). Iteratively refines these guesses using the Expectation Maximization
 algorithm until an optima is reached. for more details, see
-\doi{10.1017/S0003055418000783} and
-\doi{doi.org/10.1080/01621459.1969.10501049}.
+\doi{10.1017/S0003055418000783}.
 }
 \examples{
 
