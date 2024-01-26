@@ -15,7 +15,6 @@ itertools = "0.10.5"
 ndarray = {version ="0.15.6", features = ["rayon"]}
 ndarray-rand = "0.14.0"
 nohash-hasher = "0.2.0"
-ordered-float = "3.4.0"
 rand = "0.8.5"
 rayon = "1.6.1"
 rustc-hash = "1.1.0"

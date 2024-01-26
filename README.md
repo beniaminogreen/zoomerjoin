@@ -18,7 +18,8 @@ algorithm that finds the matches records between two datasets without
 having to compare all possible pairs of observations. In practice, this
 means zoomerjoin can fuzzily-join datasets days, or even years faster
 than other matching packages. zoomerjoin has been used in-production to
-join datasets of hundreds of millions of names in a few hours.
+join datasets of hundreds of millions of names or vectors in a matter of
+hours.
 
 ## Installation
 
@@ -127,8 +128,8 @@ provides fuzzy-joins for points or vectors using the Euclidean distance.
 
 (DIME)
 
-Here’s a snippet showing off how to use the `lhs_inner_join()` merge two
-datasets of political donors in the [Database on Ideology, Money in
+Here’s a snippet showing off how to use the `jaccard_inner_join()` merge
+two lists of political donors in the [Database on Ideology, Money in
 Politics, and Elections (DIME)](https://data.stanford.edu/dime). You can
 see a more detailed example of this vignette in the [introductory
 vignette](https://beniamino.org/zoomerjoin/articles/guided_tour.html).
@@ -137,12 +138,12 @@ I start with two corpuses I would like to combine, `corpus_1`:
 
 ``` r
 corpus_1 <- dime_data %>%
-    head(500000)
+    head(500)
 names(corpus_1) <- c("a", "field")
 corpus_1
 ```
 
-    ## # A tibble: 100,000 × 2
+    ## # A tibble: 500 × 2
     ##        a field                                                                  
     ##    <dbl> <chr>                                                                  
     ##  1     1 ufwa cope committee                                                    
@@ -155,31 +156,31 @@ corpus_1
     ##  8     8 minnesota gun owners' political victory fund                           
     ##  9     9 metropolitan detroit afl cio cope committee                            
     ## 10    10 carpenters legislative improvement committee united brotherhood of car…
-    ## # ℹ 99,990 more rows
+    ## # ℹ 490 more rows
 
 And `corpus_2`:
 
 ``` r
 corpus_2 <- dime_data %>%
-    tail(500000)
+    tail(500)
 names(corpus_2) <- c("b", "field")
 corpus_2
 ```
 
-    ## # A tibble: 100,000 × 2
+    ## # A tibble: 500 × 2
     ##        b field                                                                  
     ##    <dbl> <chr>                                                                  
-    ##  1     1 ufwa cope committee                                                    
-    ##  2     2 committee to re elect charles e. bennett                               
-    ##  3     3 montana democratic party non federal account                           
-    ##  4     4 mississippi power & light company management political action and educ…
-    ##  5     5 napus pac for postmasters                                              
-    ##  6     6 aminoil good government fund                                           
-    ##  7     7 national women's political caucus of california                        
-    ##  8     8 minnesota gun owners' political victory fund                           
-    ##  9     9 metropolitan detroit afl cio cope committee                            
-    ## 10    10 carpenters legislative improvement committee united brotherhood of car…
-    ## # ℹ 99,990 more rows
+    ##  1   501 citizens for derwinski                                                 
+    ##  2   502 progressive victory fund greater washington americans for democratic a…
+    ##  3   503 ingham county democratic party federal campaign fund                   
+    ##  4   504 committee for a stronger future                                        
+    ##  5   505 atoka country supper committee                                         
+    ##  6   506 friends of democracy pac inc                                           
+    ##  7   507 baypac                                                                 
+    ##  8   508 international brotherhood of electrical workers local union 278 cope/p…
+    ##  9   509 louisville & jefferson county republican executive committee           
+    ## 10   510 democratic party of virginia                                           
+    ## # ℹ 490 more rows
 
 Both corpuses have an observation ID column, and a donor name column. We
 would like to join the two datasets on the donor names column, but the
@@ -216,28 +217,39 @@ join_out <- jaccard_inner_join(corpus_1, corpus_2, n_gram_width=6, n_bands=20, b
 print(Sys.time() - start_time)
 ```
 
-    ## Time difference of 0.9200411 secs
+    ## Time difference of 0.01413631 secs
 
 ``` r
 print(join_out)
 ```
 
-    ## # A tibble: 213,218 × 4
-    ##        a field.x                                                       b field.y
-    ##    <dbl> <chr>                                                     <dbl> <chr>  
-    ##  1  1733 nussle for congress                                        1733 nussle…
-    ##  2 35539 big apple wrecking & construct                            35539 big ap…
-    ##  3 30729 fit development lp                                        30729 fit de…
-    ##  4 53451 tom ammiano for assembly 2010                             52053 tom am…
-    ##  5 84615 electrical workers local 716                              94432 electr…
-    ##  6 39228 electrical workers local 363                              96173 electr…
-    ##  7 99572 casey for treasurer cmte                                  99572 casey …
-    ##  8 50990 afscme local 3634                                         18086 afscme…
-    ##  9 74858 bolt farrell, kevin anthony                               74858 bolt f…
-    ## 10 71895 international brotherhood of electrical workers local un… 54279 intern…
-    ## # ℹ 213,208 more rows
+    ## # A tibble: 19 × 4
+    ##        a field.x                                                      b field.y 
+    ##    <dbl> <chr>                                                    <dbl> <chr>   
+    ##  1   302 americans for good government inc                          910 america…
+    ##  2    87 kentucky state democratic central executive committee      639 arizona…
+    ##  3   232 republican county committee of chester county              710 republi…
+    ##  4   378 guarini for congress 1982                                  883 guarini…
+    ##  5    35 solarz for congress 82                                     671 solarz …
+    ##  6   230 pipefitters local union 524                                998 pipefit…
+    ##  7   378 guarini for congress 1982                                  606 guarini…
+    ##  8   238 4th congressional district democratic party                518 16th co…
+    ##  9   122 tarrant county republican victory fund                     761 lake co…
+    ## 10   163 davies county republican executive committee               852 warren …
+    ## 11    88 scheuer for congress 1980                                  667 scheuer…
+    ## 12   387 committee to re elect congressman staton                   805 committ…
+    ## 13    45 dole for senate committee                                  623 riegle …
+    ## 14   319 7th congressional district democratic party of wisconsin   792 8th con…
+    ## 15   216 kent county republican finance committee                   719 harford…
+    ## 16   292 bill bradley for u s senate '84                            913 bill br…
+    ## 17   478 united democrats for better government                     642 democra…
+    ## 18   238 4th congressional district democratic party                792 8th con…
+    ## 19   216 kent county republican finance committee                   607 lake co…
 
-ZoomerJoin finds and joins on the matching rows in just a few seconds.
+Zoomerjoin is able to quickly find the matching columns without
+comparing all pairs of records. This saves more and more time as the
+size of each list increases, so it can scale to join datasets with
+millions or hundreds of millions of rows.
 
 # Contributing
 

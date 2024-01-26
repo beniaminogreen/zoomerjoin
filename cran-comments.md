@@ -1,6 +1,9 @@
-## R CMD check results
+## Resubmission
+This is a resubmission. In this version I have:
 
-0 errors | 0 warnings | 2 notes
+* Removed a large data file accidentally included in the vignettes/ directory
+which caused the package tarball to be too large for CRAN
+* Removed some unnecessary documentation included with rust sources to bring
+the package size down to  < 5 MB
 
-* This is a new release.
-* installed size is  8.8Mb
+

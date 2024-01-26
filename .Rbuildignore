@@ -14,5 +14,7 @@ media/
 ^src/rust/vendor$
 ^src/vendor$
 update_authors.R
+src/rust/rehash.py
+src/rust/uncomment.sh
 ^cran-comments\.md$
 ^CRAN-SUBMISSION$

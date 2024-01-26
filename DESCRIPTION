@@ -1,6 +1,6 @@
 Package: zoomerjoin
 Title: Superlatively Fast Fuzzy Joins
-Version: 0.1.2
+Version: 0.1.3
 Authors@R: c(
     person("Beniamino", "Green", , "beniamino.green@yale.edu", role = c("aut", "cre", "cph")),
     person("Etienne", "Bacher", email = "etienne.bacher@protonmail.com", role = "ctb"),

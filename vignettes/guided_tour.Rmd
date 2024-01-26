@@ -48,7 +48,7 @@ library(fuzzyjoin)
 library(zoomerjoin)
 
 corpus_1 <- dime_data %>% # dime data is packaged with zoomerjoin
-    head(5*10^5)
+    head(500)
 names(corpus_1) <- c("a", "field")
 corpus_1
 ```
@@ -57,7 +57,7 @@ And the second looks as follows:
 
 ```{r}
 corpus_2 <- dime_data %>% # dime data is packaged with zoomerjoin
-    tail(5*10^5)
+    tail(500)
 names(corpus_2) <- c("b", "field")
 corpus_2
 ```
