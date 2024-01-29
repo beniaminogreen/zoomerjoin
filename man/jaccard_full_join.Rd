@@ -10,7 +10,7 @@ jaccard_full_join(
   by = NULL,
   block_by = NULL,
   n_gram_width = 2,
-  n_bands = 45,
+  n_bands = 50,
   band_width = 8,
   threshold = 0.7,
   progress = FALSE,
