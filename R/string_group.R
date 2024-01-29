@@ -51,7 +51,7 @@
 #' @importFrom utils installed.packages
 jaccard_string_group <- function(string, n_gram_width = 2, n_bands = 45, band_width = 8, threshold = .7, progress = FALSE) {
 
-    if (!"igraph" %in% rownames(utils::installed.packages())) {
+    if (system.file(package = "igraph")=="") {
             stop("library 'igraph' must be installed to run this function")
     }
 

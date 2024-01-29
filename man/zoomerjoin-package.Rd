@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Empowers users to fuzzily-merge data frames with millions or tens of millions of rows in minutes with low memory usage. The package uses two locality sensitive hashing algorithms to avoid having to compare every pair of records in each dataset, resulting in fuzzy-merges that finish in linear time.
+Empowers users to fuzzily-merge data frames with millions or tens of millions of rows in minutes with low memory usage. The package uses the locality sensitive hashing algorithms developed by Datar, Immorlica, Indyk and Mirrokni (2004) \doi{10.1145/997817.997857}, and Broder (1998) \doi{10.1109/SEQUEN.1997.666900} to avoid having to compare every pair of records in each dataset, resulting in fuzzy-merges that finish in linear time.
 }
 \seealso{
 Useful links:
@@ -24,7 +24,7 @@ Useful links:
 Other contributors:
 \itemize{
   \item Etienne Bacher \email{etienne.bacher@protonmail.com} [contributor]
-  \item The authors of the dependency Rust crates (see inst/AUTHORS file for details) [contributor]
+  \item The authors of the dependency Rust crates (see inst/AUTHORS file for details) [contributor, copyright holder]
 }
 
 }
