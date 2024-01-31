@@ -2,16 +2,16 @@
 % Please edit documentation in R/lsh_properties.R
 \name{jaccard_hyper_grid_search}
 \alias{jaccard_hyper_grid_search}
-\title{Help Choose the Appropriate LSH Hyperparamaters}
+\title{Help Choose the Appropriate LSH Hyperparameters}
 \usage{
 jaccard_hyper_grid_search(s1 = 0.1, s2 = 0.7, p1 = 0.001, p2 = 0.999)
 }
 \arguments{
-\item{s1}{the s1 paramater (the first similaity).}
+\item{s1}{the s1 parameter (the first similaity).}
 
 \item{s2}{the s2 parameter (the second similarity, must be greater than s1).}
 
-\item{p1}{the p1 paramater (the first probability).}
+\item{p1}{the p1 parameter (the first probability).}
 
 \item{p2}{the p2 parameter (the second probability, must be greater than p1).}
 }

@@ -58,7 +58,7 @@
 #'#install.packages("babynames")
 #'library(babynames)
 #'
-#'baby_names <- data.frame(name = tolower(unique(babynames$name)))
+#'baby_names <- data.frame(name = tolower(unique(babynames$name))[1:500])
 #'baby_names_sans_vowels <- data.frame(
 #'                 name_wo_vowels =gsub("[aeiouy]","", baby_names$name)
 #'    )
@@ -83,7 +83,7 @@ jaccard_inner_join <- function(a, b,
                            by = NULL,
                            block_by = NULL,
                            n_gram_width = 2,
-                           n_bands = 45,
+                           n_bands = 50,
                            band_width = 8,
                            threshold = .7,
                            progress = FALSE,
@@ -113,7 +113,7 @@ jaccard_inner_join <- function(a, b,
 #'#install.packages("babynames")
 #'library(babynames)
 #'
-#'baby_names <- data.frame(name = tolower(unique(babynames$name)))
+#'baby_names <- data.frame(name = tolower(unique(babynames$name))[1:500])
 #'baby_names_sans_vowels <- data.frame(
 #'                 name_wo_vowels =gsub("[aeiouy]","", baby_names$name)
 #'    )
@@ -138,7 +138,7 @@ jaccard_anti_join <- function(a, b,
                             by = NULL,
                             block_by = NULL,
                             n_gram_width = 2,
-                            n_bands = 45,
+                            n_bands = 50,
                             band_width = 8,
                             threshold = .7,
                             progress = FALSE,
@@ -164,7 +164,7 @@ jaccard_anti_join <- function(a, b,
 #'#install.packages("babynames")
 #'library(babynames)
 #'
-#'baby_names <- data.frame(name = tolower(unique(babynames$name)))
+#'baby_names <- data.frame(name = tolower(unique(babynames$name))[1:500])
 #'baby_names_sans_vowels <- data.frame(
 #'                 name_wo_vowels =gsub("[aeiouy]","", baby_names$name)
 #'    )
@@ -189,7 +189,7 @@ jaccard_left_join <- function(a, b,
                             by = NULL,
                             block_by = NULL,
                             n_gram_width = 2,
-                            n_bands = 45,
+                            n_bands = 50,
                             band_width = 8,
                             threshold = .7,
                             progress = FALSE,
@@ -219,7 +219,7 @@ jaccard_left_join <- function(a, b,
 #'#install.packages("babynames")
 #'library(babynames)
 #'
-#'baby_names <- data.frame(name = tolower(unique(babynames$name)))
+#'baby_names <- data.frame(name = tolower(unique(babynames$name))[1:500])
 #'baby_names_sans_vowels <- data.frame(
 #'                 name_wo_vowels =gsub("[aeiouy]","", baby_names$name)
 #'    )
@@ -244,7 +244,7 @@ jaccard_right_join <- function(a, b,
                             by = NULL,
                             block_by = NULL,
                             n_gram_width = 2,
-                            n_bands = 45,
+                            n_bands = 50,
                             band_width = 8,
                             threshold = .7,
                             progress = FALSE,
@@ -274,7 +274,7 @@ jaccard_right_join <- function(a, b,
 #'#install.packages("babynames")
 #'library(babynames)
 #'
-#'baby_names <- data.frame(name = tolower(unique(babynames$name)))
+#'baby_names <- data.frame(name = tolower(unique(babynames$name))[1:500])
 #'baby_names_sans_vowels <- data.frame(
 #'                 name_wo_vowels =gsub("[aeiouy]","", baby_names$name)
 #'    )
@@ -299,7 +299,7 @@ jaccard_full_join <- function(a, b,
                             by = NULL,
                             block_by = NULL,
                             n_gram_width = 2,
-                            n_bands = 45,
+                            n_bands = 50,
                             band_width = 8,
                             threshold = .7,
                             progress = FALSE,

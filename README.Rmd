@@ -28,9 +28,20 @@ algorithm that finds the matches records between two datasets without having to
 compare all possible pairs of observations. In practice, this means zoomerjoin
 can fuzzily-join datasets days, or even years faster than other matching
 packages. zoomerjoin has been used in-production to join datasets of hundreds
-of millions of names in a few hours.
+of millions of names or vectors in a matter of hours.
 
 ## Installation
+
+### Installing from CRAN:
+
+You can install from the CRAN as you would with any other package. Please be
+aware that you will have to have Cargo (the rust toolchain and compiler) installed to build
+the package from source.
+
+```r
+install.packages(zoomerjoin)
+```
+
 
 ### Installing from R-Universe:
 
@@ -123,16 +134,16 @@ fuzzy-joins for points or vectors using the Euclidean distance.
 ### Example: Joining rows of the Database on Ideology, Money in Politics, and Elections
 (DIME)
 
-Here's a snippet showing off how to use the `lhs_inner_join()` merge two
-datasets of political donors in the [Database on Ideology, Money in Politics,
+Here's a snippet showing off how to use the `jaccard_inner_join()` merge two
+lists of political donors in the [Database on Ideology, Money in Politics,
 and Elections (DIME)](https://data.stanford.edu/dime). You can see a more
-detailed example of this vignette in the [introductory vignette](https://beniaminogreen.github.io/zoomerjoin/articles/guided_tour.html).
+detailed example of this vignette in the [introductory vignette](https://beniamino.org/zoomerjoin/articles/guided_tour.html).
 
 I start with two corpuses I would like to combine, `corpus_1`:
 
 ```{r}
 corpus_1 <- dime_data %>%
-    head(500000)
+    head(500)
 names(corpus_1) <- c("a", "field")
 corpus_1
 ```
@@ -141,7 +152,7 @@ And `corpus_2`:
 
 ```{r}
 corpus_2 <- dime_data %>%
-    tail(500000)
+    tail(500)
 names(corpus_2) <- c("b", "field")
 corpus_2
 ```
@@ -159,8 +170,9 @@ true match being discovered is less than 95%. You can use the
 `jaccard_probability` and `jaccard_hyper_grid_search` to help understand the
 probability any true matches will be discarded by the algorithm.
 
-More details and a more thorough description of how to tune the hyperparameters can be can be found
-in the [guided tour vignette](https://beniaminogreen.github.io/zoomerjoin/articles/guided_tour.html).
+More details and a more thorough description of how to tune the hyperparameters
+can be can be found in the [guided tour
+vignette](https://beniamino.org/zoomerjoin/articles/guided_tour.html).
 
 ```{r}
 set.seed(1)
@@ -170,7 +182,10 @@ print(Sys.time() - start_time)
 print(join_out)
 ```
 
-ZoomerJoin finds and joins on the matching rows in just a few seconds.
+Zoomerjoin is able to quickly find the matching columns without comparing all
+pairs of records. This saves more and more time as the size of each list
+increases, so it can scale to join datasets with millions or hundreds of
+millions of rows.
 
 # Contributing
 

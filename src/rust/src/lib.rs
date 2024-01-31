@@ -33,8 +33,8 @@ fn rust_em_link(x_robj: Robj, probs: &[f64], tol: f64, max_iter: i32) -> Vec<f64
 
 #[extendr]
 fn rust_jaccard_similarity(left_string_r: Robj, right_string_r: Robj, ngram_width: i64) -> Doubles {
-    let left_string_vec = <Vec<String>>::from_robj(&left_string_r).unwrap();
-    let right_string_vec = <Vec<String>>::from_robj(&right_string_r).unwrap();
+    let right_string_vec = right_string_r.as_str_vector().unwrap();
+    let left_string_vec = left_string_r.as_str_vector().unwrap();
 
     // vector to hold sets of n_gram strings in each document
     let left_set_vec: Vec<ShingleSet> = left_string_vec
@@ -71,8 +71,10 @@ fn rust_jaccard_join(
     progress : bool,
     seed: u64
 ) -> Robj {
-    let left_string_vec = left_string_r.as_str_vector().unwrap();
+
+
     let right_string_vec = right_string_r.as_str_vector().unwrap();
+    let left_string_vec = left_string_r.as_str_vector().unwrap();
 
     if progress {
         println!("Starting to generate shingles");
@@ -187,24 +189,22 @@ fn rust_p_norm_join(
             .for_each(|(j, x)| {
                 let hash = hasher.hash(x);
                 if store.contains_key(&hash) {
-                    let potential_matches = store.get(&hash).unwrap().clone();
+                    let potential_matches = store.get(&hash).unwrap();
 
-                    for i in potential_matches {
+                    for i in potential_matches.iter() {
                         let dist: f64 = b_mat
                             .row(j)
                             .iter()
-                            .zip(a_mat.row(i).iter())
+                            .zip(a_mat.row(*i).iter())
                             .map(|(a, b)| (a - b).powi(2))
                             .sum::<f64>()
                             .sqrt();
 
                         if dist < radius {
-                            pairs.insert((i, j));
+                            pairs.insert((*i, j));
                         }
                     }
-                }
-            });
-
+                } });
         store.clear()
     }
 

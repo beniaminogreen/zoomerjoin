@@ -38,3 +38,10 @@ reference:
       - euclidean_curve
       - euclidean_probability
 
+  - title: data
+    contents:
+      - dime_data
+
+  - title: Miscellaneous
+    contents:
+      - zoomerjoin-package

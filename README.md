@@ -18,9 +18,20 @@ algorithm that finds the matches records between two datasets without
 having to compare all possible pairs of observations. In practice, this
 means zoomerjoin can fuzzily-join datasets days, or even years faster
 than other matching packages. zoomerjoin has been used in-production to
-join datasets of hundreds of millions of names in a few hours.
+join datasets of hundreds of millions of names or vectors in a matter of
+hours.
 
 ## Installation
+
+### Installing from CRAN:
+
+You can install from the CRAN as you would with any other package.
+Please be aware that you will have to have Cargo (the rust toolchain and
+compiler) installed to build the package from source.
+
+``` r
+install.packages(zoomerjoin)
+```
 
 ### Installing from R-Universe:
 
@@ -117,22 +128,22 @@ provides fuzzy-joins for points or vectors using the Euclidean distance.
 
 (DIME)
 
-Here’s a snippet showing off how to use the `lhs_inner_join()` merge two
-datasets of political donors in the [Database on Ideology, Money in
+Here’s a snippet showing off how to use the `jaccard_inner_join()` merge
+two lists of political donors in the [Database on Ideology, Money in
 Politics, and Elections (DIME)](https://data.stanford.edu/dime). You can
 see a more detailed example of this vignette in the [introductory
-vignette](https://beniaminogreen.github.io/zoomerjoin/articles/guided_tour.html).
+vignette](https://beniamino.org/zoomerjoin/articles/guided_tour.html).
 
 I start with two corpuses I would like to combine, `corpus_1`:
 
 ``` r
 corpus_1 <- dime_data %>%
-    head(500000)
+    head(500)
 names(corpus_1) <- c("a", "field")
 corpus_1
 ```
 
-    ## # A tibble: 500,000 × 2
+    ## # A tibble: 500 × 2
     ##        a field                                                                  
     ##    <dbl> <chr>                                                                  
     ##  1     1 ufwa cope committee                                                    
@@ -145,31 +156,31 @@ corpus_1
     ##  8     8 minnesota gun owners' political victory fund                           
     ##  9     9 metropolitan detroit afl cio cope committee                            
     ## 10    10 carpenters legislative improvement committee united brotherhood of car…
-    ## # ℹ 499,990 more rows
+    ## # ℹ 490 more rows
 
 And `corpus_2`:
 
 ``` r
 corpus_2 <- dime_data %>%
-    tail(500000)
+    tail(500)
 names(corpus_2) <- c("b", "field")
 corpus_2
 ```
 
-    ## # A tibble: 500,000 × 2
-    ##         b field                               
-    ##     <dbl> <chr>                               
-    ##  1 832471 avrp studios inc                    
-    ##  2 832472 avrd design                         
-    ##  3 832473 avenales cattle co                  
-    ##  4 832474 auto dealers of michigan political a
-    ##  5 832475 atty & counselor at law             
-    ##  6 832476 at&t united way                     
-    ##  7 832477 ashland food & liquors              
-    ##  8 832478 arvance turkey ranch inc            
-    ##  9 832479 arizona federation of teachers      
-    ## 10 832480 arianas restaurant                  
-    ## # ℹ 499,990 more rows
+    ## # A tibble: 500 × 2
+    ##        b field                                                                  
+    ##    <dbl> <chr>                                                                  
+    ##  1   501 citizens for derwinski                                                 
+    ##  2   502 progressive victory fund greater washington americans for democratic a…
+    ##  3   503 ingham county democratic party federal campaign fund                   
+    ##  4   504 committee for a stronger future                                        
+    ##  5   505 atoka country supper committee                                         
+    ##  6   506 friends of democracy pac inc                                           
+    ##  7   507 baypac                                                                 
+    ##  8   508 international brotherhood of electrical workers local union 278 cope/p…
+    ##  9   509 louisville & jefferson county republican executive committee           
+    ## 10   510 democratic party of virginia                                           
+    ## # ℹ 490 more rows
 
 Both corpuses have an observation ID column, and a donor name column. We
 would like to join the two datasets on the donor names column, but the
@@ -189,7 +200,7 @@ matches will be discarded by the algorithm.
 
 More details and a more thorough description of how to tune the
 hyperparameters can be can be found in the [guided tour
-vignette](https://beniaminogreen.github.io/zoomerjoin/articles/guided_tour.html).
+vignette](https://beniamino.org/zoomerjoin/articles/guided_tour.html).
 
 ``` r
 set.seed(1)
@@ -206,28 +217,39 @@ join_out <- jaccard_inner_join(corpus_1, corpus_2, n_gram_width=6, n_bands=20, b
 print(Sys.time() - start_time)
 ```
 
-    ## Time difference of 5.446871 secs
+    ## Time difference of 0.01455116 secs
 
 ``` r
 print(join_out)
 ```
 
-    ## # A tibble: 190,943 × 4
-    ##         a field.x                                                      b field.y
-    ##     <dbl> <chr>                                                    <dbl> <chr>  
-    ##  1 397635 ym international inc                                    1.14e6 gfa in…
-    ##  2  79992 rural friends of electric cooperatives                  9.38e5 rural …
-    ##  3  70563 american electric power co tx committee for responsibl… 8.48e5 the am…
-    ##  4 110462 lapeer county democratic party                          1.18e6 turner…
-    ##  5  60444 unitedhealth group inc. political fund                  8.89e5 united…
-    ##  6 200215 gring fee, pamela                                       1.31e6 gring …
-    ##  7 119519 19th senate district democrat-farmer-labor              1.05e6 47th s…
-    ##  8  14656 carbon county democratic central cmte                   1.17e6 willia…
-    ##  9  55487 iupat political action together                         9.01e5 iupat …
-    ## 10 248039 b2b brokerage inc                                       1.28e6 k-b br…
-    ## # ℹ 190,933 more rows
+    ## # A tibble: 19 × 4
+    ##        a field.x                                                      b field.y 
+    ##    <dbl> <chr>                                                    <dbl> <chr>   
+    ##  1   216 kent county republican finance committee                   607 lake co…
+    ##  2   238 4th congressional district democratic party                518 16th co…
+    ##  3   292 bill bradley for u s senate '84                            913 bill br…
+    ##  4   378 guarini for congress 1982                                  606 guarini…
+    ##  5   232 republican county committee of chester county              710 republi…
+    ##  6   387 committee to re elect congressman staton                   805 committ…
+    ##  7   122 tarrant county republican victory fund                     761 lake co…
+    ##  8   378 guarini for congress 1982                                  883 guarini…
+    ##  9   238 4th congressional district democratic party                792 8th con…
+    ## 10    88 scheuer for congress 1980                                  667 scheuer…
+    ## 11    45 dole for senate committee                                  623 riegle …
+    ## 12    87 kentucky state democratic central executive committee      639 arizona…
+    ## 13   319 7th congressional district democratic party of wisconsin   792 8th con…
+    ## 14   478 united democrats for better government                     642 democra…
+    ## 15   163 davies county republican executive committee               852 warren …
+    ## 16   230 pipefitters local union 524                                998 pipefit…
+    ## 17   216 kent county republican finance committee                   719 harford…
+    ## 18   302 americans for good government inc                          910 america…
+    ## 19    35 solarz for congress 82                                     671 solarz …
 
-ZoomerJoin finds and joins on the matching rows in just a few seconds.
+Zoomerjoin is able to quickly find the matching columns without
+comparing all pairs of records. This saves more and more time as the
+size of each list increases, so it can scale to join datasets with
+millions or hundreds of millions of rows.
 
 # Contributing
 

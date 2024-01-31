@@ -10,7 +10,7 @@ jaccard_full_join(
   by = NULL,
   block_by = NULL,
   n_gram_width = 2,
-  n_bands = 45,
+  n_bands = 50,
   band_width = 8,
   threshold = 0.7,
   progress = FALSE,
@@ -83,7 +83,7 @@ Fuzzy full-join using minihashing
 #install.packages("babynames")
 library(babynames)
 
-baby_names <- data.frame(name = tolower(unique(babynames$name)))
+baby_names <- data.frame(name = tolower(unique(babynames$name))[1:500])
 baby_names_sans_vowels <- data.frame(
                 name_wo_vowels =gsub("[aeiouy]","", baby_names$name)
    )

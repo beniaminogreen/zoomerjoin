@@ -5,3 +5,16 @@
 ^\.github$
 ^codecov\.yml$
 ^codemeta\.json$
+CITATION.cff
+CONTRIBUTING.md
+logo.png
+README.Rmd
+README.html
+media/
+^src/rust/vendor$
+^src/vendor$
+update_authors.R
+src/rust/rehash.py
+src/rust/uncomment.sh
+^cran-comments\.md$
+^CRAN-SUBMISSION$
