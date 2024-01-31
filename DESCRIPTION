@@ -34,4 +34,4 @@ VignetteBuilder: knitr
 Depends:
     R (>= 2.10)
 LazyData: true
-Config/rextendr/version: 0.3.0
+Config/rextendr/version: 0.3.1.9000
