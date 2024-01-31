@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">zoomerjoin</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,6 +28,9 @@
     <a class="dropdown-item" href="../articles/guided_tour.html">A Zoomerjoin Guided Tour</a>
     <a class="dropdown-item" href="../articles/matching_vectors.html">Matching Vectors Based on Euclidean Distance</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -87,6 +90,18 @@ made with <code><a href="https://dplyr.tidyverse.org/reference/join_by.html" cla
 
 <dt>threshold</dt>
 <dd><p>the distance threshold below which units should be considered a match</p></dd>
+
+
+<dt>n_bands</dt>
+<dd><p>the number of bands used in the LSH algorithm (default
+is 30). Use this in conjunction with the <code>band_width</code> to determine the
+performance of the hashing.</p></dd>
+
+
+<dt>band_width</dt>
+<dd><p>the length of each band used in the minihashing algorithm
+(default is 5) Use this in conjunction with the <code>n_bands</code> to determine
+the performance of the hashing.</p></dd>
 
 
 <dt>r</dt>

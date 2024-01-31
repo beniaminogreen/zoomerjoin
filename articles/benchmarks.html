@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">zoomerjoin</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,6 +52,9 @@
     <a class="dropdown-item" href="../articles/guided_tour.html">A Zoomerjoin Guided Tour</a>
     <a class="dropdown-item" href="../articles/matching_vectors.html">Matching Vectors Based on Euclidean Distance</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
@@ -124,7 +127,7 @@ so it becomes quicker for larger datasets.</p>
 </h2>
 <p>Below, I include the code used to generate the benchmarks:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://beniaminogreen.github.io/zoomerjoin/">zoomerjoin</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://beniamino.org/zoomerjoin/" class="external-link">zoomerjoin</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dgrtwo/fuzzyjoin" class="external-link">fuzzyjoin</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/joshuaulrich/microbenchmark/" class="external-link">microbenchmark</a></span><span class="op">)</span></span>
@@ -157,13 +160,13 @@ so it becomes quicker for larger datasets.</p>
 <span>  <span class="op">)</span><span class="op">$</span><span class="va">time</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="va">mem</span> <span class="op">&lt;-</span> <span class="fu">profmem</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/fuzzyjoin/man/stringdist_join.html" class="external-link">stringdist_inner_join</a></span><span class="op">(</span><span class="va">data_1</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span>,</span>
+<span>  <span class="va">mem</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/profmem/man/profmem.html" class="external-link">profmem</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/fuzzyjoin/man/stringdist_join.html" class="external-link">stringdist_inner_join</a></span><span class="op">(</span><span class="va">data_1</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span>,</span>
 <span>    <span class="va">data_2</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span>,</span>
 <span>    method <span class="op">=</span> <span class="st">"jaccard"</span>,</span>
 <span>    max_dist <span class="op">=</span> <span class="fl">.6</span>,</span>
 <span>    q <span class="op">=</span> <span class="fl">4</span></span>
 <span>  <span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu">total</span><span class="op">(</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/profmem/man/total.html" class="external-link">total</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>time <span class="op">=</span> <span class="va">time</span>, memory <span class="op">=</span> <span class="va">mem</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
@@ -181,14 +184,14 @@ so it becomes quicker for larger datasets.</p>
 <span>  <span class="op">)</span><span class="op">$</span><span class="va">time</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="va">mem</span> <span class="op">&lt;-</span> <span class="fu">profmem</span><span class="op">(</span></span>
+<span>  <span class="va">mem</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/profmem/man/profmem.html" class="external-link">profmem</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../reference/jaccard_inner_join.html">jaccard_inner_join</a></span><span class="op">(</span><span class="va">data_1</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span>, <span class="va">data_2</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span>,</span>
 <span>      by <span class="op">=</span> <span class="st">"name"</span>, band_width <span class="op">=</span> <span class="fl">11</span>,</span>
 <span>      n_bands <span class="op">=</span> <span class="fl">350</span>, threshold <span class="op">=</span> <span class="fl">.7</span>,</span>
 <span>      n_gram_width <span class="op">=</span> <span class="fl">4</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu">total</span><span class="op">(</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/profmem/man/total.html" class="external-link">total</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>time <span class="op">=</span> <span class="va">time</span>, memory <span class="op">=</span> <span class="va">mem</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
@@ -201,7 +204,7 @@ so it becomes quicker for larger datasets.</p>
 <span>  <span class="op">)</span><span class="op">$</span><span class="va">time</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="va">mem</span> <span class="op">&lt;-</span> <span class="fu">total</span><span class="op">(</span><span class="fu">profmem</span><span class="op">(</span></span>
+<span>  <span class="va">mem</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/profmem/man/total.html" class="external-link">total</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/profmem/man/profmem.html" class="external-link">profmem</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/fuzzyjoin/man/distance_join.html" class="external-link">distance_join</a></span><span class="op">(</span><span class="va">X_1</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span>, <span class="va">X_2</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span>, max_dist <span class="op">=</span> <span class="fl">.1</span>, method <span class="op">=</span> <span class="st">"euclidean"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -219,11 +222,11 @@ so it becomes quicker for larger datasets.</p>
 <span>  <span class="op">)</span><span class="op">$</span><span class="va">time</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="va">mem</span> <span class="op">&lt;-</span> <span class="fu">profmem</span><span class="op">(</span><span class="fu"><a href="../reference/euclidean_inner_join.html">euclidean_inner_join</a></span><span class="op">(</span><span class="va">X_1</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span>, <span class="va">X_2</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span>,</span>
+<span>  <span class="va">mem</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/profmem/man/profmem.html" class="external-link">profmem</a></span><span class="op">(</span><span class="fu"><a href="../reference/euclidean_inner_join.html">euclidean_inner_join</a></span><span class="op">(</span><span class="va">X_1</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span>, <span class="va">X_2</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span>,</span>
 <span>    threshold <span class="op">=</span> <span class="fl">.1</span>, n_bands <span class="op">=</span> <span class="fl">90</span>,</span>
 <span>    band_width <span class="op">=</span> <span class="fl">2</span>, r <span class="op">=</span> <span class="fl">.1</span></span>
 <span>  <span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu">total</span><span class="op">(</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/profmem/man/total.html" class="external-link">total</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>time <span class="op">=</span> <span class="va">time</span>, memory <span class="op">=</span> <span class="va">mem</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>

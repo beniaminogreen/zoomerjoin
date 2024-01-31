@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">zoomerjoin</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,6 +52,9 @@
     <a class="dropdown-item" href="../articles/guided_tour.html">A Zoomerjoin Guided Tour</a>
     <a class="dropdown-item" href="../articles/matching_vectors.html">Matching Vectors Based on Euclidean Distance</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
@@ -87,7 +90,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://beniaminogreen.github.io/zoomerjoin/">zoomerjoin</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://beniamino.org/zoomerjoin/" class="external-link">zoomerjoin</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
@@ -160,7 +163,7 @@ two datasets:</p>
 <span><span class="va">n_matches</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">joined_out</span><span class="op">)</span></span>
 <span><span class="va">time_taken</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="va">start</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"found"</span>, <span class="va">n_matches</span>, <span class="st">"matches in"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">time_taken</span><span class="op">)</span>, <span class="st">"seconds"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "found 100000 matches in 16 seconds"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "found 100000 matches in 17 seconds"</span></span></code></pre></div>
 <p>Zoomerjoin is able to easily find all pairs in just under 30s
 (perhaps longer on the runner that renders the website), even though the
 points lie in high-dimensional (d=100) space. This makes zoomerjoin a
