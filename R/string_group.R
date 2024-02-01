@@ -65,7 +65,7 @@ jaccard_string_group <- function(string, n_gram_width = 2, n_bands = 45, band_wi
 
 
     graph <- igraph::graph_from_edgelist(pairs)
-    fc <- igraph::fastgreedy.community(igraph::as.undirected(graph))
+    fc <- igraph::cluster_fast_greedy(igraph::as.undirected(graph))
 
     groups <- igraph::groups(fc)
     lookup_table <- vapply(groups, "[[", integer(1), 1)
