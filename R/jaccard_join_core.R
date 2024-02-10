@@ -152,8 +152,9 @@ jaccard_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands,
         return(matches)
     }
 
-    not_matched_a <- ! seq(nrow(a)) %in% match_table[,1]
-    not_matched_b <- ! seq(nrow(b)) %in% match_table[,2]
+    browser()
+    not_matched_a <- collapse::`%!iin%`(seq(nrow(a)), match_table[,1])
+    not_matched_b <- collapse::`%!iin%`(seq(nrow(b)), match_table[,2])
 
     if (mode == "left") {
         matches <- dplyr::bind_rows(matches,a[not_matched_a,])
