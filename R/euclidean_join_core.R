@@ -71,6 +71,12 @@ euclidean_join_core <- function (a, b, by = NULL, n_bands = 30, band_width = 10,
         paste0(names(b)[names(b) %in% names_in_both], ".y")
 
     matches <- dplyr::bind_cols(a[match_table[, 1], ], b[match_table[, 2], ])
+
+    # No need to look for rows that don't match
+    if (mode == "inner") {
+        return(matches)
+    }
+
     not_matched_a <- ! seq(nrow(a)) %in% match_table[,1]
     not_matched_b <- ! seq(nrow(b)) %in% match_table[,2]
 
@@ -80,8 +86,6 @@ euclidean_join_core <- function (a, b, by = NULL, n_bands = 30, band_width = 10,
         matches <- dplyr::bind_rows(matches,b[not_matched_b,])
     } else if (mode == "full") {
         matches <- dplyr::bind_rows(matches,a[not_matched_a,],b[not_matched_b,])
-    } else if (mode == "inner"){
-        matches <- matches
     } else if (mode == "anti") {
         matches <- dplyr::bind_rows(a[not_matched_a,], b[not_matched_b,])
     } else {

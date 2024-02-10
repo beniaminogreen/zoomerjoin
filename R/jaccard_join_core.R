@@ -142,13 +142,18 @@ jaccard_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands,
     names(b)[names(b) %in% names_in_both] <- paste0(names(b)[names(b) %in% names_in_both], ".y")
 
     matches <- dplyr::bind_cols(a[match_table[, 1], ], b[match_table[, 2], ])
-    not_matched_a <- ! seq(nrow(a)) %in% match_table[,1]
-    not_matched_b <- ! seq(nrow(b)) %in% match_table[,2]
 
     if(!is.null(similarity_column)) {
         matches[,similarity_column] <- similarities
     }
 
+    # No need to look for rows that don't match
+    if (mode == "inner") {
+        return(matches)
+    }
+
+    not_matched_a <- ! seq(nrow(a)) %in% match_table[,1]
+    not_matched_b <- ! seq(nrow(b)) %in% match_table[,2]
 
     if (mode == "left") {
         matches <- dplyr::bind_rows(matches,a[not_matched_a,])
@@ -156,8 +161,6 @@ jaccard_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands,
         matches <- dplyr::bind_rows(matches,b[not_matched_b,])
     } else if (mode == "full") {
         matches <- dplyr::bind_rows(matches,a[not_matched_a,],b[not_matched_b,])
-    } else if (mode == "inner"){
-        matches <- matches
     } else if (mode == "anti") {
         matches <- dplyr::bind_rows(a[not_matched_a,], b[not_matched_b,])
     } else {
