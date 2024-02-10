@@ -9,8 +9,7 @@ pub struct HammingHasher {
 }
 
 impl HammingHasher {
-    pub fn new(input_len: usize, band_width: usize) -> Self {
-        let mut rng = rand::thread_rng();
+    pub fn new<R:Rng>(input_len: usize, band_width: usize, rng: &mut R) -> Self {
 
         let indexes: Vec<usize> = (0..band_width)
             .map(|_| rng.gen_range(0..input_len))

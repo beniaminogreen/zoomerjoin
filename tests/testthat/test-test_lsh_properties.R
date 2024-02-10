@@ -30,3 +30,13 @@ test_that("jaccard_hyper_grid_search validates inputs are length 1", {
      expect_error(jaccard_hyper_grid_search(.1,.9,.9,.1))
 })
 
+
+test_that("hamming_probabilitiy gives accurate results", {
+    expect_equal(hamming_probability(0,10,10,1),1)
+
+    expect_equal(hamming_probability(1,10,1,1),.9)
+    expect_equal(hamming_probability(1,10,2,1),.99)
+    expect_equal(hamming_probability(1,10,3,1),.999)
+
+    expect_equal(hamming_probability(10,10,10,1),0)
+})

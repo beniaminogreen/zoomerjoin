@@ -152,6 +152,7 @@ fn rust_hamming_join(
     n_bands: u64,
     radius: u64,
     progress : bool,
+    seed: u64,
 ) -> Robj {
     let left_string_vec = left_string_r.as_str_vector().unwrap();
     let right_string_vec = right_string_r.as_str_vector().unwrap();
@@ -159,9 +160,9 @@ fn rust_hamming_join(
     let pairs: DashSet<(usize, usize)> = DashSet::new();
     let store: DashMap<u64, Vec<usize>> = DashMap::new();
 
-    // let mut rng = StdRng::seed_from_u64(seed);
+    let mut rng = StdRng::seed_from_u64(seed);
     for i in 0..n_bands {
-        let hasher = HammingHasher::new(left_string_vec[0].len(), band_width as usize);
+        let hasher = HammingHasher::new(left_string_vec[0].len(), band_width as usize, &mut rng);
 
         if progress {
             println!("starting band {i} out of {n_bands}");
@@ -198,7 +199,7 @@ fn rust_hamming_join(
                             .filter(|x| *x)
                             .count();
 
-                        if dist < radius as usize {
+                        if dist <= radius as usize {
                             pairs.insert((*i, j));
                         }
                     }
