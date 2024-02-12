@@ -26,19 +26,13 @@ be the same as dplyr: \code{by = c("column_name_in_df_a" = "column_name_in_df_b"
 two columns must be specified in each dataset (x column and y column). Specification
 made with \code{dplyr::join_by()} are also accepted.}
 
-\item{n_bands}{the number of bands used in the minihash algorithm (default
-is 40). Use this in conjunction with the \code{band_width} to determine the
-performance of the hashing. The default settings are for a
-(.2,.8,.001,.999)-sensitive hash i.e. that pairs with a similarity of less
-than .2 have a >.1\% chance of being compared, while pairs with a similarity
-of greater than .8 have a >99.9\% chance of being compared.}
+\item{n_bands}{the number of bands used in the locality sensitive hashing
+algorithm (default is 100). Use this in conjunction with the
+\code{band_width} to determine the performance of the hashing.}
 
 \item{band_width}{the length of each band used in the minihashing algorithm
 (default is 8) Use this in conjunction with the \code{n_bands} to determine
-the performance of the hashing. The default settings are for a
-(.2,.8,.001,.999)-sensitive hash i.e. that pairs with a similarity of less
-than .2 have a >.1\% chance of being compared, while pairs with a similarity
-of greater than .8 have a >99.9\% chance of being compared.}
+the performance of the hashing.}
 
 \item{progress}{set to \code{TRUE} to print progress}
 

@@ -1,4 +1,4 @@
-#' Calculate jaccard_similarity of two character vectors
+#' Calculate Jaccard Similairy of two character vectors
 #'
 #' @param a the first character vector
 #' @param b the first character vector
@@ -16,4 +16,22 @@
 jaccard_similarity <- function(a, b, ngram_width=2) {
     stopifnot(length(a) == length(b))
     rust_jaccard_similarity(a, b, ngram_width)
+}
+
+#' Calculate Hamming distance of two character vectors
+#'
+#' @param a the first character vector
+#' @param b the first character vector
+#'
+#'
+#' @return a vector of hamming similarities of the strings
+#'
+#' @examples
+#' hamming_distance(c("the quick brown fox","jumped over the lazy dog"),
+#'     c("the quck bron fx","jumped over hte lazy dog"))
+#'
+#' @export
+hamming_distance <- function(a, b, ngram_width=2) {
+    stopifnot(length(a) == length(b))
+    rust_hamming_distance(a, b)
 }

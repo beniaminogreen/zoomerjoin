@@ -64,6 +64,30 @@ fn rust_jaccard_similarity(left_string_r: Robj, right_string_r: Robj, ngram_widt
 }
 
 #[extendr]
+fn rust_hamming_distance(left_string_r: Robj, right_string_r: Robj) -> Doubles {
+    let left_string_vec = left_string_r.as_str_vector().unwrap();
+    let right_string_vec = right_string_r.as_str_vector().unwrap();
+
+    let out_vec = left_string_vec
+        .par_iter()
+        .zip(right_string_vec.par_iter())
+        .map(|(a, b)| {
+            if a.len() != b.len() {
+                return f64::INFINITY;
+            } else {
+                a.as_bytes()
+                    .iter()
+                    .zip(b.as_bytes().iter())
+                    .filter(|(x, y)| x != y)
+                    .count() as f64
+            }
+        })
+        .collect::<Vec<f64>>();
+
+    out_vec.into_iter().map(|x| Rfloat::from(x)).collect()
+}
+
+#[extendr]
 fn rust_jaccard_join(
     left_string_r: Robj,
     right_string_r: Robj,
@@ -317,4 +341,5 @@ extendr_module! {
     fn rust_em_link;
     fn rust_p_norm_join;
     fn rust_hamming_join;
+    fn rust_hamming_distance;
 }

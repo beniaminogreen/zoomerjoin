@@ -23,5 +23,7 @@ rust_p_norm_join <- function(a_mat, b_mat, radius, band_width, n_bands, r, progr
 
 rust_hamming_join <- function(left_string_r, right_string_r, band_width, n_bands, radius, progress, seed) .Call(wrap__rust_hamming_join, left_string_r, right_string_r, band_width, n_bands, radius, progress, seed)
 
+rust_hamming_distance <- function(left_string_r, right_string_r) .Call(wrap__rust_hamming_distance, left_string_r, right_string_r)
+
 
 # nolint end

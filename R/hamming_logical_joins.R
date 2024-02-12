@@ -1,5 +1,10 @@
 #' Fuzzy inner-join using minihashing
 #'
+#' Find similar rows between two tables using the hamming distance. The hamming
+#' distance is equal to the number characters two strings differ by, or is
+#' equal to infinity if two strings are of different lengths
+#'
+#'
 #' @param a the first dataframe you wish to join.
 #'
 #' @param b the second dataframe you wish to join.
@@ -9,19 +14,13 @@
 #' two columns must be specified in each dataset (x column and y column). Specification
 #' made with `dplyr::join_by()` are also accepted.
 #'
-#' @param n_bands the number of bands used in the minihash algorithm (default
-#' is 40). Use this in conjunction with the \code{band_width} to determine the
-#' performance of the hashing. The default settings are for a
-#' (.2,.8,.001,.999)-sensitive hash i.e. that pairs with a similarity of less
-#' than .2 have a >.1% chance of being compared, while pairs with a similarity
-#' of greater than .8 have a >99.9% chance of being compared.
+#' @param n_bands the number of bands used in the locality sensitive hashing
+#' algorithm (default is 100). Use this in conjunction with the
+#' \code{band_width} to determine the performance of the hashing.
 #'
 #' @param band_width the length of each band used in the minihashing algorithm
 #' (default is 8) Use this in conjunction with the \code{n_bands} to determine
-#' the performance of the hashing. The default settings are for a
-#' (.2,.8,.001,.999)-sensitive hash i.e. that pairs with a similarity of less
-#' than .2 have a >.1% chance of being compared, while pairs with a similarity
-#' of greater than .8 have a >99.9% chance of being compared.
+#' the performance of the hashing.
 #'
 #' @param clean should the strings that you fuzzy join on be cleaned (coerced
 #' to lower-case, stripped of punctuation and spaces)? Default is FALSE

@@ -13,8 +13,6 @@ hamming_join <- function(a, b, mode, by, n_bands, band_width,
   stopifnot("'band_width' must be greater than 0" = band_width > 0)
   stopifnot("'band_width' must be length than 1" = length(band_width) == 1)
 
-
-
   by <- simple_by_validate(a, b, by)
   by_a <- by[[1]]
   by_b <- by[[2]]
@@ -34,8 +32,6 @@ hamming_join <- function(a, b, mode, by, n_bands, band_width,
   }
 
   max_chars <- max(c(nchar(a_col), nchar(b_col)))
-  # a_col <- stringr::str_pad(a_col, width = max_chars, side = "right")
-  # b_col <- stringr::str_pad(b_col, width = max_chars, side = "right")
 
   thresh_prob <- hamming_probability(threshold, max_chars, n_bands, band_width)
   if (thresh_prob < .95) {
@@ -58,10 +54,9 @@ hamming_join <- function(a, b, mode, by, n_bands, band_width,
    )
 
   if (!is.null(similarity_column)) {
-    similarities <- jaccard_similarity(
+    similarities <- hamming_distance(
       pull(a[match_table[, 1], ], by_a),
       pull(b[match_table[, 2], ], by_b),
-      n_gram_width
     )
   }
 
