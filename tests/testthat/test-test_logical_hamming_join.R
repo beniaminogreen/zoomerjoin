@@ -31,7 +31,8 @@ misspell <- function(name) {
 misspell <- Vectorize(misspell)
 
 names_df <- tibble(
-  name = str_pad(tolower(unique(babynames$name)), 15, "right"),
+  #name = str_pad(tolower(unique(babynames$name)), 15, "right"),
+  name = tolower(unique(babynames$name)),
   id_1 = 1:n_distinct(babynames$name)
 ) %>%
   filter(nchar(name) > 9) %>%
@@ -40,7 +41,8 @@ names_df <- tibble(
 misspelled_name_df <- names_df %>%
   rename(id_2 = id_1) %>%
   mutate(
-    name = str_pad(misspell(name), 15, "right")
+    name = misspell(name)
+    #name = str_pad(misspell(name), 15, "right")
   )
 
 test_that("hamming_inner_join works on tiny dataset", {
@@ -92,11 +94,11 @@ test_that("jaccard_inner_join gives same results as stringdist_inner_join", {
   for (i in 1:20) {
     capture_messages({
 
-      zoomer_join_out <- hamming_inner_join(names_df, misspelled_name_df, threshold = 3, n_bands = 2400, band_width = 1) %>%
-        arrange(id_1, id_2)
-      stringdist_join_out <- stringdist_inner_join(names_df, misspelled_name_df, method = "hamming", max_dist = 3) %>%
+      zoomer_join_out <- hamming_inner_join(names_df, misspelled_name_df, threshold = 3, n_bands = 100, band_width = 1) %>%
         arrange(id_1, id_2)
 
+      stringdist_join_out <- stringdist_inner_join(names_df, misspelled_name_df, method = "hamming", max_dist = 3) %>%
+        arrange(id_1, id_2)
     })
 
     expect_true(all.equal(zoomer_join_out, stringdist_join_out))

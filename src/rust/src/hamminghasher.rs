@@ -9,10 +9,10 @@ pub struct HammingHasher {
 }
 
 impl HammingHasher {
-    pub fn new<R:Rng>(input_len: usize, band_width: usize, rng: &mut R) -> Self {
+    pub fn new<R:Rng>(max_input_len: usize, band_width: usize, rng: &mut R) -> Self {
 
         let indexes: Vec<usize> = (0..band_width)
-            .map(|_| rng.gen_range(0..input_len))
+            .map(|_| rng.gen_range(0..max_input_len))
             .collect();
 
         Self { indexes }
@@ -21,7 +21,11 @@ impl HammingHasher {
     pub fn hash(&self, x: &str) -> u64 {
         let mut hasher = FxHasher::default();
 
-        self.indexes.iter().for_each(|idx| x.as_bytes()[*idx].hash(&mut hasher));
+        let input_len = x.as_bytes().len();
+
+        input_len.hash(&mut hasher);
+
+        self.indexes.iter().filter(|&&x|  x < input_len).for_each(|idx| x.as_bytes()[*idx].hash(&mut hasher));
 
         hasher.finish()
     }

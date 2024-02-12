@@ -11,8 +11,8 @@ use crate::shingleset::ShingleSet;
 pub mod em_link;
 use crate::em_link::EMLinker;
 
-pub mod minihasher;
 pub mod euclidianhasher;
+pub mod minihasher;
 use crate::euclidianhasher::EuclidianHasher;
 pub mod minhashjoiner;
 use crate::minhashjoiner::MinHashJoiner;
@@ -36,8 +36,8 @@ fn rust_em_link(x_robj: Robj, probs: &[f64], tol: f64, max_iter: i32) -> Vec<f64
 
 #[extendr]
 fn rust_jaccard_similarity(left_string_r: Robj, right_string_r: Robj, ngram_width: i64) -> Doubles {
-    let left_string_vec = <Vec<String>>::from_robj(&left_string_r).unwrap();
-    let right_string_vec = <Vec<String>>::from_robj(&right_string_r).unwrap();
+    let left_string_vec = left_string_r.as_str_vector().unwrap();
+    let right_string_vec = right_string_r.as_str_vector().unwrap();
 
     // vector to hold sets of n_gram strings in each document
     let left_set_vec: Vec<ShingleSet> = left_string_vec
@@ -71,8 +71,8 @@ fn rust_jaccard_join(
     n_bands: i64,
     band_size: i64,
     threshold: f64,
-    progress : bool,
-    seed: u64
+    progress: bool,
+    seed: u64,
 ) -> Robj {
     let left_string_vec = left_string_r.as_str_vector().unwrap();
     let right_string_vec = right_string_r.as_str_vector().unwrap();
@@ -87,7 +87,13 @@ fn rust_jaccard_join(
         println!("Done generating shingles");
     }
 
-    let chosen_indexes = joiner.join(n_bands as usize, band_size as usize, threshold, progress, seed);
+    let chosen_indexes = joiner.join(
+        n_bands as usize,
+        band_size as usize,
+        threshold,
+        progress,
+        seed,
+    );
 
     let mut out_arr: Array2<u64> = Array2::zeros((chosen_indexes.len(), 2));
     for (i, pair) in chosen_indexes.iter().enumerate() {
@@ -108,8 +114,8 @@ fn rust_salted_jaccard_join(
     n_bands: i64,
     band_size: i64,
     threshold: f64,
-    progress : bool,
-    seed : u64,
+    progress: bool,
+    seed: u64,
 ) -> Robj {
     let left_string_vec = left_string_r.as_str_vector().unwrap();
     let right_string_vec = right_string_r.as_str_vector().unwrap();
@@ -133,7 +139,13 @@ fn rust_salted_jaccard_join(
         println!("Done generating shingles");
     }
 
-    let chosen_indexes = joiner.join(n_bands as usize, band_size as usize, threshold,progress, seed);
+    let chosen_indexes = joiner.join(
+        n_bands as usize,
+        band_size as usize,
+        threshold,
+        progress,
+        seed,
+    );
 
     let mut out_arr: Array2<u64> = Array2::zeros((chosen_indexes.len(), 2));
     for (i, pair) in chosen_indexes.iter().enumerate() {
@@ -151,7 +163,7 @@ fn rust_hamming_join(
     band_width: u64,
     n_bands: u64,
     radius: u64,
-    progress : bool,
+    progress: bool,
     seed: u64,
 ) -> Robj {
     let left_string_vec = left_string_r.as_str_vector().unwrap();
@@ -160,51 +172,50 @@ fn rust_hamming_join(
     let pairs: DashSet<(usize, usize)> = DashSet::new();
     let store: DashMap<u64, Vec<usize>> = DashMap::new();
 
+    let max_size = left_string_vec
+        .iter()
+        .zip(right_string_vec.iter())
+        .map(|(x, y)| x.len().max(y.len()))
+        .max()
+        .expect("Could not find max length of inputs");
+
     let mut rng = StdRng::seed_from_u64(seed);
     for i in 0..n_bands {
-        let hasher = HammingHasher::new(left_string_vec[0].len(), band_width as usize, &mut rng);
+        let hasher = HammingHasher::new(max_size, band_width as usize, &mut rng);
 
         if progress {
             println!("starting band {i} out of {n_bands}");
         }
 
-        left_string_vec
-            .par_iter()
-            .enumerate()
-            .for_each(|(i, x)| {
-                let hash = hasher.hash(x);
+        left_string_vec.par_iter().enumerate().for_each(|(i, x)| {
+            let hash = hasher.hash(x);
 
-                store
-                    .entry(hash)
-                    .and_modify(|x| x.push(i))
-                    .or_insert(vec![i]);
+            store
+                .entry(hash)
+                .and_modify(|x| x.push(i))
+                .or_insert(vec![i]);
+        });
 
-            });
+        right_string_vec.par_iter().enumerate().for_each(|(j, x)| {
+            let hash = hasher.hash(x);
+            if store.contains_key(&hash) {
+                let potential_matches = store.get(&hash).unwrap();
 
-        right_string_vec
-            .par_iter()
-            .enumerate()
-            .for_each(|(j, x)| {
-                let hash = hasher.hash(x);
-                if store.contains_key(&hash) {
-                    let potential_matches = store.get(&hash).unwrap();
+                for i in potential_matches.iter() {
+                    let dist = left_string_vec[*i]
+                        .as_bytes()
+                        .iter()
+                        .zip(right_string_vec[j].as_bytes().iter())
+                        .map(|(a, b)| a != b)
+                        .filter(|x| *x)
+                        .count();
 
-                    for i in potential_matches.iter() {
-                        let dist =
-                            left_string_vec[*i]
-                            .as_bytes()
-                            .iter()
-                            .zip(right_string_vec[j].as_bytes().iter())
-                            .map(|(a,b)| a != b)
-                            .filter(|x| *x)
-                            .count();
-
-                        if dist <= radius as usize {
-                            pairs.insert((*i, j));
-                        }
+                    if dist <= radius as usize {
+                        pairs.insert((*i, j));
                     }
                 }
-            });
+            }
+        });
 
         store.clear()
     }
@@ -227,7 +238,7 @@ fn rust_p_norm_join(
     band_width: u64,
     n_bands: u64,
     r: f64,
-    progress : bool,
+    progress: bool,
     seed: u64,
 ) -> Robj {
     let a_mat = <ArrayView2<f64>>::from_robj(&a_mat).unwrap().to_owned();
@@ -255,7 +266,6 @@ fn rust_p_norm_join(
                     .entry(hash)
                     .and_modify(|x| x.push(i))
                     .or_insert(vec![i]);
-
             });
 
         b_mat
@@ -308,4 +318,3 @@ extendr_module! {
     fn rust_p_norm_join;
     fn rust_hamming_join;
 }
-

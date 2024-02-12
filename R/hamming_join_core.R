@@ -34,8 +34,8 @@ hamming_join <- function(a, b, mode, by, n_bands, band_width,
   }
 
   max_chars <- max(c(nchar(a_col), nchar(b_col)))
-  a_col <- stringr::str_pad(a_col, width = max_chars, side = "right")
-  b_col <- stringr::str_pad(b_col, width = max_chars, side = "right")
+  # a_col <- stringr::str_pad(a_col, width = max_chars, side = "right")
+  # b_col <- stringr::str_pad(b_col, width = max_chars, side = "right")
 
   thresh_prob <- hamming_probability(threshold, max_chars, n_bands, band_width)
   if (thresh_prob < .95) {
