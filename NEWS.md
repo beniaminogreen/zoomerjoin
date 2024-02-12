@@ -1,3 +1,7 @@
+# zoomerjoin (development version)
+
+* Several performance improvements (#101, #104).
+
 # zoomerjoin 0.1.2
 
 * Submitted Package to CRAN
