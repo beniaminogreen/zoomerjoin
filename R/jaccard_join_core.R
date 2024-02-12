@@ -152,21 +152,25 @@ jaccard_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands,
         return(matches)
     }
 
-    browser()
-    not_matched_a <- collapse::`%!iin%`(seq(nrow(a)), match_table[,1])
-    not_matched_b <- collapse::`%!iin%`(seq(nrow(b)), match_table[,2])
-
-    if (mode == "left") {
-        matches <- dplyr::bind_rows(matches,a[not_matched_a,])
-    } else if (mode == "right") {
-        matches <- dplyr::bind_rows(matches,b[not_matched_b,])
-    } else if (mode == "full") {
-        matches <- dplyr::bind_rows(matches,a[not_matched_a,],b[not_matched_b,])
-    } else if (mode == "anti") {
-        matches <- dplyr::bind_rows(a[not_matched_a,], b[not_matched_b,])
-    } else {
-        stop("Invalid Mode Selected!")
-    }
-
-    return(matches)
+    switch(
+        mode,
+        "left" = {
+            not_matched_a <- ! seq(nrow(a)) %in% match_table[,1]
+            matches <- dplyr::bind_rows(matches, a[not_matched_a,])
+        },
+        "right" = {
+            not_matched_b <- ! seq(nrow(b)) %in% match_table[,2]
+            matches <- dplyr::bind_rows(matches, b[not_matched_b,])
+        },
+        "full" = {
+            not_matched_a <- ! seq(nrow(a)) %in% match_table[,1]
+            not_matched_b <- ! seq(nrow(b)) %in% match_table[,2]
+            matches <- dplyr::bind_rows(matches, a[not_matched_a,], b[not_matched_b,])
+        },
+        "anti" = {
+            not_matched_a <- ! seq(nrow(a)) %in% match_table[,1]
+            not_matched_b <- ! seq(nrow(b)) %in% match_table[,2]
+            matches <- dplyr::bind_rows(a[not_matched_a,], b[not_matched_b,])
+        }
+    )
 }
