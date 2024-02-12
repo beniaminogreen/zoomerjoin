@@ -55,9 +55,8 @@ jaccard_curve <- function(n_bands, band_width) {
 #'
 #' @examples
 #' # Find the probability two pairs will be matched given they have a
-#' # jaccard_similarity of .8,
-#' # band width of 5, and 50 bands:
-#' jaccard_probability(.8,5,50)
+#' # jaccard_similarity of .8, band width of 5, and 50 bands:
+#' jaccard_probability(.8, n_bands = 50, band_width = 5)
 #' @export
 jaccard_probability <- function(similarity, n_bands, band_width){
     1-(1-similarity^band_width)^n_bands

@@ -29,7 +29,6 @@ bands.
 }
 \examples{
 # Find the probability two pairs will be matched given they have a
-# jaccard_similarity of .8,
-# band width of 5, and 50 bands:
-jaccard_probability(.8,5,50)
+# jaccard_similarity of .8, band width of 5, and 50 bands:
+jaccard_probability(.8, n_bands = 50, band_width = 5)
 }
