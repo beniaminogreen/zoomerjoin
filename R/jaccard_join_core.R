@@ -88,8 +88,8 @@ jaccard_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands,
 
     # Clean strings that are matched on
     if (clean){
-        a_col <- gsub("[[:punct:] ]", "", dplyr::pull(a,by_a))
-        b_col <- gsub("[[:punct:] ]", "", dplyr::pull(b,by_b))
+        a_col <- tolower(gsub("[[:punct:] ]", "", dplyr::pull(a, by_a)))
+        b_col <- tolower(gsub("[[:punct:] ]", "", dplyr::pull(b, by_b)))
 
         if (!is.null(salt_by_a) && !is.null(salt_by_b)) {
             a_salt_col <- tidyr::unite(a,"salt_by_a", dplyr::all_of(salt_by_a)) %>%
@@ -97,8 +97,8 @@ jaccard_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands,
             b_salt_col <- tidyr::unite(b,"salt_by_b", dplyr::all_of(salt_by_b)) %>%
                 dplyr::pull("salt_by_b")
 
-            a_salt_col <- gsub("[[:punct:] ]", "", a_salt_col)
-            b_salt_col <- gsub("[[:punct:] ]", "", b_salt_col)
+            a_salt_col <- tolower(gsub("[[:punct:] ]", "", a_salt_col))
+            b_salt_col <- tolower(gsub("[[:punct:] ]", "", b_salt_col))
         }
     } else{
         a_col <- dplyr::pull(a,by_a)
