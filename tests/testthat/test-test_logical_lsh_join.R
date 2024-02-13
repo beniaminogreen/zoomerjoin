@@ -149,4 +149,17 @@ test_that("seed works for jaccard joins", {
     }
 })
 
-
+test_that("argument `progress` works correctly", {
+  expect_silent(
+    jaccard_inner_join(
+      dataset_1, dataset_2, by = "string", threshold = .6, n_bands = 300
+    )
+  )
+  expect_output(
+    jaccard_inner_join(
+      dataset_1, dataset_2, by = "string", threshold = .6, n_bands = 300,
+      progress = TRUE
+    ),
+    "generating"
+  )
+})

@@ -11,8 +11,8 @@ use crate::shingleset::ShingleSet;
 pub mod em_link;
 use crate::em_link::EMLinker;
 
-pub mod minihasher;
 pub mod euclidianhasher;
+pub mod minihasher;
 use crate::euclidianhasher::EuclidianHasher;
 pub mod minhashjoiner;
 use crate::minhashjoiner::MinHashJoiner;
@@ -68,25 +68,29 @@ fn rust_jaccard_join(
     n_bands: i64,
     band_size: i64,
     threshold: f64,
-    progress : bool,
-    seed: u64
+    progress: bool,
+    seed: u64,
 ) -> Robj {
-
-
     let right_string_vec = right_string_r.as_str_vector().unwrap();
     let left_string_vec = left_string_r.as_str_vector().unwrap();
 
     if progress {
-        println!("Starting to generate shingles");
+        rprintln!("Starting to generate shingles");
     }
 
     let joiner = MinHashJoiner::new(left_string_vec, right_string_vec, ngram_width as usize);
 
     if progress {
-        println!("Done generating shingles");
+        rprintln!("Done generating shingles");
     }
 
-    let chosen_indexes = joiner.join(n_bands as usize, band_size as usize, threshold, progress, seed);
+    let chosen_indexes = joiner.join(
+        n_bands as usize,
+        band_size as usize,
+        threshold,
+        progress,
+        seed,
+    );
 
     let mut out_arr: Array2<u64> = Array2::zeros((chosen_indexes.len(), 2));
     for (i, pair) in chosen_indexes.iter().enumerate() {
@@ -107,8 +111,8 @@ fn rust_salted_jaccard_join(
     n_bands: i64,
     band_size: i64,
     threshold: f64,
-    progress : bool,
-    seed : u64,
+    progress: bool,
+    seed: u64,
 ) -> Robj {
     let left_string_vec = left_string_r.as_str_vector().unwrap();
     let right_string_vec = right_string_r.as_str_vector().unwrap();
@@ -117,7 +121,7 @@ fn rust_salted_jaccard_join(
     let left_salt_vec = left_salt_r.as_str_vector().unwrap();
 
     if progress {
-        println!("Starting to generate shingles");
+        rprintln!("Starting to generate shingles");
     }
 
     let joiner = MinHashJoiner::new_with_salt(
@@ -129,10 +133,16 @@ fn rust_salted_jaccard_join(
     );
 
     if progress {
-        println!("Done generating shingles");
+        rprintln!("Done generating shingles");
     }
 
-    let chosen_indexes = joiner.join(n_bands as usize, band_size as usize, threshold,progress, seed);
+    let chosen_indexes = joiner.join(
+        n_bands as usize,
+        band_size as usize,
+        threshold,
+        progress,
+        seed,
+    );
 
     let mut out_arr: Array2<u64> = Array2::zeros((chosen_indexes.len(), 2));
     for (i, pair) in chosen_indexes.iter().enumerate() {
@@ -151,7 +161,7 @@ fn rust_p_norm_join(
     band_width: u64,
     n_bands: u64,
     r: f64,
-    progress : bool,
+    progress: bool,
     seed: u64,
 ) -> Robj {
     let a_mat = <ArrayView2<f64>>::from_robj(&a_mat).unwrap().to_owned();
@@ -165,7 +175,7 @@ fn rust_p_norm_join(
         let hasher = EuclidianHasher::new(r, band_width as usize, b_mat.ncols(), &mut rng);
 
         if progress {
-            println!("starting band {i} out of {n_bands}");
+            rprintln!("starting band {i} out of {n_bands}");
         }
 
         a_mat
@@ -179,7 +189,6 @@ fn rust_p_norm_join(
                     .entry(hash)
                     .and_modify(|x| x.push(i))
                     .or_insert(vec![i]);
-
             });
 
         b_mat
@@ -204,7 +213,8 @@ fn rust_p_norm_join(
                             pairs.insert((*i, j));
                         }
                     }
-                } });
+                }
+            });
         store.clear()
     }
 
