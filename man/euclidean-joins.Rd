@@ -91,6 +91,9 @@ performance of the hashing. The default settings are for a
 than .2 have a >.1\% chance of being compared, while pairs with a similarity
 of greater than .8 have a >99.9\% chance of being compared.}
 
+\item{r}{Hyperparameter used to govern the sensitivity of the locality
+sensitive hash.}
+
 \item{progress}{Set to \code{TRUE} to print progress.}
 }
 \value{
@@ -105,6 +108,7 @@ Spatial joins Using LSH
 \examples{
 n <- 10
 
+# Build two matrices that have close values
 X_1 <- matrix(c(seq(0, 1, 1 / (n - 1)), seq(0, 1, 1 / (n - 1))), nrow = n)
 X_2 <- X_1 + .0000001
 

@@ -1,6 +1,8 @@
 #' Spatial joins Using LSH
 #'
 #' @inheritParams jaccard_left_join
+#' @param r Hyperparameter used to govern the sensitivity of the locality
+#'   sensitive hash.
 #'
 #' @return A tibble fuzzily-joined on the basis of the variables in `by.` Tries
 #'   to adhere to the same standards as the dplyr-joins, and uses the same
