@@ -147,10 +147,10 @@
 </h2>
 <p>The flagship feature of zoomerjoins are the jaccard_join and euclidean family of functions, which are designed to be near drop-ins for the corresponding dplyr/fuzzyjoin commands:</p>
 <ul>
-<li><code><a href="reference/jaccard_left_join.html">jaccard_left_join()</a></code></li>
-<li><code><a href="reference/jaccard_right_join.html">jaccard_right_join()</a></code></li>
-<li><code><a href="reference/jaccard_inner_join.html">jaccard_inner_join()</a></code></li>
-<li><code><a href="reference/jaccard_full_join.html">jaccard_full_join()</a></code></li>
+<li><code><a href="reference/logical-joins.html">jaccard_left_join()</a></code></li>
+<li><code><a href="reference/logical-joins.html">jaccard_right_join()</a></code></li>
+<li><code><a href="reference/logical-joins.html">jaccard_inner_join()</a></code></li>
+<li><code><a href="reference/logical-joins.html">jaccard_full_join()</a></code></li>
 <li><code><a href="reference/euclidean_left_join.html">euclidean_left_join()</a></code></li>
 <li><code><a href="reference/euclidean_right_join.html">euclidean_right_join()</a></code></li>
 <li><code><a href="reference/euclidean_inner_join.html">euclidean_inner_join()</a></code></li>
@@ -161,7 +161,7 @@
 <h3 id="example-joining-rows-of-the-database-on-ideology-money-in-politics-and-elections">Example: Joining rows of the Database on Ideology, Money in Politics, and Elections<a class="anchor" aria-label="anchor" href="#example-joining-rows-of-the-database-on-ideology-money-in-politics-and-elections"></a>
 </h3>
 <p>(DIME)</p>
-<p>Here’s a snippet showing off how to use the <code><a href="reference/jaccard_inner_join.html">jaccard_inner_join()</a></code> merge two lists of political donors in the <a href="https://data.stanford.edu/dime" class="external-link">Database on Ideology, Money in Politics, and Elections (DIME)</a>. You can see a more detailed example of this vignette in the <a href="https://beniamino.org/zoomerjoin/articles/guided_tour.html" class="external-link">introductory vignette</a>.</p>
+<p>Here’s a snippet showing off how to use the <code><a href="reference/logical-joins.html">jaccard_inner_join()</a></code> merge two lists of political donors in the <a href="https://data.stanford.edu/dime" class="external-link">Database on Ideology, Money in Politics, and Elections (DIME)</a>. You can see a more detailed example of this vignette in the <a href="https://beniamino.org/zoomerjoin/articles/guided_tour.html" class="external-link">introductory vignette</a>.</p>
 <p>I start with two corpuses I would like to combine, <code>corpus_1</code>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">corpus_1</span> <span class="op">&lt;-</span> <span class="va">dime_data</span> <span class="op">%&gt;%</span></span>
@@ -208,7 +208,7 @@
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">start_time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">join_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/jaccard_inner_join.html">jaccard_inner_join</a></span><span class="op">(</span><span class="va">corpus_1</span>, <span class="va">corpus_2</span>, n_gram_width<span class="op">=</span><span class="fl">6</span>, n_bands<span class="op">=</span><span class="fl">20</span>, band_width<span class="op">=</span><span class="fl">6</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">join_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/logical-joins.html">jaccard_inner_join</a></span><span class="op">(</span><span class="va">corpus_1</span>, <span class="va">corpus_2</span>, n_gram_width<span class="op">=</span><span class="fl">6</span>, n_bands<span class="op">=</span><span class="fl">20</span>, band_width<span class="op">=</span><span class="fl">6</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning in jaccard_join(a, b, mode = "inner", by = by, salt_by = block_by, : A pair of records at the threshold (0.7) have only a 92% chance of being compared.</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Please consider changing `n_bands` and `band_width`.</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
