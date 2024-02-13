@@ -173,4 +173,6 @@ jaccard_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands,
             matches <- dplyr::bind_rows(a[not_matched_a,], b[not_matched_b,])
         }
     )
+
+    matches
 }
