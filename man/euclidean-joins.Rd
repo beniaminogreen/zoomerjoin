@@ -71,11 +71,10 @@ be the same as dplyr: \code{by = c("column_name_in_df_a" = "column_name_in_df_b"
 (x column and y column). Specification made with \code{dplyr::join_by()} are
 also accepted.}
 
-\item{threshold}{The Jaccard similarity threshold above which two strings
-should be considered a match (default is .95). The similarity is equal to
-1 - the Jaccard distance between the two strings, so 1 implies the strings
-are identical, while a similarity of zero implies the strings are completely
-dissimilar.}
+\item{threshold}{The distance threshold below which units should be
+considered a match. Note that contrary to Jaccard joins, this value is
+about the distance and not the similarity. Therefore, a lower value means a
+higher similarity.}
 
 \item{n_bands}{The number of bands used in the minihash algorithm (default is
 40). Use this in conjunction with the \code{band_width} to determine the

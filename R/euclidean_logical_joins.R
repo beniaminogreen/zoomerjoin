@@ -1,6 +1,10 @@
 #' Spatial joins Using LSH
 #'
 #' @inheritParams jaccard_left_join
+#' @param threshold The distance threshold below which units should be
+#'   considered a match. Note that contrary to Jaccard joins, this value is
+#'   about the distance and not the similarity. Therefore, a lower value means a
+#'   higher similarity.
 #' @param r Hyperparameter used to govern the sensitivity of the locality
 #'   sensitive hash.
 #'
