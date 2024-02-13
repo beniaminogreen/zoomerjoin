@@ -53,7 +53,7 @@ the same group, which is given a standardized name.
 }
 \description{
 Performs fuzzy string grouping in which similar strings are assigned to the
-same group. Uses the \code{fastgreedy.community} community detection algorithm
+same group. Uses the \code{cluster_fast_greedy()} community detection algorithm
 from the \code{igraph} package to create the groups. Must have igraph installed
 in order to use this function.
 }
