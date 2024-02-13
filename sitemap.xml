@@ -37,28 +37,19 @@
     <loc>https://beniaminogreen.github.io/zoomerjoin/reference/em_link.html</loc>
   </url>
   <url>
-    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/euclidean_anti_join.html</loc>
+    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/euclidean-joins.html</loc>
   </url>
   <url>
     <loc>https://beniaminogreen.github.io/zoomerjoin/reference/euclidean_curve.html</loc>
   </url>
   <url>
-    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/euclidean_full_join.html</loc>
-  </url>
-  <url>
-    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/euclidean_inner_join.html</loc>
-  </url>
-  <url>
-    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/euclidean_left_join.html</loc>
-  </url>
-  <url>
     <loc>https://beniaminogreen.github.io/zoomerjoin/reference/euclidean_probability.html</loc>
   </url>
   <url>
-    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/euclidean_right_join.html</loc>
+    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/index.html</loc>
+    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/jaccard-joins.html</loc>
   </url>
   <url>
     <loc>https://beniaminogreen.github.io/zoomerjoin/reference/jaccard_curve.html</loc>
@@ -74,9 +65,6 @@
   </url>
   <url>
     <loc>https://beniaminogreen.github.io/zoomerjoin/reference/jaccard_string_group.html</loc>
-  </url>
-  <url>
-    <loc>https://beniaminogreen.github.io/zoomerjoin/reference/logical-joins.html</loc>
   </url>
   <url>
     <loc>https://beniaminogreen.github.io/zoomerjoin/reference/zoomerjoin-package.html</loc>

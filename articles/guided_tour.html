@@ -117,8 +117,8 @@ matching methods.</p>
 </h2>
 <p>If you’re familiar with the logical-join syntax from
 <code>dplyr</code>, then you already know how to use fuzzy join to join
-two datasets. Zoomerjoin provides <code><a href="../reference/logical-joins.html">jaccard_inner_join()</a></code> and
-<code><a href="../reference/logical-joins.html">jaccard_full_join()</a></code> (among others), which are the
+two datasets. Zoomerjoin provides <code><a href="../reference/jaccard-joins.html">jaccard_inner_join()</a></code> and
+<code><a href="../reference/jaccard-joins.html">jaccard_full_join()</a></code> (among others), which are the
 fuzzy-joining analogues of the corresponding dplyr functions.</p>
 <p>I demonstrate the syntax by using the package to join to corpuses,
 which formed from entries from the <a href="https://data.stanford.edu/dime" class="external-link">Database on Ideology, Money in
@@ -185,24 +185,24 @@ zoomerjoin:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">start_time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">join_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/logical-joins.html">jaccard_inner_join</a></span><span class="op">(</span><span class="va">corpus_1</span>, <span class="va">corpus_2</span>,</span>
+<span><span class="va">join_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/jaccard-joins.html">jaccard_inner_join</a></span><span class="op">(</span><span class="va">corpus_1</span>, <span class="va">corpus_2</span>,</span>
 <span>                           by <span class="op">=</span> <span class="st">"field"</span>, n_gram_width<span class="op">=</span><span class="fl">6</span>,</span>
 <span>                           n_bands<span class="op">=</span><span class="fl">20</span>, band_width<span class="op">=</span><span class="fl">6</span>, threshold <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="va">start_time</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Time difference of 0.01218605 secs</span></span></code></pre>
+<pre><code><span><span class="co">## Time difference of 0.01203394 secs</span></span></code></pre>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">join_out</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 8 × 4</span></span></span>
 <span><span class="co">##       a field.x                                                      b field.y  </span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span>   238 4th congressional district democratic party                518 16th con…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span>   230 pipefitters local union 524                                998 pipefitt…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span>   230 pipefitters local union 524                                998 pipefitt…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span>   292 bill bradley for u s senate '84                            913 bill bra…</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">3</span>   378 guarini for congress 1982                                  883 guarini …</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span>   302 americans for good government inc                          910 american…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span>   292 bill bradley for u s senate '84                            913 bill bra…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">6</span>    88 scheuer for congress 1980                                  667 scheuer …</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span>   319 7th congressional district democratic party of wisconsin   792 8th cong…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span>    88 scheuer for congress 1980                                  667 scheuer …</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span>   302 americans for good government inc                          910 american…</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">7</span>   378 guarini for congress 1982                                  606 guarini …</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">8</span>   319 7th congressional district democratic party of wisconsin   792 8th cong…</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">8</span>   238 4th congressional district democratic party                518 16th con…</span></span></code></pre>
 <p>The first two arguments, <code>a</code>, and <code>b</code>, are
 direct analogues of the <code>dplyr</code> arguments, and are the two
 data frames you want to join. The <code>by</code> field also acts the
