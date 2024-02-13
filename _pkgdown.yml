@@ -10,14 +10,6 @@ reference:
       - jaccard_right_join
       - jaccard_anti_join
 
-  - title: Probabilistic Matching Algorithms
-    contents:
-      - em_link
-
-  - title: string deduplication
-    contents:
-      - jaccard_string_group
-
   - title: dplyr-style distance joins
     contents:
       - euclidean_inner_join
@@ -25,6 +17,14 @@ reference:
       - euclidean_left_join
       - euclidean_right_join
       - euclidean_anti_join
+
+  - title: Probabilistic Matching Algorithms
+    contents:
+      - em_link
+
+  - title: String deduplication
+    contents:
+      - jaccard_string_group
 
   - title: Utilities
     contents:
@@ -38,7 +38,7 @@ reference:
       - euclidean_curve
       - euclidean_probability
 
-  - title: data
+  - title: Data
     contents:
       - dime_data
 
