@@ -6,11 +6,11 @@
 #'   about the distance and not the similarity. Therefore, a lower value means a
 #'   higher similarity.
 #' @param r Hyperparameter used to govern the sensitivity of the locality
-#' sensitive hash. Corresponds to the width of the hash bucket in the LSH
-#' algorithm. Increasing values of `r` mean more hash collisions and higher
-#' sensitivity (fewer false-negatives) at the cost of lower specificity (more
-#' false-positives and longer run time). For more information, see the
-#' description in  <doi:10.1145/997817.997857>.
+#'   sensitive hash. Corresponds to the width of the hash bucket in the LSH
+#'   algorithm. Increasing values of `r` mean more hash collisions and higher
+#'   sensitivity (fewer false-negatives) at the cost of lower specificity (more
+#'   false-positives and longer run time). For more information, see the
+#'   description in \doi{10.1145/997817.997857}.
 #'
 #' @return A tibble fuzzily-joined on the basis of the variables in `by.` Tries
 #'   to adhere to the same standards as the dplyr-joins, and uses the same
