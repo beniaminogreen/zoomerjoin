@@ -18,3 +18,5 @@ src/rust/rehash.py
 src/rust/uncomment.sh
 ^cran-comments\.md$
 ^CRAN-SUBMISSION$
+^.*\.Rproj$
+^\.Rproj\.user$
