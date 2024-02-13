@@ -8,6 +8,7 @@
 
 * When `clean = TRUE`, strings were not coerced to lower case. This is now the 
   case (#105).
+* Fix argument `progress`, which didn't print anything when it was `TRUE` (#107).
 
 # zoomerjoin 0.1.2
 
