@@ -1,3 +1,5 @@
 docs
 inst/doc
 src/rust/vendor
+.Rproj.user
+zoomerjoin.Rproj

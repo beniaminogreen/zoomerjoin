@@ -52,7 +52,7 @@
 #'   logical joining patterns (i.e. inner-join joins and keeps only observations
 #'   in both datasets).
 #'
-#' @rdname logical-joins
+#' @rdname jaccard-joins
 #' @export
 #'
 #' @examples
@@ -115,7 +115,7 @@ jaccard_inner_join <- function(a, b,
   )
 }
 
-#' @rdname logical-joins
+#' @rdname jaccard-joins
 #' @export
 jaccard_anti_join <- function(a, b,
                               by = NULL,
@@ -136,7 +136,7 @@ jaccard_anti_join <- function(a, b,
   )
 }
 
-#' @rdname logical-joins
+#' @rdname jaccard-joins
 #' @export
 jaccard_left_join <- function(a, b,
                               by = NULL,
@@ -160,7 +160,7 @@ jaccard_left_join <- function(a, b,
   )
 }
 
-#' @rdname logical-joins
+#' @rdname jaccard-joins
 #' @export
 jaccard_right_join <- function(a, b,
                                by = NULL,
@@ -184,7 +184,7 @@ jaccard_right_join <- function(a, b,
   )
 }
 
-#' @rdname logical-joins
+#' @rdname jaccard-joins
 #' @export
 jaccard_full_join <- function(a, b,
                               by = NULL,
