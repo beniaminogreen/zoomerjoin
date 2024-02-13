@@ -6,7 +6,7 @@
 \alias{jaccard_left_join}
 \alias{jaccard_right_join}
 \alias{jaccard_full_join}
-\title{Fuzzy inner-join using minihashing}
+\title{Fuzzy joins using minihashing}
 \usage{
 jaccard_inner_join(
   a,
@@ -131,7 +131,7 @@ logical joining patterns (i.e. inner-join joins and keeps only observations
 in both datasets).
 }
 \description{
-Fuzzy inner-join using minihashing
+Fuzzy joins using minihashing
 }
 \examples{
 # load baby names data

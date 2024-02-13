@@ -1,4 +1,4 @@
-#' Fuzzy inner-join using minihashing
+#' Fuzzy joins using minihashing
 #'
 #' @param a,b The two dataframes to join.
 #'
