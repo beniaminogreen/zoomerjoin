@@ -54,7 +54,6 @@
 #'
 #' @rdname logical-joins
 #' @export
-#' @export
 #'
 #' @examples
 #' # load baby names data
