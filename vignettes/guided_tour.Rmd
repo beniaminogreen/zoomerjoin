@@ -48,7 +48,7 @@ library(fuzzyjoin)
 library(zoomerjoin)
 
 corpus_1 <- dime_data %>% # dime data is packaged with zoomerjoin
-    head(500)
+  head(500)
 names(corpus_1) <- c("a", "field")
 corpus_1
 ```
@@ -57,7 +57,7 @@ And the second looks as follows:
 
 ```{r}
 corpus_2 <- dime_data %>% # dime data is packaged with zoomerjoin
-    tail(500)
+  tail(500)
 names(corpus_2) <- c("b", "field")
 corpus_2
 ```
@@ -69,8 +69,9 @@ we must use the fuzzy-matching capabilities of zoomerjoin:
 set.seed(1)
 start_time <- Sys.time()
 join_out <- jaccard_inner_join(corpus_1, corpus_2,
-                           by = "field", n_gram_width=6,
-                           n_bands=20, band_width=6, threshold = .8)
+  by = "field", n_gram_width = 6,
+  n_bands = 20, band_width = 6, threshold = .8
+)
 print(Sys.time() - start_time)
 print(join_out)
 ```
@@ -101,7 +102,7 @@ that a pair of records are compared at each possible Jaccard distance, $d$
 between zero and one:
 
 ```{r}
-jaccard_curve(20,6)
+jaccard_curve(20, 6)
 ```
 
 By looking at the plot produced, we can see that using these hyperparameters,
@@ -134,15 +135,15 @@ standardize a set of organization names.
 
 ```{r}
 organization_names <- c(
-                        "American Civil Liberties Union",
-                        "American Civil Liberties Union (ACLU)",
-                        "NRA National Rifle Association",
-                        "National Rifle Association NRA",
-                        "National Rifle Association",
-                        "Planned Parenthood",
-                        "Blue Cross"
+  "American Civil Liberties Union",
+  "American Civil Liberties Union (ACLU)",
+  "NRA National Rifle Association",
+  "National Rifle Association NRA",
+  "National Rifle Association",
+  "Planned Parenthood",
+  "Blue Cross"
 )
-standardized_organization_names <- jaccard_string_group(organization_names, threshold=.5, band_width = 3)
+standardized_organization_names <- jaccard_string_group(organization_names, threshold = .5, band_width = 3)
 print(standardized_organization_names)
 ```
 

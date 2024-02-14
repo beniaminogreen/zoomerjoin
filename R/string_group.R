@@ -42,41 +42,42 @@
 #'
 #' @examples
 #'
-#' string <- c("beniamino", "jack", "benjamin", "beniamin",
-#'     "jacky", "giacomo", "gaicomo")
-#' jaccard_string_group(string, threshold = .2, n_bands=90, n_gram_width=1)
+#' string <- c(
+#'   "beniamino", "jack", "benjamin", "beniamin",
+#'   "jacky", "giacomo", "gaicomo"
+#' )
+#' jaccard_string_group(string, threshold = .2, n_bands = 90, n_gram_width = 1)
 #'
 #' @export
 #' @importFrom stats runif
 #' @importFrom utils installed.packages
 jaccard_string_group <- function(string, n_gram_width = 2, n_bands = 45, band_width = 8, threshold = .7, progress = FALSE) {
+  if (system.file(package = "igraph") == "") {
+    stop("library 'igraph' must be installed to run this function")
+  }
 
-    if (system.file(package = "igraph")=="") {
-            stop("library 'igraph' must be installed to run this function")
-    }
-
-    pairs <- rust_jaccard_join(string,
-                           string,
-                           ngram_width = n_gram_width,
-                           n_bands,
-                           band_size = band_width,
-                           threshold = threshold,
-                           progress = progress,
-                           seed = round(stats::runif(1,0,2^64))
-    )
+  pairs <- rust_jaccard_join(string,
+    string,
+    ngram_width = n_gram_width,
+    n_bands,
+    band_size = band_width,
+    threshold = threshold,
+    progress = progress,
+    seed = round(stats::runif(1, 0, 2^64))
+  )
 
 
-    graph <- igraph::graph_from_edgelist(pairs)
-    if (packageVersion("igraph") < "2.0.0") {
-        fc <- igraph::fastgreedy.community(igraph::as.undirected(graph))
-    } else {
-        fc <- igraph::cluster_fast_greedy(igraph::as.undirected(graph))
-    }
+  graph <- igraph::graph_from_edgelist(pairs)
+  if (packageVersion("igraph") < "2.0.0") {
+    fc <- igraph::fastgreedy.community(igraph::as.undirected(graph))
+  } else {
+    fc <- igraph::cluster_fast_greedy(igraph::as.undirected(graph))
+  }
 
-    groups <- igraph::groups(fc)
-    lookup_table <- vapply(groups, "[[", integer(1), 1)
+  groups <- igraph::groups(fc)
+  lookup_table <- vapply(groups, "[[", integer(1), 1)
 
-    membership <- igraph::membership(fc)
+  membership <- igraph::membership(fc)
 
-    return(string[lookup_table[membership]])
+  return(string[lookup_table[membership]])
 }

@@ -35,40 +35,41 @@
 #'
 #' @examples
 #'
-#' inv_logit <- function (x) {
-#'    exp(x)/(1+exp(x))
-#'}
-#'n <- 10^6
-#'d <- 1:n %% 5 == 0
-#'X <- cbind(
-#'         as.integer(ifelse(d, runif(n)<.8, runif(n)<.2)),
-#'         as.integer(ifelse(d, runif(n)<.9, runif(n)<.2)),
-#'         as.integer(ifelse(d, runif(n)<.7, runif(n)<.2)),
-#'         as.integer(ifelse(d, runif(n)<.6, runif(n)<.2)),
-#'         as.integer(ifelse(d, runif(n)<.5, runif(n)<.2)),
-#'         as.integer(ifelse(d, runif(n)<.1, runif(n)<.9)),
-#'         as.integer(ifelse(d, runif(n)<.1, runif(n)<.9)),
-#'         as.integer(ifelse(d, runif(n)<.8, runif(n)<.01))
-#'         )
+#' inv_logit <- function(x) {
+#'   exp(x) / (1 + exp(x))
+#' }
+#' n <- 10^6
+#' d <- 1:n %% 5 == 0
+#' X <- cbind(
+#'   as.integer(ifelse(d, runif(n) < .8, runif(n) < .2)),
+#'   as.integer(ifelse(d, runif(n) < .9, runif(n) < .2)),
+#'   as.integer(ifelse(d, runif(n) < .7, runif(n) < .2)),
+#'   as.integer(ifelse(d, runif(n) < .6, runif(n) < .2)),
+#'   as.integer(ifelse(d, runif(n) < .5, runif(n) < .2)),
+#'   as.integer(ifelse(d, runif(n) < .1, runif(n) < .9)),
+#'   as.integer(ifelse(d, runif(n) < .1, runif(n) < .9)),
+#'   as.integer(ifelse(d, runif(n) < .8, runif(n) < .01))
+#' )
 #'
 #' # inital guess at class assignments based on # a hypothetical logistic
 #' # regression. Should be based on domain knowledge, or a handful of hand-coded
 #' # observations.
 #'
-#'x_sum <- rowSums(X)
-#'g <- inv_logit((x_sum - mean(x_sum))/sd(x_sum))
+#' x_sum <- rowSums(X)
+#' g <- inv_logit((x_sum - mean(x_sum)) / sd(x_sum))
 #'
-#' out <- em_link(X, g,tol=.0001, max_iter = 100)
+#' out <- em_link(X, g, tol = .0001, max_iter = 100)
 #'
 #' @export
-em_link <- function (X,g, tol = 10^-6, max_iter = 10^3) {
+em_link <- function(X, g, tol = 10^-6, max_iter = 10^3) {
+  stopifnot(
+    "There can be no NA's in X (but you can add NA as its own agreement level)" = !anyNA(X)
+  )
 
-    stopifnot("There can be no NA's in X (but you can add NA as its own agreement level)"
-              = !any(is.na(X)))
-
-    stopifnot("initial guesses must be valid probabilities (greater than 0 and less than 1)"
-              = all(g < 1 & g > 0))
+  stopifnot(
+    "initial guesses must be valid probabilities (greater than 0 and less than 1)" = all(g < 1 & g > 0)
+  )
 
 
-    rust_em_link(X,g, tol, max_iter)
+  rust_em_link(X, g, tol, max_iter)
 }

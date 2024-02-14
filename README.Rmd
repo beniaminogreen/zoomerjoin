@@ -143,7 +143,7 @@ I start with two corpuses I would like to combine, `corpus_1`:
 
 ```{r}
 corpus_1 <- dime_data %>%
-    head(500)
+  head(500)
 names(corpus_1) <- c("a", "field")
 corpus_1
 ```
@@ -152,7 +152,7 @@ And `corpus_2`:
 
 ```{r}
 corpus_2 <- dime_data %>%
-    tail(500)
+  tail(500)
 names(corpus_2) <- c("b", "field")
 corpus_2
 ```
@@ -177,7 +177,7 @@ vignette](https://beniamino.org/zoomerjoin/articles/guided_tour.html).
 ```{r}
 set.seed(1)
 start_time <- Sys.time()
-join_out <- jaccard_inner_join(corpus_1, corpus_2, n_gram_width=6, n_bands=20, band_width=6)
+join_out <- jaccard_inner_join(corpus_1, corpus_2, n_gram_width = 6, n_bands = 20, band_width = 6)
 print(Sys.time() - start_time)
 print(join_out)
 ```

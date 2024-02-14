@@ -20,3 +20,4 @@ src/rust/uncomment.sh
 ^CRAN-SUBMISSION$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+.lintr
