@@ -33,6 +33,6 @@ strings with .7 similarity have a 99.9\% chance of being compared.
 # Help me find the parameters that will minimize runtime while ensuring that
 # two strings with similarity .1 will be compared less than .1\% of the time,
 # strings with .8 similaity will have a 99.95\% chance of being compared:
-jaccard_hyper_grid_search(.1,.9,.001,.995)
+jaccard_hyper_grid_search(.1, .9, .001, .995)
 
 }

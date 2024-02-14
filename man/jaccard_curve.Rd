@@ -21,6 +21,6 @@ Plot S-Curve for a LSH with given hyperparameters
 \examples{
 # Plot the probability two pairs will be matched as a function of their
 # jaccard similarity, given the hyperparameters n_bands and band_width.
-jaccard_curve(40,6)
+jaccard_curve(40, 6)
 
 }

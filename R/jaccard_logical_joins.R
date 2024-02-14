@@ -1,4 +1,4 @@
-#' Fuzzy joins using minihashing
+#' Fuzzy joins for Jaccard distance using MinHash
 #'
 #' @param a,b The two dataframes to join.
 #'

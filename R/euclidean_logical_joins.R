@@ -1,4 +1,4 @@
-#' Spatial joins Using LSH
+#' Fuzzy joins for Euclidean distance using Locality Sensitive Hashing
 #'
 #' @inheritParams jaccard_left_join
 #' @param threshold The distance threshold below which units should be
