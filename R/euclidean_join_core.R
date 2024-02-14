@@ -20,17 +20,6 @@ multi_by_validate <- function(a, b, by) {
       by_a <- by
       by_b <- by
     }
-
-
-    stopifnot("'radius' must be greater than 0" = threshold > 0)
-
-    by <- multi_by_validate(a,b,by)
-    by_a <- by[[1]]
-    by_b <- by[[2]]
-    stopifnot("There should be no NA's in by_a[1]"= !anyNA(a[[by_a[1]]]))
-    stopifnot("There should be no NA's in by_a[2]"= !anyNA(a[[by_a[2]]]))
-    stopifnot("There should be no NA's in by_b[1]"= !anyNA(b[[by_b[1]]]))
-    stopifnot("There should be no NA's in by_b[2]"= !anyNA(b[[by_b[2]]]))
     stopifnot(by_a %in% names(a))
     stopifnot(by_b %in% names(b))
   }
@@ -47,10 +36,10 @@ euclidean_join_core <- function(a, b, by = NULL, n_bands = 30, band_width = 10, 
   by <- multi_by_validate(a, b, by)
   by_a <- by[[1]]
   by_b <- by[[2]]
-  stopifnot("There should be no NA's in by_a[1]" = !any(is.na(dplyr::pull(a, by_a[1]))))
-  stopifnot("There should be no NA's in by_a[2]" = !any(is.na(dplyr::pull(a, by_a[2]))))
-  stopifnot("There should be no NA's in by_b[1]" = !any(is.na(dplyr::pull(b, by_b[1]))))
-  stopifnot("There should be no NA's in by_b[2]" = !any(is.na(dplyr::pull(b, by_b[2]))))
+  stopifnot("There should be no NA's in by_a[1]" = !anyNA(a[[by_a[1]]]))
+  stopifnot("There should be no NA's in by_a[2]" = !anyNA(a[[by_a[2]]]))
+  stopifnot("There should be no NA's in by_b[1]" = !anyNA(b[[by_b[1]]]))
+  stopifnot("There should be no NA's in by_b[2]" = !anyNA(b[[by_b[2]]]))
 
   thresh_prob <- euclidean_probability(threshold, n_bands, band_width, r)
   if (thresh_prob < .95) {

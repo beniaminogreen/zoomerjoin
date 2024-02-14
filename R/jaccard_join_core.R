@@ -39,9 +39,8 @@ jaccard_join <- function(a, b, mode, by, salt_by, n_gram_width, n_bands,
   a <- tibble::as_tibble(a)
   b <- tibble::as_tibble(b)
 
-   stopifnot("There should be no NA's in by_a"= !anyNA(a[[by_a]]))
-   stopifnot("There should be no NA's in by_b"= !anyNA(b[[by_b]]))
-
+  stopifnot("'threshold' must be of length 1" = length(threshold) == 1)
+  stopifnot("'threshold' must be between 0 and 1" = threshold <= 1 & threshold >= 0)
 
   stopifnot("'n_bands' must be greater than 0" = n_bands > 0)
   stopifnot("'n_bands' must be length than 1" = length(n_bands) == 1)
@@ -54,7 +53,6 @@ jaccard_join <- function(a, b, mode, by, salt_by, n_gram_width, n_bands,
 
   thresh_prob <- jaccard_probability(threshold, n_bands, band_width)
 
-
   if (thresh_prob < .95) {
     str <- paste0(
       "A pair of records at the threshold (", threshold,
@@ -64,16 +62,14 @@ jaccard_join <- function(a, b, mode, by, salt_by, n_gram_width, n_bands,
     warning(str)
   }
 
-
-
   by <- simple_by_validate(a, b, by)
   by_a <- by[[1]]
   by_b <- by[[2]]
   stopifnot("'by' vectors must have length 1" = length(by_a) == 1)
   stopifnot("'by' vectors must have length 1" = length(by_b) == 1)
 
-  stopifnot("There should be no NA's in by_a" = !any(is.na(dplyr::pull(a, by_a))))
-  stopifnot("There should be no NA's in by_b" = !any(is.na(dplyr::pull(b, by_b))))
+  stopifnot("There should be no NA's in by_a" = !anyNA(a[[by_a]]))
+  stopifnot("There should be no NA's in by_b" = !anyNA(b[[by_b]]))
 
   salt_by_a <- NULL
   salt_by_b <- NULL
@@ -83,9 +79,9 @@ jaccard_join <- function(a, b, mode, by, salt_by, n_gram_width, n_bands,
     salt_by_a <- salt_by[[1]]
     salt_by_b <- salt_by[[2]]
     stopifnot("There should be no NA's in the blocking variables" = !
-    any(is.na(dplyr::select(a, dplyr::all_of(salt_by_a)))))
+    anyNA(a[, salt_by_a, drop = FALSE]))
     stopifnot("There should be no NA's in the blocking variables" = !
-    any(is.na(dplyr::select(b, dplyr::all_of(salt_by_b)))))
+    anyNA(b[, salt_by_b, drop = FALSE]))
   }
 
   # Clean strings that are matched on
