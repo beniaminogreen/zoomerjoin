@@ -3,10 +3,11 @@
 ## New features
 
 * Several performance improvements (#101, #104).
+* Added support for joining based on hamming distance (#100).
 
 ## Bug fixes
 
-* When `clean = TRUE`, strings were not coerced to lower case. This is now the 
+* When `clean = TRUE`, strings were not coerced to lower case. This is now the
   case (#105).
 * Fix argument `progress`, which didn't print anything when it was `TRUE` (#107).
 

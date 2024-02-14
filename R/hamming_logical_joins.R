@@ -1,4 +1,4 @@
-#' Fuzzy inner-join using minihashing
+#' Fuzzy inner-join using Locality Sensitive Hashing
 #'
 #' Find similar rows between two tables using the hamming distance. The hamming
 #' distance is equal to the number characters two strings differ by, or is
@@ -39,6 +39,7 @@
 #' to adhere to the same standards as the dplyr-joins, and uses the same
 #' logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
 #'
+#' @rdname hamming-joins
 #' @export
 hamming_inner_join <- function(a, b,
                            by = NULL,
@@ -58,14 +59,7 @@ hamming_inner_join <- function(a, b,
                  clean=clean)
 }
 
-#' Fuzzy anti-join using minihashing
-#'
-#' @inheritParams hamming_inner_join
-#'
-#' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
-#' to adhere to the same standards as the dplyr-joins, and uses the same
-#' logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
-#'
+#' @rdname hamming-joins
 #' @export
 hamming_anti_join <- function(a, b,
                            by = NULL,
@@ -85,14 +79,7 @@ hamming_anti_join <- function(a, b,
                  clean=clean)
 }
 
-#' Fuzzy left-join using minihashing
-#'
-#' @inheritParams hamming_inner_join
-#'
-#' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
-#' to adhere to the same standards as the dplyr-joins, and uses the same
-#' logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
-#'
+#' @rdname hamming-joins
 #' @export
 hamming_left_join <- function(a, b,
                            by = NULL,
@@ -112,14 +99,7 @@ hamming_left_join <- function(a, b,
                  clean=clean)
 }
 
-#' Fuzzy left-join using minihashing
-#'
-#' @inheritParams hamming_inner_join
-#'
-#' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
-#' to adhere to the same standards as the dplyr-joins, and uses the same
-#' logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
-#'
+#' @rdname hamming-joins
 #' @export
 hamming_right_join <- function(a, b,
                            by = NULL,
@@ -140,14 +120,7 @@ hamming_right_join <- function(a, b,
 }
 
 
-#' Fuzzy full-join using minihashing
-#'
-#' @inheritParams hamming_inner_join
-#'
-#' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
-#' to adhere to the same standards as the dplyr-joins, and uses the same
-#' logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
-#'
+#' @rdname hamming-joins
 #' @export
 hamming_full_join <- function(a, b,
                            by = NULL,

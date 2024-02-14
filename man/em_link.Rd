@@ -43,29 +43,29 @@ algorithm until an optima is reached. for more details, see
 }
 \examples{
 
-inv_logit <- function (x) {
-   exp(x)/(1+exp(x))
+inv_logit <- function(x) {
+  exp(x) / (1 + exp(x))
 }
 n <- 10^6
 d <- 1:n \%\% 5 == 0
 X <- cbind(
-        as.integer(ifelse(d, runif(n)<.8, runif(n)<.2)),
-        as.integer(ifelse(d, runif(n)<.9, runif(n)<.2)),
-        as.integer(ifelse(d, runif(n)<.7, runif(n)<.2)),
-        as.integer(ifelse(d, runif(n)<.6, runif(n)<.2)),
-        as.integer(ifelse(d, runif(n)<.5, runif(n)<.2)),
-        as.integer(ifelse(d, runif(n)<.1, runif(n)<.9)),
-        as.integer(ifelse(d, runif(n)<.1, runif(n)<.9)),
-        as.integer(ifelse(d, runif(n)<.8, runif(n)<.01))
-        )
+  as.integer(ifelse(d, runif(n) < .8, runif(n) < .2)),
+  as.integer(ifelse(d, runif(n) < .9, runif(n) < .2)),
+  as.integer(ifelse(d, runif(n) < .7, runif(n) < .2)),
+  as.integer(ifelse(d, runif(n) < .6, runif(n) < .2)),
+  as.integer(ifelse(d, runif(n) < .5, runif(n) < .2)),
+  as.integer(ifelse(d, runif(n) < .1, runif(n) < .9)),
+  as.integer(ifelse(d, runif(n) < .1, runif(n) < .9)),
+  as.integer(ifelse(d, runif(n) < .8, runif(n) < .01))
+)
 
 # inital guess at class assignments based on # a hypothetical logistic
 # regression. Should be based on domain knowledge, or a handful of hand-coded
 # observations.
 
 x_sum <- rowSums(X)
-g <- inv_logit((x_sum - mean(x_sum))/sd(x_sum))
+g <- inv_logit((x_sum - mean(x_sum)) / sd(x_sum))
 
-out <- em_link(X, g,tol=.0001, max_iter = 100)
+out <- em_link(X, g, tol = .0001, max_iter = 100)
 
 }
