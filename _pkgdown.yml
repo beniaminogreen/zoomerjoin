@@ -38,7 +38,7 @@ reference:
   - title: Utilities
     contents:
       - jaccard_similarity
-      - hamming_similarity
+      - hamming_distance
 
   - title: Diagnostics
     contents:
