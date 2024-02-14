@@ -2,7 +2,7 @@ url: https://beniaminogreen.github.io/zoomerjoin/
 template:
   bootstrap: 5
 reference:
-  - title: fuzzy joins for Jaccard distance
+  - title: Fuzzy joins for Jaccard distance
     contents:
       - jaccard_inner_join
       - jaccard_full_join
