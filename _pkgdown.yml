@@ -10,7 +10,7 @@ reference:
       - jaccard_right_join
       - jaccard_anti_join
 
-  - title: fuzzy joins for Hamming distance
+  - title: Fuzzy joins for Hamming distance
     contents:
       - hamming_inner_join
       - hamming_full_join
