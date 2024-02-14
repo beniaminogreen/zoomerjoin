@@ -13,10 +13,15 @@
 #'   higher runtime.
 #'
 #' @param band_width The length of each band used in the minihashing algorithm
-#'   (default is 8). Use this in conjunction with the \code{n_bands} to determine
-#'   the performance of the hashing. Generally speaking a wider number of bands
-#'   decreases the number of false positives, decreasing runtime at the cost of
-#'   lower sensitivity (true matches are less likely to be found).
+#'   (default is 8). Use this in conjunction with the \code{n_bands} to
+#'   determine the performance of the hashing. Generally speaking a wider number
+#'   of bands decreases the number of false positives, decreasing runtime at the
+#'   cost of lower sensitivity (true matches are less likely to be found).
+#'
+#' @param threshold The Hamming distance threshold below which two strings
+#'   should be considered a match. A distance of zero corresponds to complete
+#'   equality between strings, while a distance of 'x' between two strings means
+#'   that 'x' substitutions must be made to transform one string into the other.
 #'
 #' @param similarity_column An optional character vector. If provided, the data
 #'   frame will contain a column with this name giving the Hamming distance

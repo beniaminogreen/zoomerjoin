@@ -83,16 +83,15 @@ speaking, a higher number of bands leads to greater recall at the cost of
 higher runtime.}
 
 \item{band_width}{The length of each band used in the minihashing algorithm
-(default is 8). Use this in conjunction with the \code{n_bands} to determine
-the performance of the hashing. Generally speaking a wider number of bands
-decreases the number of false positives, decreasing runtime at the cost of
-lower sensitivity (true matches are less likely to be found).}
+(default is 8). Use this in conjunction with the \code{n_bands} to
+determine the performance of the hashing. Generally speaking a wider number
+of bands decreases the number of false positives, decreasing runtime at the
+cost of lower sensitivity (true matches are less likely to be found).}
 
-\item{threshold}{The Jaccard similarity threshold above which two strings
-should be considered a match (default is .95). The similarity is equal to
-1 - the Jaccard distance between the two strings, so 1 implies the strings
-are identical, while a similarity of zero implies the strings are completely
-dissimilar.}
+\item{threshold}{The Hamming distance threshold below which two strings
+should be considered a match. A distance of zero corresponds to complete
+equality between strings, while a distance of 'x' between two strings means
+that 'x' substitutions must be made to transform one string into the other.}
 
 \item{progress}{Set to \code{TRUE} to print progress.}
 
