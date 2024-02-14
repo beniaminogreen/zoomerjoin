@@ -5,7 +5,7 @@ hamming_join <- function(a, b, mode, by, n_bands, band_width,
   b <- tibble::as_tibble(b)
 
   stopifnot("'threshold' must be of length 1" = length(threshold) == 1)
-  stopifnot("'threshold' must be greater than 0" =  threshold > 0)
+  stopifnot("'threshold' must be greater than 0" = threshold > 0)
 
   stopifnot("'n_bands' must be greater than 0" = n_bands > 0)
   stopifnot("'n_bands' must be length than 1" = length(n_bands) == 1)
@@ -46,12 +46,12 @@ hamming_join <- function(a, b, mode, by, n_bands, band_width,
 
 
 
-   match_table <- rust_hamming_join(
-      a_col, b_col,
-      band_width, n_bands, threshold,
-      progress,
-      seed = 1
-   )
+  match_table <- rust_hamming_join(
+    a_col, b_col,
+    band_width, n_bands, threshold,
+    progress,
+    seed = 1
+  )
 
   if (!is.null(similarity_column)) {
     similarities <- hamming_distance(
@@ -66,27 +66,36 @@ hamming_join <- function(a, b, mode, by, n_bands, band_width,
   names(b)[names(b) %in% names_in_both] <- paste0(names(b)[names(b) %in% names_in_both], ".y")
 
   matches <- dplyr::bind_cols(a[match_table[, 1], ], b[match_table[, 2], ])
-  not_matched_a <- !seq(nrow(a)) %in% match_table[, 1]
-  not_matched_b <- !seq(nrow(b)) %in% match_table[, 2]
 
   if (!is.null(similarity_column)) {
     matches[, similarity_column] <- similarities
   }
 
-
-  if (mode == "left") {
-    matches <- dplyr::bind_rows(matches, a[not_matched_a, ])
-  } else if (mode == "right") {
-    matches <- dplyr::bind_rows(matches, b[not_matched_b, ])
-  } else if (mode == "full") {
-    matches <- dplyr::bind_rows(matches, a[not_matched_a, ], b[not_matched_b, ])
-  } else if (mode == "inner") {
-    matches <- matches
-  } else if (mode == "anti") {
-    matches <- dplyr::bind_rows(a[not_matched_a, ], b[not_matched_b, ])
-  } else {
-    stop("Invalid Mode Selected!")
+  # No need to look for rows that don't match
+  if (mode == "inner") {
+    return(matches)
   }
 
-  return(matches)
+  switch(mode,
+    "left" = {
+      not_matched_a <- collapse::`%!iin%`(seq_len(nrow(a)), match_table[, 1])
+      matches <- dplyr::bind_rows(matches, a[not_matched_a, ])
+    },
+    "right" = {
+      not_matched_b <- collapse::`%!iin%`(seq_len(nrow(b)), match_table[, 2])
+      matches <- dplyr::bind_rows(matches, b[not_matched_b, ])
+    },
+    "full" = {
+      not_matched_a <- collapse::`%!iin%`(seq_len(nrow(a)), match_table[, 1])
+      not_matched_b <- collapse::`%!iin%`(seq_len(nrow(b)), match_table[, 2])
+      matches <- dplyr::bind_rows(matches, a[not_matched_a, ], b[not_matched_b, ])
+    },
+    "anti" = {
+      not_matched_a <- collapse::`%!iin%`(seq_len(nrow(a)), match_table[, 1])
+      not_matched_b <- collapse::`%!iin%`(seq_len(nrow(b)), match_table[, 2])
+      matches <- dplyr::bind_rows(a[not_matched_a, ], b[not_matched_b, ])
+    }
+  )
+
+  matches
 }

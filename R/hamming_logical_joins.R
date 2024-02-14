@@ -16,11 +16,15 @@
 #'
 #' @param n_bands the number of bands used in the locality sensitive hashing
 #' algorithm (default is 100). Use this in conjunction with the
-#' \code{band_width} to determine the performance of the hashing.
+#' \code{band_width} to determine the performance of the hashing. Generally
+#' speaking, a higher number of bands leads to greater recall at the cost of
+#' higher runtime.
 #'
 #' @param band_width the length of each band used in the minihashing algorithm
 #' (default is 8) Use this in conjunction with the \code{n_bands} to determine
-#' the performance of the hashing.
+#' the performance of the hashing. Generally speaking a wider number of bands
+#' decreases the number of false positives, decreasing runtime at the cost of
+#' lower sensitivity (true matches are less likely to be found).
 #'
 #' @param clean should the strings that you fuzzy join on be cleaned (coerced
 #' to lower-case, stripped of punctuation and spaces)? Default is FALSE

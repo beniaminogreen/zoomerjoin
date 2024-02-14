@@ -276,7 +276,7 @@ fn rust_p_norm_join(
         let hasher = EuclidianHasher::new(r, band_width as usize, b_mat.ncols(), &mut rng);
 
         if progress {
-            println!("starting band {i} out of {n_bands}");
+            rprintln!("starting band {i} out of {n_bands}");
         }
 
         a_mat
