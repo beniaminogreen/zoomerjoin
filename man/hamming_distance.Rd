@@ -18,7 +18,9 @@ a vector of hamming similarities of the strings
 Calculate Hamming distance of two character vectors
 }
 \examples{
-hamming_distance(c("the quick brown fox","jumped over the lazy dog"),
-    c("the quck bron fx","jumped over hte lazy dog"))
+hamming_distance(
+  c("the quick brown fox", "jumped over the lazy dog"),
+  c("the quck bron fx", "jumped over hte lazy dog")
+)
 
 }

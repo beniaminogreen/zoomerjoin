@@ -29,11 +29,13 @@ jaccard_similarity <- function(a, b, ngram_width = 2) {
 #' @return a vector of hamming similarities of the strings
 #'
 #' @examples
-#' hamming_distance(c("the quick brown fox","jumped over the lazy dog"),
-#'     c("the quck bron fx","jumped over hte lazy dog"))
+#' hamming_distance(
+#'   c("the quick brown fox", "jumped over the lazy dog"),
+#'   c("the quck bron fx", "jumped over hte lazy dog")
+#' )
 #'
 #' @export
-hamming_distance <- function(a, b, ngram_width=2) {
-    stopifnot(length(a) == length(b))
-    rust_hamming_distance(a, b)
+hamming_distance <- function(a, b, ngram_width = 2) {
+  stopifnot(length(a) == length(b))
+  rust_hamming_distance(a, b)
 }
