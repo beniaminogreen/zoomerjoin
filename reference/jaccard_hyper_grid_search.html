@@ -114,7 +114,7 @@ criteria, while reducing runitme.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Help me find the parameters that will minimize runtime while ensuring that</span></span></span>
 <span class="r-in"><span><span class="co"># two strings with similarity .1 will be compared less than .1% of the time,</span></span></span>
 <span class="r-in"><span><span class="co"># strings with .8 similaity will have a 99.95% chance of being compared:</span></span></span>
-<span class="r-in"><span><span class="fu">jaccard_hyper_grid_search</span><span class="op">(</span><span class="fl">.1</span>,<span class="fl">.9</span>,<span class="fl">.001</span>,<span class="fl">.995</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">jaccard_hyper_grid_search</span><span class="op">(</span><span class="fl">.1</span>, <span class="fl">.9</span>, <span class="fl">.001</span>, <span class="fl">.995</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> band_width    n_bands </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          4          5 </span>
 <span class="r-in"><span></span></span>
