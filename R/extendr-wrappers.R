@@ -11,7 +11,6 @@
 #' @useDynLib zoomerjoin, .registration = TRUE
 NULL
 
-
 rust_jaccard_join <- function(left_string_r, right_string_r, ngram_width, n_bands, band_size, threshold, progress, seed) .Call(wrap__rust_jaccard_join, left_string_r, right_string_r, ngram_width, n_bands, band_size, threshold, progress, seed)
 
 rust_salted_jaccard_join <- function(left_string_r, right_string_r, left_salt_r, right_salt_r, ngram_width, n_bands, band_size, threshold, progress, seed) .Call(wrap__rust_salted_jaccard_join, left_string_r, right_string_r, left_salt_r, right_salt_r, ngram_width, n_bands, band_size, threshold, progress, seed)

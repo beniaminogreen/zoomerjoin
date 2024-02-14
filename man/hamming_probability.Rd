@@ -7,14 +7,14 @@
 hamming_probability(distance, input_length, n_bands, band_width)
 }
 \arguments{
-\item{distance}{the hamming distance of the two strings you want to compare}
+\item{distance}{The hamming distance of the two strings you want to compare}
 
 \item{n_bands}{The number of LSH bands used in hashing.}
 
 \item{band_width}{The number of hashes in each band.}
 }
 \value{
-a decimal number giving the proability that the two items will be
+A decimal number giving the probability that the two items will be
 returned as a candidate pair from the lsh algotithm.
 }
 \description{

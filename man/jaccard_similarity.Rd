@@ -2,7 +2,7 @@
 % Please edit documentation in R/jaccard_similarity.R
 \name{jaccard_similarity}
 \alias{jaccard_similarity}
-\title{Calculate Jaccard Similairy of two character vectors}
+\title{Calculate Jaccard Similarity of two character vectors}
 \usage{
 jaccard_similarity(a, b, ngram_width = 2)
 }
@@ -18,7 +18,7 @@ similarity calculation}
 a vector of jaccard similarities of the strings
 }
 \description{
-Calculate Jaccard Similairy of two character vectors
+Calculate Jaccard Similarity of two character vectors
 }
 \examples{
 jaccard_similarity(c("the quick brown fox","jumped over the lazy dog"),
