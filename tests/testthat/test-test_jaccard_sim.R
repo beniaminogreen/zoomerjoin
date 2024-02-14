@@ -12,4 +12,3 @@ test_that("jaccard sim works", {
     expect_true(all(abs(a - b) < .01))
   }
 })
-

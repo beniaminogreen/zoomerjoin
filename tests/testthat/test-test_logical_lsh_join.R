@@ -183,7 +183,7 @@ test_that("hamming_full_join works on tiny dataset", {
 
 test_that("hamming_left_join works on tiny dataset", {
   capture_messages(
-    test <- hamming_left_join(dataset_1, dataset_2, threshold = 3, band_width = 1,  n_bands = 300)
+    test <- hamming_left_join(dataset_1, dataset_2, threshold = 3, band_width = 1, n_bands = 300)
   )
 
   expect_true(all(test$id_1 == test$id_2, na.rm = T))
@@ -194,7 +194,7 @@ test_that("hamming_left_join works on tiny dataset", {
 
 test_that("hamming_right_join works on tiny dataset", {
   capture_messages(
-    test <- hamming_right_join(dataset_1, dataset_2, threshold = 3, band_width = 1,  n_bands = 300)
+    test <- hamming_right_join(dataset_1, dataset_2, threshold = 3, band_width = 1, n_bands = 300)
   )
 
 
@@ -207,7 +207,6 @@ test_that("hamming_right_join works on tiny dataset", {
 test_that("jaccard_inner_join gives same results as stringdist_inner_join", {
   for (i in 1:20) {
     capture_messages({
-
       zoomer_join_out <- hamming_inner_join(names_df, misspelled_name_df, threshold = 3, n_bands = 100, band_width = 1) %>%
         arrange(id_1, id_2)
 
@@ -266,4 +265,3 @@ test_that("argument `progress` works correctly", {
     "generating"
   )
 })
-

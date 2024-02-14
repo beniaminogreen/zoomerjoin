@@ -73,100 +73,110 @@
 #'   band_width = 10,
 #' )
 hamming_inner_join <- function(a, b,
-                           by = NULL,
-                           n_bands = 100,
-                           band_width = 100,
-                           threshold = 2,
-                           progress = FALSE,
-                           clean = FALSE,
-                           similarity_column=NULL) {
-    hamming_join(a, b, mode = "inner",
-                 by = by,
-                 n_bands = n_bands,
-                 band_width = band_width,
-                 threshold =  threshold,
-                 progress = progress,
-                 similarity_column =  similarity_column,
-                 clean=clean)
+                               by = NULL,
+                               n_bands = 100,
+                               band_width = 100,
+                               threshold = 2,
+                               progress = FALSE,
+                               clean = FALSE,
+                               similarity_column = NULL) {
+  hamming_join(a, b,
+    mode = "inner",
+    by = by,
+    n_bands = n_bands,
+    band_width = band_width,
+    threshold = threshold,
+    progress = progress,
+    similarity_column = similarity_column,
+    clean = clean
+  )
 }
 
 #' @rdname hamming-joins
 #' @export
 hamming_anti_join <- function(a, b,
-                           by = NULL,
-                           n_bands = 100,
-                           band_width = 100,
-                           threshold = 2,
-                           progress = FALSE,
-                           clean = FALSE,
-                           similarity_column=NULL) {
-    hamming_join(a, b, mode = "anti",
-                 by = by,
-                 n_bands = n_bands,
-                 band_width = band_width,
-                 threshold =  threshold,
-                 progress = progress,
-                 similarity_column =  similarity_column,
-                 clean=clean)
+                              by = NULL,
+                              n_bands = 100,
+                              band_width = 100,
+                              threshold = 2,
+                              progress = FALSE,
+                              clean = FALSE,
+                              similarity_column = NULL) {
+  hamming_join(a, b,
+    mode = "anti",
+    by = by,
+    n_bands = n_bands,
+    band_width = band_width,
+    threshold = threshold,
+    progress = progress,
+    similarity_column = similarity_column,
+    clean = clean
+  )
 }
 
 #' @rdname hamming-joins
 #' @export
 hamming_left_join <- function(a, b,
-                           by = NULL,
-                           n_bands = 100,
-                           band_width = 100,
-                           threshold = 2,
-                           progress = FALSE,
-                           clean = FALSE,
-                           similarity_column=NULL) {
-    hamming_join(a, b, mode = "left",
-                 by = by,
-                 n_bands = n_bands,
-                 band_width = band_width,
-                 threshold =  threshold,
-                 progress = progress,
-                 similarity_column =  similarity_column,
-                 clean=clean)
+                              by = NULL,
+                              n_bands = 100,
+                              band_width = 100,
+                              threshold = 2,
+                              progress = FALSE,
+                              clean = FALSE,
+                              similarity_column = NULL) {
+  hamming_join(a, b,
+    mode = "left",
+    by = by,
+    n_bands = n_bands,
+    band_width = band_width,
+    threshold = threshold,
+    progress = progress,
+    similarity_column = similarity_column,
+    clean = clean
+  )
 }
 
 #' @rdname hamming-joins
 #' @export
 hamming_right_join <- function(a, b,
-                           by = NULL,
-                           n_bands = 100,
-                           band_width = 100,
-                           threshold = 2,
-                           progress = FALSE,
-                           clean = FALSE,
-                           similarity_column=NULL) {
-    hamming_join(a, b, mode = "right",
-                 by = by,
-                 n_bands = n_bands,
-                 band_width = band_width,
-                 threshold =  threshold,
-                 progress = progress,
-                 similarity_column =  similarity_column,
-                 clean=clean)
+                               by = NULL,
+                               n_bands = 100,
+                               band_width = 100,
+                               threshold = 2,
+                               progress = FALSE,
+                               clean = FALSE,
+                               similarity_column = NULL) {
+  hamming_join(a, b,
+    mode = "right",
+    by = by,
+    n_bands = n_bands,
+    band_width = band_width,
+    threshold = threshold,
+    progress = progress,
+    similarity_column = similarity_column,
+    clean = clean
+  )
 }
 
 
 #' @rdname hamming-joins
 #' @export
 hamming_full_join <- function(a, b,
-                           by = NULL,
-                           n_bands = 100,
-                           band_width = 100,
-                           threshold = 2,
-                           progress = FALSE,
-                           clean = FALSE,
-                           similarity_column=NULL) {
-    hamming_join(a, b, mode = "full",
-                 by = by,
-                 n_bands = n_bands,
-                 band_width = band_width,
-                 threshold =  threshold,
-                 progress = progress,
-                 similarity_column =  similarity_column,
-                 clean=clean)
+                              by = NULL,
+                              n_bands = 100,
+                              band_width = 100,
+                              threshold = 2,
+                              progress = FALSE,
+                              clean = FALSE,
+                              similarity_column = NULL) {
+  hamming_join(a, b,
+    mode = "full",
+    by = by,
+    n_bands = n_bands,
+    band_width = band_width,
+    threshold = threshold,
+    progress = progress,
+    similarity_column = similarity_column,
+    clean = clean
+  )
 }

@@ -180,20 +180,20 @@ jaccard_hyper_grid_search <- function(s1 = .1, s2 = .7, p1 = .001, p2 = .999) {
 #'
 #' @export
 hamming_probability <- function(distance, input_length, n_bands, band_width) {
-    # probability that two strings with distance d have same value for randomly
-    # chosen bit
-    p_one_collision <- 1-(distance/input_length)
+  # probability that two strings with distance d have same value for randomly
+  # chosen bit
+  p_one_collision <- 1 - (distance / input_length)
 
-    # probability that two strings with distance d have same value for band_width
-    # randomly chosen bits
-    p_one_band <- p_one_collision^band_width
+  # probability that two strings with distance d have same value for band_width
+  # randomly chosen bits
+  p_one_band <- p_one_collision^band_width
 
-    # probability that two strings with distance d have same value for one of any
-    # n_bands hashes
-    # Pr[compared] = 1 - Pr[no hashes match]
-    #              = 1 - Pr[one hash does not match]^n_bands
+  # probability that two strings with distance d have same value for one of any
+  # n_bands hashes
+  # Pr[compared] = 1 - Pr[no hashes match]
+  #              = 1 - Pr[one hash does not match]^n_bands
 
-    p_compared <- 1-(1-p_one_band)^n_bands
+  p_compared <- 1 - (1 - p_one_band)^n_bands
 
-    return(p_compared)
+  return(p_compared)
 }
