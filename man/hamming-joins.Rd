@@ -109,3 +109,35 @@ Find similar rows between two tables using the hamming distance. The hamming
 distance is equal to the number characters two strings differ by, or is
 equal to infinity if two strings are of different lengths
 }
+\examples{
+# load baby names data
+# install.packages("babynames")
+library(babynames)
+
+baby_names <- data.frame(name = tolower(unique(babynames$name))[1:500])
+baby_names_mispelled <- data.frame(
+  name_mispelled = gsub("[aeiouy]", "x", baby_names$name)
+)
+
+# Run the join and only keep rows that have a match:
+hamming_inner_join(
+  baby_names,
+  baby_names_mispelled,
+  by = c("name" = "name_mispelled"),
+  threshold = 4,
+  n_bands = 100,
+  band_width = 10,
+  clean = FALSE # default
+)
+
+# Run the join and keep all rows from the first dataset, regardless of whether
+# they have a match:
+jaccard_left_join(
+  baby_names,
+  baby_names_mispelled,
+  by = c("name" = "name_mispelled"),
+  threshold = 4,
+  n_bands = 100,
+  band_width = 10,
+)
+}
