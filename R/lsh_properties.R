@@ -172,7 +172,7 @@ jaccard_hyper_grid_search <- function(s1=.1,s2=.7,p1=.001,p2=.999) {
 
 #' Find Probability of Match Based on Similarity
 #'
-#' @param distance the hamming distance of the two strings you want to compare
+#' @param distance The hamming distance of the two strings you want to compare
 #'
 #' @param n_bands The number of LSH bands used in hashing.
 #'
