@@ -178,7 +178,7 @@ jaccard_hyper_grid_search <- function(s1=.1,s2=.7,p1=.001,p2=.999) {
 #'
 #' @param band_width The number of hashes in each band.
 #'
-#' @return a decimal number giving the proability that the two items will be
+#' @return A decimal number giving the probability that the two items will be
 #' returned as a candidate pair from the lsh algotithm.
 #'
 #' @export
