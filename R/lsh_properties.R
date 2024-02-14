@@ -10,27 +10,26 @@
 #' @examples
 #' # Plot the probability two pairs will be matched as a function of their
 #' # jaccard similarity, given the hyperparameters n_bands and band_width.
-#' jaccard_curve(40,6)
+#' jaccard_curve(40, 6)
 #'
 #' @export
 jaccard_curve <- function(n_bands, band_width) {
+  stopifnot("number of bands must be a single integer" = length(n_bands) == 1)
+  stopifnot("band width must be a single integer" = length(band_width) == 1)
 
-    stopifnot("number of bands must be a single integer" = length(n_bands)==1)
-    stopifnot("band width must be a single integer" = length(band_width)==1)
+  stopifnot(n_bands > 0)
+  stopifnot(band_width > 0)
 
-    stopifnot(n_bands > 0)
-    stopifnot(band_width > 0)
+  similarity <- seq(0, 1, .005)
 
-    similarity <- seq(0,1,.005)
+  probs <- 1 - (1 - similarity^band_width)^n_bands
 
-    probs <- 1-(1-similarity^band_width)^n_bands
-
-    plot(similarity, probs,
-         xlab = "Jaccard Similarity of Two Strings",
-         ylab = "Probability that Strings are Proposed as a Match",
-         type="l",
-         col = "blue"
-    )
+  plot(similarity, probs,
+    xlab = "Jaccard Similarity of Two Strings",
+    ylab = "Probability that Strings are Proposed as a Match",
+    type = "l",
+    col = "blue"
+  )
 }
 
 #' Find Probability of Match Based on Similarity
@@ -58,8 +57,8 @@ jaccard_curve <- function(n_bands, band_width) {
 #' # jaccard_similarity of .8, band width of 5, and 50 bands:
 #' jaccard_probability(.8, n_bands = 50, band_width = 5)
 #' @export
-jaccard_probability <- function(similarity, n_bands, band_width){
-    1-(1-similarity^band_width)^n_bands
+jaccard_probability <- function(similarity, n_bands, band_width) {
+  1 - (1 - similarity^band_width)^n_bands
 }
 
 #' Plot S-Curve for a LSH with given hyperparameters
@@ -76,16 +75,16 @@ jaccard_probability <- function(similarity, n_bands, band_width){
 #' the Jaccard similarity of the two items.
 #'
 euclidean_curve <- function(n_bands, band_width, r, up_to = 100) {
-    x <- seq(0, up_to, length.out=1500)
-    y <- euclidean_probability(x, n_bands, band_width,r)
+  x <- seq(0, up_to, length.out = 1500)
+  y <- euclidean_probability(x, n_bands, band_width, r)
 
 
-    plot(x, y,
-         xlab = "Euclidian Distance Between Two Vectors",
-         ylab = "Probability that Vectors are Proposed as a Match",
-         type="l",
-         col = "blue"
-    )
+  plot(x, y,
+    xlab = "Euclidian Distance Between Two Vectors",
+    ylab = "Probability that Vectors are Proposed as a Match",
+    type = "l",
+    col = "blue"
+  )
 }
 
 #' Find Probability of Match Based on Similarity
@@ -105,9 +104,9 @@ euclidean_curve <- function(n_bands, band_width, r, up_to = 100) {
 #' @importFrom stats pnorm
 #' @export
 euclidean_probability <- function(distance, n_bands, band_width, r) {
-    p <- 1 - 2*pnorm(-r/distance) - 2/(sqrt(2*pi)*r/distance)*(1-exp(-(r^2/(2*distance^2))))
+  p <- 1 - 2 * pnorm(-r / distance) - 2 / (sqrt(2 * pi) * r / distance) * (1 - exp(-(r^2 / (2 * distance^2))))
 
-    1 - (1-p^band_width)^n_bands
+  1 - (1 - p^band_width)^n_bands
 }
 
 
@@ -134,41 +133,36 @@ euclidean_probability <- function(distance, n_bands, band_width, r) {
 #' # Help me find the parameters that will minimize runtime while ensuring that
 #' # two strings with similarity .1 will be compared less than .1% of the time,
 #' # strings with .8 similaity will have a 99.95% chance of being compared:
-#' jaccard_hyper_grid_search(.1,.9,.001,.995)
+#' jaccard_hyper_grid_search(.1, .9, .001, .995)
 #'
 #' @export
-jaccard_hyper_grid_search <- function(s1=.1,s2=.7,p1=.001,p2=.999) {
+jaccard_hyper_grid_search <- function(s1 = .1, s2 = .7, p1 = .001, p2 = .999) {
+  stopifnot("s1 must be a single number" = length(s1) == 1)
+  stopifnot("s2 must be a single number" = length(s2) == 1)
+  stopifnot("p1 must be a single number" = length(p1) == 1)
+  stopifnot("p2 must be a single number" = length(p2) == 1)
 
-    stopifnot("s1 must be a single number"=length(s1)==1)
-    stopifnot("s2 must be a single number"=length(s2)==1)
-    stopifnot("p1 must be a single number"=length(p1)==1)
-    stopifnot("p2 must be a single number"=length(p2)==1)
+  stopifnot("similarity 1 must be less than similarity 2" = s1 < s2)
+  stopifnot("proability 1 must be less than similarity 2" = p1 < p2)
 
-    stopifnot("similarity 1 must be less than similarity 2" = s1 < s2)
-    stopifnot("proability 1 must be less than similarity 2" = p1 < p2)
+  df <- expand.grid(
+    band_width = seq(1, 75, 1),
+    n_bands = seq(1, 50000, 1)
+  )
 
-    df <- expand.grid(
-                band_width = seq(1,75,1),
-                n_bands = seq(1,50000,1)
-            )
+  df$p1 <- jaccard_probability(s1, n_bands = df$n_bands, band_width = df$band_width)
+  df$p2 <- jaccard_probability(s2, n_bands = df$n_bands, band_width = df$band_width)
 
-    df$p1 <-jaccard_probability(s1, n_bands = df$n_bands,  band_width = df$band_width)
-    df$p2 <-jaccard_probability(s2, n_bands = df$n_bands,  band_width = df$band_width)
+  df$feasible <- (df$p1 < p1) & (df$p2 > p2)
 
-    df$feasible <- (df$p1 < p1) & (df$p2 > p2)
+  df$prod <- df$band_width * df$n_bands
 
-    df$prod <- df$band_width * df$n_bands
+  df <- df[df$feasible, ]
 
-    df <- df[df$feasible,]
+  selected <- which.min(df$prod)
 
-    selected <- which.min(df$prod)
-
-    return(c(
-        "band_width" = df$band_width[selected] ,
-        "n_bands" = df$n_bands[selected]
-      ))
-
+  return(c(
+    "band_width" = df$band_width[selected],
+    "n_bands" = df$n_bands[selected]
+  ))
 }
-
-
-
