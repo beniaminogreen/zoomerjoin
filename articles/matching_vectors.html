@@ -115,10 +115,10 @@ tiny random amount.</p>
 <span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fl">10</span><span class="op">^</span><span class="fl">2</span> <span class="co"># dimension</span></span>
 <span></span>
 <span><span class="co"># Create a matrix of 10^6 observations in R^100</span></span>
-<span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">n</span><span class="op">*</span><span class="va">d</span><span class="op">)</span>,<span class="va">n</span>,<span class="va">d</span><span class="op">)</span></span>
+<span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">n</span> <span class="op">*</span> <span class="va">d</span><span class="op">)</span>, <span class="va">n</span>, <span class="va">d</span><span class="op">)</span></span>
 <span><span class="co"># Second Dataset is a copy of the first with points shifted an infinitesimal</span></span>
 <span><span class="co"># amount</span></span>
-<span><span class="va">X_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">X</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">n</span><span class="op">*</span><span class="va">d</span>, <span class="fl">0</span>,<span class="fl">.0001</span><span class="op">)</span>, <span class="va">n</span>,<span class="va">d</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">X_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">X</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">n</span> <span class="op">*</span> <span class="va">d</span>, <span class="fl">0</span>, <span class="fl">.0001</span><span class="op">)</span>, <span class="va">n</span>, <span class="va">d</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span></span></code></pre></div>
 <p>I now want to join these two datasets together. The Euclidean joins
 take 3 hyperparameters: <code>n_bands</code>, <code>band_width</code>,
@@ -129,19 +129,19 @@ to understand the probability that two observations at distance of .01
 from each other are indentified as a match at a variety of
 hyperparameter configurations.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/euclidean_probability.html">euclidean_probability</a></span><span class="op">(</span><span class="fl">.01</span>, n_bands <span class="op">=</span> <span class="fl">5</span>,band_width <span class="op">=</span> <span class="fl">8</span>,r <span class="op">=</span> <span class="fl">.25</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/euclidean_probability.html">euclidean_probability</a></span><span class="op">(</span><span class="fl">.01</span>, n_bands <span class="op">=</span> <span class="fl">5</span>, band_width <span class="op">=</span> <span class="fl">8</span>, r <span class="op">=</span> <span class="fl">.25</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.9993764</span></span>
-<span><span class="fu"><a href="../reference/euclidean_probability.html">euclidean_probability</a></span><span class="op">(</span><span class="fl">.1</span>, n_bands <span class="op">=</span> <span class="fl">5</span>,band_width <span class="op">=</span> <span class="fl">8</span>,r <span class="op">=</span> <span class="fl">.25</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/euclidean_probability.html">euclidean_probability</a></span><span class="op">(</span><span class="fl">.1</span>, n_bands <span class="op">=</span> <span class="fl">5</span>, band_width <span class="op">=</span> <span class="fl">8</span>, r <span class="op">=</span> <span class="fl">.25</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.2141322</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/euclidean_probability.html">euclidean_probability</a></span><span class="op">(</span><span class="fl">.01</span>, n_bands <span class="op">=</span> <span class="fl">10</span>,band_width <span class="op">=</span> <span class="fl">4</span>,r <span class="op">=</span> <span class="fl">.15</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/euclidean_probability.html">euclidean_probability</a></span><span class="op">(</span><span class="fl">.01</span>, n_bands <span class="op">=</span> <span class="fl">10</span>, band_width <span class="op">=</span> <span class="fl">4</span>, r <span class="op">=</span> <span class="fl">.15</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.9999999</span></span>
-<span><span class="fu"><a href="../reference/euclidean_probability.html">euclidean_probability</a></span><span class="op">(</span><span class="fl">.1</span>, n_bands <span class="op">=</span> <span class="fl">10</span>,band_width <span class="op">=</span> <span class="fl">4</span>,r <span class="op">=</span> <span class="fl">.15</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/euclidean_probability.html">euclidean_probability</a></span><span class="op">(</span><span class="fl">.1</span>, n_bands <span class="op">=</span> <span class="fl">10</span>, band_width <span class="op">=</span> <span class="fl">4</span>, r <span class="op">=</span> <span class="fl">.15</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.4956251</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/euclidean_probability.html">euclidean_probability</a></span><span class="op">(</span><span class="fl">.01</span>, n_bands <span class="op">=</span> <span class="fl">40</span>,band_width <span class="op">=</span> <span class="fl">8</span>,r <span class="op">=</span> <span class="fl">.15</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/euclidean_probability.html">euclidean_probability</a></span><span class="op">(</span><span class="fl">.01</span>, n_bands <span class="op">=</span> <span class="fl">40</span>, band_width <span class="op">=</span> <span class="fl">8</span>, r <span class="op">=</span> <span class="fl">.15</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1</span></span>
-<span><span class="fu"><a href="../reference/euclidean_probability.html">euclidean_probability</a></span><span class="op">(</span><span class="fl">.1</span>, n_bands <span class="op">=</span> <span class="fl">40</span>,band_width <span class="op">=</span> <span class="fl">8</span>,r <span class="op">=</span> <span class="fl">.15</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/euclidean_probability.html">euclidean_probability</a></span><span class="op">(</span><span class="fl">.1</span>, n_bands <span class="op">=</span> <span class="fl">40</span>, band_width <span class="op">=</span> <span class="fl">8</span>, r <span class="op">=</span> <span class="fl">.15</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.16091</span></span></code></pre></div>
 <p>Using <code>n_bands=40</code>, <code>band_width=8</code>, and
 <code>r=.15</code> seems to provide a good balance between identifying
@@ -154,16 +154,17 @@ two datasets:</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">start</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">joined_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/euclidean-joins.html">euclidean_inner_join</a></span><span class="op">(</span></span>
-<span>                     <span class="va">X</span>,</span>
-<span>                     <span class="va">X_2</span>,</span>
-<span>                     threshold <span class="op">=</span> <span class="fl">.01</span>,</span>
-<span>                     n_bands <span class="op">=</span> <span class="fl">40</span>,</span>
-<span>                     band_width <span class="op">=</span> <span class="fl">8</span>,</span>
-<span>                     r<span class="op">=</span><span class="fl">.15</span><span class="op">)</span></span>
+<span>  <span class="va">X</span>,</span>
+<span>  <span class="va">X_2</span>,</span>
+<span>  threshold <span class="op">=</span> <span class="fl">.01</span>,</span>
+<span>  n_bands <span class="op">=</span> <span class="fl">40</span>,</span>
+<span>  band_width <span class="op">=</span> <span class="fl">8</span>,</span>
+<span>  r <span class="op">=</span> <span class="fl">.15</span></span>
+<span><span class="op">)</span></span>
 <span><span class="va">n_matches</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">joined_out</span><span class="op">)</span></span>
 <span><span class="va">time_taken</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="va">start</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"found"</span>, <span class="va">n_matches</span>, <span class="st">"matches in"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">time_taken</span><span class="op">)</span>, <span class="st">"seconds"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "found 100000 matches in 16 seconds"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "found 100000 matches in 21 seconds"</span></span></code></pre></div>
 <p>Zoomerjoin is able to easily find all pairs in just under 30s
 (perhaps longer on the runner that renders the website), even though the
 points lie in high-dimensional (d=100) space. This makes zoomerjoin a
