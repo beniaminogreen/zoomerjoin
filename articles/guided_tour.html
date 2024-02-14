@@ -190,20 +190,20 @@ zoomerjoin:</p>
 <span>  n_bands <span class="op">=</span> <span class="fl">20</span>, band_width <span class="op">=</span> <span class="fl">6</span>, threshold <span class="op">=</span> <span class="fl">.8</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="va">start_time</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Time difference of 0.01244473 secs</span></span></code></pre>
+<pre><code><span><span class="co">## Time difference of 0.01166797 secs</span></span></code></pre>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">join_out</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 8 × 4</span></span></span>
 <span><span class="co">##       a field.x                                                      b field.y  </span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span>    88 scheuer for congress 1980                                  667 scheuer …</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span>   230 pipefitters local union 524                                998 pipefitt…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span>   319 7th congressional district democratic party of wisconsin   792 8th cong…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span>   378 guarini for congress 1982                                  883 guarini …</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span>   378 guarini for congress 1982                                  606 guarini …</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">6</span>   292 bill bradley for u s senate '84                            913 bill bra…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">7</span>   302 americans for good government inc                          910 american…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">8</span>   238 4th congressional district democratic party                518 16th con…</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span>   378 guarini for congress 1982                                  883 guarini …</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span>   378 guarini for congress 1982                                  606 guarini …</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span>   292 bill bradley for u s senate '84                            913 bill bra…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span>   302 americans for good government inc                          910 american…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span>    88 scheuer for congress 1980                                  667 scheuer …</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span>   238 4th congressional district democratic party                518 16th con…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">7</span>   319 7th congressional district democratic party of wisconsin   792 8th cong…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">8</span>   230 pipefitters local union 524                                998 pipefitt…</span></span></code></pre>
 <p>The first two arguments, <code>a</code>, and <code>b</code>, are
 direct analogues of the <code>dplyr</code> arguments, and are the two
 data frames you want to join. The <code>by</code> field also acts the
