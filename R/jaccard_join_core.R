@@ -70,8 +70,8 @@ jaccard_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands,
     stopifnot("'by' vectors must have length 1" = length(by_a)==1)
     stopifnot("'by' vectors must have length 1" = length(by_b)==1)
 
-    stopifnot("There should be no NA's in by_a"=!any(is.na(dplyr::pull(a,by_a))))
-    stopifnot("There should be no NA's in by_b"=!any(is.na(dplyr::pull(b,by_b))))
+    stopifnot("There should be no NA's in by_a"= !anyNA(a[[by_a]]))
+    stopifnot("There should be no NA's in by_b"= !anyNA(b[[by_b]]))
 
     salt_by_a <- NULL
     salt_by_b <- NULL
@@ -114,7 +114,7 @@ jaccard_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands,
         }
     }
 
-    if (is.null(salt_by_a) | is.null(salt_by_b)) {
+    if (is.null(salt_by_a) || is.null(salt_by_b)) {
         match_table <- rust_jaccard_join(
                  a_col, b_col,
                  n_gram_width, n_bands, band_width, threshold,
