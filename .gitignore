@@ -1,5 +1,5 @@
 docs
 inst/doc
-src/rust/vendor
+src/rust/vendor/
 .Rproj.user
 zoomerjoin.Rproj

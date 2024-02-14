@@ -2,7 +2,7 @@ url: https://beniaminogreen.github.io/zoomerjoin/
 template:
   bootstrap: 5
 reference:
-  - title: dplyr-style fuzzy joins
+  - title: Fuzzy joins for Jaccard distance
     contents:
       - jaccard_inner_join
       - jaccard_full_join
@@ -10,7 +10,15 @@ reference:
       - jaccard_right_join
       - jaccard_anti_join
 
-  - title: dplyr-style distance joins
+  - title: Fuzzy joins for Hamming distance
+    contents:
+      - hamming_inner_join
+      - hamming_full_join
+      - hamming_left_join
+      - hamming_right_join
+      - hamming_anti_join
+
+  - title: Fuzzy joins for Euclidean distance
     contents:
       - euclidean_inner_join
       - euclidean_full_join
@@ -22,6 +30,7 @@ reference:
     contents:
       - em_link
 
+
   - title: String deduplication
     contents:
       - jaccard_string_group
@@ -29,6 +38,7 @@ reference:
   - title: Utilities
     contents:
       - jaccard_similarity
+      - hamming_distance
 
   - title: Diagnostics
     contents:
@@ -37,6 +47,7 @@ reference:
       - jaccard_hyper_grid_search
       - euclidean_curve
       - euclidean_probability
+      - hamming_probability
 
   - title: Data
     contents:

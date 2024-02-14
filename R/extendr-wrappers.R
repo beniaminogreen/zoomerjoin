@@ -6,9 +6,10 @@
 # This file was created with the following call:
 #   .Call("wrap__make_zoomerjoin_wrappers", use_symbols = TRUE, package_name = "zoomerjoin")
 
+#' @docType package
 #' @usage NULL
 #' @useDynLib zoomerjoin, .registration = TRUE
-"_PACKAGE"
+NULL
 
 rust_jaccard_join <- function(left_string_r, right_string_r, ngram_width, n_bands, band_size, threshold, progress, seed) .Call(wrap__rust_jaccard_join, left_string_r, right_string_r, ngram_width, n_bands, band_size, threshold, progress, seed)
 
@@ -19,6 +20,10 @@ rust_jaccard_similarity <- function(left_string_r, right_string_r, ngram_width) 
 rust_em_link <- function(x_robj, probs, tol, max_iter) .Call(wrap__rust_em_link, x_robj, probs, tol, max_iter)
 
 rust_p_norm_join <- function(a_mat, b_mat, radius, band_width, n_bands, r, progress, seed) .Call(wrap__rust_p_norm_join, a_mat, b_mat, radius, band_width, n_bands, r, progress, seed)
+
+rust_hamming_join <- function(left_string_r, right_string_r, band_width, n_bands, radius, progress, seed) .Call(wrap__rust_hamming_join, left_string_r, right_string_r, band_width, n_bands, radius, progress, seed)
+
+rust_hamming_distance <- function(left_string_r, right_string_r) .Call(wrap__rust_hamming_distance, left_string_r, right_string_r)
 
 
 # nolint end

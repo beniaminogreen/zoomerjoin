@@ -17,6 +17,9 @@ use crate::euclidianhasher::EuclidianHasher;
 pub mod minhashjoiner;
 use crate::minhashjoiner::MinHashJoiner;
 
+pub mod hamminghasher;
+use crate::hamminghasher::HammingHasher;
+
 use rand::rngs::StdRng;
 use rand::SeedableRng;
 
@@ -58,6 +61,30 @@ fn rust_jaccard_similarity(left_string_r: Robj, right_string_r: Robj, ngram_widt
         .into_iter()
         .map(|i| Rfloat::from(i))
         .collect::<Doubles>()
+}
+
+#[extendr]
+fn rust_hamming_distance(left_string_r: Robj, right_string_r: Robj) -> Doubles {
+    let left_string_vec = left_string_r.as_str_vector().unwrap();
+    let right_string_vec = right_string_r.as_str_vector().unwrap();
+
+    let out_vec = left_string_vec
+        .par_iter()
+        .zip(right_string_vec.par_iter())
+        .map(|(a, b)| {
+            if a.len() != b.len() {
+                return f64::INFINITY;
+            } else {
+                a.as_bytes()
+                    .iter()
+                    .zip(b.as_bytes().iter())
+                    .filter(|(x, y)| x != y)
+                    .count() as f64
+            }
+        })
+        .collect::<Vec<f64>>();
+
+    out_vec.into_iter().map(|x| Rfloat::from(x)).collect()
 }
 
 #[extendr]
@@ -154,6 +181,80 @@ fn rust_salted_jaccard_join(
 }
 
 #[extendr]
+fn rust_hamming_join(
+    left_string_r: Robj,
+    right_string_r: Robj,
+    band_width: u64,
+    n_bands: u64,
+    radius: u64,
+    progress: bool,
+    seed: u64,
+) -> Robj {
+    let left_string_vec = left_string_r.as_str_vector().unwrap();
+    let right_string_vec = right_string_r.as_str_vector().unwrap();
+
+    let pairs: DashSet<(usize, usize)> = DashSet::new();
+    let store: DashMap<u64, Vec<usize>> = DashMap::new();
+
+    let max_size = left_string_vec
+        .iter()
+        .zip(right_string_vec.iter())
+        .map(|(x, y)| x.len().max(y.len()))
+        .max()
+        .expect("Could not find max length of inputs");
+
+    let mut rng = StdRng::seed_from_u64(seed);
+    for i in 0..n_bands {
+        let hasher = HammingHasher::new(max_size, band_width as usize, &mut rng);
+
+        if progress {
+            rprintln!("starting band {i} out of {n_bands}");
+        }
+
+        left_string_vec.par_iter().enumerate().for_each(|(i, x)| {
+            let hash = hasher.hash(x);
+
+            store
+                .entry(hash)
+                .and_modify(|x| x.push(i))
+                .or_insert(vec![i]);
+        });
+
+        right_string_vec.par_iter().enumerate().for_each(|(j, x)| {
+            let hash = hasher.hash(x);
+            if store.contains_key(&hash) {
+                let potential_matches = store.get(&hash).unwrap();
+
+                for i in potential_matches.iter() {
+                    let dist = left_string_vec[*i]
+                        .as_bytes()
+                        .iter()
+                        .zip(right_string_vec[j].as_bytes().iter())
+                        .map(|(a, b)| a != b)
+                        .filter(|x| *x)
+                        .count();
+
+                    if dist <= radius as usize {
+                        pairs.insert((*i, j));
+                    }
+                }
+            }
+        });
+
+        store.clear()
+    }
+
+    let mut out_arr: Array2<u64> = Array2::zeros((pairs.len(), 2));
+
+    for (idx, (i, j)) in pairs.into_iter().enumerate() {
+        out_arr[[idx, 0]] = i as u64 + 1;
+        out_arr[[idx, 1]] = j as u64 + 1;
+    }
+
+    Robj::try_from(&out_arr).into()
+}
+
+#[extendr]
 fn rust_p_norm_join(
     a_mat: Robj,
     b_mat: Robj,
@@ -238,4 +339,6 @@ extendr_module! {
     fn rust_jaccard_similarity;
     fn rust_em_link;
     fn rust_p_norm_join;
+    fn rust_hamming_join;
+    fn rust_hamming_distance;
 }

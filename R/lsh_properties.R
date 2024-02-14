@@ -166,3 +166,34 @@ jaccard_hyper_grid_search <- function(s1 = .1, s2 = .7, p1 = .001, p2 = .999) {
     "n_bands" = df$n_bands[selected]
   ))
 }
+
+#' Find Probability of Match Based on Similarity
+#'
+#' @param distance The hamming distance of the two strings you want to compare
+#'
+#' @param n_bands The number of LSH bands used in hashing.
+#'
+#' @param band_width The number of hashes in each band.
+#'
+#' @return A decimal number giving the probability that the two items will be
+#' returned as a candidate pair from the lsh algotithm.
+#'
+#' @export
+hamming_probability <- function(distance, input_length, n_bands, band_width) {
+    # probability that two strings with distance d have same value for randomly
+    # chosen bit
+    p_one_collision <- 1-(distance/input_length)
+
+    # probability that two strings with distance d have same value for band_width
+    # randomly chosen bits
+    p_one_band <- p_one_collision^band_width
+
+    # probability that two strings with distance d have same value for one of any
+    # n_bands hashes
+    # Pr[compared] = 1 - Pr[no hashes match]
+    #              = 1 - Pr[one hash does not match]^n_bands
+
+    p_compared <- 1-(1-p_one_band)^n_bands
+
+    return(p_compared)
+}
