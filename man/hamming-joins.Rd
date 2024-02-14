@@ -6,7 +6,7 @@
 \alias{hamming_left_join}
 \alias{hamming_right_join}
 \alias{hamming_full_join}
-\title{Fuzzy inner-join using Locality Sensitive Hashing}
+\title{Fuzzy joins for Hamming distance using Locality Sensitive Hashing}
 \usage{
 hamming_inner_join(
   a,

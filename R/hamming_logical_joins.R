@@ -1,4 +1,4 @@
-#' Fuzzy inner-join using Locality Sensitive Hashing
+#' Fuzzy joins for Hamming distance using Locality Sensitive Hashing
 #'
 #' Find similar rows between two tables using the hamming distance. The hamming
 #' distance is equal to the number characters two strings differ by, or is

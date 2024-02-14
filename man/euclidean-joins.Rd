@@ -6,7 +6,7 @@
 \alias{euclidean_left_join}
 \alias{euclidean_right_join}
 \alias{euclidean_full_join}
-\title{Spatial joins Using LSH}
+\title{Fuzzy joins for Euclidean distance using Locality Sensitive Hashing}
 \usage{
 euclidean_anti_join(
   a,
@@ -106,7 +106,7 @@ logical joining patterns (i.e. inner-join joins and keeps only observations
 in both datasets).
 }
 \description{
-Spatial joins Using LSH
+Fuzzy joins for Euclidean distance using Locality Sensitive Hashing
 }
 \examples{
 n <- 10
