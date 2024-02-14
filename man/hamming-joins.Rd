@@ -13,7 +13,7 @@ hamming_inner_join(
   b,
   by = NULL,
   n_bands = 100,
-  band_width = 100,
+  band_width = 8,
   threshold = 2,
   progress = FALSE,
   clean = FALSE,
@@ -69,45 +69,50 @@ hamming_full_join(
 )
 }
 \arguments{
-\item{a}{the first dataframe you wish to join.}
+\item{a, b}{The two dataframes to join.}
 
-\item{b}{the second dataframe you wish to join.}
+\item{by}{A named vector indicating which columns to join on. Format should
+be the same as dplyr: \code{by = c("column_name_in_df_a" = "column_name_in_df_b")}, but two columns must be specified in each dataset
+(x column and y column). Specification made with \code{dplyr::join_by()} are
+also accepted.}
 
-\item{by}{a named vector indicating which columns to join on. Format should
-be the same as dplyr: \code{by = c("column_name_in_df_a" = "column_name_in_df_b")}, but
-two columns must be specified in each dataset (x column and y column). Specification
-made with \code{dplyr::join_by()} are also accepted.}
-
-\item{n_bands}{the number of bands used in the locality sensitive hashing
+\item{n_bands}{The number of bands used in the locality sensitive hashing
 algorithm (default is 100). Use this in conjunction with the
 \code{band_width} to determine the performance of the hashing. Generally
 speaking, a higher number of bands leads to greater recall at the cost of
 higher runtime.}
 
-\item{band_width}{the length of each band used in the minihashing algorithm
-(default is 8) Use this in conjunction with the \code{n_bands} to determine
+\item{band_width}{The length of each band used in the minihashing algorithm
+(default is 8). Use this in conjunction with the \code{n_bands} to determine
 the performance of the hashing. Generally speaking a wider number of bands
 decreases the number of false positives, decreasing runtime at the cost of
 lower sensitivity (true matches are less likely to be found).}
 
-\item{progress}{set to \code{TRUE} to print progress}
+\item{threshold}{The Jaccard similarity threshold above which two strings
+should be considered a match (default is .95). The similarity is equal to
+1 - the Jaccard distance between the two strings, so 1 implies the strings
+are identical, while a similarity of zero implies the strings are completely
+dissimilar.}
 
-\item{clean}{should the strings that you fuzzy join on be cleaned (coerced
-to lower-case, stripped of punctuation and spaces)? Default is FALSE}
+\item{progress}{Set to \code{TRUE} to print progress.}
 
-\item{similarity_column}{an optional character vector. If provided, the data
-frame will contain a column with this name giving the jaccard similarity
+\item{clean}{Should the strings that you fuzzy join on be cleaned (coerced to
+lower-case, stripped of punctuation and spaces)? Default is \code{FALSE}.}
+
+\item{similarity_column}{An optional character vector. If provided, the data
+frame will contain a column with this name giving the Hamming distance
 between the two fields. Extra column will not be present if anti-joining.}
 }
 \value{
-a tibble fuzzily-joined on the basis of the variables in \code{by.} Tries
+A tibble fuzzily-joined on the basis of the variables in \code{by.} Tries
 to adhere to the same standards as the dplyr-joins, and uses the same
-logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
+logical joining patterns (i.e. inner-join joins and keeps only observations
+in both datasets).
 }
 \description{
 Find similar rows between two tables using the hamming distance. The hamming
-distance is equal to the number characters two strings differ by, or is
-equal to infinity if two strings are of different lengths
+distance is equal to the number characters two strings differ by, or is equal
+to infinity if two strings are of different lengths
 }
 \examples{
 # load baby names data
