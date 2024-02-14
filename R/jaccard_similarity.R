@@ -1,4 +1,4 @@
-#' Calculate Jaccard Similairy of two character vectors
+#' Calculate Jaccard Similarity of two character vectors
 #'
 #' @param a the first character vector
 #' @param b the first character vector
