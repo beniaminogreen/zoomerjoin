@@ -36,9 +36,9 @@ jaccard_curve <- function(n_bands, band_width) {
 #' Find Probability of Match Based on Similarity
 #'
 #' This is a port of the
-#' [jaccard_probability](https://docs.ropensci.org/textreuse/reference/jaccard_probability.html)
+#' [lsh_probability](https://docs.ropensci.org/textreuse/reference/lsh_probability.html)
 #' function from the
-#' [textreuse](https://cran.r-project.org/web/packages/textreuse/index.html)
+#' [textreuse](https://cran.r-project.org/package=textreuse)
 #' package, with arguments changed to reflect the hyperparameters in this
 #' package. It gives the probability that two strings of jaccard similarity
 #' `similarity` will be matched, given the chosen bandwidth and number of
@@ -50,14 +50,13 @@ jaccard_curve <- function(n_bands, band_width) {
 #'
 #' @param band_width The number of hashes in each band.
 #'
-#' @return a decimal number giving the proability that the two items will be
-#' returned as a candidate pair from the minihash algotithm.
+#' @return a decimal number giving the probability that the two items will be
+#' returned as a candidate pair from the minhash algorithm.
 #'
 #' @examples
 #' # Find the probability two pairs will be matched given they have a
-#' # jaccard_similarity of .8,
-#' # band width of 5, and 50 bands:
-#' jaccard_probability(.8,5,50)
+#' # jaccard_similarity of .8, band width of 5, and 50 bands:
+#' jaccard_probability(.8, n_bands = 50, band_width = 5)
 #' @export
 jaccard_probability <- function(similarity, n_bands, band_width){
     1-(1-similarity^band_width)^n_bands
@@ -101,8 +100,9 @@ euclidean_curve <- function(n_bands, band_width, r, up_to = 100) {
 #' @param r the "r" hyperparameter used to govern the sensitivity of the hash.
 #'
 #' @return a decimal number giving the proability that the two items will be
-#' returned as a candidate pair from the minihash algotithm.
+#' returned as a candidate pair from the minihash algorithm.
 #'
+#' @importFrom stats pnorm
 #' @export
 euclidean_probability <- function(distance, n_bands, band_width, r) {
     p <- 1 - 2*pnorm(-r/distance) - 2/(sqrt(2*pi)*r/distance)*(1-exp(-(r^2/(2*distance^2))))
@@ -111,7 +111,7 @@ euclidean_probability <- function(distance, n_bands, band_width, r) {
 }
 
 
-#' Help Choose the Appropriate LSH Hyperparamaters
+#' Help Choose the Appropriate LSH Hyperparameters
 #'
 #' Runs a grid search to find the hyperparameters that will achieve an
 #' (s1,s2,p1,p2)-sensitive locality sensitive hash. A locality sensitive hash
@@ -122,9 +122,9 @@ euclidean_probability <- function(distance, n_bands, band_width, r) {
 #' similarity less than .1 will have a .1% chance of being compared, while
 #' strings with .7 similarity have a 99.9% chance of being compared.
 #'
-#' @param s1  the s1 paramater (the first similaity).
+#' @param s1  the s1 parameter (the first similaity).
 #' @param s2  the s2 parameter (the second similarity, must be greater than s1).
-#' @param p1  the p1 paramater (the first probability).
+#' @param p1  the p1 parameter (the first probability).
 #' @param p2  the p2 parameter (the second probability, must be greater than p1).
 #'
 #' @return a named vector with the hyperparameters that will meet the LSH

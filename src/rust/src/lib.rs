@@ -36,8 +36,8 @@ fn rust_em_link(x_robj: Robj, probs: &[f64], tol: f64, max_iter: i32) -> Vec<f64
 
 #[extendr]
 fn rust_jaccard_similarity(left_string_r: Robj, right_string_r: Robj, ngram_width: i64) -> Doubles {
-    let left_string_vec = left_string_r.as_str_vector().unwrap();
     let right_string_vec = right_string_r.as_str_vector().unwrap();
+    let left_string_vec = left_string_r.as_str_vector().unwrap();
 
     // vector to hold sets of n_gram strings in each document
     let left_set_vec: Vec<ShingleSet> = left_string_vec
@@ -98,17 +98,17 @@ fn rust_jaccard_join(
     progress: bool,
     seed: u64,
 ) -> Robj {
-    let left_string_vec = left_string_r.as_str_vector().unwrap();
     let right_string_vec = right_string_r.as_str_vector().unwrap();
+    let left_string_vec = left_string_r.as_str_vector().unwrap();
 
     if progress {
-        println!("Starting to generate shingles");
+        rprintln!("Starting to generate shingles");
     }
 
     let joiner = MinHashJoiner::new(left_string_vec, right_string_vec, ngram_width as usize);
 
     if progress {
-        println!("Done generating shingles");
+        rprintln!("Done generating shingles");
     }
 
     let chosen_indexes = joiner.join(
@@ -148,7 +148,7 @@ fn rust_salted_jaccard_join(
     let left_salt_vec = left_salt_r.as_str_vector().unwrap();
 
     if progress {
-        println!("Starting to generate shingles");
+        rprintln!("Starting to generate shingles");
     }
 
     let joiner = MinHashJoiner::new_with_salt(
@@ -160,7 +160,7 @@ fn rust_salted_jaccard_join(
     );
 
     if progress {
-        println!("Done generating shingles");
+        rprintln!("Done generating shingles");
     }
 
     let chosen_indexes = joiner.join(
@@ -316,7 +316,6 @@ fn rust_p_norm_join(
                     }
                 }
             });
-
         store.clear()
     }
 

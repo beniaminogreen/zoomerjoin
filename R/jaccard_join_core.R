@@ -32,6 +32,7 @@ simple_by_validate <- function(a,b, by) {
                 ))
 }
 
+#' @importFrom dplyr pull %>%
 jaccard_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands,
                       band_width, threshold, progress = FALSE, a_salt = NULL, b_salt = NULL,
                       clean=FALSE, similarity_column = NULL) {
@@ -87,8 +88,8 @@ jaccard_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands,
 
     # Clean strings that are matched on
     if (clean){
-        a_col <- gsub("[[:punct:] ]", "", dplyr::pull(a,by_a))
-        b_col <- gsub("[[:punct:] ]", "", dplyr::pull(b,by_b))
+        a_col <- tolower(gsub("[[:punct:] ]", "", dplyr::pull(a, by_a)))
+        b_col <- tolower(gsub("[[:punct:] ]", "", dplyr::pull(b, by_b)))
 
         if (!is.null(salt_by_a) && !is.null(salt_by_b)) {
             a_salt_col <- tidyr::unite(a,"salt_by_a", dplyr::all_of(salt_by_a)) %>%
@@ -96,8 +97,8 @@ jaccard_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands,
             b_salt_col <- tidyr::unite(b,"salt_by_b", dplyr::all_of(salt_by_b)) %>%
                 dplyr::pull("salt_by_b")
 
-            a_salt_col <- gsub("[[:punct:] ]", "", a_salt_col)
-            b_salt_col <- gsub("[[:punct:] ]", "", b_salt_col)
+            a_salt_col <- tolower(gsub("[[:punct:] ]", "", a_salt_col))
+            b_salt_col <- tolower(gsub("[[:punct:] ]", "", b_salt_col))
         }
     } else{
         a_col <- dplyr::pull(a,by_a)
@@ -141,27 +142,37 @@ jaccard_join <- function (a, b, mode, by, salt_by, n_gram_width, n_bands,
     names(b)[names(b) %in% names_in_both] <- paste0(names(b)[names(b) %in% names_in_both], ".y")
 
     matches <- dplyr::bind_cols(a[match_table[, 1], ], b[match_table[, 2], ])
-    not_matched_a <- ! seq(nrow(a)) %in% match_table[,1]
-    not_matched_b <- ! seq(nrow(b)) %in% match_table[,2]
 
     if(!is.null(similarity_column)) {
         matches[,similarity_column] <- similarities
     }
 
-
-    if (mode == "left") {
-        matches <- dplyr::bind_rows(matches,a[not_matched_a,])
-    } else if (mode == "right") {
-        matches <- dplyr::bind_rows(matches,b[not_matched_b,])
-    } else if (mode == "full") {
-        matches <- dplyr::bind_rows(matches,a[not_matched_a,],b[not_matched_b,])
-    } else if (mode == "inner"){
-        matches <- matches
-    } else if (mode == "anti") {
-        matches <- dplyr::bind_rows(a[not_matched_a,], b[not_matched_b,])
-    } else {
-        stop("Invalid Mode Selected!")
+    # No need to look for rows that don't match
+    if (mode == "inner") {
+        return(matches)
     }
 
-    return(matches)
+    switch(
+        mode,
+        "left" = {
+            not_matched_a <- collapse::`%!iin%`(seq(nrow(a)), match_table[, 1])
+            matches <- dplyr::bind_rows(matches, a[not_matched_a,])
+        },
+        "right" = {
+            not_matched_b <- collapse::`%!iin%`(seq(nrow(b)), match_table[, 2])
+            matches <- dplyr::bind_rows(matches, b[not_matched_b,])
+        },
+        "full" = {
+            not_matched_a <- collapse::`%!iin%`(seq(nrow(a)), match_table[, 1])
+            not_matched_b <- collapse::`%!iin%`(seq(nrow(b)), match_table[, 2])
+            matches <- dplyr::bind_rows(matches, a[not_matched_a,], b[not_matched_b,])
+        },
+        "anti" = {
+            not_matched_a <- collapse::`%!iin%`(seq(nrow(a)), match_table[, 1])
+            not_matched_b <- collapse::`%!iin%`(seq(nrow(b)), match_table[, 2])
+            matches <- dplyr::bind_rows(a[not_matched_a,], b[not_matched_b,])
+        }
+    )
+
+    matches
 }

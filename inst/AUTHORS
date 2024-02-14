@@ -1,0 +1,217 @@
+The authors of the dependency Rust crates:
+
+autocfg (version 1.1.0):
+  Josh Stone
+
+bitflags (version 1.3.2):
+  The Rust Project Developers
+
+cfg-if (version 1.0.0):
+  Alex Crichton
+
+crossbeam-channel (version 0.5.6):
+  
+
+crossbeam-deque (version 0.8.2):
+  
+
+crossbeam-epoch (version 0.9.13):
+  
+
+crossbeam-utils (version 0.8.14):
+  
+
+dashmap (version 5.5.1):
+  Acrimon
+
+either (version 1.8.0):
+  bluss
+
+extendr-api (version 0.3.1):
+  andy-thomason
+  Thomas Down
+  Mossa Merhi Reimert
+  Claus O. Wilke
+  Hiroaki Yutani
+  Ilia A. Kosenkov
+
+extendr-engine (version 0.3.1):
+  andy-thomason
+  Thomas Down
+  Mossa Merhi Reimert
+  Claus O. Wilke
+  Hiroaki Yutani
+  Ilia A. Kosenkov
+
+extendr-macros (version 0.3.1):
+  andy-thomason
+  Thomas Down
+  Mossa Merhi Reimert
+  Claus O. Wilke
+  Hiroaki Yutani
+  Ilia A. Kosenkov
+
+getrandom (version 0.2.8):
+  The Rand Project Developers
+
+hashbrown (version 0.14.0):
+  Amanieu d'Antras
+
+hermit-abi (version 0.2.6):
+  Stefan Lankes
+
+itertools (version 0.10.5):
+  bluss
+
+lazy_static (version 1.4.0):
+  Marvin Löbel
+
+libc (version 0.2.139):
+  The Rust Project Developers
+
+libm (version 0.2.6):
+  Jorge Aparicio
+
+libR-sys (version 0.3.0):
+  andy-thomason
+  Thomas Down
+  Mossa Merhi Reimert
+  Claus O. Wilke
+  Ilia Kosenkov
+  Hiroaki Yutani
+
+lock_api (version 0.4.10):
+  Amanieu d'Antras
+
+matrixmultiply (version 0.3.2):
+  bluss
+  R. Janis Goldschmidt
+
+memoffset (version 0.7.1):
+  Gilad Naaman
+
+ndarray-rand (version 0.14.0):
+  bluss
+
+ndarray (version 0.15.6):
+  Ulrik Sverdrup \"bluss\"
+  Jim Turner
+
+nohash-hasher (version 0.2.0):
+  Parity Technologies
+
+num_cpus (version 1.15.0):
+  Sean McArthur
+
+num-complex (version 0.4.3):
+  The Rust Project Developers
+
+num-integer (version 0.1.45):
+  The Rust Project Developers
+
+num-traits (version 0.2.15):
+  The Rust Project Developers
+
+once_cell (version 1.18.0):
+  Aleksey Kladov
+
+ordered-float (version 3.4.0):
+  Jonathan Reem
+  Matt Brubeck
+
+parking_lot_core (version 0.9.8):
+  Amanieu d'Antras
+
+paste (version 1.0.11):
+  David Tolnay
+
+ppv-lite86 (version 0.2.17):
+  The CryptoCorrosion Contributors
+
+proc-macro2 (version 1.0.50):
+  David Tolnay
+  Alex Crichton
+
+quote (version 1.0.23):
+  David Tolnay
+
+rand_chacha (version 0.3.1):
+  The Rand Project Developers
+  The Rust Project Developers
+  The CryptoCorrosion Contributors
+
+rand_core (version 0.6.4):
+  The Rand Project Developers
+  The Rust Project Developers
+
+rand_distr (version 0.4.3):
+  The Rand Project Developers
+
+rand (version 0.8.5):
+  The Rand Project Developers
+  The Rust Project Developers
+
+rawpointer (version 0.2.1):
+  bluss
+
+rayon-core (version 1.10.1):
+  Niko Matsakis
+  Josh Stone
+
+rayon (version 1.6.1):
+  Niko Matsakis
+  Josh Stone
+
+redox_syscall (version 0.3.5):
+  Jeremy Soller
+
+rustc-hash (version 1.1.0):
+  The Rust Project Developers
+
+scopeguard (version 1.1.0):
+  bluss
+
+smallvec (version 1.10.0):
+  The Servo Project Developers
+
+syn (version 1.0.107):
+  David Tolnay
+
+unicode-ident (version 1.0.6):
+  David Tolnay
+
+wasi (version 0.11.0+wasi-snapshot-preview1):
+  The Cranelift Project Developers
+
+winapi-i686-pc-windows-gnu (version 0.4.0):
+  Peter Atashian
+
+winapi-x86_64-pc-windows-gnu (version 0.4.0):
+  Peter Atashian
+
+winapi (version 0.3.9):
+  Peter Atashian
+
+windows_aarch64_gnullvm (version 0.48.5):
+  Microsoft
+
+windows_aarch64_msvc (version 0.48.5):
+  Microsoft
+
+windows_i686_gnu (version 0.48.5):
+  Microsoft
+
+windows_i686_msvc (version 0.48.5):
+  Microsoft
+
+windows_x86_64_gnu (version 0.48.5):
+  Microsoft
+
+windows_x86_64_gnullvm (version 0.48.5):
+  Microsoft
+
+windows_x86_64_msvc (version 0.48.5):
+  Microsoft
+
+windows-targets (version 0.48.5):
+  Microsoft

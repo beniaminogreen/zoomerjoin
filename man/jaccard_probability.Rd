@@ -14,14 +14,14 @@ jaccard_probability(similarity, n_bands, band_width)
 \item{band_width}{The number of hashes in each band.}
 }
 \value{
-a decimal number giving the proability that the two items will be
-returned as a candidate pair from the minihash algotithm.
+a decimal number giving the probability that the two items will be
+returned as a candidate pair from the minhash algorithm.
 }
 \description{
 This is a port of the
-\href{https://docs.ropensci.org/textreuse/reference/jaccard_probability.html}{jaccard_probability}
+\href{https://docs.ropensci.org/textreuse/reference/lsh_probability.html}{lsh_probability}
 function from the
-\href{https://cran.r-project.org/web/packages/textreuse/index.html}{textreuse}
+\href{https://cran.r-project.org/package=textreuse}{textreuse}
 package, with arguments changed to reflect the hyperparameters in this
 package. It gives the probability that two strings of jaccard similarity
 \code{similarity} will be matched, given the chosen bandwidth and number of
@@ -29,7 +29,6 @@ bands.
 }
 \examples{
 # Find the probability two pairs will be matched given they have a
-# jaccard_similarity of .8,
-# band width of 5, and 50 bands:
-jaccard_probability(.8,5,50)
+# jaccard_similarity of .8, band width of 5, and 50 bands:
+jaccard_probability(.8, n_bands = 50, band_width = 5)
 }

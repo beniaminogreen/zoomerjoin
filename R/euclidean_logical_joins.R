@@ -1,186 +1,72 @@
-#' Spatial Anti Join Using LSH
+#' Spatial joins Using LSH
 #'
-#' @param a the first dataframe you wish to join.
-#' @param b the second dataframe you wish to join.
+#' @inheritParams jaccard_left_join
+#' @param threshold The distance threshold below which units should be
+#'   considered a match. Note that contrary to Jaccard joins, this value is
+#'   about the distance and not the similarity. Therefore, a lower value means a
+#'   higher similarity.
+#' @param r Hyperparameter used to govern the sensitivity of the locality
+#'   sensitive hash. Corresponds to the width of the hash bucket in the LSH
+#'   algorithm. Increasing values of `r` mean more hash collisions and higher
+#'   sensitivity (fewer false-negatives) at the cost of lower specificity (more
+#'   false-positives and longer run time). For more information, see the
+#'   description in \doi{10.1145/997817.997857}.
 #'
-#' @param by a named vector indicating which columns to join on. Format should
-#' be the same as dplyr: \code{by = c("column_name_in_df_a" = "column_name_in_df_b")}, but
-#' two columns must be specified in each dataset (x column and y column). Specification
-#' made with `dplyr::join_by()` are also accepted.
-#'
-#'
-#' @param threshold the distance threshold below which units should be considered a match
-#'
-#' @param r the r hyperparameter used to govern the sensitivity of the locality sensitive hash, as described in
-#'
-#' @param progress set to `TRUE` to print progress
-#'
-#' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
-#' to adhere to the same standards as the dplyr-joins, and uses the same
-#' logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
+#' @return A tibble fuzzily-joined on the basis of the variables in `by.` Tries
+#'   to adhere to the same standards as the dplyr-joins, and uses the same
+#'   logical joining patterns (i.e. inner-join joins and keeps only observations
+#'   in both datasets).
 #'
 #' @references Datar, Mayur, Nicole Immorlica, Pitor Indyk, and Vahab Mirrokni.
-#' "Locality-Sensitive Hashing Scheme Based on p-Stable Distributions" SCG '04:
-#' Proceedings of the twentieth annual symposium on Computational geometry
-#' (2004): 253-262
-#'
-#' @examples
-#'n <- 10
-#'
-#'X_1 <- matrix(c(seq(0,1,1/(n-1)), seq(0,1,1/(n-1))), nrow=n)
-#'X_2 <- X_1 + .0000001
-#'
-#'X_1 <- as.data.frame(X_1)
-#'X_2 <- as.data.frame(X_2)
-#'
-#'X_1$id_1 <- 1:n
-#'X_2$id_2 <- 1:n
-#'
-#'
-#'euclidean_anti_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
-#'
+#'   "Locality-Sensitive Hashing Scheme Based on p-Stable Distributions" SCG
+#'   '04: Proceedings of the twentieth annual symposium on Computational
+#'   geometry (2004): 253-262
 #'
 #' @export
-euclidean_anti_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5,  r=.5, progress = FALSE) {
-    euclidean_join_core(a, b, mode = "anti", by = by, threshold =  threshold, n_bands = n_bands, progress = progress, band_width = band_width, r = r)
+#' @rdname euclidean-joins
+#'
+#' @examples
+#' n <- 10
+#'
+#' # Build two matrices that have close values
+#' X_1 <- matrix(c(seq(0, 1, 1 / (n - 1)), seq(0, 1, 1 / (n - 1))), nrow = n)
+#' X_2 <- X_1 + .0000001
+#'
+#' X_1 <- as.data.frame(X_1)
+#' X_2 <- as.data.frame(X_2)
+#'
+#' X_1$id_1 <- 1:n
+#' X_2$id_2 <- 1:n
+#'
+#' # only keep observations that have a match
+#' euclidean_inner_join(X_1, X_2, by = c("V1", "V2"), threshold = .00005)
+#'
+#' # keep all observations from X_1, regardless of whether they have a match
+#' euclidean_inner_join(X_1, X_2, by = c("V1", "V2"), threshold = .00005)
+euclidean_anti_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r = .5, progress = FALSE) {
+  euclidean_join_core(a, b, mode = "anti", by = by, threshold = threshold, n_bands = n_bands, progress = progress, band_width = band_width, r = r)
 }
 
-#' Spatial Inner Join Using LSH
-#'
-#' @param a the first dataframe you wish to join.
-#' @param b the second dataframe
-#' you wish to join.
-#'
-#' @param by a named vector indicating which columns to join on. Format should
-#' be the same as dplyr: \code{by = c("column_name_in_df_a" = "column_name_in_df_b")}, but
-#' two columns must be specified in each dataset (x column and y column).
-#'
-#' @param threshold the distance threshold below which units should be considered a match
-#'
-#' @param progress set to `TRUE` to print progress
-#'
-#' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
-#' to adhere to the same standards as the dplyr-joins, and uses the same
-#' logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
-#'
-#' @references Datar, Mayur, Nicole Immorlica, Pitor Indyk, and Vahab Mirrokni.
-#' "Locality-Sensitive Hashing Scheme Based on p-Stable Distributions" SCG '04:
-#' Proceedings of the twentieth annual symposium on Computational geometry
-#' (2004): 253-262
-#'
-#' @examples
-#'n <- 10
-#'
-#'X_1 <- matrix(c(seq(0,1,1/(n-1)), seq(0,1,1/(n-1))), nrow=n)
-#'X_2 <- X_1 + .0000001
-#'
-#'X_1 <- as.data.frame(X_1)
-#'X_2 <- as.data.frame(X_2)
-#'
-#'X_1$id_1 <- 1:n
-#'X_2$id_2 <- 1:n
-#'
-#'euclidean_inner_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
-#'
-#'
+#' @rdname euclidean-joins
 #' @export
-euclidean_inner_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5, progress = FALSE) {
-    euclidean_join_core(a, b, mode = "inner", by = by, threshold =  threshold, n_bands = n_bands,progress = progress,  band_width = band_width, r = r)
+euclidean_inner_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r = .5, progress = FALSE) {
+  euclidean_join_core(a, b, mode = "inner", by = by, threshold = threshold, n_bands = n_bands, progress = progress, band_width = band_width, r = r)
 }
 
-#' Spatial Left Join Using LSH
-#'
-#' @inheritParams euclidean_anti_join
-#'
-#' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
-#' to adhere to the same standards as the dplyr-joins, and uses the same
-#' logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
-#'
-#' @references Datar, Mayur, Nicole Immorlica, Pitor Indyk, and Vahab Mirrokni.
-#' "Locality-Sensitive Hashing Scheme Based on p-Stable Distributions" SCG '04:
-#' Proceedings of the twentieth annual symposium on Computational geometry
-#' (2004): 253-262
-#'
-#' @examples
-#'n <- 10
-#'
-#'X_1 <- matrix(c(seq(0,1,1/(n-1)), seq(0,1,1/(n-1))), nrow=n)
-#'X_2 <- X_1 + .0000001
-#'
-#'X_1 <- as.data.frame(X_1)
-#'X_2 <- as.data.frame(X_2)
-#'
-#'X_1$id_1 <- 1:n
-#'X_2$id_2 <- 1:n
-#'
-#'euclidean_left_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
-#'
-#'
+#' @rdname euclidean-joins
 #' @export
-euclidean_left_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5, progress = FALSE) {
-    euclidean_join_core(a, b, mode = "left", by = by, threshold =  threshold, n_bands = n_bands,progress = progress,  band_width = band_width, r = r)
+euclidean_left_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r = .5, progress = FALSE) {
+  euclidean_join_core(a, b, mode = "left", by = by, threshold = threshold, n_bands = n_bands, progress = progress, band_width = band_width, r = r)
 }
 
-#' Spatial Right Join Using LSH
-#'
-#' @inheritParams euclidean_anti_join
-#'
-#' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
-#' to adhere to the same standards as the dplyr-joins, and uses the same
-#' logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
-#'
-#' @references Datar, Mayur, Nicole Immorlica, Pitor Indyk, and Vahab Mirrokni.
-#' "Locality-Sensitive Hashing Scheme Based on p-Stable Distributions" SCG '04:
-#' Proceedings of the twentieth annual symposium on Computational geometry
-#' (2004): 253-262
-#'
-#' @examples
-#'n <- 10
-#'
-#'X_1 <- matrix(c(seq(0,1,1/(n-1)), seq(0,1,1/(n-1))), nrow=n)
-#'X_2 <- X_1 + .0000001
-#'X_1 <- as.data.frame(X_1)
-#'X_2 <- as.data.frame(X_2)
-#'
-#'X_1$id_1 <- 1:n
-#'X_2$id_2 <- 1:n
-#'
-#'euclidean_right_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
-#'
-#'
+#' @rdname euclidean-joins
 #' @export
-euclidean_right_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5, progress = FALSE) {
-    euclidean_join_core(a, b, mode = "right", by = by, threshold =  threshold, n_bands = n_bands,progress = progress,  band_width = band_width, r = r)
+euclidean_right_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r = .5, progress = FALSE) {
+  euclidean_join_core(a, b, mode = "right", by = by, threshold = threshold, n_bands = n_bands, progress = progress, band_width = band_width, r = r)
 }
 
-#' Spatial Full Join Using LSH
-#'
-#' @inheritParams euclidean_anti_join
-#'
-#' @return a tibble fuzzily-joined on the basis of the variables in `by.` Tries
-#' to adhere to the same standards as the dplyr-joins, and uses the same
-#' logical joining patterns (i.e. inner-join joins and keeps only observations in both datasets).
-#'
-#' @references Datar, Mayur, Nicole Immorlica, Pitor Indyk, and Vahab Mirrokni.
-#' "Locality-Sensitive Hashing Scheme Based on p-Stable Distributions" SCG '04:
-#' Proceedings of the twentieth annual symposium on Computational geometry
-#' (2004): 253-262
-#'
-#' @examples
-#'n <- 10
-#'
-#'X_1 <- matrix(c(seq(0,1,1/(n-1)), seq(0,1,1/(n-1))), nrow=n)
-#'X_2 <- X_1 + .0000001
-#'
-#'X_1 <- as.data.frame(X_1)
-#'X_2 <- as.data.frame(X_2)
-#'
-#'X_1$id_1 <- 1:n
-#'X_2$id_2 <- 1:n
-#'
-#'euclidean_full_join(X_1, X_2, by = c("V1", "V2"), threshold =.00005)
-#'
+#' @rdname euclidean-joins
 #' @export
-euclidean_full_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r=.5, progress = FALSE) {
-    euclidean_join_core(a, b, mode = "full", by = by, threshold =  threshold, n_bands = n_bands, progress = progress, band_width = band_width, r = r)
+euclidean_full_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r = .5, progress = FALSE) {
+  euclidean_join_core(a, b, mode = "full", by = by, threshold = threshold, n_bands = n_bands, progress = progress, band_width = band_width, r = r)
 }

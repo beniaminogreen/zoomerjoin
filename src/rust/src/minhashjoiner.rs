@@ -1,8 +1,8 @@
 use crate::shingleset::ShingleSet;
 
-use std::sync::Arc;
-
+use extendr_api::prelude::*;
 use rayon::prelude::*;
+use std::sync::Arc;
 
 use dashmap::{DashMap, DashSet};
 
@@ -85,7 +85,7 @@ impl MinHashJoiner {
             Arc::new(DashMap::with_capacity(self.smaller_set.len()));
         for i in 0..n_bands {
             if progress {
-                println!("starting band {i} out of {n_bands}");
+                rprintln!("starting band {i} out of {n_bands}");
             }
 
             let hasher = MinHasher::new(band_size as usize, &mut rng);
