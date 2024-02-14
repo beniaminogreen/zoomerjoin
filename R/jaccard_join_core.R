@@ -59,11 +59,8 @@ jaccard_join <- function(a, b, mode, by, salt_by, n_gram_width, n_bands,
       ") have only a ", round(thresh_prob * 100), "% chance of being compared.\n",
       "Please consider changing `n_bands` and `band_width`."
     )
-
     warning(str)
   }
-
-
 
   by <- simple_by_validate(a, b, by)
   by_a <- by[[1]]
@@ -71,8 +68,8 @@ jaccard_join <- function(a, b, mode, by, salt_by, n_gram_width, n_bands,
   stopifnot("'by' vectors must have length 1" = length(by_a) == 1)
   stopifnot("'by' vectors must have length 1" = length(by_b) == 1)
 
-  stopifnot("There should be no NA's in by_a" = !any(is.na(dplyr::pull(a, by_a))))
-  stopifnot("There should be no NA's in by_b" = !any(is.na(dplyr::pull(b, by_b))))
+  stopifnot("There should be no NA's in by_a" = !anyNA(a[[by_a]]))
+  stopifnot("There should be no NA's in by_b" = !anyNA(b[[by_b]]))
 
   salt_by_a <- NULL
   salt_by_b <- NULL
@@ -82,9 +79,9 @@ jaccard_join <- function(a, b, mode, by, salt_by, n_gram_width, n_bands,
     salt_by_a <- salt_by[[1]]
     salt_by_b <- salt_by[[2]]
     stopifnot("There should be no NA's in the blocking variables" = !
-    any(is.na(dplyr::select(a, dplyr::all_of(salt_by_a)))))
+    anyNA(a[, salt_by_a, drop = FALSE]))
     stopifnot("There should be no NA's in the blocking variables" = !
-    any(is.na(dplyr::select(b, dplyr::all_of(salt_by_b)))))
+    anyNA(b[, salt_by_b, drop = FALSE]))
   }
 
   # Clean strings that are matched on

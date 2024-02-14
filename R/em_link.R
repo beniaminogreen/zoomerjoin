@@ -63,7 +63,7 @@
 #' @export
 em_link <- function(X, g, tol = 10^-6, max_iter = 10^3) {
   stopifnot(
-    "There can be no NA's in X (but you can add NA as its own agreement level)" = !any(is.na(X))
+    "There can be no NA's in X (but you can add NA as its own agreement level)" = !anyNA(X)
   )
 
   stopifnot(
