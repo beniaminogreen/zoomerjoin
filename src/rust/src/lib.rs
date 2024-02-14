@@ -208,7 +208,7 @@ fn rust_hamming_join(
         let hasher = HammingHasher::new(max_size, band_width as usize, &mut rng);
 
         if progress {
-            println!("starting band {i} out of {n_bands}");
+            rprintln!("starting band {i} out of {n_bands}");
         }
 
         left_string_vec.par_iter().enumerate().for_each(|(i, x)| {
