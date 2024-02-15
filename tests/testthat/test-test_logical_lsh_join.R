@@ -50,40 +50,48 @@ test_that("jaccard_inner_join works on tiny dataset", {
   )
 
   expect_true(all(test$id_1 == test$id_2, na.rm = T))
-
   expect_identical(sort(test$id_1), c(1, 2))
   expect_identical(sort(test$id_2), c(1, 2))
 })
+
 test_that("jaccard_full_join works on tiny dataset", {
   capture_messages(
     test <- jaccard_full_join(dataset_1, dataset_2, threshold = .6, n_bands = 300)
   )
 
   expect_true(all(test$id_1 == test$id_2, na.rm = T))
-
   expect_identical(sort(test$id_1), c(1, 2, 3))
   expect_identical(sort(test$id_2), c(1, 2, 3))
 })
+
 test_that("jaccard_left_join works on tiny dataset", {
   capture_messages(
     test <- jaccard_left_join(dataset_1, dataset_2, threshold = .6, n_bands = 300)
   )
 
   expect_true(all(test$id_1 == test$id_2, na.rm = T))
-
   expect_identical(sort(test$id_1), c(1, 2, 3))
   expect_identical(sort(test$id_2), c(1, 2))
 })
+
 test_that("jaccard_right_join works on tiny dataset", {
   capture_messages(
     test <- jaccard_right_join(dataset_1, dataset_2, threshold = .6, n_bands = 300)
   )
 
-
   expect_true(all(test$id_1 == test$id_2, na.rm = T))
-
   expect_identical(sort(test$id_1), c(1, 2))
   expect_identical(sort(test$id_2), c(1, 2, 3))
+})
+
+test_that("jaccard_anti_join works on tiny dataset", {
+  capture_messages(
+    test <- jaccard_anti_join(dataset_1, dataset_2, threshold = .6, n_bands = 300)
+  )
+
+  expect_true(all(test$id_1 == test$id_2, na.rm = T))
+  expect_identical(sort(test$id_1, na.last = TRUE), c(3, NA))
+  expect_identical(sort(test$id_2, na.last = TRUE), c(3, NA))
 })
 
 test_that("jaccard_inner_join gives same results as stringdist_inner_join", {
@@ -165,7 +173,6 @@ test_that("hamming_inner_join works on tiny dataset", {
   )
 
   expect_true(all(test$id_1 == test$id_2, na.rm = T))
-
   expect_identical(sort(test$id_1), c(1, 2))
   expect_identical(sort(test$id_2), c(1, 2))
 })
@@ -176,7 +183,6 @@ test_that("hamming_full_join works on tiny dataset", {
   )
 
   expect_true(all(test$id_1 == test$id_2, na.rm = T))
-
   expect_identical(sort(test$id_1), c(1, 2, 3))
   expect_identical(sort(test$id_2), c(1, 2, 3))
 })
@@ -187,7 +193,6 @@ test_that("hamming_left_join works on tiny dataset", {
   )
 
   expect_true(all(test$id_1 == test$id_2, na.rm = T))
-
   expect_identical(sort(test$id_1), c(1, 2, 3))
   expect_identical(sort(test$id_2), c(1, 2))
 })
@@ -197,11 +202,19 @@ test_that("hamming_right_join works on tiny dataset", {
     test <- hamming_right_join(dataset_1, dataset_2, threshold = 3, band_width = 1, n_bands = 300)
   )
 
-
   expect_true(all(test$id_1 == test$id_2, na.rm = T))
-
   expect_identical(sort(test$id_1), c(1, 2))
   expect_identical(sort(test$id_2), c(1, 2, 3))
+})
+
+test_that("hamming_anti_join works on tiny dataset", {
+  capture_messages(
+    test <- hamming_anti_join(dataset_1, dataset_2, threshold = 3, band_width = 1, n_bands = 300)
+  )
+
+  expect_true(all(test$id_1 == test$id_2, na.rm = T))
+  expect_identical(sort(test$id_1, na.last = TRUE), c(3, NA))
+  expect_identical(sort(test$id_2, na.last = TRUE), c(3, NA))
 })
 
 test_that("jaccard_inner_join gives same results as stringdist_inner_join", {
@@ -216,6 +229,17 @@ test_that("jaccard_inner_join gives same results as stringdist_inner_join", {
 
     expect_true(all.equal(zoomer_join_out, stringdist_join_out))
   }
+})
+
+test_that("hamming: arg 'similarity_column' works", {
+  capture_messages(
+    test <- hamming_inner_join(
+      dataset_1, dataset_2,
+      threshold = 3, band_width = 1, n_bands = 300,
+      similarity_column = "sim"
+    )
+  )
+  expect_equal(test$sim, hamming_distance(test$string.x, test$string.y))
 })
 
 

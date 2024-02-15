@@ -26,13 +26,14 @@ Suggests:
     fuzzyjoin,
     igraph,
     knitr,
+    microbenchmark,
+    profmem,
+    purrr,
     rmarkdown,
     stringdist,
     testthat (>= 3.0.0),
     tidyverse,
-    purrr,
-    microbenchmark,
-    profmem
+    vdiffr
 Config/testthat/edition: 3
 URL: https://beniamino.org/zoomerjoin/
 BugReports: https://github.com/beniaminogreen/zoomerjoin/issues/
