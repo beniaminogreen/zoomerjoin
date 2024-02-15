@@ -1,3 +1,4 @@
+# nocov start
 .onAttach <- function(libname, pkgname) {
   if (Sys.getenv("_R_CHECK_LIMIT_CORES_") != "") {
     if (as.logical(Sys.getenv("_R_CHECK_LIMIT_CORES_"))) {
@@ -6,3 +7,4 @@
     }
   }
 }
+# nocov end

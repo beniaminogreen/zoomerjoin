@@ -52,7 +52,7 @@
 #' @importFrom stats runif
 #' @importFrom utils installed.packages packageVersion
 jaccard_string_group <- function(string, n_gram_width = 2, n_bands = 45, band_width = 8, threshold = .7, progress = FALSE) {
-  if (system.file(package = "igraph") == "") {
+  if (!requireNamespace("igraph")) {
     stop("library 'igraph' must be installed to run this function")
   }
 
