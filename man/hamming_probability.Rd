@@ -9,12 +9,12 @@ hamming_probability(distance, input_length, n_bands, band_width)
 \arguments{
 \item{distance}{The hamming distance of the two strings you want to compare}
 
+\item{input_length}{the length (number of characters) of the input strings
+you want to calculate.}
+
 \item{n_bands}{The number of LSH bands used in hashing.}
 
 \item{band_width}{The number of hashes in each band.}
-
-\item{imput_length}{the length (number of characters) of the input strings
-you want to calculate.}
 }
 \value{
 A decimal number giving the probability that the two items will be
