@@ -54,7 +54,7 @@ hamming_join <- function(a, b, mode, by, n_bands, band_width,
   if (!is.null(similarity_column)) {
     similarities <- hamming_distance(
       pull(a[match_table[, 1], ], by_a),
-      pull(b[match_table[, 2], ], by_b),
+      pull(b[match_table[, 2], ], by_b)
     )
   }
 

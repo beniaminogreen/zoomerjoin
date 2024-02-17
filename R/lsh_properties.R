@@ -173,6 +173,9 @@ jaccard_hyper_grid_search <- function(s1 = .1, s2 = .7, p1 = .001, p2 = .999) {
 #'
 #' @param n_bands The number of LSH bands used in hashing.
 #'
+#' @param imput_length the length (number of characters) of the input strings
+#' you want to calculate.
+#'
 #' @param band_width The number of hashes in each band.
 #'
 #' @return A decimal number giving the probability that the two items will be
