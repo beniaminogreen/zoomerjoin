@@ -30,12 +30,12 @@ jaccard_similarity <- function(a, b, ngram_width = 2) {
 #'
 #' @examples
 #' hamming_distance(
-#'   c("the quick brown fox", "jumped over the lazy dog"),
-#'   c("the quck bron fx", "jumped over hte lazy dog")
+#'   c("ACGTCGATGACGTGATGCGTAGCGTA", "ACGTCGATGTGCTCTCGTCGATCTAC"),
+#'   c("ACGTCGACGACGTGATGCGCAGCGTA", "ACGTCGATGGGGTCTCGTCGATCTAC")
 #' )
 #'
 #' @export
-hamming_distance <- function(a, b, ngram_width = 2) {
+hamming_distance <- function(a, b) {
   stopifnot(length(a) == length(b))
   rust_hamming_distance(a, b)
 }
