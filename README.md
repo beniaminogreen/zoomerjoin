@@ -30,7 +30,7 @@ Please be aware that you will have to have Cargo (the rust toolchain and
 compiler) installed to build the package from source.
 
 ``` r
-install.packages(zoomerjoin)
+install.packages('zoomerjoin')
 ```
 
 ### Installing from R-Universe:
