@@ -1,11 +1,11 @@
-pandoc: 2.19.2
-pkgdown: 2.0.7
+pandoc: 3.1.11
+pkgdown: 2.0.9
 pkgdown_sha: ~
 articles:
   benchmarks: benchmarks.html
   guided_tour: guided_tour.html
   matching_vectors: matching_vectors.html
-last_built: 2024-02-17T17:27Z
+last_built: 2024-06-03T14:59Z
 urls:
   reference: https://beniaminogreen.github.io/zoomerjoin/reference
   article: https://beniaminogreen.github.io/zoomerjoin/articles
