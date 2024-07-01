@@ -250,7 +250,7 @@ test_that("seed works for hamming joins", {
       a <- hamming_inner_join(
         names_df, misspelled_name_df,
         by = "name",
-        threshold = .3,
+        threshold = 1,
         n_bands = 1, band_width = 5
       ) %>%
         arrange(id_1) %>%
@@ -262,7 +262,7 @@ test_that("seed works for hamming joins", {
       b <- hamming_inner_join(
         names_df, misspelled_name_df,
         by = "name",
-        threshold = .3,
+        threshold = 1,
         n_bands = 1, band_width = 5
       ) %>%
         arrange(id_1) %>%

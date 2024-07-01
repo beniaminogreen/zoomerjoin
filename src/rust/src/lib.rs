@@ -25,7 +25,7 @@ use rand::SeedableRng;
 
 #[extendr]
 fn rust_em_link(x_robj: Robj, probs: &[f64], tol: f64, max_iter: i32) -> Vec<f64> {
-    let x_mat = <ArrayView2<i32>>::from_robj(&x_robj)
+    let x_mat = <ArrayView2<i32>>::try_from(&x_robj)
         .unwrap()
         .to_owned()
         .map(|x| *x as usize);
@@ -265,8 +265,8 @@ fn rust_p_norm_join(
     progress: bool,
     seed: u64,
 ) -> Robj {
-    let a_mat = <ArrayView2<f64>>::from_robj(&a_mat).unwrap().to_owned();
-    let b_mat = <ArrayView2<f64>>::from_robj(&b_mat).unwrap().to_owned();
+    let a_mat = <ArrayView2<f64>>::try_from(&a_mat).unwrap().to_owned();
+    let b_mat = <ArrayView2<f64>>::try_from(&b_mat).unwrap().to_owned();
 
     let pairs: DashSet<(usize, usize)> = DashSet::new();
     let store: DashMap<u64, Vec<usize>> = DashMap::new();

@@ -47,15 +47,15 @@ test_that("Match Col Must be in the dataset and of length one", {
 
 test_that("Jaccard: using dplyr::join_by() in the 'by' argument works", {
   expect_identical(
-    jaccard_inner_join(a, b, by = "string", band_width = 0.3),
-    jaccard_inner_join(a, b, by = dplyr::join_by(string), band_width = 0.3)
+    jaccard_inner_join(a, b, by = "string", band_width = 2),
+    jaccard_inner_join(a, b, by = dplyr::join_by(string), band_width = 2)
   )
 
   a2 <- b
   names(a2) <- c("id_2", "foobar")
   expect_identical(
-    jaccard_inner_join(a, a2, by = c("string" = "foobar"), band_width = 0.3),
-    jaccard_inner_join(a, a2, by = dplyr::join_by(string == foobar), band_width = 0.3)
+    jaccard_inner_join(a, a2, by = c("string" = "foobar"), band_width = 2),
+    jaccard_inner_join(a, a2, by = dplyr::join_by(string == foobar), band_width = 2)
   )
 })
 
