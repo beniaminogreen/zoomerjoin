@@ -35,12 +35,11 @@ Suggests:
     tidyverse,
     vdiffr
 Config/testthat/edition: 3
-URL: https://beniamino.org/zoomerjoin/
-BugReports: https://github.com/beniaminogreen/zoomerjoin/issues/
+URL: https://beniamino.org/zoomerjoin/, https://github.com/beniaminogreen/zoomerjoin
+BugReports: https://github.com/beniaminogreen/zoomerjoin/issues
 VignetteBuilder: knitr
 Depends:
     R (>= 2.10)
 LazyData: true
 LazyDataCompression: xz
 Config/rextendr/version: 0.3.1.9000
-
