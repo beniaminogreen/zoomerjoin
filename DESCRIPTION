@@ -1,6 +1,6 @@
 Package: zoomerjoin
 Title: Superlatively Fast Fuzzy Joins
-Version: 0.1.2.9000
+Version: 0.1.5
 Authors@R: c(
     person("Beniamino", "Green", , "beniamino.green@yale.edu", role = c("aut", "cre", "cph")),
     person("Etienne", "Bacher", email = "etienne.bacher@protonmail.com", role = "ctb",
@@ -13,7 +13,7 @@ Description: Empowers users to fuzzily-merge data frames with millions or tens o
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 SystemRequirements: Cargo (>= 1.56) (Rust's package manager), rustc
 Imports:
     collapse,
@@ -35,12 +35,11 @@ Suggests:
     tidyverse,
     vdiffr
 Config/testthat/edition: 3
-URL: https://beniamino.org/zoomerjoin/
-BugReports: https://github.com/beniaminogreen/zoomerjoin/issues/
+URL: https://beniamino.org/zoomerjoin/, https://github.com/beniaminogreen/zoomerjoin
+BugReports: https://github.com/beniaminogreen/zoomerjoin/issues
 VignetteBuilder: knitr
 Depends:
     R (>= 2.10)
 LazyData: true
 LazyDataCompression: xz
 Config/rextendr/version: 0.3.1.9000
-

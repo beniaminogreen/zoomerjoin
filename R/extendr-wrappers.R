@@ -6,7 +6,6 @@
 # This file was created with the following call:
 #   .Call("wrap__make_zoomerjoin_wrappers", use_symbols = TRUE, package_name = "zoomerjoin")
 
-#' @docType package
 #' @usage NULL
 #' @useDynLib zoomerjoin, .registration = TRUE
 NULL

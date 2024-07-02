@@ -1,17 +1,18 @@
-# zoomerjoin (development version)
+# zoomerjoin 0.1.5
 
 ## New features
 
 * Several performance improvements (#101, #104).
 * Added support for joining based on hamming distance (#100).
+* Bumped `extendr` to v0.7.0 (#121)
 
 ## Bug fixes
 
-* When `clean = TRUE`, strings were not coerced to lower case. This is now the
+* Fixed bug where when `clean = TRUE`, strings were not coerced to lower case.
   case (#105).
-* Fix argument `progress`, which didn't print anything when it was `TRUE` (#107).
+* Fix argument `progress`, was inoperative (#107).
 
-# zoomerjoin 0.1.2
+# zoomerjoin 0.1.4
 
 * Submitted Package to CRAN
 * Add support for new `join_by()` syntax
