@@ -1,21 +1,23 @@
 [package]
-name = 'zoomerjoin'
-version = '0.1.0'
-edition = '2021'
+name = "zoomerjoin"
+version = "0.1.0"
+edition = "2021"
 authors = ["Beniamino Green <beniamino.green@yale.edu>"]
+rust-version = "1.70.0"
 
 [lib]
-crate-type = ['staticlib']
-name = 'zoomerjoin'
+crate-type = ["staticlib"]
+name = "zoomerjoin"
 
 [dependencies]
 dashmap = { version = "5.5.3", features = ["inline"] }
-extendr-api = { version = "0.7.0", features = ["ndarray"] }
+extendr-api = { version = "0.8.0", features = ["ndarray"] }
 itertools = "0.10.5"
-ndarray = { version = "0.15.6", features = ["rayon"] }
-ndarray-rand = "0.14.0"
+ndarray = { version = "0.16.1", features = ["rayon"] }
+ndarray-rand = "0.15.0"
 nohash-hasher = "0.2.0"
 rand = "0.8.5"
 rayon = "1.6.1"
 rustc-hash = "1.1.0"
+
 

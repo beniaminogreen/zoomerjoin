@@ -1,9 +1,7 @@
-use extendr_api::prelude::parallel::prelude::ParallelIterator;
-use extendr_api::prelude::*;
-
 use dashmap::{DashMap, DashSet};
-
-use rayon::prelude::*;
+use extendr_api::prelude::*;
+use ndarray::parallel::prelude::*;
+use ndarray::{Array2, ArrayView2, Axis};
 
 pub mod shingleset;
 use crate::shingleset::ShingleSet;

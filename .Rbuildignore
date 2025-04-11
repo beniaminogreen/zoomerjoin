@@ -21,3 +21,7 @@ src/rust/uncomment.sh
 ^.*\.Rproj$
 ^\.Rproj\.user$
 .lintr
+^src/\.cargo$
+^src/rust/target$
+^src/Makevars$
+^src/Makevars\.win$

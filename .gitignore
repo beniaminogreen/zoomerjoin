@@ -3,3 +3,6 @@ inst/doc
 src/rust/vendor/
 .Rproj.user
 zoomerjoin.Rproj
+src/rust/vendor
+src/Makevars
+src/Makevars.win

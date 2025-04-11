@@ -1,10 +1,9 @@
+use extendr_api::prelude::*;
 use itertools::Itertools;
+use ndarray::{Array1, ArrayView1, ArrayView2, Axis};
 use std::collections::hash_map::DefaultHasher;
 use std::collections::HashMap;
 use std::hash::{Hash, Hasher};
-
-use extendr_api::prelude::*;
-
 struct AgreeBundle {
     pattern: Array1<usize>,
     ids: Vec<usize>,
@@ -137,7 +136,7 @@ impl EMLinker {
         unlisted_parameters
     }
 
-    pub fn link(&mut self, tol : f64, max_iter : i32) -> Vec<f64> {
+    pub fn link(&mut self, tol: f64, max_iter: i32) -> Vec<f64> {
         self.m_step();
 
         let mut max_diff = 80.0;
@@ -164,7 +163,6 @@ impl EMLinker {
                 .unwrap();
 
             old_parameters = new_parameters;
-
         }
 
         let mut out_vec = vec![0.0; self.n as usize];
