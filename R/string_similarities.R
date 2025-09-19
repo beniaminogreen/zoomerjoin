@@ -15,9 +15,9 @@
 #' )
 #'
 #' @export
-jaccard_similarity <- function(a, b, ngram_width = 2) {
+jaccard_similarity <- function(a, b, ngram_width = 2, nthread = NULL) {
   stopifnot(length(a) == length(b))
-  rust_jaccard_similarity(a, b, ngram_width)
+  rust_jaccard_similarity(a, b, ngram_width, nthread)
 }
 
 #' Calculate Hamming distance of two character vectors
@@ -35,7 +35,7 @@ jaccard_similarity <- function(a, b, ngram_width = 2) {
 #' )
 #'
 #' @export
-hamming_distance <- function(a, b) {
+hamming_distance <- function(a, b, nthread = NULL) {
   stopifnot(length(a) == length(b))
-  rust_hamming_distance(a, b)
+  rust_hamming_distance(a, b, nthread)
 }

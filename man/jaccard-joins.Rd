@@ -19,7 +19,8 @@ jaccard_inner_join(
   threshold = 0.7,
   progress = FALSE,
   clean = FALSE,
-  similarity_column = NULL
+  similarity_column = NULL,
+  nthread = NULL
 )
 
 jaccard_anti_join(
@@ -33,7 +34,8 @@ jaccard_anti_join(
   threshold = 0.7,
   progress = FALSE,
   clean = FALSE,
-  similarity_column = NULL
+  similarity_column = NULL,
+  nthread = NULL
 )
 
 jaccard_left_join(
@@ -47,7 +49,8 @@ jaccard_left_join(
   threshold = 0.7,
   progress = FALSE,
   clean = FALSE,
-  similarity_column = NULL
+  similarity_column = NULL,
+  nthread = NULL
 )
 
 jaccard_right_join(
@@ -61,7 +64,8 @@ jaccard_right_join(
   threshold = 0.7,
   progress = FALSE,
   clean = FALSE,
-  similarity_column = NULL
+  similarity_column = NULL,
+  nthread = NULL
 )
 
 jaccard_full_join(
@@ -75,7 +79,8 @@ jaccard_full_join(
   threshold = 0.7,
   progress = FALSE,
   clean = FALSE,
-  similarity_column = NULL
+  similarity_column = NULL,
+  nthread = NULL
 )
 }
 \arguments{
@@ -123,6 +128,10 @@ lower-case, stripped of punctuation and spaces)? Default is \code{FALSE}.}
 \item{similarity_column}{An optional character vector. If provided, the data
 frame will contain a column with this name giving the Jaccard similarity
 between the two fields. Extra column will not be present if anti-joining.}
+
+\item{nthread}{Maximum number of threads to use. If \code{NULL} (default),
+Rayon's global thread pool is used, which typically uses all logical
+CPU cores available.}
 }
 \value{
 A tibble fuzzily-joined on the basis of the variables in \code{by.} Tries

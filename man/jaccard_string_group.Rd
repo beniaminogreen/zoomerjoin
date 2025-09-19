@@ -10,7 +10,8 @@ jaccard_string_group(
   n_bands = 45,
   band_width = 8,
   threshold = 0.7,
-  progress = FALSE
+  progress = FALSE,
+  nthread = NULL
 )
 }
 \arguments{

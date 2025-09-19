@@ -4,7 +4,7 @@
 \alias{hamming_distance}
 \title{Calculate Hamming distance of two character vectors}
 \usage{
-hamming_distance(a, b)
+hamming_distance(a, b, nthread = NULL)
 }
 \arguments{
 \item{a}{the first character vector}

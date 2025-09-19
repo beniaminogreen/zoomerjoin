@@ -4,7 +4,7 @@
 \alias{jaccard_similarity}
 \title{Calculate Jaccard Similarity of two character vectors}
 \usage{
-jaccard_similarity(a, b, ngram_width = 2)
+jaccard_similarity(a, b, ngram_width = 2, nthread = NULL)
 }
 \arguments{
 \item{a}{the first character vector}

@@ -126,7 +126,7 @@ fuzzy_join_core <- function(a, b, by, join_func, mode, block_by = NULL, similari
 #' @importFrom dplyr pull %>%
 jaccard_join <- function(a, b, by_a, by_b, block_by_a, block_by_b, n_gram_width, n_bands,
                           band_width, threshold, progress = FALSE, a_salt = NULL, b_salt = NULL,
-                         clean = FALSE) {
+                         clean = FALSE, nthread = NULL) {
 
   stopifnot("'threshold' must be of length 1" = length(threshold) == 1)
   stopifnot("'threshold' must be between 0 and 1" = threshold <= 1 & threshold >= 0)
@@ -192,7 +192,8 @@ jaccard_join <- function(a, b, by_a, by_b, block_by_a, block_by_b, n_gram_width,
       a_col, b_col,
       n_gram_width, n_bands, band_width, threshold,
       progress,
-      seed = 1
+      seed = 1,
+      nthread = nthread
     )
   } else {
     match_table <- rust_salted_jaccard_join(
@@ -200,14 +201,16 @@ jaccard_join <- function(a, b, by_a, by_b, block_by_a, block_by_b, n_gram_width,
       a_salt_col, b_salt_col,
       n_gram_width, n_bands, band_width, threshold,
       progress,
-      seed = round(runif(1, 0, 2^64))
+      seed = round(runif(1, 0, 2^64)),
+      nthread = nthread
     )
   }
 
   similarities <- jaccard_similarity(
       pull(a[match_table[, 1], ], by_a),
       pull(b[match_table[, 2], ], by_b),
-       n_gram_width
+       n_gram_width,
+      nthread = nthread
      )
 
   return(list(
