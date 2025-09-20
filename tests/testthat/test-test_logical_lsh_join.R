@@ -318,3 +318,38 @@ test_that("argument `progress` works correctly", {
     "generating"
   )
 })
+
+test_that("nthread works for jaccard joins", {
+
+  funcs <- c(
+    jaccard_inner_join,
+    jaccard_left_join,
+    jaccard_right_join,
+    jaccard_full_join,
+    jaccard_anti_join
+  )
+  for (func in funcs) {
+    runtime <- system.time(func(
+	dataset_1, dataset_2, threshold = .6, n_bands = 300, nthread=2
+    ))
+    testthat::expect_lte(runtime['user.self'], 2.5 * runtime['elapsed'])
+  }
+})
+
+test_that("nthread works for hamming joins", {
+
+  funcs <- c(
+    hamming_inner_join,
+    hamming_left_join,
+    hamming_right_join,
+    hamming_full_join,
+    hamming_anti_join
+  )
+  for (func in funcs) {
+    runtime <- system.time(func(
+      dataset_1, dataset_2, threshold = 3, band_width = 1, n_bands = 300,
+      nthread=2
+    ))
+    testthat::expect_lte(runtime['user.self'], 2.5 * runtime['elapsed'])
+  }
+})

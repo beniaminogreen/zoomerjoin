@@ -12,3 +12,16 @@ test_that("jaccard sim works", {
     expect_true(all(abs(a - b) < .01))
   }
 })
+
+test_that("nthread works", {
+  require(babynames)
+  require(stringdist)
+
+  nameys <- tolower(unique(babynames$name))
+  shuff_nameys <- sample(nameys, length(nameys))
+
+  runtime <- system.time(jaccard_similarity(
+    nameys, shuff_nameys, ngram_width = 1, nthread = 2
+  ))
+  testthat::expect_lte(runtime['user.self'], 2.5 * runtime['elapsed'])
+})
