@@ -10,6 +10,10 @@ hamming_distance(a, b, nthread = NULL)
 \item{a}{the first character vector}
 
 \item{b}{the first character vector}
+
+\item{nthread}{Maximum number of threads to use. If \code{NULL} (default),
+Rayon's global thread pool is used, which typically uses all logical
+CPU cores available.}
 }
 \value{
 a vector of hamming similarities of the strings

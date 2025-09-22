@@ -34,6 +34,10 @@
 #' identical, while a similarity of zero implies the strings are completely
 #' dissimilar.
 #'
+#' @param nthread Maximum number of threads to use. If `NULL` (default),
+#'   Rayon's global thread pool is used, which typically uses all logical
+#'   CPU cores available.
+#'
 #' @param progress set to true to report progress of the algorithm
 #'
 #' @return a string vector storing the group of each element in the original
