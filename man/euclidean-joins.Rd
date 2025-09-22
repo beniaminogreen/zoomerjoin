@@ -16,7 +16,8 @@ euclidean_anti_join(
   n_bands = 30,
   band_width = 5,
   r = 0.5,
-  progress = FALSE
+  progress = FALSE,
+  nthread = NULL
 )
 
 euclidean_inner_join(
@@ -27,7 +28,8 @@ euclidean_inner_join(
   n_bands = 30,
   band_width = 5,
   r = 0.5,
-  progress = FALSE
+  progress = FALSE,
+  nthread = NULL
 )
 
 euclidean_left_join(
@@ -38,7 +40,8 @@ euclidean_left_join(
   n_bands = 30,
   band_width = 5,
   r = 0.5,
-  progress = FALSE
+  progress = FALSE,
+  nthread = NULL
 )
 
 euclidean_right_join(
@@ -49,7 +52,8 @@ euclidean_right_join(
   n_bands = 30,
   band_width = 5,
   r = 0.5,
-  progress = FALSE
+  progress = FALSE,
+  nthread = NULL
 )
 
 euclidean_full_join(
@@ -60,7 +64,8 @@ euclidean_full_join(
   n_bands = 30,
   band_width = 5,
   r = 0.5,
-  progress = FALSE
+  progress = FALSE,
+  nthread = NULL
 )
 }
 \arguments{
@@ -96,6 +101,10 @@ algorithm. Increasing values of \code{r} mean more hash collisions and higher
 sensitivity (fewer false-negatives) at the cost of lower specificity (more false-positives and longer run time). For more information, see the description in \doi{10.1145/997817.997857}.}
 
 \item{progress}{Set to \code{TRUE} to print progress.}
+
+\item{nthread}{Maximum number of threads to use. If \code{NULL} (default),
+Rayon's global thread pool is used, which typically uses all logical
+CPU cores available.}
 }
 \value{
 A tibble fuzzily-joined on the basis of the variables in \code{by.} Tries

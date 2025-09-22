@@ -10,7 +10,8 @@ jaccard_string_group(
   n_bands = 45,
   band_width = 8,
   threshold = 0.7,
-  progress = FALSE
+  progress = FALSE,
+  nthread = NULL
 )
 }
 \arguments{
@@ -45,6 +46,10 @@ dissimilar.
 }}
 
 \item{progress}{set to true to report progress of the algorithm}
+
+\item{nthread}{Maximum number of threads to use. If \code{NULL} (default),
+Rayon's global thread pool is used, which typically uses all logical
+CPU cores available.}
 }
 \value{
 a string vector storing the group of each element in the original

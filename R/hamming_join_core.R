@@ -1,7 +1,8 @@
 hamming_join <- function(a, b, by_a, by_b, block_by_a, block_by_b, n_bands, band_width,
                          threshold, progress = FALSE,
                          similarity_column = NULL,
-                         clean = FALSE) {
+                         clean = FALSE,
+                         nthread = NULL) {
   a <- tibble::as_tibble(a)
   b <- tibble::as_tibble(b)
 
@@ -46,12 +47,14 @@ hamming_join <- function(a, b, by_a, by_b, block_by_a, block_by_b, n_bands, band
     a_col, b_col,
     band_width, n_bands, threshold,
     progress,
-    seed = 1
+    seed = 1,
+    nthread = nthread
   )
 
   sims <- hamming_distance(
       pull(a[match_table[, 1], ], by_a),
-      pull(b[match_table[, 2], ], by_b)
+      pull(b[match_table[, 2], ], by_b),
+      nthread = nthread
   )
 
   return(

@@ -12,3 +12,12 @@ test_that("string_group dedups string correctly", {
   })
   expect_equal(median(n_groups), 3)
 })
+
+test_that("nthread works for jaccard string group", {
+  skip_if_not_installed("igraph")
+  string <- c("new haven", "new york", "chicago", "newy york")
+  runtime <- system.time(jaccard_string_group(
+    string, n_bands = 190, threshold = .2, nthread = 2
+  ))
+  testthat::expect_lte(runtime['user.self'], 2.5 * runtime['elapsed'])
+})

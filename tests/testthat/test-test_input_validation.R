@@ -96,3 +96,30 @@ test_that("Euclidean: using dplyr::join_by() in the 'by' argument works", {
     ignore_attr = TRUE # ignore row numbers
   )
 })
+
+test_that("nthread works", {
+  n <- 10
+
+  X_1 <- matrix(c(seq(0, 1, 1 / (n - 1)), seq(0, 1, 1 / (n - 1))), nrow = n)
+  X_2 <- X_1 + .0000001
+
+  X_1 <- as.data.frame(X_1)
+  X_2 <- as.data.frame(X_2)
+
+  X_1$id_1 <- 1:n
+  X_2$id_2 <- 1:n
+
+  funcs <- c(
+    euclidean_inner_join,
+    euclidean_left_join,
+    euclidean_right_join,
+    euclidean_full_join,
+    euclidean_anti_join
+  )
+  for (func in funcs) {
+    runtime <- system.time(func(
+      X_1, X_2, by = c("V1", "V2"), threshold = .00005, nthread = 2
+    ))
+    testthat::expect_lte(runtime['user.self'], 2.5 * runtime['elapsed'])
+  }
+})

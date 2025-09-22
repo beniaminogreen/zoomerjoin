@@ -6,6 +6,10 @@
 #' @param ngram_width the length of the shingles / ngrams used in the
 #' similarity calculation
 #'
+#' @param nthread Maximum number of threads to use. If `NULL` (default),
+#'   Rayon's global thread pool is used, which typically uses all logical
+#'   CPU cores available.
+#'
 #' @return a vector of jaccard similarities of the strings
 #'
 #' @examples
@@ -15,9 +19,9 @@
 #' )
 #'
 #' @export
-jaccard_similarity <- function(a, b, ngram_width = 2) {
+jaccard_similarity <- function(a, b, ngram_width = 2, nthread = NULL) {
   stopifnot(length(a) == length(b))
-  rust_jaccard_similarity(a, b, ngram_width)
+  rust_jaccard_similarity(a, b, ngram_width, nthread)
 }
 
 #' Calculate Hamming distance of two character vectors
@@ -25,6 +29,9 @@ jaccard_similarity <- function(a, b, ngram_width = 2) {
 #' @param a the first character vector
 #' @param b the first character vector
 #'
+#' @param nthread Maximum number of threads to use. If `NULL` (default),
+#'   Rayon's global thread pool is used, which typically uses all logical
+#'   CPU cores available.
 #'
 #' @return a vector of hamming similarities of the strings
 #'
@@ -35,7 +42,7 @@ jaccard_similarity <- function(a, b, ngram_width = 2) {
 #' )
 #'
 #' @export
-hamming_distance <- function(a, b) {
+hamming_distance <- function(a, b, nthread = NULL) {
   stopifnot(length(a) == length(b))
-  rust_hamming_distance(a, b)
+  rust_hamming_distance(a, b, nthread)
 }

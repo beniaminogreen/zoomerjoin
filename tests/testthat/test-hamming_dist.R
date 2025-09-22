@@ -16,3 +16,14 @@ test_that("hamming distance works", {
     expect_true(all(abs(a[a != Inf] - b[b != Inf]) < .01))
   }
 })
+
+test_that("nthreads argument works", {
+  require(babynames)
+  require(stringdist)
+
+  nameys <- tolower(unique(babynames$name))
+  shuff_nameys <- sample(nameys, length(nameys))
+  runtime <- system.time(hamming_distance(nameys, shuff_nameys, nthread = 2))
+
+  testthat::expect_lte(runtime['user.self'], 2.5 * runtime['elapsed'])
+}) 

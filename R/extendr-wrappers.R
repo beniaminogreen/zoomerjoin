@@ -10,19 +10,19 @@
 #' @useDynLib zoomerjoin, .registration = TRUE
 NULL
 
-rust_jaccard_join <- function(left_string_r, right_string_r, ngram_width, n_bands, band_size, threshold, progress, seed) .Call(wrap__rust_jaccard_join, left_string_r, right_string_r, ngram_width, n_bands, band_size, threshold, progress, seed)
+rust_jaccard_join <- function(left_string_r, right_string_r, ngram_width, n_bands, band_size, threshold, progress, seed, nthread) .Call(wrap__rust_jaccard_join, left_string_r, right_string_r, ngram_width, n_bands, band_size, threshold, progress, seed, nthread)
 
-rust_salted_jaccard_join <- function(left_string_r, right_string_r, left_salt_r, right_salt_r, ngram_width, n_bands, band_size, threshold, progress, seed) .Call(wrap__rust_salted_jaccard_join, left_string_r, right_string_r, left_salt_r, right_salt_r, ngram_width, n_bands, band_size, threshold, progress, seed)
+rust_salted_jaccard_join <- function(left_string_r, right_string_r, left_salt_r, right_salt_r, ngram_width, n_bands, band_size, threshold, progress, seed, nthread) .Call(wrap__rust_salted_jaccard_join, left_string_r, right_string_r, left_salt_r, right_salt_r, ngram_width, n_bands, band_size, threshold, progress, seed, nthread)
 
-rust_jaccard_similarity <- function(left_string_r, right_string_r, ngram_width) .Call(wrap__rust_jaccard_similarity, left_string_r, right_string_r, ngram_width)
+rust_jaccard_similarity <- function(left_string_r, right_string_r, ngram_width, nthread) .Call(wrap__rust_jaccard_similarity, left_string_r, right_string_r, ngram_width, nthread)
 
 rust_em_link <- function(x_robj, probs, tol, max_iter) .Call(wrap__rust_em_link, x_robj, probs, tol, max_iter)
 
-rust_p_norm_join <- function(a_mat, b_mat, radius, band_width, n_bands, r, progress, seed) .Call(wrap__rust_p_norm_join, a_mat, b_mat, radius, band_width, n_bands, r, progress, seed)
+rust_p_norm_join <- function(a_mat, b_mat, radius, band_width, n_bands, r, progress, seed, nthread) .Call(wrap__rust_p_norm_join, a_mat, b_mat, radius, band_width, n_bands, r, progress, seed, nthread)
 
-rust_hamming_join <- function(left_string_r, right_string_r, band_width, n_bands, radius, progress, seed) .Call(wrap__rust_hamming_join, left_string_r, right_string_r, band_width, n_bands, radius, progress, seed)
+rust_hamming_join <- function(left_string_r, right_string_r, band_width, n_bands, radius, progress, seed, nthread) .Call(wrap__rust_hamming_join, left_string_r, right_string_r, band_width, n_bands, radius, progress, seed, nthread)
 
-rust_hamming_distance <- function(left_string_r, right_string_r) .Call(wrap__rust_hamming_distance, left_string_r, right_string_r)
+rust_hamming_distance <- function(left_string_r, right_string_r, nthread) .Call(wrap__rust_hamming_distance, left_string_r, right_string_r, nthread)
 
 
 # nolint end

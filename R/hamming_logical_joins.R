@@ -26,6 +26,10 @@
 #' @param similarity_column An optional character vector. If provided, the data
 #'   frame will contain a column with this name giving the Hamming distance
 #'   between the two fields. Extra column will not be present if anti-joining.
+#' 
+#' @param nthread Maximum number of threads to use. If `NULL` (default),
+#'   Rayon's global thread pool is used, which typically uses all logical
+#'   CPU cores available.
 #'
 #' @return A tibble fuzzily-joined on the basis of the variables in `by.` Tries
 #'   to adhere to the same standards as the dplyr-joins, and uses the same
@@ -72,7 +76,8 @@ hamming_inner_join <- function(a, b,
                                threshold = 2,
                                progress = FALSE,
                                clean = FALSE,
-                               similarity_column = NULL) {
+                               similarity_column = NULL,
+                               nthread = NULL) {
 
   fuzzy_join_core(a = a, b = b, by = by,
             join_func = hamming_join,
@@ -82,7 +87,8 @@ hamming_inner_join <- function(a, b,
             threshold = threshold,
             progress = progress,
             similarity_column = similarity_column,
-            clean = clean
+            clean = clean,
+            nthread = nthread
   )
 
 }
@@ -96,7 +102,8 @@ hamming_anti_join <- function(a, b,
                               threshold = 2,
                               progress = FALSE,
                               clean = FALSE,
-                              similarity_column = NULL) {
+                              similarity_column = NULL,
+                              nthread = NULL) {
 
   fuzzy_join_core(a = a, b = b, by = by,
             join_func = hamming_join,
@@ -106,7 +113,8 @@ hamming_anti_join <- function(a, b,
             threshold = threshold,
             progress = progress,
             similarity_column = similarity_column,
-            clean = clean
+            clean = clean,
+            nthread = nthread
   )
 }
 
@@ -119,7 +127,8 @@ hamming_left_join <- function(a, b,
                               threshold = 2,
                               progress = FALSE,
                               clean = FALSE,
-                              similarity_column = NULL) {
+                              similarity_column = NULL,
+                              nthread = NULL) {
 
   fuzzy_join_core(a = a, b = b, by = by,
             join_func = hamming_join,
@@ -129,7 +138,8 @@ hamming_left_join <- function(a, b,
             threshold = threshold,
             progress = progress,
             similarity_column = similarity_column,
-            clean = clean
+            clean = clean,
+            nthread = nthread
   )
 }
 
@@ -142,7 +152,8 @@ hamming_right_join <- function(a, b,
                                threshold = 2,
                                progress = FALSE,
                                clean = FALSE,
-                               similarity_column = NULL) {
+                               similarity_column = NULL,
+                               nthread = NULL) {
 
   fuzzy_join_core(a = a, b = b, by = by,
             join_func = hamming_join,
@@ -152,7 +163,8 @@ hamming_right_join <- function(a, b,
             threshold = threshold,
             progress = progress,
             similarity_column = similarity_column,
-            clean = clean
+            clean = clean,
+            nthread = nthread
   )
 }
 
@@ -166,7 +178,8 @@ hamming_full_join <- function(a, b,
                               threshold = 2,
                               progress = FALSE,
                               clean = FALSE,
-                              similarity_column = NULL) {
+                              similarity_column = NULL,
+                              nthread = NULL) {
   fuzzy_join_core(a = a, b = b, by = by,
             join_func = hamming_join,
             mode = "full",
@@ -175,6 +188,7 @@ hamming_full_join <- function(a, b,
             threshold = threshold,
             progress = progress,
             similarity_column = similarity_column,
-            clean = clean
+            clean = clean,
+            nthread = nthread
   )
 }

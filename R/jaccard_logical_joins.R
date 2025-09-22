@@ -47,6 +47,11 @@
 #'   frame will contain a column with this name giving the Jaccard similarity
 #'   between the two fields. Extra column will not be present if anti-joining.
 #'
+#' 
+#' @param nthread Maximum number of threads to use. If `NULL` (default),
+#'   Rayon's global thread pool is used, which typically uses all logical
+#'   CPU cores available.
+#'
 #' @return A tibble fuzzily-joined on the basis of the variables in `by.` Tries
 #'   to adhere to the same standards as the dplyr-joins, and uses the same
 #'   logical joining patterns (i.e. inner-join joins and keeps only observations
@@ -101,7 +106,8 @@ jaccard_inner_join <- function(a, b,
                                threshold = .7,
                                progress = FALSE,
                                clean = FALSE,
-                               similarity_column = NULL) {
+                               similarity_column = NULL,
+                               nthread = NULL) {
 
   fuzzy_join_core(a = a, b = b, by = by,
             join_func = jaccard_join,
@@ -113,7 +119,8 @@ jaccard_inner_join <- function(a, b,
             threshold = threshold,
             progress = progress,
             similarity_column = similarity_column,
-            clean = clean
+            clean = clean,
+            nthread = nthread
   )
 }
 
@@ -127,7 +134,8 @@ jaccard_anti_join <- function(a, b,
                               band_width = 8,
                               threshold = .7,
                               progress = FALSE,
-                              clean = FALSE, similarity_column = NULL) {
+                              clean = FALSE, similarity_column = NULL,
+                              nthread = NULL) {
   fuzzy_join_core(a = a, b = b, by = by,
             join_func = jaccard_join,
             mode = "anti",
@@ -138,7 +146,8 @@ jaccard_anti_join <- function(a, b,
             threshold = threshold,
             progress = progress,
             similarity_column = similarity_column,
-            clean = clean
+            clean = clean,
+            nthread = nthread
   )
 }
 
@@ -153,7 +162,8 @@ jaccard_left_join <- function(a, b,
                               threshold = .7,
                               progress = FALSE,
                               clean = FALSE,
-                              similarity_column = NULL) {
+                              similarity_column = NULL,
+                              nthread = NULL) {
 
   fuzzy_join_core(a = a, b = b, by = by,
             join_func = jaccard_join,
@@ -165,7 +175,8 @@ jaccard_left_join <- function(a, b,
             threshold = threshold,
             progress = progress,
             similarity_column = similarity_column,
-            clean = clean
+            clean = clean,
+            nthread = nthread
   )
 }
 
@@ -180,7 +191,8 @@ jaccard_right_join <- function(a, b,
                                threshold = .7,
                                progress = FALSE,
                                clean = FALSE,
-                               similarity_column = NULL) {
+                               similarity_column = NULL,
+                               nthread = NULL) {
   fuzzy_join_core(a = a, b = b, by = by,
             join_func = jaccard_join,
             mode = "right",
@@ -191,7 +203,8 @@ jaccard_right_join <- function(a, b,
             threshold = threshold,
             progress = progress,
             similarity_column = similarity_column,
-            clean = clean
+            clean = clean,
+            nthread = nthread
   )
 }
 
@@ -206,7 +219,8 @@ jaccard_full_join <- function(a, b,
                               threshold = .7,
                               progress = FALSE,
                               clean = FALSE,
-                              similarity_column = NULL) {
+                              similarity_column = NULL,
+                              nthread = NULL) {
   fuzzy_join_core(a = a, b = b, by = by,
             join_func = jaccard_join,
             mode = "full",
@@ -217,6 +231,7 @@ jaccard_full_join <- function(a, b,
             threshold = threshold,
             progress = progress,
             similarity_column = similarity_column,
-            clean = clean
+            clean = clean,
+            nthread = nthread
   )
 }

@@ -10,6 +10,10 @@
 #'   algorithm. Increasing values of `r` mean more hash collisions and higher
 #'   sensitivity (fewer false-negatives) at the cost of lower specificity (more false-positives and longer run time). For more information, see the description in \doi{10.1145/997817.997857}.
 #'
+#' @param nthread Maximum number of threads to use. If `NULL` (default),
+#'   Rayon's global thread pool is used, which typically uses all logical
+#'   CPU cores available.
+#'
 #' @return A tibble fuzzily-joined on the basis of the variables in `by.` Tries
 #'   to adhere to the same standards as the dplyr-joins, and uses the same
 #'   logical joining patterns (i.e. inner-join joins and keeps only observations
@@ -41,7 +45,7 @@
 #'
 #' # keep all observations from X_1, regardless of whether they have a match
 #' euclidean_inner_join(X_1, X_2, by = c("V1", "V2"), threshold = .00005)
-euclidean_anti_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r = .5, progress = FALSE) {
+euclidean_anti_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r = .5, progress = FALSE, nthread = NULL) {
   fuzzy_join_core(a=a, b=b, by = by,
             join_func = euclidean_join,
             mode = "anti",
@@ -49,12 +53,13 @@ euclidean_anti_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, ba
             n_bands = n_bands,
             progress = progress,
             band_width = band_width,
-            r = r)
+            r = r,
+            nthread = nthread)
 }
 
 #' @rdname euclidean-joins
 #' @export
-euclidean_inner_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r = .5, progress = FALSE) {
+euclidean_inner_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r = .5, progress = FALSE, nthread = NULL) {
   fuzzy_join_core(a=a, b=b, by = by,
             join_func = euclidean_join,
             mode = "inner",
@@ -62,12 +67,13 @@ euclidean_inner_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, b
             n_bands = n_bands,
             progress = progress,
             band_width = band_width,
-            r = r)
+            r = r,
+            nthread = nthread)
 }
 
 #' @rdname euclidean-joins
 #' @export
-euclidean_left_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r = .5, progress = FALSE) {
+euclidean_left_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r = .5, progress = FALSE, nthread = NULL) {
   fuzzy_join_core(a=a, b=b, by = by,
             join_func = euclidean_join,
             mode = "left",
@@ -75,12 +81,13 @@ euclidean_left_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, ba
             n_bands = n_bands,
             progress = progress,
             band_width = band_width,
-            r = r)
+            r = r,
+            nthread = nthread)
 }
 
 #' @rdname euclidean-joins
 #' @export
-euclidean_right_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r = .5, progress = FALSE) {
+euclidean_right_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r = .5, progress = FALSE, nthread = NULL) {
   fuzzy_join_core(a=a, b=b, by = by,
             join_func = euclidean_join,
             mode = "right",
@@ -88,12 +95,13 @@ euclidean_right_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, b
             n_bands = n_bands,
             progress = progress,
             band_width = band_width,
-            r = r)
+            r = r,
+            nthread = nthread)
 }
 
 #' @rdname euclidean-joins
 #' @export
-euclidean_full_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r = .5, progress = FALSE) {
+euclidean_full_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, band_width = 5, r = .5, progress = FALSE, nthread = NULL) {
   fuzzy_join_core(a=a, b=b, by = by,
             join_func = euclidean_join,
             mode = "full",
@@ -101,5 +109,6 @@ euclidean_full_join <- function(a, b, by = NULL, threshold = 1, n_bands = 30, ba
             n_bands = n_bands,
             progress = progress,
             band_width = band_width,
-            r = r)
+            r = r,
+            nthread = nthread)
 }

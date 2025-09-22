@@ -4,7 +4,7 @@
 \alias{jaccard_similarity}
 \title{Calculate Jaccard Similarity of two character vectors}
 \usage{
-jaccard_similarity(a, b, ngram_width = 2)
+jaccard_similarity(a, b, ngram_width = 2, nthread = NULL)
 }
 \arguments{
 \item{a}{the first character vector}
@@ -13,6 +13,10 @@ jaccard_similarity(a, b, ngram_width = 2)
 
 \item{ngram_width}{the length of the shingles / ngrams used in the
 similarity calculation}
+
+\item{nthread}{Maximum number of threads to use. If \code{NULL} (default),
+Rayon's global thread pool is used, which typically uses all logical
+CPU cores available.}
 }
 \value{
 a vector of jaccard similarities of the strings
