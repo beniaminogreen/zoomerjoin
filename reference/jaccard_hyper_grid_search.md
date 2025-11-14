@@ -1,0 +1,51 @@
+# Help Choose the Appropriate LSH Hyperparameters
+
+Runs a grid search to find the hyperparameters that will achieve an
+(s1,s2,p1,p2)-sensitive locality sensitive hash. A locality sensitive
+hash can be called (s1,s2,p1,p2)-sensitive if to strings with a
+similarity less than s1 have a less than p1 chance of being compared,
+while two strings with similarity s2 have a greater than p2 chance of
+being compared. As an example, a (.1,.7,.001,.999)-sensitive LSH means
+that strings with similarity less than .1 will have a .1% chance of
+being compared, while strings with .7 similarity have a 99.9% chance of
+being compared.
+
+## Usage
+
+``` r
+jaccard_hyper_grid_search(s1 = 0.1, s2 = 0.7, p1 = 0.001, p2 = 0.999)
+```
+
+## Arguments
+
+- s1:
+
+  the s1 parameter (the first similaity).
+
+- s2:
+
+  the s2 parameter (the second similarity, must be greater than s1).
+
+- p1:
+
+  the p1 parameter (the first probability).
+
+- p2:
+
+  the p2 parameter (the second probability, must be greater than p1).
+
+## Value
+
+a named vector with the hyperparameters that will meet the LSH criteria,
+while reducing runitme.
+
+## Examples
+
+``` r
+# Help me find the parameters that will minimize runtime while ensuring that
+# two strings with similarity .1 will be compared less than .1% of the time,
+# strings with .8 similaity will have a 99.95% chance of being compared:
+jaccard_hyper_grid_search(.1, .9, .001, .995)
+#> band_width    n_bands 
+#>          4          5 
+```

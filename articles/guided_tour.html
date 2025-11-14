@@ -110,10 +110,10 @@ Politics, and Elections (DIME)</a> (Bonica 2016).</p>
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## ── <span style="font-weight: bold;">Attaching core tidyverse packages</span> ──────────────────────── tidyverse 2.0.0 ──</span></span>
 <span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">dplyr    </span> 1.1.4     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">readr    </span> 2.1.5</span></span>
-<span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">forcats  </span> 1.0.0     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">stringr  </span> 1.5.2</span></span>
+<span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">forcats  </span> 1.0.1     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">stringr  </span> 1.6.0</span></span>
 <span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">ggplot2  </span> 4.0.0     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tibble   </span> 3.3.0</span></span>
 <span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">lubridate</span> 1.9.4     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tidyr    </span> 1.3.1</span></span>
-<span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">purrr    </span> 1.1.0     </span></span>
+<span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">purrr    </span> 1.2.0     </span></span>
 <span><span class="co">## ── <span style="font-weight: bold;">Conflicts</span> ────────────────────────────────────────── tidyverse_conflicts() ──</span></span>
 <span><span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">filter()</span> masks <span style="color: #0000BB;">stats</span>::filter()</span></span>
 <span><span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">lag()</span>    masks <span style="color: #0000BB;">stats</span>::lag()</span></span>
@@ -172,20 +172,20 @@ zoomerjoin:</p>
 <span>  n_bands <span class="op">=</span> <span class="fl">20</span>, band_width <span class="op">=</span> <span class="fl">6</span>, threshold <span class="op">=</span> <span class="fl">.8</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="va">start_time</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Time difference of 0.01205754 secs</span></span></code></pre>
+<pre><code><span><span class="co">## Time difference of 0.01182842 secs</span></span></code></pre>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">join_out</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 8 × 4</span></span></span>
 <span><span class="co">##       a field.x                                                      b field.y  </span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span>   230 pipefitters local union 524                                998 pipefitt…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span>   302 americans for good government inc                          910 american…</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">2</span>   292 bill bradley for u s senate '84                            913 bill bra…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span>   378 guarini for congress 1982                                  606 guarini …</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span>   230 pipefitters local union 524                                998 pipefitt…</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">4</span>   319 7th congressional district democratic party of wisconsin   792 8th cong…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span>   302 americans for good government inc                          910 american…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span>    88 scheuer for congress 1980                                  667 scheuer …</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">6</span>   378 guarini for congress 1982                                  883 guarini …</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">7</span>   238 4th congressional district democratic party                518 16th con…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">8</span>    88 scheuer for congress 1980                                  667 scheuer …</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">8</span>   378 guarini for congress 1982                                  606 guarini …</span></span></code></pre>
 <p>The first two arguments, <code>a</code>, and <code>b</code>, are
 direct analogues of the <code>dplyr</code> arguments, and are the two
 data frames you want to join. The <code>by</code> field also acts the
@@ -215,7 +215,7 @@ possible Jaccard distance,
 between zero and one:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/jaccard_curve.html">jaccard_curve</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">6</span><span class="op">)</span></span></code></pre></div>
-<p><img src="guided_tour_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
+<p><img src="guided_tour_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" width="700"></p>
 <p>By looking at the plot produced, we can see that using these
 hyperparameters, comparisons will almost never be made between pairs of
 records that have a Jaccard similarity of less than .2 (saving time),
@@ -282,7 +282,7 @@ University Libraries.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>
