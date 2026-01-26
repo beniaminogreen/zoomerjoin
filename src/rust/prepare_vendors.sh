@@ -20,7 +20,7 @@ echo $(find . -name "ci" -type d) | xargs rm -rf
 rust_files=$(find . -type f -name "*.rs")
 
 for file in $rust_files; do
-    sed -i "s/^\s*\\/\{2,\}.*$//g" $file
+    perl -i -0777 -pe 's{/\*.*?\*/}{}gs; s{//.*$}{}mg' "$file"
 done
 
 cd ..
