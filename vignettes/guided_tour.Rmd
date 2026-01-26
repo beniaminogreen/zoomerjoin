@@ -44,7 +44,6 @@ The first corpus looks as follows:
 ```{r}
 library(tidyverse)
 library(microbenchmark)
-library(fuzzyjoin)
 library(zoomerjoin)
 
 corpus_1 <- dime_data %>% # dime data is packaged with zoomerjoin

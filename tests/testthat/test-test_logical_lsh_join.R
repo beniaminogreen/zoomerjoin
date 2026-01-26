@@ -95,6 +95,7 @@ test_that("jaccard_anti_join works on tiny dataset", {
 })
 
 test_that("jaccard_inner_join gives same results as stringdist_inner_join", {
+  skip_if_not_installed("fuzzyjoin")
   for (i in 1:5) {
     capture_messages({
       zoomer_join_out <- jaccard_inner_join(names_df, misspelled_name_df, n_gram_width = 1, threshold = .9, n_bands = 150, band_width = 5) %>%
@@ -112,6 +113,7 @@ test_that("jaccard_inner_join gives same results as stringdist_inner_join", {
 })
 
 test_that("jaccard_left_join gives same results as stringdist_inner_join", {
+  skip_if_not_installed("fuzzyjoin")
   for (i in 1:5) {
     capture_messages({
       zoomer_join_out <- jaccard_left_join(names_df, misspelled_name_df, n_gram_width = 1, threshold = .9, n_bands = 150, band_width = 5) %>%
@@ -126,6 +128,7 @@ test_that("jaccard_left_join gives same results as stringdist_inner_join", {
 })
 
 test_that("jaccard_right_join gives same results as stringdist_inner_join", {
+  skip_if_not_installed("fuzzyjoin")
   for (i in 1:5) {
     capture_messages({
       zoomer_join_out <- jaccard_right_join(names_df, misspelled_name_df, n_gram_width = 1, threshold = .9, n_bands = 150, band_width = 5) %>%
@@ -247,6 +250,7 @@ test_that("hamming_anti_join works on tiny dataset", {
 })
 
 test_that("jaccard_inner_join gives same results as stringdist_inner_join", {
+  skip_if_not_installed("fuzzyjoin")
   for (i in 1:20) {
     capture_messages({
       zoomer_join_out <- hamming_inner_join(names_df, misspelled_name_df, threshold = 3, n_bands = 100, band_width = 1) %>%
