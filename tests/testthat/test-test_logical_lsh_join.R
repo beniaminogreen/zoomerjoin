@@ -1,3 +1,4 @@
+testthat::skip_if_not_installed("babynames")
 capture_messages({
   require(tibble)
   require(dplyr)
@@ -324,6 +325,7 @@ test_that("argument `progress` works correctly", {
 })
 
 test_that("nthread works for jaccard joins", {
+  testthat::skip_on_cran()
 
   funcs <- c(
     jaccard_inner_join,
@@ -341,6 +343,8 @@ test_that("nthread works for jaccard joins", {
 })
 
 test_that("nthread works for hamming joins", {
+  testthat::skip_on_cran()
+
 
   funcs <- c(
     hamming_inner_join,

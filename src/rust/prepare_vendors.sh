@@ -19,9 +19,20 @@ echo $(find . -name "ci" -type d) | xargs rm -rf
 
 rust_files=$(find . -type f -name "*.rs")
 
+# for file in $rust_files; do
+#     perl -i -0777 -pe 's{/\*.*?\*/}{}gs; s{//.*$}{}mg' "$file"
+# done
+#
+#
 for file in $rust_files; do
-    perl -i -0777 -pe 's{/\*.*?\*/}{}gs; s{//.*$}{}mg' "$file"
+    # Skip vendor/target directories and files containing 'zerocopy'
+    if [[ "$file" != *"/vendor/"* && "$file" != *"/target/"* && "$file" != *zerocopy* && "$file" != *syn* ]]; then
+        perl -i -pe '
+            s{//.*$}{} unless /#/ || m{".*//.*"};
+        ' "$file"
+    fi
 done
+
 
 cd ..
 

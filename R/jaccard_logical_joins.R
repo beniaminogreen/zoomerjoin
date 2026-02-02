@@ -63,40 +63,44 @@
 #' @examples
 #' # load baby names data
 #' # install.packages("babynames")
-#' library(babynames)
+#' if (requireNamespace("babynames", quietly = TRUE)) {
+#'   baby_names <- data.frame(
+#'     name = tolower(unique(babynames::babynames$name))[1:500]
+#'   )
 #'
-#' baby_names <- data.frame(name = tolower(unique(babynames$name))[1:500])
-#' baby_names_sans_vowels <- data.frame(
-#'   name_wo_vowels = gsub("[aeiouy]", "", baby_names$name)
-#' )
-#' # Check the probability two pairs of strings with similarity .8 will be
-#' # matched with a band width of 8 and 30 bands using the `jaccard_probability()`
-#' # function:
-#' jaccard_probability(.8, 30, 8)
+#'   baby_names_sans_vowels <- data.frame(
+#'     name_wo_vowels = gsub("[aeiouy]", "", baby_names$name)
+#'   )
 #'
-#' # Run the join and only keep rows that have a match:
-#' jaccard_inner_join(
-#'   baby_names,
-#'   baby_names_sans_vowels,
-#'   by = c("name" = "name_wo_vowels"),
-#'   threshold = .8,
-#'   n_bands = 20,
-#'   band_width = 6,
-#'   n_gram_width = 1,
-#'   clean = FALSE # default
-#' )
+#'   # Check the probability two pairs of strings with similarity .8 will be
+#'   # matched with a band width of 8 and 30 bands using the `jaccard_probability()`
+#'   # function:
+#'   jaccard_probability(.8, 30, 8)
 #'
-#' # Run the join and keep all rows from the first dataset, regardless of whether
-#' # they have a match:
-#' jaccard_left_join(
-#'   baby_names,
-#'   baby_names_sans_vowels,
-#'   by = c("name" = "name_wo_vowels"),
-#'   threshold = .8,
-#'   n_bands = 20,
-#'   band_width = 6,
-#'   n_gram_width = 1
-#' )
+#'   # Run the join and only keep rows that have a match:
+#'   jaccard_inner_join(
+#'     baby_names,
+#'     baby_names_sans_vowels,
+#'     by = c("name" = "name_wo_vowels"),
+#'     threshold = .8,
+#'     n_bands = 20,
+#'     band_width = 6,
+#'     n_gram_width = 1,
+#'     clean = FALSE # default
+#'   )
+#'
+#'   # Run the join and keep all rows from the first dataset, regardless of whether
+#'   # they have a match:
+#'   jaccard_left_join(
+#'     baby_names,
+#'     baby_names_sans_vowels,
+#'     by = c("name" = "name_wo_vowels"),
+#'     threshold = .8,
+#'     n_bands = 20,
+#'     band_width = 6,
+#'     n_gram_width = 1
+#'   )
+#' }
 jaccard_inner_join <- function(a, b,
                                by = NULL,
                                block_by = NULL,

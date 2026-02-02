@@ -1,4 +1,5 @@
 test_that("jaccard sim works", {
+  testthat::skip_if_not_installed("babynames")
   require(babynames)
   require(stringdist)
 
@@ -14,6 +15,10 @@ test_that("jaccard sim works", {
 })
 
 test_that("nthread works", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("babynames")
+
+
   require(babynames)
   require(stringdist)
 

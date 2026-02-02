@@ -46,7 +46,7 @@ install.packages(zoomerjoin)
 ### Installing Rust
 
 If your operating system or version of R is not installed, you must have the
-[Rust compiler](https://www.rust-lang.org/tools/install/) installed to compile
+[Rust compiler](https://rust-lang.org/tools/install/) installed to compile
 this package from sources. After the package is compiled, Rust is no longer
 required, and can be safely uninstalled.
 
