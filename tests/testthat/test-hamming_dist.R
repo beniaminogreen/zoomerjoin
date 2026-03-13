@@ -1,4 +1,5 @@
 test_that("hamming distance works", {
+  testthat::skip_if_not_installed("babynames")
   require(babynames)
   require(stringdist)
 
@@ -18,6 +19,8 @@ test_that("hamming distance works", {
 })
 
 test_that("nthreads argument works", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("babynames")
   require(babynames)
   require(stringdist)
 

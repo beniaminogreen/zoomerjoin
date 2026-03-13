@@ -45,13 +45,18 @@
 #' the same group, which is given a standardized name.
 #'
 #' @examples
-#'
-#' string <- c(
-#'   "beniamino", "jack", "benjamin", "beniamin",
-#'   "jacky", "giacomo", "gaicomo"
-#' )
-#' jaccard_string_group(string, threshold = .2, n_bands = 90, n_gram_width = 1)
-#'
+#' if (requireNamespace("igraph", quietly = TRUE)) {
+#'   string <- c(
+#'     "beniamino", "jack", "benjamin", "beniamin",
+#'     "jacky", "giacomo", "gaicomo"
+#'   )
+#'   jaccard_string_group(
+#'     string,
+#'     threshold = 0.2,
+#'     n_bands = 90,
+#'     n_gram_width = 1
+#'   )
+#' }
 #' @export
 #' @importFrom stats runif
 #' @importFrom utils installed.packages packageVersion

@@ -70,6 +70,9 @@ test_that("set.seed works with Euclidean join", {
 })
 
 test_that("nthread works for euclidean joins", {
+
+  testthat::skip_on_cran()
+
   n <- 10
 
   X_1 <- matrix(c(seq(0, 1, 1 / (n - 1)), seq(0, 1, 1 / (n - 1))), nrow = n)

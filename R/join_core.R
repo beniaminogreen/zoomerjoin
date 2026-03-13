@@ -56,10 +56,13 @@ multi_by_validate <- function(a, b, by) {
 #' @param ... Other parameters to be passed to the joining function
 #'
 #' @importFrom dplyr pull %>%
+#' @importFrom rlang is_string
 #' @export
 fuzzy_join_core <- function(a, b, by, join_func, mode, block_by = NULL, similarity_column = NULL, ...) {
   a <- tibble::as_tibble(a)
   b <- tibble::as_tibble(b)
+
+
 
   by <- multi_by_validate(a, b, by)
   by_a <- by[[1]]
@@ -91,6 +94,7 @@ fuzzy_join_core <- function(a, b, by, join_func, mode, block_by = NULL, similari
   matches <- dplyr::bind_cols(a[match_table[, 1], ], b[match_table[, 2], ])
 
   if (!is.null(similarity_column)) {
+    stopifnot("similarity_column should be a string" = rlang::is_string(similarity_column))
     matches[, similarity_column] <- similarities
   }
 
