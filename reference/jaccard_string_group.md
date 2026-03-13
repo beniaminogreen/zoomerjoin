@@ -78,12 +78,18 @@ the same group, which is given a standardized name.
 ## Examples
 
 ``` r
-string <- c(
-  "beniamino", "jack", "benjamin", "beniamin",
-  "jacky", "giacomo", "gaicomo"
-)
-jaccard_string_group(string, threshold = .2, n_bands = 90, n_gram_width = 1)
-#> Loading required namespace: igraph
+if (requireNamespace("igraph", quietly = TRUE)) {
+  string <- c(
+    "beniamino", "jack", "benjamin", "beniamin",
+    "jacky", "giacomo", "gaicomo"
+  )
+  jaccard_string_group(
+    string,
+    threshold = 0.2,
+    n_bands = 90,
+    n_gram_width = 1
+  )
+}
 #> [1] "beniamino" "jack"      "beniamino" "beniamino" "jack"      "giacomo"  
 #> [7] "giacomo"  
 ```

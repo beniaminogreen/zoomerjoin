@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">zoomerjoin</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -99,7 +99,7 @@ so it becomes quicker for larger datasets.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span></code></pre>
-<p><img src="benchmarks_files/figure-html/unnamed-chunk-2-1.png" class="r-plt" width="700"></p>
+<p><img src="benchmarks_files/figure-html/unnamed-chunk-2-1.png" class="r-plt" alt="" width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="benchmarking-code">Benchmarking Code:<a class="anchor" aria-label="anchor" href="#benchmarking-code"></a>
@@ -129,7 +129,7 @@ so it becomes quicker for larger datasets.</p>
 <span><span class="co"># Get time and memory use statistics for fuzzyjoin when performing jaccard join</span></span>
 <span><span class="va">fuzzy_jaccard_bench</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html" class="external-link">microbenchmark</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/fuzzyjoin/man/stringdist_join.html" class="external-link">stringdist_inner_join</a></span><span class="op">(</span><span class="va">data_1</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span>,</span>
+<span>    <span class="fu">stringdist_inner_join</span><span class="op">(</span><span class="va">data_1</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span>,</span>
 <span>      <span class="va">data_2</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span>,</span>
 <span>      method <span class="op">=</span> <span class="st">"jaccard"</span>,</span>
 <span>      max_dist <span class="op">=</span> <span class="fl">.6</span>,</span>
@@ -139,7 +139,7 @@ so it becomes quicker for larger datasets.</p>
 <span>  <span class="op">)</span><span class="op">$</span><span class="va">time</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="va">mem</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://henrikbengtsson.github.io/profmem/reference/profmem.html" class="external-link">profmem</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/fuzzyjoin/man/stringdist_join.html" class="external-link">stringdist_inner_join</a></span><span class="op">(</span><span class="va">data_1</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span>,</span>
+<span>  <span class="va">mem</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://henrikbengtsson.github.io/profmem/reference/profmem.html" class="external-link">profmem</a></span><span class="op">(</span><span class="fu">stringdist_inner_join</span><span class="op">(</span><span class="va">data_1</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span>,</span>
 <span>    <span class="va">data_2</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span>,</span>
 <span>    method <span class="op">=</span> <span class="st">"jaccard"</span>,</span>
 <span>    max_dist <span class="op">=</span> <span class="fl">.6</span>,</span>
@@ -178,13 +178,13 @@ so it becomes quicker for larger datasets.</p>
 <span><span class="co"># Get time and memory use statistics for fuzzyjoin when performing Euclidean join</span></span>
 <span><span class="va">fuzzy_euclid_bench</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html" class="external-link">microbenchmark</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/fuzzyjoin/man/distance_join.html" class="external-link">distance_join</a></span><span class="op">(</span><span class="va">X_1</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span>, <span class="va">X_2</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span>, max_dist <span class="op">=</span> <span class="fl">.1</span>, method <span class="op">=</span> <span class="st">"euclidean"</span><span class="op">)</span>,</span>
+<span>    <span class="fu">distance_join</span><span class="op">(</span><span class="va">X_1</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span>, <span class="va">X_2</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span>, max_dist <span class="op">=</span> <span class="fl">.1</span>, method <span class="op">=</span> <span class="st">"euclidean"</span><span class="op">)</span>,</span>
 <span>    times <span class="op">=</span> <span class="fl">10</span></span>
 <span>  <span class="op">)</span><span class="op">$</span><span class="va">time</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="va">mem</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://henrikbengtsson.github.io/profmem/reference/total.html" class="external-link">total</a></span><span class="op">(</span><span class="fu"><a href="https://henrikbengtsson.github.io/profmem/reference/profmem.html" class="external-link">profmem</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/fuzzyjoin/man/distance_join.html" class="external-link">distance_join</a></span><span class="op">(</span><span class="va">X_1</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span>, <span class="va">X_2</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span>, max_dist <span class="op">=</span> <span class="fl">.1</span>, method <span class="op">=</span> <span class="st">"euclidean"</span><span class="op">)</span></span>
+<span>    <span class="fu">distance_join</span><span class="op">(</span><span class="va">X_1</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span>, <span class="va">X_2</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="op">]</span>, max_dist <span class="op">=</span> <span class="fl">.1</span>, method <span class="op">=</span> <span class="st">"euclidean"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>time <span class="op">=</span> <span class="va">time</span>, memory <span class="op">=</span> <span class="va">mem</span><span class="op">)</span><span class="op">)</span></span>

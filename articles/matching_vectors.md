@@ -83,7 +83,7 @@ joined_out <- euclidean_inner_join(
 n_matches <- nrow(joined_out)
 time_taken <- Sys.time() - start
 print(paste("found", n_matches, "matches in", round(time_taken), "seconds"))
-#> [1] "found 100000 matches in 20 seconds"
+#> [1] "found 100000 matches in 21 seconds"
 ```
 
 Zoomerjoin is able to easily find all pairs in just under 30s (perhaps

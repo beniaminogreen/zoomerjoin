@@ -170,69 +170,56 @@ observations in both datasets).
 ``` r
 # load baby names data
 # install.packages("babynames")
-library(babynames)
+if (requireNamespace("babynames", quietly = TRUE)) {
+  baby_names <- data.frame(
+    name = tolower(unique(babynames::babynames$name))[1:500]
+  )
 
-baby_names <- data.frame(name = tolower(unique(babynames$name))[1:500])
-baby_names_sans_vowels <- data.frame(
-  name_wo_vowels = gsub("[aeiouy]", "", baby_names$name)
-)
-# Check the probability two pairs of strings with similarity .8 will be
-# matched with a band width of 8 and 30 bands using the `jaccard_probability()`
-# function:
-jaccard_probability(.8, 30, 8)
-#> [1] 0.9959518
+  baby_names_sans_vowels <- data.frame(
+    name_wo_vowels = gsub("[aeiouy]", "", baby_names$name)
+  )
 
-# Run the join and only keep rows that have a match:
-jaccard_inner_join(
-  baby_names,
-  baby_names_sans_vowels,
-  by = c("name" = "name_wo_vowels"),
-  threshold = .8,
-  n_bands = 20,
-  band_width = 6,
-  n_gram_width = 1,
-  clean = FALSE # default
-)
-#> # A tibble: 13 × 2
-#>    name     name_wo_vowels
-#>    <chr>    <chr>         
-#>  1 frank    frnk          
-#>  2 martha   mrth          
-#>  3 hester   sthr          
-#>  4 esther   thrs          
-#>  5 frank    frnk          
-#>  6 hester   hstr          
-#>  7 blanch   blnch         
-#>  8 esther   sthr          
-#>  9 hester   thrs          
-#> 10 blanch   blnch         
-#> 11 savannah svnnh         
-#> 12 samantha smnth         
-#> 13 esther   hstr          
+  # Check the probability two pairs of strings with similarity .8 will be
+  # matched with a band width of 8 and 30 bands using the `jaccard_probability()`
+  # function:
+  jaccard_probability(.8, 30, 8)
 
-# Run the join and keep all rows from the first dataset, regardless of whether
-# they have a match:
-jaccard_left_join(
-  baby_names,
-  baby_names_sans_vowels,
-  by = c("name" = "name_wo_vowels"),
-  threshold = .8,
-  n_bands = 20,
-  band_width = 6,
-  n_gram_width = 1
-)
+  # Run the join and only keep rows that have a match:
+  jaccard_inner_join(
+    baby_names,
+    baby_names_sans_vowels,
+    by = c("name" = "name_wo_vowels"),
+    threshold = .8,
+    n_bands = 20,
+    band_width = 6,
+    n_gram_width = 1,
+    clean = FALSE # default
+  )
+
+  # Run the join and keep all rows from the first dataset, regardless of whether
+  # they have a match:
+  jaccard_left_join(
+    baby_names,
+    baby_names_sans_vowels,
+    by = c("name" = "name_wo_vowels"),
+    threshold = .8,
+    n_bands = 20,
+    band_width = 6,
+    n_gram_width = 1
+  )
+}
 #> # A tibble: 506 × 2
-#>    name     name_wo_vowels
-#>    <chr>    <chr>         
-#>  1 hester   hstr          
-#>  2 blanch   blnch         
-#>  3 martha   mrth          
-#>  4 samantha smnth         
-#>  5 esther   thrs          
-#>  6 hester   thrs          
-#>  7 hester   sthr          
-#>  8 esther   sthr          
-#>  9 frank    frnk          
-#> 10 savannah svnnh         
+#>    name   name_wo_vowels
+#>    <chr>  <chr>         
+#>  1 frank  frnk          
+#>  2 hester hstr          
+#>  3 esther sthr          
+#>  4 blanch blnch         
+#>  5 esther hstr          
+#>  6 hester sthr          
+#>  7 blanch blnch         
+#>  8 frank  frnk          
+#>  9 hester thrs          
+#> 10 martha mrth          
 #> # ℹ 496 more rows
 ```

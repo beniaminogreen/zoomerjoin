@@ -16,14 +16,14 @@
 Source:
 [`DESCRIPTION`](https://github.com/beniaminogreen/zoomerjoin/blob/main/DESCRIPTION)
 
-Green B (2025). *zoomerjoin: Superlatively Fast Fuzzy Joins*. R package
-version 0.2.1, <https://beniamino.org/zoomerjoin/>.
+Green B (2026). *zoomerjoin: Superlatively Fast Fuzzy Joins*. R package
+version 0.2.2, <https://beniamino.org/zoomerjoin/>.
 
     @Manual{,
       title = {zoomerjoin: Superlatively Fast Fuzzy Joins},
       author = {Beniamino Green},
-      year = {2025},
-      note = {R package version 0.2.1},
+      year = {2026},
+      note = {R package version 0.2.2},
       url = {https://beniamino.org/zoomerjoin/},
     }
 

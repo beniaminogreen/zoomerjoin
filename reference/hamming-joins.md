@@ -143,62 +143,46 @@ observations in both datasets).
 ## Examples
 
 ``` r
-# load baby names data
-# install.packages("babynames")
-library(babynames)
+if (requireNamespace("babynames", quietly = TRUE)) {
+  baby_names <- data.frame(
+    name = tolower(unique(babynames::babynames$name))[1:500]
+  )
 
-baby_names <- data.frame(name = tolower(unique(babynames$name))[1:500])
-baby_names_mispelled <- data.frame(
-  name_mispelled = gsub("[aeiouy]", "x", baby_names$name)
-)
+  baby_names_mispelled <- data.frame(
+    name_mispelled = gsub("[aeiouy]", "x", baby_names$name)
+  )
 
-# Run the join and only keep rows that have a match:
-hamming_inner_join(
-  baby_names,
-  baby_names_mispelled,
-  by = c("name" = "name_mispelled"),
-  threshold = 3,
-  n_bands = 150,
-  band_width = 10,
-  clean = FALSE # default
-)
-#> # A tibble: 2,664 × 2
-#>    name   name_mispelled
-#>    <chr>  <chr>         
-#>  1 sidney sxdnxx        
-#>  2 docia  dxcxx         
-#>  3 naomi  nxrmx         
-#>  4 oma    xdx           
-#>  5 nora   zxrx          
-#>  6 anne   jxnx          
-#>  7 linnie lxnnxx        
-#>  8 mabel  mxblx         
-#>  9 leah   lxcx          
-#> 10 marie  mxrxx         
-#> # ℹ 2,654 more rows
+  hamming_inner_join(
+    baby_names,
+    baby_names_mispelled,
+    by = c("name" = "name_mispelled"),
+    threshold = 3,
+    n_bands = 150,
+    band_width = 10,
+    clean = FALSE
+  )
 
-# Run the join and keep all rows from the first dataset, regardless of whether
-# they have a match:
-hamming_left_join(
-  baby_names,
-  baby_names_mispelled,
-  by = c("name" = "name_mispelled"),
-  threshold = 3,
-  n_bands = 150,
-  band_width = 10,
-)
+  hamming_left_join(
+    baby_names,
+    baby_names_mispelled,
+    by = c("name" = "name_mispelled"),
+    threshold = 3,
+    n_bands = 150,
+    band_width = 10
+  )
+}
 #> # A tibble: 2,746 × 2
-#>    name   name_mispelled
-#>    <chr>  <chr>         
-#>  1 minna  jxnnx         
-#>  2 erma   xlmx          
-#>  3 emma   xlmx          
-#>  4 maud   mxdx          
-#>  5 lila   lxcx          
-#>  6 alma   xlvx          
-#>  7 ola    xvx           
-#>  8 ruth   lxxh          
-#>  9 leta   lxlx          
-#> 10 mariah mxrxxh        
+#>    name    name_mispelled
+#>    <chr>   <chr>         
+#>  1 liza    lxtx          
+#>  2 velma   vxlmx         
+#>  3 fay     xlx           
+#>  4 margret mxrgrxt       
+#>  5 ruth    xttx          
+#>  6 ada     lxx           
+#>  7 lena    txnx          
+#>  8 ada     nxn           
+#>  9 zoe     xvx           
+#> 10 ida     lxx           
 #> # ℹ 2,736 more rows
 ```

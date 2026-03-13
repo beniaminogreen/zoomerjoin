@@ -44,11 +44,11 @@ library(tidyverse)
 ```
 
     ## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-    ## ✔ dplyr     1.1.4     ✔ readr     2.1.5
+    ## ✔ dplyr     1.2.0     ✔ readr     2.2.0
     ## ✔ forcats   1.0.1     ✔ stringr   1.6.0
-    ## ✔ ggplot2   4.0.0     ✔ tibble    3.3.0
-    ## ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-    ## ✔ purrr     1.2.0     
+    ## ✔ ggplot2   4.0.2     ✔ tibble    3.3.1
+    ## ✔ lubridate 1.9.5     ✔ tidyr     1.3.2
+    ## ✔ purrr     1.2.1     
     ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
@@ -56,7 +56,6 @@ library(tidyverse)
 
 ``` r
 library(microbenchmark)
-library(fuzzyjoin)
 library(zoomerjoin)
 
 corpus_1 <- dime_data %>% # dime data is packaged with zoomerjoin
@@ -117,7 +116,7 @@ join_out <- jaccard_inner_join(corpus_1, corpus_2,
 print(Sys.time() - start_time)
 ```
 
-    ## Time difference of 0.01182842 secs
+    ## Time difference of 0.01268506 secs
 
 ``` r
 print(join_out)
@@ -126,13 +125,13 @@ print(join_out)
     ## # A tibble: 8 × 4
     ##       a field.x                                                      b field.y  
     ##   <dbl> <chr>                                                    <dbl> <chr>    
-    ## 1   302 americans for good government inc                          910 american…
-    ## 2   292 bill bradley for u s senate '84                            913 bill bra…
-    ## 3   230 pipefitters local union 524                                998 pipefitt…
+    ## 1   230 pipefitters local union 524                                998 pipefitt…
+    ## 2   378 guarini for congress 1982                                  883 guarini …
+    ## 3   238 4th congressional district democratic party                518 16th con…
     ## 4   319 7th congressional district democratic party of wisconsin   792 8th cong…
-    ## 5    88 scheuer for congress 1980                                  667 scheuer …
-    ## 6   378 guarini for congress 1982                                  883 guarini …
-    ## 7   238 4th congressional district democratic party                518 16th con…
+    ## 5   292 bill bradley for u s senate '84                            913 bill bra…
+    ## 6   302 americans for good government inc                          910 american…
+    ## 7    88 scheuer for congress 1980                                  667 scheuer …
     ## 8   378 guarini for congress 1982                                  606 guarini …
 
 The first two arguments, `a`, and `b`, are direct analogues of the

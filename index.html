@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="index.html">zoomerjoin</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,7 +81,7 @@
 <div class="section level3">
 <h3 id="installing-rust">Installing Rust<a class="anchor" aria-label="anchor" href="#installing-rust"></a>
 </h3>
-<p>If your operating system or version of R is not installed, you must have the <a href="https://www.rust-lang.org/tools/install" class="external-link">Rust compiler</a> installed to compile this package from sources. After the package is compiled, Rust is no longer required, and can be safely uninstalled.</p>
+<p>If your operating system or version of R is not installed, you must have the <a href="https://rust-lang.org/tools/install/" class="external-link">Rust compiler</a> installed to compile this package from sources. After the package is compiled, Rust is no longer required, and can be safely uninstalled.</p>
 <div class="section level4">
 <h4 id="installing-rust-on-linux-or-mac">Installing Rust on Linux or Mac:<a class="anchor" aria-label="anchor" href="#installing-rust-on-linux-or-mac"></a>
 </h4>
@@ -184,37 +184,35 @@
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">start_time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">join_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/jaccard-joins.html">jaccard_inner_join</a></span><span class="op">(</span><span class="va">corpus_1</span>, <span class="va">corpus_2</span>, n_gram_width <span class="op">=</span> <span class="fl">6</span>, n_bands <span class="op">=</span> <span class="fl">20</span>, band_width <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="do">## Warning in jaccard_join(a, b, mode = "inner", by = by, salt_by = block_by, : A pair of records at the threshold (0.7) have only a 92% chance of being compared.</span></span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="do">## Please consider changing `n_bands` and `band_width`.</span></span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="do">## Joining by 'field'</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="do">## Warning in join_func(a = a, b = b, by_a = by_a, by_b = by_b, block_by_a = block_by_a, : A pair of records at the threshold (0.7) have only a 92% chance of being compared.</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="do">## Please consider changing `n_bands` and `band_width`.</span></span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="va">start_time</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="do">## Time difference of 0.009142399 secs</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="do">## Time difference of 0.06295514 secs</span></span></code></pre></div>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">join_out</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="do">## # A tibble: 19 × 4</span></span>
 <span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="do">##        a field.x                                                      b field.y </span></span>
 <span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="do">##    &lt;dbl&gt; &lt;chr&gt;                                                    &lt;dbl&gt; &lt;chr&gt;   </span></span>
-<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="do">##  1   292 bill bradley for u s senate '84                            913 bill br…</span></span>
-<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="do">##  2    35 solarz for congress 82                                     671 solarz …</span></span>
-<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="do">##  3   232 republican county committee of chester county              710 republi…</span></span>
-<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="do">##  4    87 kentucky state democratic central executive committee      639 arizona…</span></span>
-<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="do">##  5   478 united democrats for better government                     642 democra…</span></span>
-<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a><span class="do">##  6   319 7th congressional district democratic party of wisconsin   792 8th con…</span></span>
-<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a><span class="do">##  7   378 guarini for congress 1982                                  606 guarini…</span></span>
-<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a><span class="do">##  8   378 guarini for congress 1982                                  883 guarini…</span></span>
-<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a><span class="do">##  9   163 davies county republican executive committee               852 warren …</span></span>
-<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a><span class="do">## 10   238 4th congressional district democratic party                792 8th con…</span></span>
-<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a><span class="do">## 11    88 scheuer for congress 1980                                  667 scheuer…</span></span>
-<span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a><span class="do">## 12   216 kent county republican finance committee                   719 harford…</span></span>
-<span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a><span class="do">## 13   387 committee to re elect congressman staton                   805 committ…</span></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="do">##  1    87 kentucky state democratic central executive committee      639 arizona…</span></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="do">##  2    45 dole for senate committee                                  623 riegle …</span></span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="do">##  3   292 bill bradley for u s senate '84                            913 bill br…</span></span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="do">##  4   163 davies county republican executive committee               852 warren …</span></span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="do">##  5   387 committee to re elect congressman staton                   805 committ…</span></span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a><span class="do">##  6    35 solarz for congress 82                                     671 solarz …</span></span>
+<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a><span class="do">##  7   216 kent county republican finance committee                   719 harford…</span></span>
+<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a><span class="do">##  8   319 7th congressional district democratic party of wisconsin   792 8th con…</span></span>
+<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a><span class="do">##  9   230 pipefitters local union 524                                998 pipefit…</span></span>
+<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a><span class="do">## 10   378 guarini for congress 1982                                  883 guarini…</span></span>
+<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a><span class="do">## 11   122 tarrant county republican victory fund                     761 lake co…</span></span>
+<span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a><span class="do">## 12    88 scheuer for congress 1980                                  667 scheuer…</span></span>
+<span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a><span class="do">## 13   378 guarini for congress 1982                                  606 guarini…</span></span>
 <span id="cb15-17"><a href="#cb15-17" tabindex="-1"></a><span class="do">## 14   302 americans for good government inc                          910 america…</span></span>
-<span id="cb15-18"><a href="#cb15-18" tabindex="-1"></a><span class="do">## 15   216 kent county republican finance committee                   607 lake co…</span></span>
-<span id="cb15-19"><a href="#cb15-19" tabindex="-1"></a><span class="do">## 16   122 tarrant county republican victory fund                     761 lake co…</span></span>
+<span id="cb15-18"><a href="#cb15-18" tabindex="-1"></a><span class="do">## 15   478 united democrats for better government                     642 democra…</span></span>
+<span id="cb15-19"><a href="#cb15-19" tabindex="-1"></a><span class="do">## 16   216 kent county republican finance committee                   607 lake co…</span></span>
 <span id="cb15-20"><a href="#cb15-20" tabindex="-1"></a><span class="do">## 17   238 4th congressional district democratic party                518 16th co…</span></span>
-<span id="cb15-21"><a href="#cb15-21" tabindex="-1"></a><span class="do">## 18   230 pipefitters local union 524                                998 pipefit…</span></span>
-<span id="cb15-22"><a href="#cb15-22" tabindex="-1"></a><span class="do">## 19    45 dole for senate committee                                  623 riegle …</span></span></code></pre></div>
+<span id="cb15-21"><a href="#cb15-21" tabindex="-1"></a><span class="do">## 18   232 republican county committee of chester county              710 republi…</span></span>
+<span id="cb15-22"><a href="#cb15-22" tabindex="-1"></a><span class="do">## 19   238 4th congressional district democratic party                792 8th con…</span></span></code></pre></div>
 <p>Zoomerjoin is able to quickly find the matching columns without comparing all pairs of records. This saves more and more time as the size of each list increases, so it can scale to join datasets with millions or hundreds of millions of rows.</p>
 </div>
 </div>
