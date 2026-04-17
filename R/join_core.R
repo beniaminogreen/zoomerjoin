@@ -16,7 +16,7 @@ multi_by_validate <- function(a, b, by) {
   } else {
     if (!is.null(names(by))) {
       by_a <- names(by)
-      by_b <- by
+      by_b <- unname(by)
     } else {
       by_a <- by
       by_b <- by
