@@ -11,7 +11,7 @@ name = "zoomerjoin"
 
 [dependencies]
 dashmap = { version = "5.5.3", features = ["inline"] }
-extendr-api = { version = "0.8.0", features = ["ndarray"] }
+extendr-api = { version = "0.8.2", features = ["ndarray"] }
 itertools = "0.10.5"
 ndarray = { version = "0.16.1", features = ["rayon"] }
 ndarray-rand = "0.15.0"
