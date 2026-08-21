@@ -1,6 +1,7 @@
 # Matching Vectors Based on Euclidean Distance
 
 ``` r
+
 library(zoomerjoin)
 ```
 
@@ -24,6 +25,7 @@ another dataset which is a copy of the first with each point shifted an
 tiny random amount.
 
 ``` r
+
 n <- 10^5 # number of data points
 d <- 10^2 # dimension
 
@@ -46,6 +48,7 @@ are indentified as a match at a variety of hyperparameter
 configurations.
 
 ``` r
+
 euclidean_probability(.01, n_bands = 5, band_width = 8, r = .25)
 #> [1] 0.9993764
 euclidean_probability(.1, n_bands = 5, band_width = 8, r = .25)
@@ -70,6 +73,7 @@ be compared). I then use the `euclidean_inner_join` to find all matching
 pairs across the two datasets:
 
 ``` r
+
 set.seed(1)
 start <- Sys.time()
 joined_out <- euclidean_inner_join(
@@ -83,7 +87,7 @@ joined_out <- euclidean_inner_join(
 n_matches <- nrow(joined_out)
 time_taken <- Sys.time() - start
 print(paste("found", n_matches, "matches in", round(time_taken), "seconds"))
-#> [1] "found 100000 matches in 28 seconds"
+#> [1] "found 100000 matches in 15 seconds"
 ```
 
 Zoomerjoin is able to easily find all pairs in just under 30s (perhaps

@@ -211,15 +211,15 @@ if (requireNamespace("babynames", quietly = TRUE)) {
 #> # A tibble: 506 × 2
 #>    name     name_wo_vowels
 #>    <chr>    <chr>         
-#>  1 esther   sthr          
-#>  2 frank    frnk          
-#>  3 hester   sthr          
-#>  4 hester   thrs          
-#>  5 frank    frnk          
-#>  6 savannah svnnh         
-#>  7 blanch   blnch         
-#>  8 martha   mrth          
-#>  9 hester   hstr          
-#> 10 blanch   blnch         
+#>  1 martha   mrth          
+#>  2 esther   thrs          
+#>  3 savannah svnnh         
+#>  4 hester   hstr          
+#>  5 esther   sthr          
+#>  6 frank    frnk          
+#>  7 hester   sthr          
+#>  8 blanch   blnch         
+#>  9 samantha smnth         
+#> 10 frank    frnk          
 #> # ℹ 496 more rows
 ```

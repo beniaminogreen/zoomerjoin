@@ -174,15 +174,15 @@ if (requireNamespace("babynames", quietly = TRUE)) {
 #> # A tibble: 2,746 × 2
 #>    name   name_mispelled
 #>    <chr>  <chr>         
-#>  1 bella  rxllx         
-#>  2 lura   lxlx          
-#>  3 maud   mxnx          
-#>  4 june   mxnx          
-#>  5 lily   lxrx          
-#>  6 bettie bxttxx        
-#>  7 anna   lxnx          
-#>  8 lela   lxlx          
-#>  9 nora   nxvx          
-#> 10 lily   lxnx          
+#>  1 bell   lxlx          
+#>  2 nona   lxnx          
+#>  3 fay    xrx           
+#>  4 ona    xdx           
+#>  5 beulah bxxlxh        
+#>  6 dora   nxrx          
+#>  7 lou    xvx           
+#>  8 ida    xvx           
+#>  9 eula   xllx          
+#> 10 gussie gxssxx        
 #> # ℹ 2,736 more rows
 ```

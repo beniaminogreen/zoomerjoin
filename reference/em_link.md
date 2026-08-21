@@ -56,6 +56,7 @@ record pair is a match.
 ## Examples
 
 ``` r
+
 inv_logit <- function(x) {
   exp(x) / (1 + exp(x))
 }

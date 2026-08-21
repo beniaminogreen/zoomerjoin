@@ -40,13 +40,14 @@ and Elections (DIME)](https://data.stanford.edu/dime) (Bonica 2016).
 The first corpus looks as follows:
 
 ``` r
+
 library(tidyverse)
 ```
 
     ## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
     ## ✔ dplyr     1.2.1     ✔ readr     2.2.0
     ## ✔ forcats   1.0.1     ✔ stringr   1.6.0
-    ## ✔ ggplot2   4.0.2     ✔ tibble    3.3.1
+    ## ✔ ggplot2   4.0.3     ✔ tibble    3.3.1
     ## ✔ lubridate 1.9.5     ✔ tidyr     1.3.2
     ## ✔ purrr     1.2.2     
     ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
@@ -55,6 +56,7 @@ library(tidyverse)
     ## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
 
 ``` r
+
 library(microbenchmark)
 library(zoomerjoin)
 
@@ -82,6 +84,7 @@ corpus_1
 And the second looks as follows:
 
 ``` r
+
 corpus_2 <- dime_data %>% # dime data is packaged with zoomerjoin
   tail(500)
 names(corpus_2) <- c("b", "field")
@@ -107,6 +110,7 @@ The two Corpuses can’t be directly joined because of misspellings. This
 means we must use the fuzzy-matching capabilities of zoomerjoin:
 
 ``` r
+
 set.seed(1)
 start_time <- Sys.time()
 join_out <- jaccard_inner_join(corpus_1, corpus_2,
@@ -116,23 +120,24 @@ join_out <- jaccard_inner_join(corpus_1, corpus_2,
 print(Sys.time() - start_time)
 ```
 
-    ## Time difference of 0.01438498 secs
+    ## Time difference of 0.01399589 secs
 
 ``` r
+
 print(join_out)
 ```
 
     ## # A tibble: 8 × 4
     ##       a field.x                                                      b field.y  
     ##   <dbl> <chr>                                                    <dbl> <chr>    
-    ## 1   238 4th congressional district democratic party                518 16th con…
-    ## 2   378 guarini for congress 1982                                  606 guarini …
+    ## 1    88 scheuer for congress 1980                                  667 scheuer …
+    ## 2   292 bill bradley for u s senate '84                            913 bill bra…
     ## 3   230 pipefitters local union 524                                998 pipefitt…
-    ## 4   319 7th congressional district democratic party of wisconsin   792 8th cong…
-    ## 5    88 scheuer for congress 1980                                  667 scheuer …
-    ## 6   292 bill bradley for u s senate '84                            913 bill bra…
-    ## 7   378 guarini for congress 1982                                  883 guarini …
-    ## 8   302 americans for good government inc                          910 american…
+    ## 4   378 guarini for congress 1982                                  606 guarini …
+    ## 5   319 7th congressional district democratic party of wisconsin   792 8th cong…
+    ## 6   378 guarini for congress 1982                                  883 guarini …
+    ## 7   302 americans for good government inc                          910 american…
+    ## 8   238 4th congressional district democratic party                518 16th con…
 
 The first two arguments, `a`, and `b`, are direct analogues of the
 `dplyr` arguments, and are the two data frames you want to join. The
@@ -162,9 +167,10 @@ of the LSH you desire.
 As an example, you can use the
 [`jaccard_curve()`](https://beniaminogreen.github.io/zoomerjoin/reference/jaccard_curve.md)
 function to plot the probability that a pair of records are compared at
-each possible Jaccard distance, $d$ between zero and one:
+each possible Jaccard distance, $`d`$ between zero and one:
 
 ``` r
+
 jaccard_curve(20, 6)
 ```
 
@@ -202,6 +208,7 @@ Here’s a short snippet showing how you can use
 to standardize a set of organization names.
 
 ``` r
+
 organization_names <- c(
   "American Civil Liberties Union",
   "American Civil Liberties Union (ACLU)",
@@ -217,6 +224,7 @@ standardized_organization_names <- jaccard_string_group(organization_names, thre
     ## Loading required namespace: igraph
 
 ``` r
+
 print(standardized_organization_names)
 ```
 

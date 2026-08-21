@@ -36,6 +36,7 @@ so it becomes quicker for larger datasets.
 Below, I include the code used to generate the benchmarks:
 
 ``` r
+
 library(zoomerjoin)
 library(fuzzyjoin)
 library(tidyverse)

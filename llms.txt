@@ -20,6 +20,7 @@ Please be aware that you will have to have Cargo (the rust toolchain and
 compiler) installed to build the package from source.
 
 ``` r
+
 install.packages(zoomerjoin)
 ```
 
@@ -64,6 +65,7 @@ package with either the install.packages function as above, or using the
 `pkg_install` function from the `pak` package.
 
 ``` r
+
 ## Install with devtools
 # install.packages("devtools")
 devtools::install_github("beniaminogreen/zoomerjoin")
@@ -79,6 +81,7 @@ Once the package is installed, you can load it into memory as usual by
 typing:
 
 ``` r
+
 library(zoomerjoin)
 ```
 
@@ -115,6 +118,7 @@ vignette](https://beniamino.org/zoomerjoin/articles/guided_tour.html).
 I start with two corpuses I would like to combine, `corpus_1`:
 
 ``` r
+
 corpus_1 <- dime_data %>%
   head(500)
 names(corpus_1) <- c("a", "field")
@@ -141,6 +145,7 @@ corpus_1
 And `corpus_2`:
 
 ``` r
+
 corpus_2 <- dime_data %>%
   tail(500)
 names(corpus_2) <- c("b", "field")
@@ -185,6 +190,7 @@ hyperparameters can be can be found in the [guided tour
 vignette](https://beniamino.org/zoomerjoin/articles/guided_tour.html).
 
 ``` r
+
 set.seed(1)
 start_time <- Sys.time()
 join_out <- jaccard_inner_join(corpus_1, corpus_2, n_gram_width = 6, n_bands = 20, band_width = 6)
@@ -196,6 +202,7 @@ join_out <- jaccard_inner_join(corpus_1, corpus_2, n_gram_width = 6, n_bands = 2
 ```
 
 ``` r
+
 print(Sys.time() - start_time)
 ```
 
@@ -204,6 +211,7 @@ print(Sys.time() - start_time)
 ```
 
 ``` r
+
 print(join_out)
 ```
 
